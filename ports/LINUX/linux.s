@@ -1,0 +1,31 @@
+/*
+ * SCHEME->C
+ *
+ * LINUX assembly code.
+ *
+ */
+
+#ifdef	__i486__
+	.align 4
+#else
+	.align 2
+#endif
+.globl	_sc_geti386regs
+
+_sc_geti386regs:
+	pushl %ebp
+	movl %esp,%ebp
+	pushl %ecx
+	movl %eax,%ecx
+	movl 8(%ebp),%eax
+	movl %ecx,(%eax)
+	popl %ecx
+	movl %ecx,4(%eax)
+	movl %edx,8(%eax)
+	movl %ebx,12(%eax)
+	movl %esi,16(%eax)
+	movl %edi,20(%eax)
+	movl %ebp,%esp
+	popl %ebp
+	ret
+
