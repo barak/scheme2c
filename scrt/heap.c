@@ -1817,14 +1817,26 @@ TSCP  sc_set_2dmaximum_2dheap_21( maxheap )
 TSCP  sc_set_2dmaximum_2dheap_21( TSCP maxheap )
 #endif
 {
-	if  (TSCPTAG( maxheap ) != FIXNUMTAG  ||
-	     FIXED_C( maxheap ) < sc_heappages*PAGEBYTES  ||
-	     FIXED_C( maxheap ) > 16*ONEMB)
-	   sc_error( "SET-MAXIMUM-HEAP!",
-	   	     "ARGUMENT is less than current heap or > 16MB: ~s",
-		     LIST1( maxheap ) );
-	sc_maxheappages = FIXED_C( maxheap )/PAGEBYTES;
-	return( maxheap );
+        /* changed by Qobi R24Dec98 */
+        if (TSCPTAG(maxheap)==FIXNUMTAG)
+        { if (FIXED_C(maxheap)<sc_heappages*PAGEBYTES||
+              FIXED_C(maxheap)>SCMAXHEAP*ONEMB)
+          sc_error("SET-MAXIMUM-HEAP!",
+                   "ARGUMENT is less than current heap or is too large: ~s",
+                   LIST1(maxheap));
+          sc_maxheappages = FIXED_C(maxheap)/PAGEBYTES;}
+        else if (TSCPTAG(maxheap)==EXTENDEDTAG&&
+                 TSCP_EXTENDEDTAG(maxheap)==DOUBLEFLOATTAG)
+        { if (FLOAT_VALUE(maxheap)<sc_heappages*PAGEBYTES||
+              FLOAT_VALUE(maxheap)>SCMAXHEAP*ONEMB)
+          sc_error("SET-MAXIMUM-HEAP!",
+                   "ARGUMENT is less than current heap or is too large: ~s",
+                   LIST1(maxheap));
+          sc_maxheappages = ((int)FLOAT_VALUE(maxheap))/PAGEBYTES;}
+        else sc_error("SET-MAXIMUM-HEAP!",
+                      "ARGUMENT is not a number: ~s",
+                      LIST1(maxheap));
+        return(maxheap);
 }
 
 /* Pages in the heap are allocated by the following function.  It is called
