@@ -1,0 +1,232 @@
+;;; Graphics Resource Functions
+
+;;; 5.1.1  Creating, Copying, and Destroying Color Maps
+
+(extern Colormap "XCreateColormap"
+	(DisplayP dpy)
+	(Window w)
+	(VisualP visual)
+	(int alloc))
+
+(extern Colormap "XCopyColormapAndFree" (DisplayP dpy) (Colormap src_cmap))
+
+(extern void "XSetWindowColormap"
+	(DisplayP dpy)
+	(Window w)
+	(Colormap colormap))
+
+(extern void "XFreeColormap" (DisplayP dpy) (Colormap cmap))
+
+;;; 5.1.2  Allocating, Modifying, and Freeing Color Cells
+
+(extern Status "XAllocColor"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(XColorP def))
+
+(extern Status "XAllocNamedColor"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(string colorname)
+	(out XColor hard_def) (out XColor exact_def))
+
+(extern Status "XLookupColor"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(string spec)
+	(out XColor def) (out XColor scr))
+
+(extern Status "XAllocColorCells"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(Bool contig)
+	(unsignedlongAP masks)
+	(unsignedint nplanes)
+	(unsignedlongAP pixels)
+	(unsignedint ncolors))
+
+(extern Status "XAllocColorPlanes"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(Bool contig)
+	(unsignedAP pixels)
+	(int ncolors)
+	(int nreds) (int ngreens) (int nblues)
+	(out unsignedlong rmask)
+	(out unsignedlong gmask)
+	(out unsignedlong bmask))
+
+(extern void "XStoreColors"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(XColorAP defs)
+	(int ncolors))
+
+(extern void "XStoreColor" (DisplayP dpy) (Colormap cmap) (XColorP def))
+
+(extern void "XStoreNamedColor"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(string name)
+	(unsignedlong pixel)
+	(int flags))
+
+(extern void "XFreeColors"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(unsignedAP pixels)
+	(int npixels)
+	(unsignedlong planes))
+
+;;; 5.1.3  Reading Entries in a Color Map
+
+(extern void "XQueryColor"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(XColorP def))
+
+(extern void "XQueryColors"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(XColorAP defs)
+	(int ncolors))
+
+;;; 5.2  Creating and Freeing Pixmaps
+
+(extern Pixmap "XCreatePixmap"
+	(DisplayP dpy)
+	(Drawable d)
+	(unsignedint width) (unsignedint height)
+	(unsignedint depth))
+
+(extern void "XFreePixmap" (DisplayP dpy) (Pixmap pixmap))
+
+;;; 5.3 Manipulating Graphics Context/State
+
+(extern GC "XCreateGC"
+	(DisplayP dpy)
+	(Drawable d)
+	(unsignedlong valuemask)
+	(XGCValuesP values))
+
+(extern void "XCopyGC"
+	(DisplayP dpy)
+	(GC srcGC)
+	(unsignedlong mask)
+	(GC destGC))
+
+(extern void "XChangeGC"
+	(DisplayP dpy)
+	(GC gc)
+	(unsignedlong valuemask)
+	(XGCValuesP values))
+
+(extern void "XFreeGC" (DisplayP dpy) (GC gc))
+
+(extern GContext "XGContextFromGC" (GC gc))
+
+;;; 5.4.1  Setting the Foreground, Background, Function, or Plane Mask
+
+(extern void "XSetState"
+	(DisplayP dpy)
+	(GC gc)
+	(unsignedlong foreground)
+	(unsignedlong background)
+	(int function)
+	(unsignedlong planemask))
+
+(extern void "XSetForeground"
+	(DisplayP dpy)
+	(GC gc)
+	(unsignedlong foreground))
+
+(extern void "XSetBackground"
+	(DisplayP dpy)
+	(GC gc)
+	(unsignedlong background))
+
+(extern void "XSetFunction"
+	(DisplayP dpy)
+	(GC gc)
+	(int function))
+
+(extern void "XSetPlaneMask" (DisplayP dpy) (GC gc) (unsignedlong planemask))
+
+;;; 5.4.2  Setting the Line Attributes and Dashes
+
+(extern void "XSetLineAttributes"
+	(DisplayP dpy)
+	(GC gc)
+	(unsignedint linewidth)
+	(int linestyle)
+	(int capstyle)
+	(int joinstyle))
+
+(extern void "XSetDashes"
+	(DisplayP dpy)
+	(GC gc)
+	(int dash_offset)
+	(charAP list)
+	(int n))
+
+;;; 5.4.3  Setting the Fill Style and Fill Rule
+
+(extern void "XSetFillStyle" (DisplayP dpy) (GC gc) (int fill_style))
+
+(extern void "XSetFillRule" (DisplayP dpy) (GC gc) (int fill_rule))
+
+;;; 5.4.4  Setting the Fill Tile and Stipple
+
+(extern Status "XQueryBestSize"
+	(DisplayP dpy)
+	(int class)
+	(Drawable drawable)
+	(unsignedint width) (unsignedint height)
+	(out unsignedint ret_width) (out unsignedint ret_height))
+
+(extern Status "XQueryBestTile"
+	(DisplayP dpy)
+	(Drawable drawable)
+	(unsignedint width) (unsignedint height)
+	(out unsignedint ret_width) (out unsignedint ret_height))
+
+(extern Status "XQueryBestStipple"
+	(DisplayP dpy)
+	(Drawable drawable)
+	(unsignedint width) (unsignedint height)
+	(out unsignedint ret_width) (out unsignedint ret_height))
+
+(extern void "XSetTile" (DisplayP dpy) (GC gc) (Pixmap tile))
+
+(extern void "XSetStipple" (DisplayP dpy) (GC gc) (Pixmap stipple))
+
+(extern void "XSetTSOrigin" (DisplayP dpy) (GC gc) (int x) (int y))
+
+;;; 5.4.5  Setting the Current Font
+
+(extern void "XSetFont" (DisplayP dpy) (GC gc) (Font font))
+
+;;; 5.4.6  Setting the Clip Region
+
+(extern void "XSetClipOrigin" (DisplayP dpy) (GC gc) (int xorig) (int yorig))
+
+(extern void "XSetClipMask" (DisplayP dpy) (GC gc) (Pixmap mask))
+
+(extern void "XSetClipRectangles"
+	(DisplayP dpy)
+	(GC gc)
+	(int clip_x_origin) (int clip_y_origin)
+	(XRectangleAP rectangles)
+	(int n)
+	(int ordering))
+
+;;; 5.4.7  Setting the Arc Mode, Subwindow Mode, and Graphics Exposure
+
+(extern void "XSetArcMode" (DisplayP dpy) (GC gc) (int arc_mode))
+
+(extern void "XSetSubwindowMode" (DisplayP dpy) (GC gc) (int subwindow_mode))
+
+(extern void "XSetGraphicsExposures"
+	(DisplayP dpy)
+	(GC gc)
+	(Bool graphics_exposures))

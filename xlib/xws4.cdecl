@@ -1,0 +1,100 @@
+;;; Window Information Functions
+
+;;; 4.1  Obtaining Window Information
+
+(extern Status "XQueryTree"
+	(DisplayP dpy)
+	(Window w)
+	(out Window root)
+	(out Window parent)
+	(out WindowAP children)
+	(out unsignedint nchildren))
+
+(extern Status "XGetWindowAttributes"
+	(DisplayP dpy)
+	(Window w)
+	(out XWindowAttributes att))
+
+(extern Status "XGetGeometry"
+	(DisplayP dpy)
+	(Drawable d)
+	(out Window root)
+	(out int x) (out int y)
+	(out unsignedint width) (out unsignedint height)
+	(out unsignedint borderWidth)
+	(out unsignedint depth))
+
+(extern Bool "XQueryPointer"
+	(DisplayP dpy)
+	(Window w)
+	(out Window root) (out Window child)
+	(out int root_x) (out int root_y)
+	(out int win_x) (out int win_y)
+	(out unsignedint mask))
+
+;;; 4.2 Properties and Atoms
+
+(extern Atom "XInternAtom"
+	(DisplayP dpy)
+	(string name)
+	(Bool onlyIfExists))
+
+(extern charAP "XGetAtomName" (DisplayP dpy) (Atom atom))
+
+;;; 4.3 Obtaining and Changing Window Properties
+
+(extern int "XGetWindowProperty"	;;; A wrapper might be useful here
+	(DisplayP dpy)			;;; once we see how it is used.
+	(Window w)
+	(Atom property)
+	(long offset) (long length)
+	(Bool delete)
+	(Atom req_type)
+	(out Atom actual_type)
+	(out int actual_format)
+	(out unsignedlong nitems)
+	(out unsignedlong bytesafter)
+	(out charAP prop))
+
+(extern AtomAP "XListProperties" (DisplayP dpy)	(Window w) (out int num_prop))
+
+(extern void "XChangeProperty"
+	(DisplayP dpy)
+	(Window w)
+	(Atom property)
+	(Atom type)
+	(int format)
+	(int mode)
+	(charAP data)
+	(int nelements))
+
+(extern void "XRotateWindowProperties"
+	(DisplayP dpy)
+	(Window w)
+	(AtomAP properties)
+	(int nprops)
+	(int npositions))
+
+(extern void "XDeleteProperty"
+	(DisplayP dpy)
+	(Window window)
+	(Atom property))
+
+;;; 4.4  Selections
+
+(extern void "XSetSelectionOwner"
+	(DisplayP dpy)
+	(Atom selection)
+	(Window owner)
+	(Time time))
+
+(extern Window "XGetSelectionOwner"
+	(DisplayP dpy)
+	(Atom selection))
+
+(extern void "XConvertSelection"
+	(DisplayP dpy)
+	(Atom selection) (Atom target)
+	(Atom property)
+	(Window requestor)
+	(Time time))

@@ -1,0 +1,191 @@
+An Introduction to the Scheme->C C Declaration Compiler
+-------------------------------------------------------
+
+The C declaration compiler is a tool for generating stub procedures to access
+C structures and library functions.  It was designed to allow Scheme->C to
+access the X11 Xlib.  This document is intended to be an introduction to the
+language.  For complete understanding of its use,  the reader should examine
+the Xlib declaration files and the declaration compiler.
+
+The declaration compiler is invoked by:
+
+ 	cdecl  class  command  cdecl-files...
+
+where "class" is the name of the set of declarations and "command" is
+one of the following:
+
+ 	-const			Emits constant definitions to the files
+				classCONSTANTS.sc and classCONSTANTS.sch.
+
+	-extern			Emits external procedures for each cdecl-file
+				containing extern definitions to files named
+				<cdecl-file-root>.sc and <cdecl-file-root>.sch.
+
+	-typedef		Emits type definitions for structures to the
+				files <type-name>.sc and <type-name>.sch.
+				Emits all type checking functions and type
+				definitions for objects other than structs or
+				unions to classTYPES.sc and classTYPES.sch.
+
+The command is then followed by one or more files containing declarations.
+The declaration files normally have the file extension ".cdecl".
+
+Declaration Language
+--------------------
+
+The declaration files contain size, constant, type, and external procedure
+definitions.  The sizes of the basic C types are defined by expressions of the
+form:
+
+	(sizeof <type> <char size> <char alignment> <to-ref> <to-set!>)
+
+The program "sizeof" produces the architecture dependent size declarations for
+a system.  For example, on a DECstation 5000, the declarations are:
+
+	(sizeof char 1 1 c-byte-ref c-byte-set!)
+	(sizeof shortint 2 2 c-shortint-ref c-shortint-set!)
+	(sizeof shortunsigned 2 2 c-shortunsigned-ref c-shortunsigned-set!)
+	(sizeof int 4 4 c-int-ref c-int-set!)
+	(sizeof unsigned 4 4 c-unsigned-ref c-unsigned-set!)
+	(sizeof longint 4 4 c-longint-ref c-longint-set!)
+	(sizeof longunsigned 4 4 c-longunsigned-ref c-longunsigned-set!)
+	(sizeof float 4 4 c-float-ref c-float-set!)
+	(sizeof double 8 8 c-double-ref c-double-set!)
+	(sizeof pointer 4 4 c-unsigned-ref c-unsigned-set!)
+	(sizeof procedure 4 4 c-unsigned-ref c-unsigned-set!)
+
+These declarations should always be in the first declaration file to cdecl.
+
+A constant is defined by expressions of the form:
+
+	(const <identifier> <expression>)
+
+where the expression is evaluated at compile time and is defined as the
+following:
+
+	<expression> ::= <constant-symbol>
+		         Scheme-constant
+		         ( Scheme-procedure [ <expression> ... ] )
+
+Types are defined by expressions of the following form:
+
+	(typedef <type> <identifier>)
+
+where:
+
+	<type> ::= (<stype> *)
+		   (<stype> *proc)
+		   <stype>
+
+	<atype> ::= (<stype> integer)
+		    <struct-or-union-specifier>
+
+	<stype> ::= char
+		    shortint
+		    shortunsigned
+		    int
+		    unsigned
+		    long
+		    longunsigned
+		    float
+		    double
+		    <type-def-name>
+
+	<type-def-name> ::= <identifier> denoting another type
+
+	<struct-or-union-specifier> ::=	( struct [<struct-decl> ...] )
+					( union  [<struct-decl> ...] )
+
+	<struct-decl> ::= ( <atype> <identifier> )
+
+The final form of expression is used to define external procedures:
+
+	( EXTERN <type> <fname> [ <arg> ... ] )
+
+where:
+
+	<fname>  ::= a Scheme string
+
+	<arg>	 ::= ( <type> <id> )
+		     ( IN <type> <id> )
+		     ( OUT <type> <id> )
+		     ( IN_OUT <type> <id> )
+
+	<id>	 ::= a Scheme symbol
+
+Since the declaration source file is a file of Scheme expressions, it is case
+insensative and it may contain Scheme comments.
+
+An Example
+----------
+
+The use of the declaration language is best shown by example.  A few C
+declarations from X11's Xlib are:
+
+	#define DoRed   (1<<0)
+	#define DoGreen (1<<1)
+	#define DoBlue  (1<<2)
+
+	typedef struct {
+		unsigned long pixel;
+		unsigned short red, green, blue;
+		char flags;
+		char pad;
+	} XColor;
+
+	typedef struct _XDisplay{
+		.
+		.
+		.
+	} Display;
+
+	typedef int Status;
+	typedef unsignedlong XID;
+	typedef XID Colormap;
+	
+	extern Status XLookupColor();
+
+Converted to the declaration language, they become:
+
+	(const dored 1)
+	(const dogreen 2)
+	(const doblue 4)
+
+	(typedef (struct
+        	(unsigned pixel)
+        	(shortunsigned red)
+        	(shortunsigned green)
+        	(shortunsigned blue)
+        	(char flags)
+        	(char pad)
+	) xcolor)
+	(typedef (xcolor *) xcolorp)
+	(typedef (xcolor 0) xcolora)
+	(typedef (xcolora *) xcolorap)
+
+	(typedef (struct) display)
+	(typedef (display *) displayp)
+
+	(typedef int status)
+	(typedef unsigned xid)
+	(typedef xid colormap)
+
+	(extern status "XLookupColor"
+		(displayp dpy)
+		(colormap cmap)
+		(string spec)
+		(out xcolor def) (out xcolor scr))
+
+The constants are converted in a straight-forward manner, only noting that case
+does not count in Scheme.  When the struct XColor is converted, declaration
+lists must be broken up into multiple statements.  In addition, types are
+added to define a pointer to an XColor struct, xcolorp, an array of
+indeterminate size of the XColor structs, xcolora, and a pointer to such an
+array, xcolorap.  The struct, Display, is defined an an "opaque" type, display,
+with a pointer to one defined as displayp.  Unlike C, procedure interfaces have
+the type of each argument specified.  Since Scheme has automatic storage
+management, functions may return new instances of structured objects.  This is
+noted in the declarations, where def and scr are noted as "out" arguments.
+
+The reader should now consult the Scheme->C Xlib documentation for the Scheme
+programmer's view of the resulting interface.

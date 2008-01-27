@@ -1,0 +1,816 @@
+%!PS-Adobe-1.0
+%%Title: intro.mss
+%%DocumentFonts: (atend)
+%%Creator: Joel Bartlett,WRL,8536625,9419094 and Scribe 5(1501)
+%%CreationDate: 18 October 1988 16:53
+%%Pages: (atend)
+%%EndComments
+% PostScript Prelude for Scribe.
+/BS {/SV save def 0.0 792.0 translate .01 -.01 scale} bind def
+/ES {SV restore showpage} bind def
+/SC {setrgbcolor} bind def
+/FMTX matrix def
+/RDF {WFT SLT 0.0 eq
+  {SSZ 0.0 0.0 SSZ neg 0.0 0.0 FMTX astore}
+  {SSZ 0.0 SLT sin SLT cos div SSZ mul SSZ neg 0.0 0.0 FMTX astore}
+  ifelse makefont setfont} bind def
+/SLT 0.0 def
+/SI { /SLT exch cvr def RDF} bind def
+/WFT /Courier findfont def
+/SF { /WFT exch findfont def RDF} bind def
+/SSZ 1000.0 def
+/SS { /SSZ exch 100.0 mul def RDF} bind def
+/AF { /WFT exch findfont def /SSZ exch 100.0 mul def RDF} bind def
+/MT /moveto load def
+/XM {currentpoint exch pop moveto} bind def
+/UL {gsave newpath moveto dup 2.0 div 0.0 exch rmoveto
+   setlinewidth 0.0 rlineto stroke grestore} bind def
+/LH {gsave newpath moveto setlinewidth
+   0.0 rlineto
+   gsave stroke grestore} bind def
+/LV {gsave newpath moveto setlinewidth
+   0.0 exch rlineto
+   gsave stroke grestore} bind def
+/BX {gsave newpath moveto setlinewidth
+   exch
+   dup 0.0 rlineto
+   exch 0.0 exch neg rlineto
+   neg 0.0 rlineto
+   closepath
+   gsave stroke grestore} bind def
+/BX1 {grestore} bind def
+/BX2 {setlinewidth 1 setgray stroke grestore} bind def
+/PB {/PV save def translate 100.0 -100.0 scale pop} bind def
+/PE {PV restore} bind def
+/SH /show load def
+/MX {exch show 0.0 rmoveto} bind def
+/W {0 32 4 -1 roll widthshow} bind def
+/WX {0 32 5 -1 roll widthshow 0.0 rmoveto} bind def
+%%EndProlog
+%%Page: 1 1 
+BS
+0 SI
+13 /Times-Bold AF
+17951 8071 MT
+(An Introduction to Scheme->C in 19 Prompts)SH
+26338 9644 MT
+(12 August 1988)SH
+10 /Courier AF
+7200 12017 MT
+(Scheme->C)SH
+/Times-Roman SF
+13034 XM
+(is an implementation of the language Scheme.  Besides)
+184 W( the usual interpreter, the implementation)183 W
+7200 13484 MT
+(includes an unusual compiler which compiles Scheme to C. This allows stand-alone programs and programs)246 W
+7200 14951 MT
+(combining Scheme and)
+223 W( other programming languages.  The implementation is also highly portable and when)222 W
+7200 16418 MT
+(combined with a good C compiler, fairly efficient.)SH
+7200 19792 MT
+(Please consider this annotated typescript an invitation to try it.  Questions and comments are encouraged.)SH
+/Courier-Bold SF
+7200 21597 MT
+(alerion 1 >man sci)SH
+7200 23859 MT
+(SCI\0501\051 UNIX)
+8400 W( Programmer's Manual)
+SH( SCI\0501\051)9000 W
+7200 26121 MT
+(NAME)SH
+10200 27252 MT
+(sci - Scheme interpreter)SH
+7200 29514 MT
+(SYNTAX)SH
+10200 30645 MT
+(sci [ option ])SH
+7200 32907 MT
+(DESCRIPTION)SH
+10200 34038 MT
+(The sci command invokes a Scheme interpreter.  The language)SH
+10200 35169 MT
+(accepted by ...)SH
+/Times-Roman SF
+7200 38543 MT
+(Using your favorite editor, create a file containing the)
+29 W( Fibonacci function.  Scheme code is generally expected to be)30 W
+7200 40010 MT
+(in files ending with ".sc".)SH
+/Courier-Bold SF
+7200 41815 MT
+(alerion 2>more fib.sc)SH
+7200 42946 MT
+(;;; \050FIB n\051 returns the Fibonacci number for n.)SH
+7200 45208 MT
+(\050module fib\051)SH
+7200 47470 MT
+(\050define \050FIB n\051)SH
+9600 48601 MT
+(\050cond \050\050> n 1\051 \050+ \050fib \050- n 1\051\051 \050fib \050- n 2\051\051\051\051)SH
+13200 49732 MT
+(\050\050= n 1\051 1\051)SH
+13200 50863 MT
+(\050\050= n 0\051 0\051)SH
+13200 51994 MT
+(\050else \050error)
+600 W( 'FIB "Argument is out of range: ~s" n\051\051\051\051)SH
+/Times-Roman SF
+7200 55368 MT
+(A ";" indicates that the rest of the line is)
+8 W( a comment.  The form)7 W
+/Courier SF
+32738 XM
+(\050module fib\051)7 W
+/Times-Roman SF
+40202 XM
+(which must be the first form is the)7 W
+7200 56835 MT
+(file indicates that the functions in the file should be part of the module "fib".  Typically the module name is)
+36 W( the file)37 W
+7200 58302 MT
+(name \050less the ".sc" extension\051 of the source file.)SH
+/Courier-Bold SF
+7200 60107 MT
+(alerion 3 >sci)SH
+7200 61238 MT
+(SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation)SH
+7200 62369 MT
+(> \050load "fib.sc"\051)SH
+7200 63500 MT
+(MODULE form ignored)SH
+7200 64631 MT
+(FIB)SH
+7200 65762 MT
+("fib.sc")SH
+/Times-Roman SF
+7200 69136 MT
+(\050)SH
+/Courier SF
+(load)SH
+/Times-Roman SF
+10191 XM
+(")SH
+/Times-Italic SF
+(file-name)SH
+/Times-Roman SF
+("\051 loads a file into the interpreter.  Each form in the file is evaluated and the result is printed on)
+8 W( the)7 W
+7200 70603 MT
+(standard output device.  Note that the module form)
+37 W( is currently ignored by the interpreter.  Another way to load the)38 W
+ES
+%%Page: 2 2 
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(2)SH
+7200 7886 MT
+(file is to)
+124 W( use \050)123 W
+/Courier SF
+(loade)SH
+/Times-Roman SF
+16511 XM
+(")SH
+/Times-Italic SF
+(file-name)SH
+/Times-Roman SF
+("\051 which will also echo the text read from the file onto the standard output file.)123 W
+7200 9353 MT
+(Since)SH
+/Courier SF
+9672 XM
+(FIB)SH
+/Times-Roman SF
+11722 XM
+(was defined when this function was evaluated, a warning message is printed:)SH
+/Courier-Bold SF
+7200 11158 MT
+(> \050loade "fib.sc"\051)SH
+7200 12289 MT
+(;;; \050FIB n\051 returns the Fibonacci number for n.)SH
+7200 14551 MT
+(\050module fib\051)SH
+7200 16813 MT
+(MODULE form ignored)SH
+7200 17944 MT
+(\050define \050FIB n\051)SH
+9600 19075 MT
+(\050cond \050\050> n 1\051 \050+ \050fib \050- n 1\051\051 \050fib \050- n 2\051\051\051\051)SH
+13200 20206 MT
+(\050\050= n 1\051 1\051)SH
+13200 21337 MT
+(\050\050= n 0\051 0\051)SH
+13200 22468 MT
+(\050else \050error)
+600 W( 'FIB "Argument is out of range: ~s" n\051\051\051\051)SH
+7200 23599 MT
+(***** FIB is redefined)SH
+7200 25861 MT
+(FIB)SH
+7200 26992 MT
+("fib.sc")SH
+7200 28123 MT
+(> \050fib 1\051)SH
+7200 29254 MT
+(1)SH
+7200 30385 MT
+(> \050fib 2\051)SH
+7200 31516 MT
+(1)SH
+7200 32647 MT
+(> \050fib 0\051)SH
+7200 33778 MT
+(0)SH
+7200 34909 MT
+(> \050fib -1\051)SH
+7200 36040 MT
+(***** FIB Argument is out of range: -1)SH
+/Times-Roman SF
+7200 39414 MT
+(\050)SH
+/Courier SF
+(trace)SH
+/Times-Italic SF
+10971 XM
+(function)SH
+/Times-Roman SF
+14688 XM
+(...\051 allows one or more functions to be traced. \050)189 W
+/Courier SF
+(untrace)SH
+/Times-Italic SF
+39774 XM
+(function)SH
+/Times-Roman SF
+43491 XM
+(...\051 removes tracing from)189 W
+7200 40881 MT
+(selected functions, and \050)SH
+/Courier SF
+(untrace)SH
+/Times-Roman SF
+(\051 removes tracing from all functions.)SH
+/Courier-Bold SF
+7200 42686 MT
+(> \050trace fib\051)SH
+7200 43817 MT
+(\050FIB\051)SH
+7200 44948 MT
+(> \050fib 5\051)SH
+7200 46079 MT
+(\050FIB 5\051)SH
+8400 47210 MT
+(\050FIB 4\051)SH
+9600 48341 MT
+(\050FIB 3\051)SH
+10800 49472 MT
+(\050FIB 2\051)SH
+12000 50603 MT
+(\050FIB 1\051)SH
+12000 51734 MT
+(==> 1)SH
+12000 52865 MT
+(\050FIB 0\051)SH
+12000 53996 MT
+(==> 0)SH
+10800 55127 MT
+(==> 1)SH
+10800 56258 MT
+(\050FIB 1\051)SH
+10800 57389 MT
+(==> 1)SH
+9600 58520 MT
+(==> 2)SH
+9600 59651 MT
+(\050FIB 2\051)SH
+10800 60782 MT
+(\050FIB 1\051)SH
+10800 61913 MT
+(==> 1)SH
+10800 63044 MT
+(\050FIB 0\051)SH
+10800 64175 MT
+(==> 0)SH
+9600 65306 MT
+(==> 1)SH
+8400 66437 MT
+(==> 3)SH
+8400 67568 MT
+(\050FIB 3\051)SH
+9600 68699 MT
+(\050FIB 2\051)SH
+10800 69830 MT
+(\050FIB 1\051)SH
+10800 70961 MT
+(==> 1)SH
+ES
+%%Page: 3 3 
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(3)SH
+/Courier-Bold SF
+10800 7874 MT
+(\050FIB 0\051)SH
+10800 9005 MT
+(==> 0)SH
+9600 10136 MT
+(==> 1)SH
+9600 11267 MT
+(\050FIB 1\051)SH
+9600 12398 MT
+(==> 1)SH
+8400 13529 MT
+(==> 2)SH
+7200 14660 MT
+(==> 5)SH
+7200 15791 MT
+(5)SH
+7200 16922 MT
+(> \050untrace\051)SH
+7200 18053 MT
+(\050FIB\051)SH
+/Times-Roman SF
+7200 21427 MT
+(\050)SH
+/Courier SF
+(bpt)SH
+/Times-Italic SF
+9723 XM
+(function)SH
+/Times-Roman SF
+(\051 sets a breakpoint on function entry and exit. At the function call, the arguments)
+140 W( are in)139 W
+/Courier SF
+50400 XM
+(*args*)SH
+/Times-Roman SF
+7200 22894 MT
+(which may be changed. After completing inspection, type ^D to)
+7 W( evaluate the function.  On function exit, the result is)8 W
+7200 24361 MT
+(in)SH
+/Courier SF
+8272 XM
+(*result*)SH
+/Times-Roman SF
+13366 XM
+(and the)
+44 W( program stops for inspection.  To continue with that result, one types ^D or \050)43 W
+/Courier SF
+(proceed)SH
+/Times-Roman SF
+(\051. A)336 W
+7200 25828 MT
+(different result may be returned by)
+1 W( entering \050)2 W
+/Courier SF
+(proceed)SH
+/Times-Italic SF
+29684 XM
+(expression)SH
+/Times-Roman SF
+(\051. \050)254 W
+/Courier SF
+(unbpt)SH
+/Times-Italic SF
+38633 XM
+(function)SH
+/Times-Roman SF
+42163 XM
+(...\051 removes breakpoints from)2 W
+7200 27295 MT
+(selected functions, and \050)71 W
+/Courier SF
+(unbpt)SH
+/Times-Roman SF
+(\051 removes all breakpoints. While at a breakpoint, one)
+71 W( may return to the "top-level")70 W
+7200 28762 MT
+(interpreter by executing the function \050)SH
+/Courier SF
+(top-level)SH
+/Times-Roman SF
+(\051.)SH
+/Courier-Bold SF
+7200 30567 MT
+(> \050bpt fib\051)SH
+7200 31698 MT
+(FIB)SH
+7200 32829 MT
+(> \050fib 1\051)SH
+7200 35091 MT
+(0 -calls  - \050FIB 1\051)SH
+7200 36222 MT
+(0- *args*)SH
+7200 37353 MT
+(\0501\051)SH
+7200 38484 MT
+(0- ^D)SH
+7200 39615 MT
+(0 -returns- 1)SH
+7200 40746 MT
+(0- *result*)SH
+7200 41877 MT
+(1)SH
+7200 43008 MT
+(0- \050proceed 23.7\051)SH
+7200 44139 MT
+(23.7)SH
+7200 45270 MT
+(0- ^D)SH
+7200 46401 MT
+(23.7)SH
+7200 47532 MT
+(> \050unbpt fib\051)SH
+7200 48663 MT
+(\050FIB\051)SH
+/Times-Roman SF
+7200 52037 MT
+(Breakpoints may also have a boolean function supplied which decides whether to take the breakpoint.  Needless)
+54 W( to)55 W
+7200 53504 MT
+(say, such a function can also do things like count the number of times the function is called.)SH
+/Courier-Bold SF
+7200 55309 MT
+(> \050bpt fib \050lambda \050n\051 \050set! fibcnt \050+ 1 fibcnt\051\051 #f\051\051)SH
+7200 56440 MT
+(FIB)SH
+7200 57571 MT
+(> \050set! fibcnt 0\051)SH
+7200 58702 MT
+(0)SH
+7200 59833 MT
+(> \050fib 5\051)SH
+7200 60964 MT
+(5)SH
+7200 62095 MT
+(> fibcnt)SH
+7200 63226 MT
+(15)SH
+7200 64357 MT
+(> \050unbpt fib\051)SH
+7200 65488 MT
+(\050FIB\051)SH
+7200 66619 MT
+(> \050fib 20\051)SH
+7200 67750 MT
+(6765)SH
+7200 68881 MT
+(>^D)SH
+7200 70012 MT
+(alerion 4 >)SH
+ES
+%%Page: 4 4 
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(4)SH
+7200 7886 MT
+(Since)SH
+/Courier SF
+9698 XM
+(\050fib 20\051)26 W
+/Times-Roman SF
+14800 XM
+(took a while to compute, it might be a good)
+26 W( idea to compile it, so the interpreter is exited, and an)25 W
+7200 9353 MT
+(augmented version of the interpreter is created which has a compiled version of FIB.)SH
+/Courier-Bold SF
+7200 11158 MT
+(alerion 4 >man scc)SH
+7200 13420 MT
+(SCC\0501\051 UNIX)
+7800 W( Programmer's Manual)
+SH( SCC\0501\051)8400 W
+7200 15682 MT
+(NAME)SH
+10200 16813 MT
+(scc - Scheme to C compiler)SH
+7200 19075 MT
+(SYNTAX)SH
+10200 20206 MT
+(scc [ option ] ... file ...)SH
+7200 22468 MT
+(DESCRIPTION)SH
+10200 23599 MT
+(The scc command invokes a Scheme compiler which accepts the)SH
+10200 24730 MT
+(language ...)SH
+7200 26992 MT
+(alerion 5 >scc -i -o sc+fib fib.sc)SH
+7200 28123 MT
+(fib.sc:)SH
+7200 29254 MT
+(fib.c:)SH
+7200 30385 MT
+(SC-TO-C.c:)SH
+7200 31516 MT
+(alerion 6 >sc+fib)SH
+7200 32647 MT
+(SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation)SH
+7200 33778 MT
+(> fib)SH
+7200 34909 MT
+(#*PROCEDURE*)SH
+7200 36040 MT
+(> \050fib 1\051)SH
+7200 37171 MT
+(1)SH
+7200 38302 MT
+(> \050fib 0\051)SH
+7200 39433 MT
+(0)SH
+7200 40564 MT
+(> \050fib 20\051)SH
+7200 41695 MT
+(6765)SH
+7200 42826 MT
+(>^D)SH
+/Times-Roman SF
+7200 46200 MT
+(Now for a little different example, where)
+31 W( a Scheme version of the shell command "echo" is created as a stand alone)32 W
+7200 47667 MT
+(program. The module form)
+240 W( now has an additional component,)239 W
+/Courier SF
+34434 XM
+(\050main do-echo\051)239 W
+/Times-Roman SF
+(, which indicates that the)239 W
+/Courier SF
+7200 49134 MT
+(do-echo)SH
+/Times-Roman SF
+11720 XM
+(function is the program main. As)
+70 W( with any other UNIX program, the main is called with the arguments)71 W
+7200 50601 MT
+(from the shell.  This is done in Scheme by providing the main with a list of strings which are the arguments.)SH
+/Courier-Bold SF
+7200 52406 MT
+(alerion 7 >more echo.sc)SH
+7200 53537 MT
+(;;; ECHO - Echo Arguments)SH
+7200 54668 MT
+(;;;)SH
+7200 55799 MT
+(;;; % echo [options] [args])SH
+7200 56930 MT
+(;;;)SH
+7200 58061 MT
+(;;; Option:)SH
+7200 59192 MT
+(;;; -n)
+2400 W( newlines)
+3000 W( are not added to output)SH
+7200 61454 MT
+(\050module echo \050main do-echo\051\051)SH
+7200 63716 MT
+(\050define \050DO-ECHO clargs\051)SH
+9600 64847 MT
+(\050let \050\050nonewline \050and \050cdr clargs\051 \050equal? \050cadr clargs\051 "-n"\051\051\051\051)SH
+12600 65978 MT
+(\050do \050\050args \050if nonewline \050cddr clargs\051 \050cdr clargs\051\051 \050cdr args\051\051\051)SH
+15000 67109 MT
+(\050\050null? args\051)SH
+15600 68240 MT
+(\050unless nonewline \050newline\051\051\051)SH
+15000 69371 MT
+(\050display \050car args\051\051)SH
+15000 70502 MT
+(\050if \050cdr args\051 \050display " "\051\051\051\051\051)SH
+7200 71633 MT
+(alerion 8>)SH
+ES
+%%Page: 5 5 
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(5)SH
+7200 7886 MT
+(The program is loaded into the interpreter and tested with a few possible values.  Note that the first argument)
+114 W( is)113 W
+7200 9353 MT
+(always the program name.)SH
+/Courier-Bold SF
+7200 11158 MT
+(alerion 8>sci)SH
+7200 12289 MT
+(SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation)SH
+7200 13420 MT
+(> \050load "echo.sc"\051)SH
+7200 14551 MT
+(MODULE form ignored)SH
+7200 15682 MT
+(DO-ECHO)SH
+7200 16813 MT
+("echo.sc")SH
+7200 17944 MT
+(> \050do-echo '\050"echo" "-n" "a"\051\051)SH
+7200 19075 MT
+(a#F)SH
+7200 20206 MT
+(> \050do-echo '\050"echo"  "a" "b" "c"\051\051)SH
+7200 21337 MT
+(a b c)SH
+7200 22468 MT
+(#F)SH
+7200 23599 MT
+(> \050do-echo '\050"echo" "-n" "a" "b" "c"\051\051)SH
+7200 24730 MT
+(a b c#F)SH
+7200 25861 MT
+(> \050do-echo '\050"echo"\051\051)SH
+7200 28123 MT
+(#F)SH
+7200 29254 MT
+(> ^D)SH
+/Times-Roman SF
+7200 32628 MT
+(Now, compile it and build a stand-alone program:)SH
+/Courier-Bold SF
+7200 34433 MT
+(alerion 9 >scc -o scheme-echo echo.sc)SH
+7200 35564 MT
+(echo.sc:)SH
+7200 36695 MT
+(alerion 10 >scheme-echo *.sc)SH
+7200 37826 MT
+(counter.sc echo.sc fib.sc fsm2.sc fsmexample.sc hello.sc)SH
+7200 38957 MT
+(alerion 11 >scheme-echo -n *.sc)SH
+7200 40088 MT
+(counter.sc echo.sc fib.sc fsm2.sc fsmexample.sc hello.scalerion 12 >)SH
+/Times-Roman SF
+7200 43462 MT
+(The next example shows the interface to routines written in other)
+66 W( languages by building a program which uses the)67 W
+7200 44929 MT
+(routines in the C library \050described)
+124 W( in the)123 W
+/Times-Italic SF
+24909 XM
+(ULTRX-32 Programmer's Manual)123 W
+/Times-Roman SF
+(\051 to print out the current Greenwich)123 W
+7200 46396 MT
+(mean time.)SH
+/Courier-Bold SF
+7200 48201 MT
+(alerion 12 >more gmt.sc)SH
+7200 49332 MT
+(;;; Print current GMT on standard output.)SH
+7200 51594 MT
+(\050module gmt \050main gmt\051\051)SH
+7200 53856 MT
+(\050define-c-external \050time pointer\051 int "time"\051)SH
+7200 54987 MT
+(\050define-c-external \050gmtime pointer\051 pointer "gmtime"\051)SH
+7200 56118 MT
+(\050define-c-external \050asctime pointer\051 pointer "asctime"\051)SH
+7200 58380 MT
+(\050define \050GMT clargs\051)SH
+9600 59511 MT
+(\050let \050\050current-time \050make-string 4\051\051\051)SH
+12600 60642 MT
+(\050time current-time\051)SH
+12600 61773 MT
+(\050display \050c-string->string \050asctime \050gmtime current-time\051\051\051\051\051\051)SH
+/Times-Roman SF
+7200 65147 MT
+(The procedure)90 W
+/Times-Italic SF
+13433 XM
+(time)SH
+/Times-Roman SF
+15495 XM
+(stores the number of seconds since GMT. Jan.  1. 1970 in the location referenced by)91 W
+/Times-Italic SF
+50861 XM
+(pointer)SH
+/Times-Roman SF
+(.)SH
+/Times-Italic SF
+7200 66614 MT
+(gmtime)SH
+/Times-Roman SF
+10534 XM
+(converts that)
+140 W( value to a)139 W
+/Times-Italic SF
+20756 XM
+(tm)SH
+/Times-Roman SF
+22145 XM
+(structure and returns a pointer to it.)139 W
+/Times-Italic SF
+37449 XM
+(asctime)SH
+/Times-Roman SF
+40893 XM
+(then converts the referenced)139 W
+/Times-Italic SF
+53000 XM
+(tm)SH
+/Times-Roman SF
+7200 68081 MT
+(structure to a string and returns a pointer to it.  In order to)
+4 W( display it,)5 W
+/Times-Italic SF
+34764 XM
+(c-string->string)SH
+/Times-Roman SF
+41472 XM
+(is used to make a Scheme copy)5 W
+7200 69548 MT
+(of the string.)SH
+/Courier-Bold SF
+7200 71353 MT
+(alerion 13 >scc -o gmt gmt.sc)SH
+ES
+%%Page: 6 6 
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(6)SH
+/Courier-Bold SF
+7200 7874 MT
+(gmt.sc:)SH
+7200 9005 MT
+(alerion 14 >gmt)SH
+7200 10136 MT
+(Thu Aug 11 22:19:08 1988)SH
+/Times-Roman SF
+7200 13510 MT
+(To allay any doubts that this implementation might not be)
+174 W( Scheme, we conclude with the following "proof by)173 W
+7200 14977 MT
+(example", produced by Eugene Kohlbecker:)SH
+/Courier-Bold SF
+7200 16782 MT
+(alerion 15 >more mondo.sc)SH
+7200 17913 MT
+(\050module mondo \050main call-mondo\051\051)SH
+7200 20175 MT
+(\050define \050call-mondo clargs\051 \050mondo-bizarro\051 \050newline\051\051)SH
+7200 22437 MT
+(\050define \050mondo-bizarro\051)SH
+9600 23568 MT
+(\050let \050\050k \050call-with-current-continuation \050lambda \050c\051 c\051\051\051\051)SH
+12600 24699 MT
+(\050display 1\051)SH
+12600 25830 MT
+(\050call-with-current-continuation \050lambda \050c\051 \050k c\051\051\051)SH
+12600 26961 MT
+(\050display 2\051)SH
+12600 28092 MT
+(\050call-with-current-continuation \050lambda \050c\051 \050k c\051\051\051)SH
+12600 29223 MT
+(\050display 3\051\051\051)SH
+7200 30354 MT
+(alerion 16 >sci)SH
+7200 31485 MT
+(SCHEME-C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation)SH
+7200 32616 MT
+(> \050load "mondo.sc"\051)SH
+7200 33747 MT
+(MODULE form ignored)SH
+7200 34878 MT
+(CALL-MONDO)SH
+7200 36009 MT
+(MONDO-BIZARRO)SH
+7200 37140 MT
+("mondo.sc")SH
+7200 38271 MT
+(> \050call-mondo '\050\051\051)SH
+7200 39402 MT
+(11213)SH
+7200 40533 MT
+(#F)SH
+7200 41664 MT
+(> ^D)SH
+7200 42795 MT
+(alerion 17 >scc -o mondo mondo.sc)SH
+7200 43926 MT
+(mondo.sc:)SH
+7200 45057 MT
+(alerion 18 >mondo)SH
+7200 46188 MT
+(11213)SH
+7200 47319 MT
+(alerion 19 >logout)SH
+ES
+%%Trailer
+%%Pages: 6 
+%%DocumentFonts: Times-Roman Times-Bold Courier Courier-Bold Times-Italic

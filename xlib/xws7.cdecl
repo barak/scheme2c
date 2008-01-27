@@ -1,0 +1,308 @@
+;;; 7.1  Changing the Parent of a Window
+
+(extern void "XReparentWindow"
+	(DisplayP dpy)
+	(Window w)
+	(Window p)
+	(int x)
+	(int y))
+
+;;; 7.2  Controlling the Lifetime of a Window
+
+(extern void "XChangeSaveSet"
+	(DisplayP dpy)
+	(Window win)
+	(int mode))
+
+(extern void "XAddToSaveSet"
+	(DisplayP dpy)
+	(Window win))
+
+(extern void "XRemoveFromSaveSet"
+	(DisplayP dpy)
+	(Window win))
+
+;;; 7.3  Determining Resident Colormaps
+
+(extern void "XInstallColormap"
+	(DisplayP dpy)
+	(Colormap cmap))
+
+(extern void "XUninstallColormap"
+	(DisplayP dpy)
+	(Colormap cmap))
+
+(extern ColormapAP "XListInstalledColormaps"
+	(DisplayP dpy)
+	(Window w)
+	(out int num))
+
+;;; 7.4  Pointer Grabbing
+
+(extern int "XGrabPointer"
+	(DisplayP dpy)
+	(Window grab_window)
+	(Bool owner_events)
+	(unsignedint event_mask)
+	(int pointer_mode)
+	(int keyboard_mode)
+	(Window confine_to)
+	(Cursor curs)
+	(Time time))
+
+(extern void "XUngrabPointer"
+	(DisplayP dpy)
+	(Time time))
+
+(extern void "XChangeActivePointerGrab"
+	(DisplayP dpy)
+	(unsignedint event_mask)
+	(Cursor curs)
+	(Time time))
+
+(extern void "XGrabButton"
+	(DisplayP dpy)
+	(unsignedint button)
+	(unsignedint modifiers)
+	(Window grab_window)
+	(Bool owner_events)
+	(unsignedint event_mask)
+	(int pointer_mode)
+	(int keyboard_mode)
+	(Window confine_to)
+	(Cursor curs))
+
+(extern void "XUngrabButton"
+	(DisplayP dpy)
+	(unsignedint button)
+	(unsignedint modifiers)
+	(Window grab_window))
+
+;;; 7.5  Keyboard Grabbing
+
+(extern int "XGrabKeyboard"
+	(DisplayP dpy)
+	(Window window)
+	(Bool ownerEvents)
+	(int pointerMode)
+	(int keyboardMode)
+	(Time time))
+
+(extern void "XUngrabKeyboard"
+	(DisplayP dpy)
+	(Time time))
+
+(extern void "XGrabKey"
+	(DisplayP dpy)
+	(int key)
+	(unsignedint modifiers)
+	(Window grab_window)
+	(Bool owner_events)
+	(int pointer_mode)
+	(int keyboard_mode))
+
+(extern void "XUngrabKey"
+	(DisplayP dpy)
+	(int key)
+	(unsignedint modifiers)
+	(Window grab_window))
+
+(extern void "XAllowEvents"
+	(DisplayP dpy)
+	(int mode)
+	(Time time))
+
+;;; 7.6  Server Grabbing
+
+(extern void "XGrabServer"
+	(DisplayP dpy))
+
+(extern void "XUngrabServer"
+	(DisplayP dpy))
+
+;;; 7.7.1  Controlling Input Focus
+
+(extern void "XWarpPointer"
+	(DisplayP dpy)
+	(Window src_win)
+	(Window dest_win)
+	(int src_x)
+	(int src_y)
+	(unsignedint src_width)
+	(unsignedint src_height)
+	(int dest_x)
+	(int dest_y))
+
+(extern void "XSetInputFocus"
+	(DisplayP dpy)
+	(Window focus)
+	(int revert_to)
+	(Time time))
+
+(extern void "XGetInputFocus"
+	(DisplayP dpy)
+	(out Window focus)
+	(out int revert_to))
+
+;;; 7.7.2  Killing Clients
+
+(extern void "XSetCloseDownMode"
+	(DisplayP dpy)
+	(int mode))
+
+(extern void "XKillClient"
+	(DisplayP dpy)
+	(XID resource))
+
+;;; 7.8  Keyboard and Pointer Settings
+
+(extern void "XChangeKeyboardControl"
+	(DisplayP dpy)
+	(unsignedlong mask)
+	(XKeyboardControlP value_list))
+
+(extern void "XGetKeyboardControl"
+	(DisplayP dpy)
+	(out XKeyboardState state))
+
+(extern void "XAutoRepeatOn"
+	(DisplayP dpy))
+
+(extern void "XAutoRepeatOff"
+	(DisplayP dpy))
+
+(extern void "XBell"
+	(DisplayP dpy) (int percent))
+
+(extern void "XQueryKeymap"
+	(DisplayP dpy)
+	(out XQKeymap keys))
+
+(extern int "XSetPointerMapping"
+	(DisplayP dpy)
+	(charAP map)
+	(int nmaps))
+
+(extern int "XGetPointerMapping"
+	(DisplayP dpy)
+	(charAP map)
+	(int nmaps))
+
+(extern void "XChangePointerControl"
+	(DisplayP dpy)
+	(Bool do_acc)
+	(Bool do_thresh)
+	(int acc_numerator)
+	(int acc_denominator)
+	(int threshold))
+
+(extern void "XGetPointerControl"
+	(DisplayP dpy)
+	(out int accel_numer)
+	(out int accel_denom)
+	(out int threshold))
+
+;;; 7.9  Keyboard Encoding 
+
+(extern void "XDisplayKeycodes"
+	(DisplayP dpy)
+	(out int min_keycode_return)
+	(out int max_keycode_return))
+
+(extern KeySymAP "XGetKeyboardMapping"
+	(DisplayP dpy)
+	(KeyCode first_keycode)
+	(int count)
+	(out int keysyms_per_keycode))
+
+(extern void "XChangeKeyboardMapping"
+	(DisplayP dpy)
+	(int first_keycode)
+	(int keysyms_per_keycode)
+	(KeySymAP keysyms)
+	(int nkeycodes))
+
+(extern XModifierKeymapP "XNewModifiermap"
+	(int keyspermodifier))
+
+(extern XModifierKeymapP "XInsertModifiermapEntry"
+	(XModifierKeymapP map)
+	(KeyCode keysym)
+	(int modifier))
+
+(extern XModifierKeymapP "XDeleteModifiermapEntry"
+	(XModifierKeymapP map)
+	(KeyCode keysym)
+	(int modifier))
+
+(extern void "XFreeModifiermap"
+	(XModifierKeymapP map))
+
+(extern int "XSetModifierMapping"
+	(DisplayP dpy)
+	(XModifierKeymapP modifier_map))
+
+(extern XModifierKeymapP "XGetModifierMapping"
+	(DisplayP dpy))
+
+;;; 7.10  Screen Saver Control
+
+(extern void "XSetScreenSaver"
+	(DisplayP dpy)
+	(int timeout)
+	(int interval)
+	(int prefer_blank)
+	(int allow_exp))
+
+(extern void "XForceScreenSaver"
+	(DisplayP dpy)
+	(int mode))
+
+(extern void "XActivateScreenSaver"
+	(DisplayP dpy))
+
+(extern void "XResetScreenSaver"
+	(DisplayP dpy))
+
+(extern void "XGetScreenSaver"
+	(DisplayP dpy)
+	(out int timeout)
+	(out int interval)
+	(out int prefer_blanking)
+	(out int allow_exp))
+
+;;; 7.11.1  Adding, Getting, or Removing Hosts
+
+(extern void "XAddHost"
+	(DisplayP dpy)
+	(XHostAddressP host))
+
+(extern void "XAddHosts"
+	(DisplayP dpy)
+	(XHostAddressAP hosts) (int n))
+
+(extern XHostAddressAP "XListHosts"
+	(DisplayP dpy)
+	(out int nhosts)
+	(out Bool enabled))
+
+(extern void "XRemoveHost"
+	(DisplayP dpy)
+	(XHostAddressP host))
+
+(extern void "XRemoveHosts"
+	(DisplayP dpy)
+	(XHostAddressAP hosts)
+	(int n))
+
+;;; 7.11.2  Changing, Enabling, or Disabling Access Control
+
+(extern void "XSetAccessControl"
+	(DisplayP dpy)
+	(int mode))
+
+(extern void "XEnableAccessControl"
+	(DisplayP dpy))
+
+(extern void "XDisableAccessControl"
+	(DisplayP dpy))

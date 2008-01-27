@@ -1,0 +1,9 @@
+#! /bin/csh -f
+rm -f sourcefiles
+touch sourcefiles
+foreach x ({*.c,*.h,../test/alltests.sc,../test/test20-input.sc})
+echo "####START" >> sourcefiles
+echo $x:t >> sourcefiles
+cat $x >> sourcefiles
+echo "####END" >> sourcefiles
+end

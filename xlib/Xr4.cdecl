@@ -1,0 +1,22 @@
+;;; Additional data structures for X11 R4.
+
+(typedef (struct
+	(int depth)
+	(int bits_per_pixel)
+	(int scanline_pad)
+) XPixmapFormatValues)
+
+(typedef (XPixmapFormatValues *) XPixmapFormatValuesP)
+
+(typedef (XPixmapFormatValues 0) XPixmapFormatValuesA)
+
+(typedef (XPixmapFormatValuesA *) XPixmapFormatValuesAP)
+
+(typedef (struct
+	(Charp value)
+	(Atom encoding)
+	(int format)
+	(unsignedlong nitems)
+) XTextProperty)
+
+(typedef (XTextProperty *) XTextPropertyP)

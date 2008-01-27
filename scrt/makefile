@@ -1,0 +1,137 @@
+#
+# This file is used to compile the runtime library for SCHEME->C.
+#
+# Copyright (c) 1988 Digital Equipment Corporation.  All rights reserved.
+#
+
+.SUFFIXES:
+.SUFFIXES:	.o .c .sc .s
+
+SCC = ../scsc/scc
+SCCFLAGS = 
+
+SRCDIR = ../../scrt
+
+Cruntime = scinit.o apply.o callcc.o cio.o heap.o objects.o mtraps.o
+
+Cruntimec = scinit.c apply.c callcc.c cio.c heap.c objects.c mtraps.c
+
+Chfiles = scinit.h apply.h callcc.h cio.h heap.h objects.h options.h
+
+Sruntime = scdebug.o sceval.o scexpand.o scexpnd1.o scexpnd2.o \
+	   scqquote.o screp.o \
+	   scrt1.o scrt2.o scrt3.o scrt4.o scrt5.o scrt6.o scrt7.o scrtuser.o
+
+Sruntimec = scdebug.c sceval.c scexpand.c scexpnd1.c scexpnd2.c \
+            scqquote.c screp.c \
+            scrt1.c scrt2.c scrt3.c scrt4.c scrt5.c scrt6.c scrt7.c scrtuser.c
+
+Sruntimesc = scdebug.sc sceval.sc scexpand.sc scexpnd1.sc scexpnd2.sc \
+            scqquote.sc screp.sc \
+            scrt1.sc scrt2.sc scrt3.sc scrt4.sc scrt5.sc scrt6.sc scrt7.sc \
+	    scrtuser.sc
+
+Smisc = embedded.c predef.sc repdef.sc sci.sc sci.c
+
+${Sruntimec} sci.c:	predef.sc
+
+${Sruntime} sci.o:	options.h objects.h
+
+${Cruntime}:	${Chfiles}
+
+.sc.c:
+	${SCC} -C ${SCCFLAGS} $*.sc
+
+.c.o:
+	${CC} -c ${CFLAGS} -I. $*.c
+
+.s.o:
+	${CC} -c $*.s
+
+sc-to-c:	${Sruntimec} sci.c
+
+c-to-o:		${Sruntimec} ${Sruntime} ${Cruntime}
+
+s-to-o:		${Aruntime}
+
+Xlibsc.a:	${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime}
+	rm -f Xlibsc.a
+	ar q Xlibsc.a ${Cruntime} ${Sruntime} ${Aruntime}
+	${RANLIB} Xlibsc.a
+
+libscsrv.a:	Xlibsc.a
+	mv Xlibsc.a libscsrv.a
+
+embedded:	${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
+		 embedded.o
+	${CC} -o embedded ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} \
+	      embedded.o -lm
+
+Xsci:		${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
+		 sci.c sci.o
+	${CC} -o Xsci ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} sci.o \
+	      -lm
+
+Xmv:		Xsci Xlibsc.a
+	mv Xsci sci
+	mv Xlibsc.a libsc.a
+	
+port:
+	make "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo" \
+	     Xlibsc.a Xsci Xmv ${Plib}
+
+libsc_p.a:	libsc.a
+	mkdir saveobj
+	mv ${Sruntime} ${Cruntime} ${Aruntime} saveobj
+	rm -f libsc_p.a
+	make "CC = ${CC}" "CFLAGS = ${CFLAGS} -pg" ${Sruntime} ${Cruntime} \
+	     ${Aruntime}
+	ar q libsc_p.a ${Cruntime} ${Sruntime} ${Aruntime}
+	${RANLIB} libsc_p.a
+	mv saveobj/* .
+	rmdir saveobj
+
+install-private:
+	make "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
+	     "OWNER = -o `whoami`" install
+
+install:
+	-mkdir ${LIBDIR}/schemetoc
+	cp libsc.a ${LIBDIR}/schemetoc/libsc.a
+	${RANLIB} ${LIBDIR}/schemetoc/libsc.a
+	-cp libsc_p.a ${LIBDIR}/schemetoc/libsc_p.a
+	-${RANLIB} ${LIBDIR}/schemetoc/libsc_p.a
+	cp objects.h ${LIBDIR}/schemetoc
+	cp options.h ${LIBDIR}/schemetoc
+	cp predef.sc ${LIBDIR}/schemetoc
+	cp sci ${BINDIR}/sci
+
+clean:
+	rm -f ${Sruntime} ${Cruntime} ${Aruntime} sci.o embedded.o \
+	      *.CKP *.BAK *.S2C core Xsci Xlibsc.a
+
+clean-sc-to-c:
+	rm -f ${Sruntimec} sci.c
+
+noprogs:
+	rm -f Xsci Xlibsc.a sci libsc.a libsc_p.a embedded libscsrv.a
+
+srcdist:
+	rdist -c README *.c *.h *.s *.sc makefile ${destdir}
+
+bindist:
+	rdist -c README makefile makefile-tail predef.sc objects.h \
+	      libsc.a ${Plib} sci ${destdir}
+
+all:
+	make "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = ${SCC}" \
+	     "SCCFLAGS = ${SCCFLAGS}" Xlibsc.a Xsci Xmv ${Plib}
+
+srclinks:
+	for x in ${Cruntimec} ${Chfiles} ${Sruntimec} ${Sruntimesc} ${Smisc}; \
+	    do ln -s ${SRCDIR}/$$x $$x;\
+	done
+	rm options.h
+
+tarfiles:
+	@echo " scrt/*.sc scrt/*.h scrt/*.c scrt/README scrt/makefile "

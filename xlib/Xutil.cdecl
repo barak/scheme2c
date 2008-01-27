@@ -1,0 +1,241 @@
+; Copyright 1987 by Digital Equipment Corporation, Maynard, Massachusetts,
+; and the Massachusetts Institute of Technology, Cambridge, Massachusetts.
+;
+;                         All Rights Reserved
+;
+; Permission to use, copy, modify, and distribute this software and its 
+; documentation for any purpose and without fee is hereby granted, 
+; provided that the above copyright notice appear in all copies and that
+; both that copyright notice and this permission notice appear in 
+; supporting documentation, and that the names of Digital or MIT not be
+; used in advertising or publicity pertaining to distribution of the
+; software without specific, written prior permission.  
+;
+; DIGITAL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+; ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL
+; DIGITAL BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR
+; ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+; WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+; ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+; SOFTWARE.
+ 
+;; Bitmask returned by XParseGeometry().  Each bit tells if the corresponding
+;; value (x, y, width, height) was found in the parsed string.
+ 
+(const  NoValue		#x0000)
+(const  XValue  	#x0001)
+(const  YValue		#x0002)
+(const  WidthValue  	#x0004)
+(const  HeightValue  	#x0008)
+(const  AllValues 	#x000F)
+(const  XNegative 	#x0010)
+(const  YNegative 	#x0020)
+
+(typedef (struct
+    	(long flags)	;; marks which fields in this structure are defined 
+	(int x) (int y)
+	(int width) (int height)
+	(int min_width) (int min_height)
+	(int max_width) (int max_height)
+    	(int width_inc) (int height_inc)
+	((struct 
+		(int x)	;; numerator 
+		(int y)	;; denominator 
+	) min_aspect)
+	((struct 
+		(int x)	;; numerator 
+		(int y)	;; denominator 
+	) max_aspect)
+) XSizeHints)
+
+(typedef (XSizeHints *) XSizeHintsP)
+
+;; The next block of definitions are for window manager properties that
+;; clients and applications use for communication.
+ 
+
+;; flags argument in size hints 
+(const  USPosition	(expt 2 0)) ;; user specified x, y 
+(const  USSize		(expt 2 1)) ;; user specified width, height 
+
+(const  PPosition	(expt 2 2)) ;; program specified position 
+(const  PSize		(expt 2 3)) ;; program specified size 
+(const  PMinSize	(expt 2 4)) ;; program specified minimum size 
+(const  PMaxSize	(expt 2 5)) ;; program specified maximum size 
+(const  PResizeInc	(expt 2 6)) ;; program specified resize increments 
+(const  PAspect		(expt 2 7)) ;; program specified min and max aspect ratios 
+(const  PAllHints (+ PPosition (+ PSize (+ PMinSize (+ PMaxSize (+ PResizeInc
+								  PAspect))))))
+
+(typedef (struct
+	(long flags)	;; marks which fields in this structure are defined 
+	(Bool input)	;; does this application rely on the window manager 
+			;; to get keyboard input? 
+	(int initial_state)	;; see below 
+	(Pixmap icon_pixmap)	;; pixmap to be used as icon 
+	(Window icon_window) 	;; window to be used as icon 
+	(int icon_x)	 	;; initial position of icon
+	(int icon_y)
+	(Pixmap icon_mask)	;; icon mask bitmap 
+	(XID window_group)	;; id of related window group 
+	;; this structure may be extended in the future 
+) XWMHints)
+
+(typedef (XWMHints *) XWMHintsP)
+
+;; definition for flags of XWMHints 
+
+(const  InputHint 		(expt 2 0))
+(const  StateHint 		(expt 2 1))
+(const  IconPixmapHint		(expt 2 2))
+(const  IconWindowHint		(expt 2 3))
+(const  IconPositionHint 	(expt 2 4))
+(const  IconMaskHint		(expt 2 5))
+(const  WindowGroupHint		(expt 2 6))
+(const  AllHints (+ InputHint (+ StateHint (+ IconPixmapHint (+ IconWindowHint
+		(+ IconPositionHint (+ IconMaskHint WindowGroupHint)))))))
+
+;; definitions for initial window state 
+
+(const  DontCareState 0)	;; don't know or care 
+(const  NormalState 1)	;; most applications want to start this way 
+(const  ZoomState 2)	;; application wants to start zoomed 
+(const  IconicState 3)	;; application wants to start as an icon 
+(const  InactiveState 4)	;; application believes it is seldom used; some
+    			;; wm's may put it on inactive menu 
+
+
+(typedef (struct
+	(int min_width) (int min_height)
+	(int max_width) (int max_height)
+	(int width_inc) (int height_inc)
+) XIconSize)
+
+(typedef (XIconSize *) XIconSizeP)
+
+(typedef (struct
+	(charP res_name)
+	(charP res_class)
+) XClassHint)
+
+(typedef (XClassHint *) XClassHintP)
+
+;; Compose sequence status structure, used in calling XLookupString.
+ 
+(typedef (struct 
+    (charP compose_ptr)		;; state table pointer 
+    (int chars_matched)		;; match state 
+) XComposeStatus)
+
+(typedef (XComposeStatus *) XComposeStatusP)
+
+;; opaque reference to Region data type 
+ 
+(typedef (struct) _XRegion)
+(typedef (_XRegion *) Region) 
+
+;; Return values from XRectInRegion() 
+
+(const  RectangleOut 0)
+(const  RectangleIn  1)
+(const  RectanglePart 2)
+
+;; Information used by the visual utility routines to find desired visual
+;; type from the many visuals a display may support.
+ 
+
+(typedef (struct
+  (VisualP visual)
+  (VisualID visualid)
+  (int screen)
+  (int depth)
+  (int class)
+  (unsignedlong red_mask)
+  (unsignedlong green_mask)
+  (unsignedlong blue_mask)
+  (int colormap_size)
+  (int bits_per_rgb)
+) XVisualInfo)
+
+(typedef (XVisualInfo *) XVisualInfoP)
+
+(const  VisualNoMask		#x0)
+(const  VisualIDMask 		#x1)
+(const  VisualScreenMask	#x2)
+(const  VisualDepthMask		#x4)
+(const  VisualClassMask		#x8)
+(const  VisualRedMaskMask	#x10)
+(const  VisualGreenMaskMask	#x20)
+(const  VisualBlueMaskMask	#x40)
+(const  VisualColormapSizeMask	#x80)
+(const  VisualBitsPerRGBMask	#x100)
+(const  VisualAllMask		#x1FF)
+
+;; This defines a window manager property that clients may use to
+;; share standard color maps:
+ 
+
+(typedef (struct
+	(Colormap colormap)
+	(unsignedlong red_max)
+	(unsignedlong red_mult)
+	(unsignedlong green_max)
+	(unsignedlong green_mult)
+	(unsignedlong blue_max)
+	(unsignedlong blue_mult)
+	(unsignedlong base_pixel)
+) XStandardColormap)
+
+(typedef (XStandardColormap *) XStandardColormapP)
+
+;; return codes for XReadBitmapFile and XWriteBitmapFile
+ 
+(const  BitmapSuccess		0)
+(const  BitmapOpenFailed 	1)
+(const  BitmapFileInvalid 	2)
+(const  BitmapNoMemory		3)
+
+;; Declare the routines that don't return int.
+ 
+
+;;***************************************************************
+;;
+;; Context Management
+;;
+;;**************************************************************
+
+
+;; Associative lookup table return codes 
+
+(const  XCSUCCESS 0)	;; No error. 
+(const  XCNOMEM   1)    ;; Out of memory 
+(const  XCNOENT   2)    ;; No entry in table 
+
+(typedef int XContext)
+
+;#define XStringToContext(atom)   ((XContext) XrmStringToQuark(atom))
+
+;extern int XUniqueContext();
+
+;extern int XSaveContext(); ;; window, context, data 
+    ;; Window       window;		
+    ;; XContext    context;		
+    ;; caddr_t      data;		
+
+;extern int XFindContext(); ;; display, window, context, data 
+    ;; Display	    *display;		
+    ;; Window       window;		
+    ;; XContext    context;		
+    ;; caddr_t      *data;       RETURN 
+
+;extern int XDeleteContext(); ;; window, context 
+    ;; Window       window;		
+    ;; XContext    context;		
+
+
+; XWMHints *XGetWMHints();
+; Region XCreateRegion(), XPolygonRegion();
+; XImage *XCreateImage();
+
+; XVisualInfo *XGetVisualInfo();
+

@@ -1,0 +1,186 @@
+The 15mar93jfb release moves Scheme->C to additional platforms that
+differ from the previous platforms in that they may not have UNIX-like
+operating systems nor assume that sizeof(int) and sizeof( int* ) is 32.
+
+Users on existing platforms will see a few bugs fixed, but otherwise the
+system looks pretty much the same.  If you were one of the few users of
+SAVE-HEAP or OPEN-PROCESS, you'll be disappointed as those procedures have
+been dropped as too operating system dependent.
+
+Users who have done ports to other platforms will find mixed news.  While
+the source has been reorganized to centralize machine specific items and
+provide a system independent interface layer between Scheme->C and the
+host system, you're old patches won't drop right in to the new source.
+However, new ports should be a lot easier, and ports to non-UNIX like systems
+are now much easier.
+
+Finally, the system may now be configured as a Scheme interpreter (perhaps
+with your extensions) that can be safely embedded inside an event driven
+system.  The embedded server does not require operating system signals nor an
+I/O system.  It supports time slicing and checks for stack overflow so
+it is safe to evaluate: (let loop () (loop)) or  (let loop () (loop) #t)
+within the server.
+
+N.B.  Making Scheme->C more portable has required changes in the runtime
+      environment.  It is not possible to mix code compiled by earlier
+      versions of the compiler with code compiled by this compiler.
+
+
+Documentation changes since the 01nov91jfb release:
+
+1.  Added PostScript for R4RS.
+
+2.  Updated index to reflect changes.
+
+3.  Added the document "Embedded Scheme->C" explaining how to embed
+    Scheme in an event sensative server.
+
+
+Compiler changes since the 01nov91jfb release:
+
+1.  Added the syntax (define-external variable TOP-LEVEL module) to define
+    a variable that is addressed via the top level that lives in a known
+    module.
+
+2.  Change LETREC macro expansion to enclose the body in a BEGIN to prevent
+    incorrect evaluation of internal defines.
+
+3.  Change LISTIFY-OPTIONAL-ARGUMENTS to not allocate a temporary when the
+    list is composed of a single item.
+
+4.  Constants defined by DEFINE-CONSTANT are now defined for use in compile
+    time expressions.
+
+5.  When a module form is not supplied, the module name defaults to the source
+    file name (less the .sc suffix).
+
+6.  Forms like:
+
+	(let ()
+  	  (define x 1)
+  	  (set! foo 2) )
+	(let ()
+	  (define x 3)
+	  (set! bar 4) )
+
+    containging let's whose only purpose is to introduce a new lexical scope
+    are now correctly compiled when the appear at the top level.
+
+7.  Lambda expressions containing arguments that are not symbols now result
+    in an error message rather than a compiler error.
+
+8.  Compiled code now supports optional stack overflow checks and timeslicing.
+
+9.  A number of changes were made in the emitted C code to handle architecture
+    and C compiler differences across the platforms now supported.  For
+    example, 32-bit int's are no longer assumed, nor are 32-bit pointers.
+
+10. External procedure declarations now declare the type of their arguments
+    when the C compiler allows it.
+
+11. The compiler no longer uses a saved heap image.  This was eliminated to
+    make the compiler more portable and allow one compiler to compile for a
+    variety of configurations.
+
+12. The compiler no longer has any direct calls to the C runtime environment.
+
+13. When a module name is not defined, the module name defaults to the source
+    file name (less the ".sc" suffix).
+
+
+Runtime changes since the 01nov91jfb release:
+
+1.  If the string passed to SYMBOL->STRING and SYMBOL->UNINTERNED-STRING is
+    later mutated, it does not effect the symbol.
+
+2.  Zero argument values no longer cause GCD to trap.
+
+3.  NUMBER->STRING does not return radix prefix in the string.
+
+4.  Change the expansion of LETREC to correctly handle internal defines.
+    Previously:
+
+	(letrec ((x 1)) (define x 2) x)
+	= ((LAMBDA (X) ((LAMBDA (X) (SET! X 2) (SET! X 1) X) 0)) 0)
+	=> 1
+
+    Now:
+
+	(expand '(letrec ((x 1)) (define x 2) x))
+	= ((LAMBDA (X) (SET! X 1) (BEGIN ((LAMBDA (X) (SET! X 2) X) 0))) 0)
+	=> 2
+
+5.  LOAD, LOADE, and LOADQ no longer cause READ-EVAL-PRINT to assume Scheme
+    is interactive.
+
+6.  Correct token size computation when output to a port is being pretty
+    printed.
+
+7.  Correct comment on getmem in scinit.c.
+
+8.  EVAL now verifies that the optional environment is an a-list.
+
+9.  Added DEBUG-OUTPUT-PORT, TRACE-OUTPUT-PORT, WEAK-CONS, RENAME-FILE,
+    REMOVE-FILE, additional C and Scheme structure access procedures,
+    procedures to set/get the time slice, stack size, and garbage
+    collector parameters, and TIME-OF-DAY.
+
+10. Deleted OPEN-PROCESS, OPEN-INPUT-PROCESS, OPEN-OUTPUT-PROCESS, SAVE-HEAP,
+    and MY-RUSAGE as they were too system specific.
+
+11. The system may be easily compiled to build an interpreter that can be
+    embedded inside an event driven server.  When compiled this way, it does
+    not require access to operating system signals or an I/O system.  The
+    embedded server supports time slicing and checks for stack overflow so
+    it is safe to evaluate the following:  (let loop () (loop)) and
+    (let loop () (loop) #t).
+
+12. The bulk of the operating system specific interfaces were moved into
+    cio.c.  This has resulted to significant changes to heap.c and scinit.c.
+    There are now no direct calls to the C runtime environment from Scheme
+    code.  All access is via routines in cio.c.
+
+13. The default maximum heap size is now five times the initial heap size.
+
+14. The file names scexpand1.sc and scexpand2.sc were changed to scexpnd1.sc
+    and scexpnd2.sc to be compatible with MS-DOS.
+
+15. WHEN-UNREFERENCED has been recoded to reduce the amount of debris left
+    on the stack that used to cause objects to be unnecessarily retained.
+
+16. Code moved from scrt5.sc to scrt6.sc to fit in MS Windows' code segment
+    limitations.
+
+17. Added a dummy module scrtuser.sc to as an aid to inserting additional
+    user code.
+
+18. The compiler no longer generates direct calls to
+    call-with-current-continuation.  As a result, user code may redefine
+    it without having to change the underlying Scheme->C system.
+
+19. Added a primitive record type, %record, that users can use to implement
+    their desired record system.
+
+20. Control-C during a system file task is now correctly handled.
+
+
+C declaration compiler changes since the 01nov91jfb release:
+
+1.  Added a new declaration type "sizeof" that defines the size and alignment
+    characteristics of the base C types.  Alignment information is used to
+    generate correct access procedures.
+
+2.  Added the C program "sizeof" that creates sizeof declarations for a the
+    host system.
+
+
+Xlib changes since the 01nov91jfb release:
+
+1.  Add support for some procedures added in X11R4.
+
+2.  Module initialization problems for a few structure access modules were
+    corrected.
+
+3.  Do not assume that long int's and int's are the same size.
+
+4.  Remove assumptions about base C type sizes from xwss.sc.

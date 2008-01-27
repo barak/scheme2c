@@ -1,0 +1,1451 @@
+%!PS-Adobe-2.0
+%%Title: smithnotes.mss
+%%DocumentFonts: (atend)
+%%Creator: Joel Bartlett,WRL,4156173322,9419094 and Scribe 7(1700)
+%%CreationDate: 5 January 1993 14:30
+%%Pages: (atend)
+%%EndComments
+% PostScript Prelude for Scribe.
+/BS {/SV save def 0.0 792.0 translate .01 -.01 scale} bind def
+/ES {SV restore showpage} bind def
+/SC {setrgbcolor} bind def
+/FMTX matrix def
+/RDF {WFT SLT 0.0 eq 
+  {SSZ 0.0 0.0 SSZ neg 0.0 0.0 FMTX astore}
+  {SSZ 0.0 SLT neg sin SLT cos div SSZ mul SSZ neg 0.0 0.0 FMTX astore}
+  ifelse makefont setfont} bind def
+/SLT 0.0 def
+/SI { /SLT exch cvr def RDF} bind def
+/WFT /Courier findfont def
+/SF { /WFT exch findfont def RDF} bind def
+/SSZ 1000.0 def
+/SS { /SSZ exch 100.0 mul def RDF} bind def
+/AF { /WFT exch findfont def /SSZ exch 100.0 mul def RDF} bind def
+/MT /moveto load def
+/XM {currentpoint exch pop moveto} bind def
+/UL {gsave newpath moveto dup 2.0 div 0.0 exch rmoveto
+   setlinewidth 0.0 rlineto stroke grestore} bind def
+/LH {gsave newpath moveto setlinewidth
+   0.0 rlineto
+   gsave stroke grestore} bind def
+/LV {gsave newpath moveto setlinewidth
+   0.0 exch rlineto
+   gsave stroke grestore} bind def
+/BX {gsave newpath moveto setlinewidth
+   exch
+   dup 0.0 rlineto
+   exch 0.0 exch neg rlineto
+   neg 0.0 rlineto
+   closepath
+   gsave stroke grestore} bind def
+/BX1 {grestore} bind def
+/BX2 {setlinewidth 1 setgray stroke grestore} bind def
+/PB {/PV save def newpath translate
+    100.0 -100.0 scale pop /showpage {} def} bind def
+/PE {PV restore} bind def
+/GB {/PV save def newpath translate rotate
+    div dup scale 100.0 -100.0 scale /showpage {} def} bind def
+/GE {PV restore} bind def
+/FB {dict dup /FontMapDict exch def begin} bind def
+/FM {cvn exch cvn exch def} bind def
+/FE {end /original-findfont /findfont load def  /findfont
+   {dup FontMapDict exch known{FontMapDict exch get} if
+   original-findfont} def} bind def
+/BC {gsave moveto dup 0 exch rlineto exch 0 rlineto neg 0 exch rlineto closepath clip} bind def
+/EC /grestore load def
+/SH /show load def
+/MX {exch show 0.0 rmoveto} bind def
+/W {0 32 4 -1 roll widthshow} bind def
+/WX {0 32 5 -1 roll widthshow 0.0 rmoveto} bind def
+/RC {100.0 -100.0 scale
+612.0 0.0 translate
+-90.0 rotate
+.01 -.01 scale} bind def
+/URC {100.0 -100.0 scale
+90.0 rotate
+-612.0 0.0 translate
+.01 -.01 scale} bind def
+/RCC {100.0 -100.0 scale
+0.0 -792.0 translate 90.0 rotate
+.01 -.01 scale} bind def
+/URCC {100.0 -100.0 scale
+-90.0 rotate 0.0 792.0 translate
+.01 -.01 scale} bind def
+%%EndProlog
+%%Page: 1 1
+BS
+0 SI
+15 /Times-Bold AF
+15337 8237 MT
+(Scheme->C notes for)SH
+/Times-BoldItalic SF
+29066 XM
+(An Introduction to Scheme)SH
+10 /Times-Italic AF
+8200 10443 MT
+(An Introduction to Scheme)6 W
+/Times-Roman SF
+(, by Jerry D. Smith, is a recent text on the programming language Scheme.)
+6 W( Rather)
+261 W( than)5 W
+7200 11820 MT
+(being directed at a specific)
+206 W( implementation of Scheme, it attempts to stick close to the dialect defined in the)207 W
+8 /Times-Italic AF
+10310 12855 MT
+(4)SH
+10 SS 
+7200 13197 MT
+(Revised)SH
+11247 XM
+(Report on the Algorithmic Language Scheme)287 W
+/Times-Roman SF
+31245 XM
+(that is the base for)
+287 W( many implementations including)286 W
+7200 14574 MT
+(Scheme->C. This)
+354 W( document provides section notes to point out the differences between TI PC Scheme used in the)52 W
+7200 15951 MT
+(text and Scheme->C.  The user will also find it helpful to read)88 W
+/Times-Italic SF
+33405 XM
+(An Introduction to Scheme->C in 19 Prompts)88 W
+/Times-Roman SF
+52556 XM
+(and)SH
+8 /Times-Italic AF
+23978 16986 MT
+(4)SH
+49342 XM
+(4)SH
+10 /Times-Roman AF
+7200 17328 MT
+(have the)18 W
+/Times-Italic SF
+10846 XM
+(Scheme->C Index to the Revised)18 W
+24646 XM
+(Report on the Algorithmic Language Scheme)18 W
+/Times-Roman SF
+43030 XM
+(and the)18 W
+/Times-Italic SF
+46232 XM
+(Revised)SH
+50010 XM
+(Report on)18 W
+7200 18705 MT
+(the Algorithmic Language Scheme)SH
+/Times-Roman SF
+21254 XM
+(available for reference.)SH
+12 /Times-Bold AF
+7200 22389 MT
+(1.8 \050\050\050\050\050\050\051\051\051\051\051\051)SH
+10 /Times-Roman AF
+8200 23766 MT
+(Scheme->C does not have an internal editor.  Instead, users use the editor of their choice \050which may or may not)40 W
+7200 25143 MT
+(have parentheses matching\051 and then use)SH
+/Times-Bold SF
+23807 XM
+(load)SH
+/Times-Roman SF
+25891 XM
+(to load the file into the Scheme system.)SH
+12 /Times-Bold AF
+7200 28827 MT
+(1.10 PC Scheme and the Listener)SH
+10 /Times-Roman AF
+8200 30204 MT
+(This is what the interaction on page 9 looks like in Scheme->C:)SH
+/Courier SF
+9600 31610 MT
+(> \050+ 3 2\051)SH
+9600 32641 MT
+(5)SH
+9600 33672 MT
+(> \050load "examples.sc"\051)SH
+9600 34703 MT
+(SQUARE)SH
+9600 35734 MT
+("examples.sc")SH
+9600 36765 MT
+(> \050square 2\051)SH
+9600 37796 MT
+(4)SH
+9600 38827 MT
+(> \050exit\051)SH
+/Times-Roman SF
+8200 41306 MT
+(User input is)
+71 W( prompted by ">", Scheme->C files end with the suffix ".sc", and the command primitives)72 W
+/Times-Bold SF
+50790 XM
+(%c)SH
+/Times-Roman SF
+52556 XM
+(and)SH
+/Times-Bold SF
+7200 42683 MT
+(%d)SH
+/Times-Roman SF
+9006 XM
+(are not supported.  User input is not evaluated until the user types return.)SH
+12 /Times-Bold AF
+7200 46367 MT
+(2.2 The Scheme Listener)SH
+10 /Times-Roman AF
+8200 47744 MT
+(Scheme->C is started by the command)SH
+/Times-Bold SF
+23929 XM
+(sci)SH
+/Times-Roman SF
+(. Once)
+250 W( the command is executed, the window looks like this:)SH
+9.8 /Courier AF
+9552 49127 MT
+(csh >sci)SH
+9552 50142 MT
+(Scheme->C -- 01sep91jfb -- Copyright 1989 Digital Equipment Corporation)SH
+9552 51157 MT
+(>)SH
+10 /Times-Roman AF
+8200 53636 MT
+(When the evaluation of an expression results in an error, the)
+144 W( debugger is entered.  It prints an error message)143 W
+7200 55013 MT
+(followed by a)
+52 W( procedure call traceback.  It then prompts the user with ">>" to allow commands to inspect the state)53 W
+7200 56390 MT
+(of the computation where the error occurred.)
+61 W( For)
+371 W( now, simply type control-D to return to the main read-eval-print)60 W
+7200 57767 MT
+(loop.)SH
+/Courier SF
+9600 59173 MT
+(> \050square 2\051)SH
+9600 60204 MT
+(***** SQUARE Top-level symbol is undefined)SH
+9600 61235 MT
+(\050SQUARE 2\051 in ENV-0)SH
+9600 62266 MT
+(\050EVAL ...\051)SH
+9600 63297 MT
+(\050SCREP_REP ...\051)SH
+9600 64328 MT
+(\050READ-EVAL-PRINT ...\051)SH
+9600 65359 MT
+(>> ^D)SH
+9600 66390 MT
+(> \050load "examples.sc"\051)SH
+9600 67421 MT
+(SQUARE)SH
+9600 68452 MT
+("examples.sc")SH
+9600 69483 MT
+(> \050square 2\051)SH
+9600 70514 MT
+(4)SH
+9600 71545 MT
+(> \050exit\051)SH
+ES
+%%Page: 2 2
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(2)SH
+12 /Times-Bold AF
+7200 8004 MT
+(2.3 Simple Arithmetic)SH
+10 /Times-Roman AF
+8200 9381 MT
+(Most Scheme->C systems do not have)
+162 W( bignums.  Numbers are represented as either 29-bit integers or 64-bit)163 W
+7200 10758 MT
+(floating point values.)SH
+8200 13237 MT
+(Exercise for the student:  Add bignums to Scheme->C.)SH
+8200 15716 MT
+(The boolean constant for true is)104 W
+/Times-Bold SF
+21766 XM
+(#t)SH
+/Times-Roman SF
+22953 XM
+(and false is)104 W
+/Times-Bold SF
+28014 XM
+(#f)SH
+/Times-Roman SF
+(. In)
+458 W( keeping with tradition, both the empty list)104 W
+/Times-Bold SF
+48776 XM
+(\050\051)SH
+/Times-Roman SF
+49796 XM
+(and)SH
+/Times-Bold SF
+51593 XM
+(#f)SH
+/Times-Roman SF
+52779 XM
+(are)SH
+7200 17093 MT
+(considered to be false.)
+5 W( It)
+261 W( is good programming practice to not use the empty list)6 W
+/Times-Bold SF
+39705 XM
+(\050\051)SH
+/Times-Roman SF
+40627 XM
+(as a synonym for)6 W
+/Times-Bold SF
+47761 XM
+(#f)SH
+/Times-Roman SF
+(, and in IEEE)6 W
+7200 18470 MT
+(compliant Scheme's your program won't work as the empty list)SH
+/Times-Bold SF
+32975 XM
+(\050\051)SH
+/Times-Roman SF
+33891 XM
+(is a synonym for)SH
+/Times-Bold SF
+40835 XM
+(#t)SH
+/Times-Roman SF
+(!)SH
+12 /Times-Bold AF
+7200 22154 MT
+(2.4.2 Constants)SH
+10 /Times-Roman AF
+8200 23531 MT
+(The constants)155 W
+/Times-Bold SF
+14287 XM
+(#!true)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+17552 XM
+(#!false)SH
+/Times-Roman SF
+(, and)155 W
+/Times-Bold SF
+22833 XM
+(#!null)SH
+/Times-Roman SF
+25739 XM
+(are not implemented, use)155 W
+/Times-Bold SF
+36663 XM
+(#t)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+38151 XM
+(#f)SH
+/Times-Roman SF
+(, and)155 W
+/Times-Bold SF
+41488 XM
+('\050\051)SH
+/Times-Roman SF
+42891 XM
+(respectively. The character)154 W
+7200 24908 MT
+(constants)SH
+/Times-Bold SF
+11172 XM
+(#\134backspace)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+16839 XM
+(#\134page)SH
+/Times-Roman SF
+(, and)SH
+/Times-Bold SF
+21811 XM
+(#\134rubout)SH
+/Times-Roman SF
+25784 XM
+(are not implemented.)SH
+12 /Times-Bold AF
+7200 28592 MT
+(2.4.4 Literal Expressions)SH
+10 /Times-Roman AF
+8200 29969 MT
+(The value of)83 W
+/Times-Bold SF
+13753 XM
+(#f)SH
+/Times-Roman SF
+14919 XM
+(is false, represented as)83 W
+/Times-Bold SF
+24498 XM
+(#f)SH
+/Times-Roman SF
+(, which is not the same)
+83 W( as the empty list)84 W
+/Times-Bold SF
+42360 XM
+(\050\051)SH
+/Times-Roman SF
+(. While)
+418 W( both)84 W
+/Times-Bold SF
+48834 XM
+(#f)SH
+/Times-Roman SF
+50001 XM
+(and)SH
+/Times-Bold SF
+51779 XM
+(\050\051)SH
+/Times-Roman SF
+52779 XM
+(are)SH
+7200 31346 MT
+(considered to be false when evaluating a boolean expression, they are not equivalent.  Note that the empty list)
+21 W( is not)20 W
+7200 32723 MT
+(a self-evaluating constant.  In order to avoid an error, one must quote it when entering it into Scheme:)SH
+/Courier SF
+9600 34129 MT
+(> \050\051)SH
+9600 35160 MT
+(> \050)SH
+9600 36191 MT
+(***** EVAL Argument contains an item that is not self-evaluating: \050\051)SH
+9600 37222 MT
+(\050EVAL ...\051)SH
+9600 38253 MT
+(\050SCREP_REP ...\051)SH
+9600 39284 MT
+(\050READ-EVAL-PRINT ...\051)SH
+9600 40315 MT
+(>> ^D)SH
+9600 41346 MT
+(> '\050\051)SH
+9600 42377 MT
+(\050\051)SH
+9600 43408 MT
+(>)SH
+12 /Times-Bold AF
+7200 47092 MT
+(3.2 The Global Environment)SH
+10 /Times-Roman AF
+8200 48469 MT
+(There is only one top level environment that contains both user and system definitions.)SH
+12 /Times-Bold AF
+7200 52153 MT
+(5.2 Logical Operators)SH
+10 /Times-Roman AF
+8200 53530 MT
+(Since)SH
+/Times-Bold SF
+10672 XM
+(#f)SH
+/Times-Roman SF
+11755 XM
+(and the empty list)SH
+/Times-Bold SF
+19144 XM
+(\050\051)SH
+/Times-Roman SF
+20060 XM
+(are different,)SH
+/Times-Bold SF
+25474 XM
+(#f)SH
+/Times-Roman SF
+26557 XM
+(is always returned when a predicate returns false:)SH
+/Courier SF
+9600 54936 MT
+(> \050<= 4 3\051)SH
+9600 55967 MT
+(#F)SH
+12 /Times-Bold AF
+7200 59651 MT
+(5.7 begin)SH
+10 /Times-Roman AF
+8200 61028 MT
+(In the text, the programming convention is that one calls)163 W
+/Times-Bold SF
+32690 XM
+(newline)SH
+/Times-Roman SF
+36382 XM
+(and then calls)164 W
+/Times-Bold SF
+42623 XM
+(display)SH
+/Times-Roman SF
+(. In)
+578 W( printing to the)164 W
+7200 62405 MT
+(terminal with Scheme->C,)
+207 W( it is better to call)206 W
+/Times-Bold SF
+26663 XM
+(display)SH
+/Times-Roman SF
+30176 XM
+(and then call)206 W
+/Times-Bold SF
+36154 XM
+(newline)SH
+/Times-Roman SF
+39888 XM
+(as a newline is not automatically)206 W
+7200 63782 MT
+(generated when Scheme prompts the user for additional input.)SH
+ES
+%%Page: 3 3
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(3)SH
+12 /Times-Bold AF
+7200 8004 MT
+(8.2 Characters)SH
+10 /Times-Roman AF
+8200 9381 MT
+(The following #\134<char-name> forms are supported:)137 W
+/Times-Bold SF
+29868 XM
+(#\134formfeed)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+35171 XM
+(#\134linefeed)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+39920 XM
+(#\134newline)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+44614 XM
+(#\134return)SH
+/Times-Roman SF
+(,)SH
+/Times-Bold SF
+48807 XM
+(#\134space)SH
+/Times-Roman SF
+(, and)138 W
+/Times-Bold SF
+7200 10758 MT
+(#\134tab)SH
+/Times-Roman SF
+(.)SH
+12 /Times-Bold AF
+7200 14442 MT
+(8.4.1 Character Predicates)SH
+10 /Times-Roman AF
+8200 15819 MT
+(The user need not define these as they are part of the system.)SH
+12 /Times-Bold AF
+7200 19503 MT
+(8.4.3 String Conversion Functions)SH
+10 /Times-Roman AF
+8200 20880 MT
+(See the Scheme->C documentation for information about)SH
+/Times-Bold SF
+31400 XM
+(number->string)SH
+/Times-Roman SF
+38442 XM
+(and)SH
+/Times-Bold SF
+40136 XM
+(string->number)SH
+/Times-Roman SF
+(.)SH
+12 /Times-Bold AF
+7200 24564 MT
+(9.4 User-defined Port Operations)SH
+10 /Times-Roman AF
+8200 25941 MT
+(Ports in)
+157 W( Scheme->C are represented as a pair of the symbol)156 W
+/Times-Bold SF
+33893 XM
+(port)SH
+/Times-Roman SF
+36132 XM
+(and the procedure that implements it.  For)156 W
+7200 27318 MT
+(example:)SH
+/Courier SF
+9600 28724 MT
+(> \050current-input-port\051)SH
+9600 29755 MT
+(\050PORT . #*PROCEDURE*\051)SH
+9600 30786 MT
+(>)SH
+/Times-Roman SF
+8200 33265 MT
+(Don't forget to put the call to)SH
+/Times-Bold SF
+20171 XM
+(newline)SH
+/Times-Roman SF
+23699 XM
+(after the second call to)SH
+/Times-Bold SF
+33002 XM
+(display)SH
+/Times-Roman SF
+36309 XM
+(when writing)SH
+/Times-Bold SF
+41864 XM
+(addtwo)SH
+/Times-Roman SF
+(.)SH
+12 /Times-Bold AF
+7200 36949 MT
+(9.6 Strings as Ports)SH
+10 /Times-Roman AF
+8200 38326 MT
+(Strings can be opened as input ports by)76 W
+/Times-Bold SF
+24751 XM
+(open-input-string)SH
+/Times-Roman SF
+32579 XM
+(and as output ports by)77 W
+/Times-Bold SF
+42047 XM
+(open-output-string)SH
+/Times-Roman SF
+(. See)
+404 W( the)77 W
+7200 39703 MT
+(index for more details.)SH
+12 /Times-Bold AF
+7200 43387 MT
+(9.7 A Utility for Reading Lines: read-ln)SH
+10 /Times-Roman AF
+8200 44764 MT
+(Users will not see either the backspace or rubout)
+125 W( characters as they are handled by the workstation's terminal)124 W
+7200 46141 MT
+(emulator.)SH
+12 /Times-Bold AF
+7200 49825 MT
+(10.2 Debugging and Lexical Scope)SH
+10 /Times-Roman AF
+8200 51202 MT
+(A pretty-print procedure is provided,)SH
+/Times-Bold SF
+23197 XM
+(pp)SH
+/Times-Roman SF
+(, but it does not pretty-print the text of a procedure.)SH
+8200 53681 MT
+(Breakpoints may be set on the entry and exit of any procedure defined in the top level environment.  Rather than)39 W
+7200 55058 MT
+(adding a call to)43 W
+/Times-Bold SF
+13760 XM
+(bkpt)SH
+/Times-Roman SF
+16054 XM
+(as was done in the text, a user would set a breakpoint on each call to)43 W
+/Times-Bold SF
+44320 XM
+(<)SH
+/Times-Roman SF
+45182 XM
+(and observe the value)42 W
+7200 56435 MT
+(of)SH
+/Times-Bold SF
+8283 XM
+(i)SH
+/Times-Roman SF
+(:)SH
+/Courier SF
+9600 57841 MT
+(> \050one-to-y-sqrd 3\051)SH
+9600 59903 MT
+(0 -calls  - \050> 1 3\051)SH
+9600 60934 MT
+(0- i)SH
+9600 61965 MT
+(1)SH
+9600 62996 MT
+(0- ^D)SH
+9600 64027 MT
+(0 -returns- #F)SH
+9600 65058 MT
+(0- ^D)SH
+ES
+%%Page: 4 4
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(4)SH
+/Courier SF
+9600 7824 MT
+(0 -calls  - \050> 0 3\051)SH
+9600 8855 MT
+(0- i)SH
+9600 9886 MT
+(0)SH
+9600 10917 MT
+(0- ^D)SH
+9600 11948 MT
+(0 -returns- #F)SH
+9600 12979 MT
+(0- ^D)SH
+9600 15041 MT
+(0 -calls  - \050> -1 3\051)SH
+9600 16072 MT
+(0- i)SH
+9600 17103 MT
+(-1)SH
+9600 18134 MT
+(0- ^D)SH
+9600 19165 MT
+(0 -returns- #F)SH
+9600 20196 MT
+(0- ^D)SH
+9600 22258 MT
+(0 -calls  - \050> -2 3\051)SH
+9600 23289 MT
+(0- \050top-level\051)SH
+9600 24320 MT
+(>)SH
+/Times-Roman SF
+8200 26799 MT
+(On each entry)
+164 W( to)165 W
+/Times-Bold SF
+15745 XM
+(>)SH
+/Times-Roman SF
+(, the values of it's arguments are printed.  The value of)165 W
+/Times-Bold SF
+40457 XM
+(i)SH
+/Times-Roman SF
+41150 XM
+(can be examined by entering)165 W
+/Times-Bold SF
+53722 XM
+(i)SH
+/Times-Roman SF
+7200 28176 MT
+(followed by a return.)
+5 W( When)
+258 W( control-D or)4 W
+/Times-Bold SF
+23981 XM
+(\050proceed\051)SH
+/Times-Roman SF
+28289 XM
+(is entered, the function is evaluated and the result is printed.  To)4 W
+7200 29553 MT
+(continue with the computation,)
+33 W( enter control-D or)34 W
+/Times-Bold SF
+27599 XM
+(\050proceed\051)SH
+/Times-Roman SF
+(. Once)
+318 W( it become clear that the program is in error, the)34 W
+7200 30930 MT
+(user is able to return to the top level read-eval-print loop by entering)SH
+/Times-Bold SF
+34834 XM
+(\050top-level\051)SH
+/Times-Roman SF
+(.)SH
+8200 33409 MT
+(Tracing is done using the)SH
+/Times-Bold SF
+18560 XM
+(trace)SH
+/Times-Roman SF
+20975 XM
+(and)SH
+/Times-Bold SF
+22669 XM
+(untrace)SH
+/Times-Roman SF
+26196 XM
+(commands:)SH
+/Courier SF
+9600 34815 MT
+(> \050one-to-z-sqrd 3\051)SH
+9600 35846 MT
+(12)SH
+9600 36877 MT
+(> \050trace one-to-z-sqrd\051)SH
+9600 37908 MT
+(\050ONE-TO-Z-SQRD\051)SH
+9600 38939 MT
+(> \050one-to-z-sqrd 3\051)SH
+9600 39970 MT
+(\050ONE-TO-Z-SQRD 3\051)SH
+9600 41001 MT
+(==> 12)SH
+9600 42032 MT
+(12)SH
+9600 43063 MT
+(> \050untrace one-to-z-sqrd\051)SH
+9600 44094 MT
+(\050ONE-TO-Z-SQRD\051)SH
+9600 45125 MT
+(>)SH
+/Times-Roman SF
+8200 47604 MT
+(The)SH
+/Times-Bold SF
+10061 XM
+(bpt)SH
+/Times-Roman SF
+11812 XM
+(command puts a breakpoint on both the entry and exit)
+56 W( to a procedure.  The)55 W
+/Times-Bold SF
+42752 XM
+(unbpt)SH
+/Times-Roman SF
+45614 XM
+(command removes a)55 W
+7200 48981 MT
+(breakpoint. Here's)
+250 W( the example on page 141:)SH
+/Courier SF
+9600 50387 MT
+(> \050bpt sqr\051)SH
+9600 51418 MT
+(SQR)SH
+9600 52449 MT
+(> \050one-to-z-sqrd 3\051)SH
+9600 53480 MT
+(\050ONE-TO-Z-SQRD 3\051)SH
+9600 55542 MT
+(1 -calls  - \050SQR 1\051)SH
+9600 56573 MT
+(1- ^D)SH
+9600 57604 MT
+(1 -returns- 2)SH
+9600 58635 MT
+(1- ^D)SH
+9600 60041 MT
+(1 -calls  - \050SQR 2\051)SH
+9600 61072 MT
+(1- ^D)SH
+9600 62103 MT
+(1 -returns- 4)SH
+9600 63134 MT
+(1- ^D)SH
+9600 65196 MT
+(1 -calls  - \050SQR 3\051)SH
+9600 66227 MT
+(1- ^D)SH
+9600 67258 MT
+(1 -returns- 6)SH
+9600 68289 MT
+(1- \050top-level\051)SH
+9600 69320 MT
+(> \050unbpt sqr\051)SH
+9600 70351 MT
+(\050SQR\051)SH
+9600 71382 MT
+(>)SH
+ES
+%%Page: 5 5
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(5)SH
+8200 7886 MT
+(When both)SH
+/Times-Bold SF
+12866 XM
+(sqr)SH
+/Times-Roman SF
+14505 XM
+(and)SH
+/Times-Bold SF
+16199 XM
+(one-to-z-sqrd)SH
+/Times-Roman SF
+22170 XM
+(are traced, one gets the following output.)SH
+/Courier SF
+9600 9292 MT
+(> \050trace one-to-z-sqrd\051)SH
+9600 10323 MT
+(\050ONE-TO-Z-SQRD\051)SH
+9600 11354 MT
+(> \050trace sqr\051)SH
+9600 12385 MT
+(\050SQR\051)SH
+9600 13416 MT
+(> \050ONE-TO-Z-SQRD 3\051)SH
+9600 14447 MT
+(\050ONE-TO-Z-SQRD 3\051)SH
+10800 15478 MT
+(\050SQR 1\051)SH
+10800 16509 MT
+(==> 2)SH
+10800 17540 MT
+(\050SQR 2\051)SH
+10800 18571 MT
+(==> 4)SH
+10800 19602 MT
+(\050SQR 3\051)SH
+10800 20633 MT
+(==> 6)SH
+9600 21664 MT
+(==> 12)SH
+9600 22695 MT
+(12)SH
+9600 23726 MT
+(>)SH
+/Times-Roman SF
+8200 26205 MT
+(Tracing the recursive function)SH
+/Times-Bold SF
+20530 XM
+(ftl)SH
+/Times-Roman SF
+21724 XM
+(produces the following output.)SH
+/Courier SF
+9600 27611 MT
+(> \050trace ftl\051)SH
+9600 28642 MT
+(\050FTL\051)SH
+9600 29673 MT
+(> \050ftl 3\051)SH
+9600 30704 MT
+(\050FTL 3\051)SH
+10800 31735 MT
+(\050FTL 2\051)SH
+12000 32766 MT
+(\050FTL 1\051)SH
+13200 33797 MT
+(\050FTL 0\051)SH
+13200 34828 MT
+(==> 1)SH
+12000 35859 MT
+(==> 1)SH
+10800 36890 MT
+(==> 2)SH
+9600 37921 MT
+(==> 6)SH
+9600 38952 MT
+(6)SH
+9600 39983 MT
+(>)SH
+12 /Times-Bold AF
+7200 43667 MT
+(10.3 Debugging in a Lexically Scoped Environment)SH
+10 /Times-Roman AF
+8200 45044 MT
+(Conditional breakpoints can)
+64 W( be placed on procedures using the)65 W
+/Times-Bold SF
+34140 XM
+(bpt)SH
+/Times-Roman SF
+35900 XM
+(special form.  The second argument is a test)65 W
+7200 46421 MT
+(procedure that is either the name of a top level procedure or a lambda expression defining a)
+95 W( procedure.  On each)94 W
+7200 47798 MT
+(entry to the procedure, the)
+35 W( test procedure is evaluated with the arguments to the breakpointed procedure.  When the)36 W
+7200 49175 MT
+(test procedure returns a true value, the breakpoint is taken.)SH
+/Courier SF
+9600 50581 MT
+(> \050bpt one-to-n \050lambda \050x\051 \050>= x 3\051\051\051)SH
+9600 51612 MT
+(ONE-TO-N)SH
+9600 52643 MT
+(> \050mean-table 5\051)SH
+9600 53674 MT
+(=======================================)SH
+9600 54705 MT
+(N MEAN)
+1200 W( OF 1 TO N)SH
+9600 56767 MT
+(1 1)4800 W
+9600 57798 MT
+(2 1.5)4800 W
+9600 58829 MT
+(3)SH
+9600 59860 MT
+(0 -calls  - \050ONE-TO-N 3\051)SH
+9600 60891 MT
+(0-)SH
+/Times-Roman SF
+8200 63370 MT
+(The first time the argument to)107 W
+/Times-Bold SF
+21063 XM
+(one-to-n)SH
+/Times-Roman SF
+24975 XM
+(is)SH
+/Times-Bold SF
+25999 XM
+(>=)SH
+/Times-Roman SF
+27496 XM
+(3, the breakpoint is taken.  Once at a breakpoint, the)107 W
+/Times-Bold SF
+49779 XM
+(backtrace)SH
+/Times-Roman SF
+7200 64747 MT
+(procedure allows the call stack and environments to be inspected.)SH
+ES
+%%Page: 6 6
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(6)SH
+/Courier SF
+9600 7824 MT
+(0- \050backtrace\051)SH
+9600 8855 MT
+(\050ONE-TO-N N\051 in ENV-0)SH
+9600 9886 MT
+(\050/ \050ONE-TO-N N\051 N\051 in ENV-1)SH
+9600 10917 MT
+(\050DISPLAY \050ONE-TO-N-MEAN N\051\051 in ENV-2)SH
+9600 11948 MT
+(\050BEGIN \050NEWLINE\051 \050DISPLAY N\051 \050DISPLAY ")
+SH( "\051)
+4800 W( \050DIS ... in ENV-3)SH
+9600 12979 MT
+(\050EVAL ...\051)SH
+9600 14010 MT
+(\050SCREP_REP ...\051)SH
+9600 15041 MT
+(\050READ-EVAL-PRINT ...\051)SH
+9600 16072 MT
+(#F)SH
+9600 17103 MT
+(0-)SH
+/Times-Roman SF
+8200 19582 MT
+(Environments are identified by the symbols)45 W
+/Times-Bold SF
+26191 XM
+(env-)SH
+/Times-Italic SF
+(i)SH
+/Times-Roman SF
+(. The)
+340 W( value of an environment is an)
+45 W( a-list of symbols and their)46 W
+7200 20959 MT
+(values. It's often useful to use)82 W
+/Times-Bold SF
+19940 XM
+(pp)SH
+/Times-Roman SF
+21384 XM
+(to print out an environment.  An expression may be evaluated within a)
+82 W( specific)81 W
+7200 22336 MT
+(environment by calling)SH
+/Times-Bold SF
+16727 XM
+(eval)SH
+/Times-Roman SF
+18699 XM
+(with two arguments, the expression and the environment.)SH
+/Courier SF
+9600 23742 MT
+(0- env-1)SH
+9600 24773 MT
+(\050\050LOCATION . "inside one-to-n-mean"\051 \050N . 3\051\051)SH
+9600 25804 MT
+(0- env-3)SH
+9600 26835 MT
+(\050\050N . 3\051 \050\134d\134o\134l\134o\134o\134p . #*PROCEDURE*\051 \050PRINT-HEADER .#*PROCEDU)SH
+9600 27866 MT
+(RE*\051 \050HEADER-LINE . "======================================="\051\050)SH
+9600 28897 MT
+(HIGH-BOUND . 5\051\051)SH
+9600 29928 MT
+(0- \050pp env-3\051)SH
+9600 30959 MT
+(\050\050N . 3\051)SH
+12600 31990 MT
+(\050\134d\134o\134l\134o\134o\134p . #*PROCEDURE*\051)SH
+12600 33021 MT
+(\050PRINT-HEADER . #*PROCEDURE*\051)SH
+12600 34052 MT
+(\050HEADER-LINE . "======================================="\051)SH
+12600 35083 MT
+(\050HIGH-BOUND . 5\051\051#T)SH
+9600 36114 MT
+(0- \050eval 'high-bound env-3\051)SH
+9600 37145 MT
+(5)SH
+9600 38176 MT
+(0- ^D)SH
+9600 39207 MT
+(0 -returns- 6)SH
+9600 40238 MT
+(0- ^D)SH
+9600 41269 MT
+(2)SH
+9600 42300 MT
+(4)SH
+9600 43331 MT
+(0 -calls  - \050ONE-TO-N 4\051)SH
+9600 44362 MT
+(0- ^D)SH
+9600 45393 MT
+(0 -returns- 10)SH
+9600 46424 MT
+(0- ^D)SH
+9600 47455 MT
+(2.5)SH
+9600 48486 MT
+(5)SH
+9600 49517 MT
+(0 -calls  - \050ONE-TO-N 5\051)SH
+9600 50548 MT
+(0- ^D)SH
+9600 51579 MT
+(0 -returns- 15)SH
+9600 52610 MT
+(0- ^D)SH
+9600 53641 MT
+(3)SH
+9600 54672 MT
+(=======================================)SH
+9600 55703 MT
+(#F)SH
+9600 56734 MT
+(>)SH
+/Times-Roman SF
+8200 59213 MT
+(The same techniques that one uses to explore a program that has hit)
+115 W( a breakpoint can be used to investigate a)116 W
+7200 60590 MT
+(running program.  Here a simple loop is run.  When the user)
+23 W( enters control-C the running program is interrupted.  A)22 W
+7200 61967 MT
+(breakpoint is put on)39 W
+/Times-Bold SF
+15578 XM
+(eq?)SH
+/Times-Roman SF
+17367 XM
+(and then the program)
+39 W( is continued by typing control-D.  Once the breakpoint is hit,)40 W
+/Times-Bold SF
+51377 XM
+(\050eq? 0)40 W
+7200 63344 MT
+(0\051)SH
+/Times-Roman SF
+8283 XM
+(is executed, and then)SH
+/Times-Bold SF
+16920 XM
+(proceed)SH
+/Times-Roman SF
+20558 XM
+(is used to change the result returned by)SH
+/Times-Bold SF
+36444 XM
+(eq?)SH
+/Times-Roman SF
+(, which causes the loop to complete.)SH
+ES
+%%Page: 7 7
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(7)SH
+/Courier SF
+9600 7824 MT
+(> \050let loop \050\050i 0\051\051 \050if \050eq? i 0\051 \050loop i\051 'done\051\051)SH
+9600 8855 MT
+(^C)SH
+9600 9886 MT
+(***** INTERRUPT *****)SH
+9600 10917 MT
+(\050EQ? I 0\051 in ENV-0)SH
+9600 11948 MT
+(\050IF \050EQ? I 0\051 \050LOOP I\051 'DONE\051 in ENV-1)SH
+9600 12979 MT
+(\050EVAL ...\051)SH
+9600 14010 MT
+(\050SCREP_REP ...\051)SH
+9600 15041 MT
+(\050READ-EVAL-PRINT ...\051)SH
+9600 16072 MT
+(>> \050bpt eq?\051)SH
+9600 17103 MT
+(EQ?)SH
+9600 18134 MT
+(>> ^D)SH
+9600 20196 MT
+(0 -calls  - \050EQ? 0 0\051)SH
+9600 21227 MT
+(0- ^D)SH
+9600 22258 MT
+(0 -returns- #T)SH
+9600 23289 MT
+(0- \050proceed #f\051)SH
+9600 24320 MT
+(DONE)SH
+9600 25351 MT
+(>)SH
+/Times-Roman SF
+8200 27830 MT
+(Finally, these techniques can be used to investigate the environment when an error occurs.  Note)
+180 W( that when)179 W
+7200 29207 MT
+(control-D is entered to continue, Scheme returns to the top level read-eval-print loop.)SH
+/Courier SF
+9600 30613 MT
+(> \050let \050\050i 0\051\051 \050car \050car \050car i\051\051\051\051)SH
+9600 31644 MT
+(***** CAR Argument not a PAIR: 0)SH
+9600 32675 MT
+(\050SCRT1_$_CAR-ERROR ...\051)SH
+9600 33706 MT
+(\050CAR ...\051)SH
+9600 34737 MT
+(\050CAR I\051 in ENV-0)SH
+9600 35768 MT
+(\050CAR \050CAR I\051\051 in ENV-1)SH
+9600 36799 MT
+(\050CAR \050CAR \050CAR I\051\051\051 in ENV-2)SH
+9600 37830 MT
+(\050EVAL ...\051)SH
+9600 38861 MT
+(\050SCREP_REP ...\051)SH
+9600 39892 MT
+(\050READ-EVAL-PRINT ...\051)SH
+9600 40923 MT
+(>> i)SH
+9600 41954 MT
+(0)SH
+9600 42985 MT
+(>> env-0)SH
+9600 44016 MT
+(\050\050I . 0\051\051)SH
+9600 45047 MT
+(>> ^D)SH
+9600 46078 MT
+(>)SH
+/Times-Roman SF
+8200 48557 MT
+(Exercise for the student:  implement)SH
+/Times-Bold SF
+22976 XM
+(assert)SH
+/Times-Roman SF
+(.)SH
+12 /Times-Bold AF
+7200 52241 MT
+(11.3 dir: A Utility for Listing Filenames \050Implementation-specific\051)SH
+10 /Times-Roman AF
+8200 53618 MT
+(In order to implement this in Scheme->C you'll need to implement your)
+303 W( own version of)304 W
+/Times-Bold SF
+48116 XM
+(sort!)SH
+/Times-Roman SF
+50669 XM
+(and use)304 W
+/Times-Bold SF
+7200 54995 MT
+(\050open-input-port "ls"\051)SH
+/Times-Roman SF
+16977 XM
+(to generate a list of file names.)SH
+12 /Times-Bold AF
+7200 58679 MT
+(11.4 format: A Utility for Formatted Output)SH
+10 /Times-Roman AF
+8200 60056 MT
+(Scheme->C contains a procedure)SH
+/Times-Bold SF
+21705 XM
+(format)SH
+/Times-Roman SF
+(. See)
+250 W( the documentation for details.)SH
+ES
+%%Page: 8 8
+BS
+0 SI
+10 /Times-Roman AF
+30350 4286 MT
+(8)SH
+12 /Times-Bold AF
+7200 8004 MT
+(13.2 Memory Organization)SH
+10 /Times-Roman AF
+8200 9381 MT
+(Exercise for the student:  implement)SH
+/Times-Bold SF
+22976 XM
+(append!)SH
+/Times-Roman SF
+(.)SH
+12 /Times-Bold AF
+7200 13065 MT
+(15.4 Macros [OPTIONAL])SH
+10 /Times-Roman AF
+8200 14442 MT
+(Scheme->C macros)
+115 W( implements "expansion passing" macros based upon the ideas found in)114 W
+/Times-Italic SF
+46278 XM
+(Expansion-Passing)SH
+7200 15819 MT
+(Style: Beyond Conventional Macros)SH
+/Times-Roman SF
+(, 1986 ACM Conference on Lisp and Functional Programming, 143-150.)SH
+8200 18298 MT
+(The simplest form of a macro is)
+71 W( a constant.  The arguments to the special form)72 W
+/Times-Bold SF
+41091 XM
+(define-constant)SH
+/Times-Roman SF
+47968 XM
+(are the symbol)72 W
+7200 19675 MT
+(identifying the constant and the expression to evaluate to calculate it's value.)SH
+/Courier SF
+9600 21081 MT
+(> \050define-constant radius 23\051)SH
+9600 22112 MT
+(RADIUS)SH
+9600 23143 MT
+(> \050define-constant pi 3.14159\051)SH
+9600 24174 MT
+(PI)SH
+9600 25205 MT
+(> \050define-constant circumference \050* pi radius 2\051\051)SH
+9600 26236 MT
+(CIRCUMFERENCE)SH
+9600 27267 MT
+(> \050define-constant area \050* 3.14159 \050* radius radius\051\051\051)SH
+9600 28298 MT
+(AREA)SH
+9600 29329 MT
+(> area)SH
+9600 30360 MT
+(1661.90111)SH
+9600 31391 MT
+(>)SH
+/Times-Roman SF
+8200 33870 MT
+(The second type of macro defines an in-line procedure.  The form)159 W
+/Times-Bold SF
+36683 XM
+(define-in-line)SH
+/Times-Roman SF
+42758 XM
+(associates a symbol with a)158 W
+7200 35247 MT
+(procedure definition.  All calls to the procedure are replaced by the lambda expression defining the procedure.)SH
+/Courier SF
+9600 36653 MT
+(> \050define-in-line \050plus3 x\051 \050+ x 3\051\051)SH
+9600 37684 MT
+(PLUS3)SH
+9600 38715 MT
+(> \050plus3 5\051)SH
+9600 39746 MT
+(8)SH
+9600 40777 MT
+(>)SH
+/Times-Roman SF
+8200 43256 MT
+(The most general form of macro expansion allows the user to examine a procedure)
+17 W( call and then selectively cause)18 W
+7200 44633 MT
+(further macro expansion.  The definition for)SH
+/Times-Bold SF
+25085 XM
+(plus3)SH
+/Times-Roman SF
+27614 XM
+(can also be written as:)SH
+/Courier SF
+9600 46039 MT
+(> \050define-macro plus3)SH
+17400 47070 MT
+(\050lambda \050form expander\051)SH
+22200 48101 MT
+(\050expander `\050+ ,\050cadr form\051 3\051 expander\051\051\051)SH
+9600 49132 MT
+(PLUS3)SH
+9600 50163 MT
+(> \050plus3 8\051)SH
+9600 51194 MT
+(11)SH
+9600 52225 MT
+(>)SH
+/Times-Roman SF
+8200 54704 MT
+(The macro is defined by a procedure that takes two arguments:  the form to be expanded,)
+60 W( and a procedure to do)59 W
+7200 56081 MT
+(further expansion.  It's typical action is to build an expanded form and then call)
+108 W( the further expansion procedure)109 W
+7200 57458 MT
+(with the new form and the further expansion procedure as arguments.  For examples of use of this)
+92 W( type of macro)91 W
+7200 58835 MT
+(expander, the reader is directed to the file)SH
+/Times-Bold SF
+24056 XM
+(scrt/predef.sc)SH
+/Times-Roman SF
+30054 XM
+(that defines the macros used by the compiler.)SH
+8200 61314 MT
+(N.B. Macro)
+250 W( definitions may not be placed inside procedure definitions.)SH
+ES
+%%Trailer
+%%Pages: 8
+%%DocumentFonts: Times-Roman Times-Bold Times-BoldItalic Times-Italic Courier

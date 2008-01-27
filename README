@@ -1,0 +1,211 @@
+Overview of the DEC Scheme->C Compiler.
+
+;*           Copyright 1989-1993 Digital Equipment Corporation
+;*                         All Rights Reserved
+;*
+;* Permission to use, copy, and modify this software and its documentation is
+;* hereby granted only under the following terms and conditions.  Both the
+;* above copyright notice and this permission notice must appear in all copies
+;* of the software, derivative works or modified versions, and any portions
+;* thereof, and both notices must appear in supporting documentation.
+;*
+;* Users of this software agree to the terms and conditions set forth herein,
+;* and hereby grant back to Digital a non-exclusive, unrestricted, royalty-free
+;* right and license under any changes, enhancements or extensions made to the
+;* core functions of the software, including but not limited to those affording
+;* compatibility with other hardware or software environments, but excluding
+;* applications which incorporate this software.  Users further agree to use
+;* their best efforts to return to Digital any such changes, enhancements or
+;* extensions that they make and inform Digital of noteworthy uses of this
+;* software.  Correspondence should be provided to Digital at:
+;* 
+;*                       Director of Licensing
+;*                       Western Research Laboratory
+;*                       Digital Equipment Corporation
+;*                       100 Hamilton Avenue
+;*                       Palo Alto, California  94301  
+;* 
+;* This software may be distributed (but not offered for sale or transferred
+;* for compensation) to third parties, provided such third parties agree to
+;* abide by the terms and conditions of this notice.  
+;* 
+;* THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
+;* WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
+;* MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
+;* CORPORATION BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
+;* DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
+;* PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+;* ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+;* SOFTWARE.
+
+This is the root directory for the Scheme-to-C compiler which was done at
+Digital Equipment Corporation's Western Research Laboratory.
+
+Changes from the previous release are noted in the file CHANGES found in this
+directory.
+
+The compiler distribution consists of several directories:
+
+	doc		contains documentation.
+
+	gnuemacs	contains emacs lisp code.
+
+	ports		contains implementation specific files.	
+
+	scrt		contains the runtime system.
+
+	scsc		contains the compiler.
+
+	test		contains compiler and runtime test programs.
+
+	cdecl		a C declaration compiler written in Scheme.
+
+	xlib		X11 Xlib stubs for Scheme->C.
+
+In order to install the compiler and interpreter on a system, the following
+steps must be done.  These instructions assume you're working on a
+workstation with a "unix-like" operating system such as a DECstation 5000
+running ULTRIX.
+
+
+1.  Verify that this directory contains the previously mentioned directories.
+
+2.  Create directories for the processor(s) desired:
+
+	For Alpha AXP OSF/1:
+
+		1 > make forAOSF
+
+	For Apple Macintosh system 7.1 with Think-C 5.0:
+
+		1 > make forMAC
+
+	For ULTRIX DECstations:
+
+		1 > make forDECMIPS
+
+	For SGI systems based on Rx000 MIPS processors:
+
+		1 > make forSGIMIPS
+
+	For ULTRIX VAX systems:
+
+		1 > make forVAX
+
+	For Microsoft Windows 3.1 with Microsoft C 7.0:
+	 
+		1 > make forWIN16
+
+3.  Build Scheme->C for a specific processor:
+
+	For Alpha AXP OSF/1:
+
+		2 > cd AOSF;make port
+
+	N.B.: During the compilation, uopt warnings of the form "this procedure
+	not optimized because it exceeds size threshold" may occur.  These
+	warnings may be ignored.
+
+
+	For Apple Macintosh system 7.1 with Think-C 5.0:
+
+		No further steps are done on the workstation.  Follow the
+		instructions in MAC/README to transfer files to a Macintosh
+		and complete the build.
+
+
+	For ULTRIX DECstations:
+
+		2 > cd DECMIPS;make port
+
+	N.B.: During the compilation, uopt warnings of the form "this procedure
+	not optimized because it exceeds size threshold" may occur.  These
+	warnings may be ignored.
+
+
+	For SGI systems:
+
+		2 > cd SGIMIPS;make port
+
+	N.B.: During the compilation, uopt warnings of the form "this procedure
+	not optimized because it exceeds size threshold" may occur.  These
+	warnings may be ignored.
+
+
+	For VAX systems:
+
+		2 > cd VAX;make port
+
+	N.B.:  During the compilation of scrt/scinit.c, one will get the
+	warnings:
+		"scinit.c", line 314: warning: illegal pointer combination
+		"scinit.c", line 316: warning: illegal pointer combination
+		"scinit.c", line 318: warning: illegal pointer combination
+	They may be ignored.
+
+	During the compilation of scrt/objects.c, one will get the following
+	warnings:
+		"objects.c", line 605: warning: illegal pointer combination
+		"objects.c", line 611: warning: illegal pointer combination
+		"objects.c", line 614: warning: illegal pointer combination
+		"objects.c", line 619: warning: illegal pointer combination
+		"objects.c", line 622: warning: illegal pointer combination
+	They may be ignored.
+
+	
+	For Microsoft Windows 3.1 with Microsoft C 7.0:
+
+		No further steps are done on the workstation.  Follow the
+		instructions in WIN16/README to transfer files to a PC and
+		complete the build.
+
+4.  Verify that the interpreter and compiler were correctly built:
+
+	4 >cd test
+	5 >../scrt/sci
+	SCHEME->C -- ...
+	> (load "test51.sc")
+	MODULE form ignored
+	TEST51
+	"test51.sc"
+	>  (test51 '())
+	Hello world!
+	#F
+	> ^D
+	6 >make test51
+	../scsc/sccomp -schf ../scsc/sccomp.heap -C test51.sc
+	test51.sc:
+	../scsc/sccomp -schf ../scsc/sccomp.heap -c -g test51.c
+	cc -o test51 -g test51.o ../scrt/libsc.a -lm
+	7 >test51
+	Hello world!
+
+5.  Install the libraries, compiler, and interpreter in some directory
+    such as ~/bin:
+
+	8 >cd ..
+	9 >make "DESTDIR = /udir/`whoami`/bin" install-private
+	10 >rehash
+
+    Given that this directory in the current search path, the compiler can
+    now be accessed by "scc" and the interpreter by "sci".  
+
+    N.B. Some users will see two or three sequences of error messages
+    ending with "*** Error code 1 (ignored)."  These errors may be ignored.
+
+6.  At this point, the source in cdecl and xlib can now be compiled if
+    desired:
+
+	11 > cd cdecl
+	12 > make all
+	13 > cd ../xlib
+	14 > make all
+
+    Documentation for cdecl and xlib is contained in files found in their
+    respective directories.
+
+7.  If desired, the embedded server sample program and library is
+    constructed as follows:
+
+	15 > cd ../server
+	16 > make embedded libscsrv.a

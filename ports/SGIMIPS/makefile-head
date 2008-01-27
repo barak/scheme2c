@@ -1,0 +1,31 @@
+#
+# This is the header file for constructing make files for SGIMIPS.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -O
+CC = cc
+
+# Assembly language object files.
+
+Aruntime = mips.o 
+
+# Profiled library
+
+Plib =
+
+# Installation tools
+
+RANLIB = ../ranlib
+
+# X library
+
+XLIB = -lX11
+XLIBCFLAGS = -G0
+
+# Force make to use the right shell
+
+SHELL = /bin/sh
+
+# End of SGIMIPS header.

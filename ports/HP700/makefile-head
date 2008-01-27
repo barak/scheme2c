@@ -1,0 +1,27 @@
+#
+# This is the header file for constructing make files for HP 9000 series 700.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -Aa -D_HPUX_SOURCE -O
+CC = cc
+
+# Assembly language object files.
+
+Aruntime = hp700.o
+
+# Profiled library
+
+Plib =
+
+# Installation tools
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -lX11
+XLIBCFLAGS =
+
+# End of HP700 header.

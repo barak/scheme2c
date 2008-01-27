@@ -1,0 +1,62 @@
+;;;	Hello, World example from Oliver Jones' book in Scheme->C
+
+(define (HELLO-WORLD rootx rooty)
+    (let* ((hello "Hello, World")
+	   (hi "Hi!")
+	   (dpy (let ((x (xopendisplay "")))
+		     (if (null-pointer? x)
+			 (error 'hello-world "DISPLAY is not defined"))
+		     x))
+	   (screen (xdefaultscreen dpy))
+	   (background (xwhitepixel dpy screen))
+	   (foreground (xblackpixel dpy screen))
+	   (window (xcreatesimplewindow dpy (xdefaultrootwindow dpy)
+		       rootx rooty 400 250 5 foreground background))
+	   (gc (xcreategc dpy window 0 (make-xgcvalues)))
+	   (event (make-xevent))
+	   (system-file (xconnectionnumber dpy)))
+	  
+	  (define (DISPLAY-TASK)
+		  (let loop ()
+		       (ynextevent dpy event)
+		       (cond ((eq? (xevent-type event) expose)
+			      (xdrawimagestring
+				  (xevent-xexpose-display event)
+				  (xevent-xexpose-window event) gc 50 50
+				  hello (string-length hello)))
+			     ((eq? (xevent-type event) mappingnotify)
+			      (xrefreshkeyboardmapping event))
+			     ((eq? (xevent-type event) buttonpress)
+			      (xdrawimagestring
+				  (xevent-xbutton-display event)
+				  (xevent-xbutton-window event) gc
+				  (xevent-xbutton-x event)
+				  (xevent-xbutton-y event)
+				  hi (string-length hi)))
+			     ((and (eq? (xevent-type event) keypress)
+				   (equal? (ylookupstring event) "q"))
+			      (xfreegc dpy gc)
+			      (xdestroywindow dpy window)
+			      (xflush dpy)
+			      (define-system-file-task system-file #f #f)
+			      (set! system-file #f)))
+		       (unless (zero? (xeventsqueued dpy queuedafterreading))
+			       (loop))))
+	  
+	  (xstorename dpy window
+	      "Hello, World  in Scheme->C using X11's Xlib")
+	  (xseticonname dpy window "hello")
+	  (xsetbackground dpy gc background)
+	  (xsetforeground dpy gc foreground)
+	  (xselectinput dpy window
+	      (bit-or buttonpressmask keypressmask exposuremask))
+	  (xmapraised dpy window)
+	  (define-system-file-task system-file (lambda () (xflush dpy))
+	      display-task)
+	  system-file))
+
+(define (TEST)
+    (hello-world 100 100)
+    (hello-world 400 400)
+    (hello-world 400 100)
+    (enable-system-file-tasks #t))

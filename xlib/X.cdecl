@@ -1,0 +1,700 @@
+;;; X window system definitions for Scheme->C
+;;;
+;;; derived from:
+;;;
+;;;	$XConsortium: X.h,v 1.66 88/09/06 15:55:56 jim Exp $
+;;;
+
+;;; Definitions for the X window system likely to be used by applications
+
+; Copyright 1987 by Digital Equipment Corporation, Maynard, Massachusetts,
+; and the Massachusetts Institute of Technology, Cambridge, Massachusetts.
+;
+;                         All Rights Reserved
+;
+; Permission to use, copy, modify, and distribute this software and its 
+; documentation for any purpose and without fee is hereby granted, 
+; provided that the above copyright notice appear in all copies and that
+; both that copyright notice and this permission notice appear in 
+; supporting documentation, and that the names of Digital or MIT not be
+; used in advertising or publicity pertaining to distribution of the
+; software without specific, written prior permission.  
+;
+; DIGITAL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+; ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL
+; DIGITAL BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR
+; ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+; WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+; ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+; SOFTWARE.
+ 
+(const X_PROTOCOL	11)		; current protocol version
+(const X_PROTOCOL_REVISION 0)		; current minor version
+
+;; New base types
+
+(typedef longunsigned unsignedlong)
+(typedef unsigned unsignedint)
+
+(typedef (unsigned 0) unsignedA)
+(typedef (unsignedlong 0) unsignedlongA)
+(typedef unsignedA unsignedintA)
+
+(typedef (unsignedA *) unsignedAP)
+(typedef (unsignedlongA *) unsignedlongAP)
+(typedef unsignedAP unsignedintAP)
+
+(typedef (unsigned *proc) unsignedPROC)
+(typedef (unsignedlong *proc) unsignedlongPROC)
+(typedef unsignedPROC unsignedintPROC)
+
+(typedef char unsignedchar)
+(typedef (char *) charP)
+(typedef (char 0) charA)
+(typedef (charA *) charAP)
+(typedef (charP 0) charPA)
+(typedef (charPA *) charPAP)
+
+(typedef shortint short)
+(typedef shortunsigned unsignedshort)
+
+(typedef longint long)
+(typedef (int *proc) intPROC)
+(typedef (int *) intP)
+(typedef (int 0) intA)
+(typedef (intA *) intAP)
+
+;; Resources
+
+(typedef unsignedlong XID)
+
+(typedef XID Window)
+(typedef XID Drawable)
+(typedef XID Font)
+(typedef XID Pixmap)
+(typedef XID Cursor)
+(typedef XID Colormap)
+
+(typedef unsignedA ColormapA)
+(typedef unsignedAP ColormapAP)
+
+(typedef XID GContext)
+(typedef XID KeySym)
+
+(typedef unsignedA KeySymA)
+(typedef unsignedAP KeySymAP)
+
+(typedef unsignedA WindowA)
+(typedef unsignedAP WindowAP)
+
+(typedef unsignedlong Mask)
+
+(typedef unsignedlong Atom)
+(typedef unsignedA AtomA)
+(typedef unsignedAP AtomAP)
+
+(typedef unsignedlong VisualID)
+
+(typedef unsignedlong Time)
+
+(typedef unsignedchar KeyCode)
+
+;;***************************************************************
+;; RESERVED RESOURCE AND CONSTANT DEFINITIONS
+;;****************************************************************
+
+(const None                 0)	;; universal null resource or null atom 
+
+(const ParentRelative       1)	;; background pixmap in CreateWindow
+				;;  and ChangeWindowAttributes 
+
+(const CopyFromParent       0)	;; border pixmap in CreateWindow
+				;;     and ChangeWindowAttributes
+				;; special VisualID and special window
+				;;     class passed to CreateWindow 
+
+(const PointerWindow        0)	;; destination window in SendEvent 
+(const InputFocus           1)	;; destination window in SendEvent 
+
+(const PointerRoot          1)	;; focus window in SetInputFocus 
+
+(const AnyPropertyType      0)	;; special Atom, passed to GetProperty 
+
+(const AnyKey		    0)	;; special Key Code, passed to GrabKey 
+
+(const AnyButton            0)	;; special Button Code, passed to GrabButton 
+
+(const AllTemporary         0)	;; special Resource ID passed to KillClient 
+
+(const CurrentTime          0)	;; special Time 
+
+(const NoSymbol	     	    0)	;; special KeySym 
+
+;;**************************************************************** 
+;;* EVENT DEFINITIONS 
+;;****************************************************************
+
+;; Input Event Masks. Used as event-mask window attribute and as arguments
+;; to Grab requests.  Not to be confused with event names.  
+
+(const NoEventMask			0)
+(const KeyPressMask			(expt 2 0))  
+(const KeyReleaseMask			(expt 2 1))  
+(const ButtonPressMask			(expt 2 2))  
+(const ButtonReleaseMask		(expt 2 3))  
+(const EnterWindowMask			(expt 2 4))  
+(const LeaveWindowMask			(expt 2 5))  
+(const PointerMotionMask		(expt 2 6))  
+(const PointerMotionHintMask		(expt 2 7))  
+(const Button1MotionMask		(expt 2 8))  
+(const Button2MotionMask		(expt 2 9))  
+(const Button3MotionMask		(expt 2 10)) 
+(const Button4MotionMask		(expt 2 11)) 
+(const Button5MotionMask		(expt 2 12)) 
+(const ButtonMotionMask			(expt 2 13)) 
+(const KeymapStateMask			(expt 2 14))
+(const ExposureMask			(expt 2 15))
+(const VisibilityChangeMask		(expt 2 16))
+(const StructureNotifyMask		(expt 2 17))
+(const ResizeRedirectMask		(expt 2 18))
+(const SubstructureNotifyMask		(expt 2 19))
+(const SubstructureRedirectMask		(expt 2 20))
+(const FocusChangeMask			(expt 2 21))
+(const PropertyChangeMask		(expt 2 22))
+(const ColormapChangeMask		(expt 2 23))
+(const OwnerGrabButtonMask		(expt 2 24))
+
+;; Event names.  Used in "type" field in XEvent structures.  Not to be
+;; confused with event masks above.  They start from 2 because 0 and 1
+;; are reserved in the protocol for errors and replies. 
+
+(const KeyPress			2)
+(const KeyRelease		3)
+(const ButtonPress		4)
+(const ButtonRelease		5)
+(const MotionNotify		6)
+(const EnterNotify		7)
+(const LeaveNotify		8)
+(const FocusIn			9)
+(const FocusOut			10)
+(const KeymapNotify		11)
+(const Expose			12)
+(const GraphicsExpose		13)
+(const NoExpose			14)
+(const VisibilityNotify		15)
+(const CreateNotify		16)
+(const DestroyNotify		17)
+(const UnmapNotify		18)
+(const MapNotify		19)
+(const MapRequest		20)
+(const ReparentNotify		21)
+(const ConfigureNotify		22)
+(const ConfigureRequest		23)
+(const GravityNotify		24)
+(const ResizeRequest		25)
+(const CirculateNotify		26)
+(const CirculateRequest		27)
+(const PropertyNotify		28)
+(const SelectionClear		29)
+(const SelectionRequest		30)
+(const SelectionNotify		31)
+(const ColormapNotify		32)
+(const ClientMessage		33)
+(const MappingNotify		34)
+(const LASTEvent		35)	;; must be bigger than any event # 
+
+
+;; Key masks. Used as modifiers to GrabButton and GrabKey, results of
+;; QueryPointer, state in various key-, mouse-, and button-related events. 
+
+(const ShiftMask	(expt 2 0))
+(const LockMask		(expt 2 1))
+(const ControlMask	(expt 2 2))
+(const Mod1Mask		(expt 2 3))
+(const Mod2Mask		(expt 2 4))
+(const Mod3Mask		(expt 2 5))
+(const Mod4Mask		(expt 2 6))
+(const Mod5Mask		(expt 2 7))
+
+;; modifier names.  Used to build a SetModifierMapping request or
+;; to read a GetModifierMapping request.  These correspond to the
+;; masks defined above.
+
+(const ShiftMapIndex		0)
+(const LockMapIndex		1)
+(const ControlMapIndex		2)
+(const Mod1MapIndex		3)
+(const Mod2MapIndex		4)
+(const Mod3MapIndex		5)
+(const Mod4MapIndex		6)
+(const Mod5MapIndex		7)
+
+;; button masks.  Used in same manner as Key masks above. Not to be confused
+;; with button names below. 
+
+(const Button1Mask		(expt 2 8))
+(const Button2Mask		(expt 2 9))
+(const Button3Mask		(expt 2 10))
+(const Button4Mask		(expt 2 11))
+(const Button5Mask		(expt 2 12))
+
+(const AnyModifier		(expt 2 15))  ;; used in GrabButton, GrabKey 
+
+
+;; button names. Used as arguments to GrabButton and as detail in ButtonPress
+;; and ButtonRelease events.  Not to be confused with button masks above.
+;; Note that 0 is already defined above as "AnyButton".  
+
+(const Button1			1)
+(const Button2			2)
+(const Button3			3)
+(const Button4			4)
+(const Button5			5)
+
+;; Notify modes 
+
+(const NotifyNormal		0)
+(const NotifyGrab		1)
+(const NotifyUngrab		2)
+(const NotifyWhileGrabbed	3)
+
+(const NotifyHint		1)	;; for MotionNotify events 
+		       
+;; Notify detail 
+
+(const NotifyAncestor		0)
+(const NotifyVirtual		1)
+(const NotifyInferior		2)
+(const NotifyNonlinear		3)
+(const NotifyNonlinearVirtual	4)
+(const NotifyPointer		5)
+(const NotifyPointerRoot	6)
+(const NotifyDetailNone		7)
+
+;; Visibility notify 
+
+(const VisibilityUnobscured		0)
+(const VisibilityPartiallyObscured	1)
+(const VisibilityFullyObscured		2)
+
+;; Circulation request 
+
+(const PlaceOnTop		0)
+(const PlaceOnBottom		1)
+
+;; protocol families 
+
+(const FamilyInternet		0)
+(const FamilyDECnet		1)
+(const FamilyChaos		2)
+
+;; Property notification 
+
+(const PropertyNewValue		0)
+(const PropertyDelete		1)
+
+;; Color Map notification 
+
+(const ColormapUninstalled	0)
+(const ColormapInstalled	1)
+
+;; GrabPointer, GrabButton, GrabKeyboard, GrabKey Modes 
+
+(const GrabModeSync		0)
+(const GrabModeAsync		1)
+
+;; GrabPointer, GrabKeyboard reply status 
+
+(const GrabSuccess		0)
+(const AlreadyGrabbed		1)
+(const GrabInvalidTime		2)
+(const GrabNotViewable		3)
+(const GrabFrozen		4)
+
+;; AllowEvents modes 
+
+(const AsyncPointer		0)
+(const SyncPointer		1)
+(const ReplayPointer		2)
+(const AsyncKeyboard		3)
+(const SyncKeyboard		4)
+(const ReplayKeyboard		5)
+(const AsyncBoth		6)
+(const SyncBoth			7)
+
+;; Used in SetInputFocus, GetInputFocus 
+
+(const RevertToNone		None)
+(const RevertToPointerRoot	PointerRoot)
+(const RevertToParent		2)
+
+;;****************************************************************
+;;* ERROR CODES 
+;;****************************************************************
+
+(const Success		   0)	;; everything's okay 
+(const BadRequest	   1)	;; bad request code 
+(const BadValue	   	   2)	;; int parameter out of range 
+(const BadWindow	   3)	;; parameter not a Window 
+(const BadPixmap	   4)	;; parameter not a Pixmap 
+(const BadAtom		   5)	;; parameter not an Atom 
+(const BadCursor	   6)	;; parameter not a Cursor 
+(const BadFont		   7)	;; parameter not a Font 
+(const BadMatch	   	   8)	;; parameter mismatch 
+(const BadDrawable	   9)	;; parameter not a Pixmap or Window 
+(const BadAccess	  10)	;; depending on context:
+				;; - key/button already grabbed
+				;; - attempt to free an illegal 
+				;;   cmap entry 
+				;; - attempt to store into a read-only 
+				;;   color map entry.
+ 				;; - attempt to modify the access control
+				;;   list from other than the local host.
+				
+(const BadAlloc	  	  11)	;; insufficient resources 
+(const BadColor	  	  12)	;; no such colormap 
+(const BadGC		  13)	;; parameter not a GC 
+(const BadIDChoice	  14)	;; choice not in range or already used 
+(const BadName		  15)	;; font or color name doesn't exist 
+(const BadLength	  16)	;; Request length incorrect 
+(const BadImplementation  17)	;; server is defective 
+
+(const FirstExtensionError	128)
+(const LastExtensionError	255)
+
+;;****************************************************************
+;;* WINDOW DEFINITIONS 
+;;****************************************************************
+
+;; Window classes used by CreateWindow 
+;; Note that CopyFromParent is already defined as 0 above 
+
+(const InputOutput		1)
+(const InputOnly		2)
+
+;; Window attributes for CreateWindow and ChangeWindowAttributes 
+
+(const CWBackPixmap		(expt 2 0))
+(const CWBackPixel		(expt 2 1))
+(const CWBorderPixmap		(expt 2 2))
+(const CWBorderPixel            (expt 2 3))
+(const CWBitGravity		(expt 2 4))
+(const CWWinGravity		(expt 2 5))
+(const CWBackingStore           (expt 2 6))
+(const CWBackingPlanes	        (expt 2 7))
+(const CWBackingPixel	        (expt 2 8))
+(const CWOverrideRedirect	(expt 2 9))
+(const CWSaveUnder		(expt 2 10))
+(const CWEventMask		(expt 2 11))
+(const CWDontPropagate	        (expt 2 12))
+(const CWColormap		(expt 2 13))
+(const CWCursor	        	(expt 2 14))
+
+;; ConfigureWindow structure 
+
+(const CWX			(expt 2 0))
+(const CWY			(expt 2 1))
+(const CWWidth			(expt 2 2))
+(const CWHeight			(expt 2 3))
+(const CWBorderWidth		(expt 2 4))
+(const CWSibling		(expt 2 5))
+(const CWStackMode		(expt 2 6))
+
+
+;; Bit Gravity 
+
+(const ForgetGravity		0)
+(const NorthWestGravity		1)
+(const NorthGravity		2)
+(const NorthEastGravity		3)
+(const WestGravity		4)
+(const CenterGravity		5)
+(const EastGravity		6)
+(const SouthWestGravity		7)
+(const SouthGravity		8)
+(const SouthEastGravity		9)
+(const StaticGravity		10)
+
+;; Window gravity + bit gravity above 
+
+(const UnmapGravity		0)
+
+;; Used in CreateWindow for backing-store hint 
+
+(const NotUseful               0)
+(const WhenMapped              1)
+(const Always                  2)
+
+;; Used in GetWindowAttributes reply 
+
+(const IsUnmapped		0)
+(const IsUnviewable		1)
+(const IsViewable		2)
+
+;; Used in ChangeSaveSet 
+
+(const SetModeInsert           0)
+(const SetModeDelete           1)
+
+;; Used in ChangeCloseDownMode 
+
+(const DestroyAll              0)
+(const RetainPermanent         1)
+(const RetainTemporary         2)
+
+;; Window stacking method (in configureWindow) 
+
+(const Above                   0)
+(const Below                   1)
+(const TopIf                   2)
+(const BottomIf                3)
+(const Opposite                4)
+
+;; Circulation direction 
+
+(const RaiseLowest             0)
+(const LowerHighest            1)
+
+;; Property modes 
+
+(const PropModeReplace         0)
+(const PropModePrepend         1)
+(const PropModeAppend          2)
+
+;;****************************************************************
+;;* GRAPHICS DEFINITIONS
+;;****************************************************************
+
+;; graphics functions, as in GC.alu 
+
+(const	GXclear			#x0)		;; 0 
+(const GXand			#x1)		;; src AND dst 
+(const GXandReverse		#x2)		;; src AND NOT dst 
+(const GXcopy			#x3)		;; src 
+(const GXandInverted		#x4)		;; NOT src AND dst 
+(const	GXnoop			#x5)		;; dst 
+(const GXxor			#x6)		;; src XOR dst 
+(const GXor			#x7)		;; src OR dst 
+(const GXnor			#x8)		;; NOT src AND NOT dst 
+(const GXequiv			#x9)		;; NOT src XOR dst 
+(const GXinvert			#xa)		;; NOT dst 
+(const GXorReverse		#xb)		;; src OR NOT dst 
+(const GXcopyInverted		#xc)		;; NOT src 
+(const GXorInverted		#xd)		;; NOT src OR dst 
+(const GXnand			#xe)		;; NOT src OR NOT dst 
+(const GXset			#xf)		;; 1 
+
+;; LineStyle 
+
+(const LineSolid		0)
+(const LineOnOffDash		1)
+(const LineDoubleDash		2)
+
+;; capStyle 
+
+(const CapNotLast		0)
+(const CapButt			1)
+(const CapRound			2)
+(const CapProjecting		3)
+
+;; joinStyle 
+
+(const JoinMiter		0)
+(const JoinRound		1)
+(const JoinBevel		2)
+
+;; fillStyle 
+
+(const FillSolid		0)
+(const FillTiled		1)
+(const FillStippled		2)
+(const FillOpaqueStippled	3)
+
+;; fillRule 
+
+(const EvenOddRule		0)
+(const WindingRule		1)
+
+;; subwindow mode 
+
+(const ClipByChildren		0)
+(const IncludeInferiors		1)
+
+;; SetClipRectangles ordering 
+
+(const Unsorted			0)
+(const YSorted			1)
+(const YXSorted			2)
+(const YXBanded			3)
+
+;; CoordinateMode for drawing routines 
+
+(const CoordModeOrigin		0)	;; relative to the origin 
+(const CoordModePrevious       	1)	;; relative to previous point 
+
+;; Polygon shapes 
+
+(const Complex			0)	;; paths may intersect 
+(const Nonconvex		1)	;; no paths intersect, but not convex 
+(const Convex			2)	;; wholly convex 
+
+;; Arc modes for PolyFillArc 
+
+(const ArcChord			0)	;; join endpoints of arc 
+(const ArcPieSlice		1)	;; join endpoints to center of arc 
+
+;; GC components: masks used in CreateGC, CopyGC, ChangeGC, OR'ed into
+;; GC.stateChanges 
+
+(const GCFunction              	(expt 2 0))
+(const GCPlaneMask             	(expt 2 1))
+(const GCForeground            	(expt 2 2))
+(const GCBackground            	(expt 2 3))
+(const GCLineWidth             	(expt 2 4))
+(const GCLineStyle             	(expt 2 5))
+(const GCCapStyle              	(expt 2 6))
+(const GCJoinStyle		(expt 2 7))
+(const GCFillStyle		(expt 2 8))
+(const GCFillRule		(expt 2 9)) 
+(const GCTile			(expt 2 10))
+(const GCStipple		(expt 2 11))
+(const GCTileStipXOrigin	(expt 2 12))
+(const GCTileStipYOrigin	(expt 2 13))
+(const GCFont 			(expt 2 14))
+(const GCSubwindowMode		(expt 2 15))
+(const GCGraphicsExposures     	(expt 2 16))
+(const GCClipXOrigin		(expt 2 17))
+(const GCClipYOrigin		(expt 2 18))
+(const GCClipMask		(expt 2 19))
+(const GCDashOffset		(expt 2 20))
+(const GCDashList		(expt 2 21))
+(const GCArcMode		(expt 2 22))
+
+(const GCLastBit		22)
+;;****************************************************************
+;;* FONTS 
+;;****************************************************************
+
+;; used in QueryFont -- draw direction 
+
+(const FontLeftToRight		0)
+(const FontRightToLeft		1)
+
+(const FontChange		255)
+
+;;****************************************************************
+;;*  IMAGING 
+;;****************************************************************
+
+;; ImageFormat -- PutImage, GetImage 
+
+(const XYBitmap			0)	;; depth 1, XYFormat 
+(const XYPixmap			1)	;; depth == drawable depth 
+(const ZPixmap			2)	;; depth == drawable depth 
+
+;;****************************************************************
+;;*  COLOR MAP STUFF 
+;;****************************************************************
+
+;; For CreateColormap 
+
+(const AllocNone		0)	;; create map with no entries 
+(const AllocAll			1)	;; allocate entire map writeable 
+
+
+;; Flags used in StoreNamedColor, StoreColors 
+
+(const DoRed			(expt 2 0))
+(const DoGreen			(expt 2 1))
+(const DoBlue			(expt 2 2))
+
+;;****************************************************************
+;;* CURSOR STUFF
+;;****************************************************************
+
+;; QueryBestSize Class 
+
+(const CursorShape		0)	;; largest size that can be displayed 
+(const TileShape		1)	;; size tiled fastest 
+(const StippleShape		2)	;; size stippled fastest 
+
+;;**************************************************************** 
+;;* KEYBOARD/POINTER STUFF
+;;****************************************************************
+
+(const AutoRepeatModeOff	0)
+(const AutoRepeatModeOn		1)
+(const AutoRepeatModeDefault	2)
+
+(const LedModeOff		0)
+(const LedModeOn		1)
+
+;; masks for ChangeKeyboardControl 
+
+(const KBKeyClickPercent	(expt 2 0))
+(const KBBellPercent		(expt 2 1))
+(const KBBellPitch		(expt 2 2))
+(const KBBellDuration		(expt 2 3))
+(const KBLed			(expt 2 4))
+(const KBLedMode		(expt 2 5))
+(const KBKey			(expt 2 6))
+(const KBAutoRepeatMode		(expt 2 7))
+
+(const MappingSuccess     	0)
+(const MappingBusy        	1)
+(const MappingFailed		2)
+
+(const MappingModifier		0)
+(const MappingKeyboard		1)
+(const MappingPointer		2)
+
+;;****************************************************************
+;;* SCREEN SAVER STUFF 
+;;****************************************************************
+
+(const DontPreferBlanking	0)
+(const PreferBlanking		1)
+(const DefaultBlanking		2)
+
+(const DisableScreenSaver	0)
+(const DisableScreenInterval	0)
+
+(const DontAllowExposures	0)
+(const AllowExposures		1)
+(const DefaultExposures		2)
+
+;; for ForceScreenSaver 
+
+(const ScreenSaverReset 	0)
+(const ScreenSaverActive 	1)
+
+;;****************************************************************
+;;* HOSTS AND CONNECTIONS
+;;****************************************************************
+
+;; for ChangeHosts 
+
+(const HostInsert		0)
+(const HostDelete		1)
+
+;; for ChangeAccessControl 
+
+(const EnableAccess		1)      
+(const DisableAccess		0)
+
+;; Display classes  used in opening the connection 
+;; * Note that the statically allocated ones are even numbered and the
+;; * dynamically changeable ones are odd numbered 
+
+(const StaticGray		0)
+(const GrayScale		1)
+(const StaticColor		2)
+(const PseudoColor		3)
+(const TrueColor		4)
+(const DirectColor		5)
+
+
+;; Byte order  used in imageByteOrder and bitmapBitOrder 
+
+(const LSBFirst		0)
+(const MSBFirst		1)

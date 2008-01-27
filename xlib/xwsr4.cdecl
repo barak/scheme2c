@@ -1,0 +1,201 @@
+;;; X11 R4 extensions to xlib.  Section numbers refer to the 2nd edition
+;;; of "X Window System", by Scheifler and Gettys.
+
+;;; 2.2.1  Display Macros
+
+(extern intAP "XListDepths" (DisplayP dpy) (int screen) (out int count))
+
+;;; 2.2.2  Image Format Functions and Macros
+
+(extern XPixmapFormatValuesAP "XListPixmapFormats"
+	(DisplayP dpy)
+	(out int count))
+
+;;; 2.2.3  Screen Information Macros
+
+(extern int "XScreenNumberOfScreen" (Screenp screen))
+
+;;; 5.3  Manipulating Graphics Context/State
+
+(extern Status "XGetGCValues"
+	(DisplayP dpy)
+	(GC gc)
+	(unsignedlong value_mask)
+	(out XGCValues values))
+
+;;; 9.1.1  Manipulating Top-level Windows
+
+(extern Status "XIconifyWindow" (DisplayP dpy) (Window w) (int screen))
+
+(extern Status "XWithdrawWindow" (DisplayP dpy) (Window w) (int screen))
+
+(extern Status "XReconfigureWMWindow"
+	(DisplayP dpy)
+	(Window w)
+	(int screen)
+	(unsigned value_mask)
+	(XWindowChangesP values))
+
+;;; 9.1.2  Converting String Lists
+
+(extern Status "XStringListToTextProperty"
+	(charPAP list)
+	(int count)
+	(out XTextProperty text_prop))
+
+(extern Status "XTextPropertyToStringList"
+	(XTextPropertyP text_prop)
+	(out charPAP list)
+	(out int count))
+
+(extern void "XFreeStringList" (charPAP list))
+
+;;; 9.1.3  Setting and Reading Text Properties
+
+(extern void "XSetTextProperty"
+	(DisplayP dpy)
+	(Window w)
+	(XTextPropertyP text_prop)
+	(Atom property))
+
+(extern Status "XGetTextProperty"
+	(DisplayP dpy)
+	(Window w)
+	(out XTextProperty text_prop)
+	(Atom property))
+
+;;; 9.1.4  Setting and Reading the WM_NAME Property
+
+(extern void "XSetWMName" (DisplayP dpy) (Window w) (XTextPropertyP text_prop))
+
+(extern Status "XGetWMName"
+	(DisplayP dpy)
+	(Window w)
+	(out XTextProperty text_prop))
+
+;;; 9.1.5  Setting and Reading the WM_ICON_NAME Property
+
+(extern void "XSetWMIconName"
+	(DisplayP dpy)
+	(Window w)
+	(XTextPropertyP text_prop))
+
+(extern Status "XGetWMIconName"
+	(DisplayP dpy)
+	(Window w)
+	(out XTextProperty text_prop))
+
+;;; 9.1.7  Setting and Reading the WM_NORMAL_HINTS Property
+
+(extern void "XSetWMNormalHints" (DisplayP dpy) (Window w) (XSizeHintsP hints))
+
+(extern Status "XGetWMNormalHints"
+	(DisplayP dpy)
+	(Window w)
+	(out XSizeHints hints)
+	(out longint supplied))
+
+(extern void "XSetWMSizeHints"
+	(DisplayP dpy)
+	(Window w)
+	(XSizeHintsP hints)
+	(Atom property))
+
+(extern Status "XGetWMSizeHints"
+	(DisplayP dpy)
+	(Window w)
+	(out XSizeHints hints)
+	(out longint supplied)
+	(Atom property))
+
+;;; 9.1.10  Setting and Reading the WM_PROTOCOLS Property
+
+(extern Status "XSetWMProtocols"
+	(DisplayP dpy)
+	(Window w)
+	(AtomAP protocols)
+	(int count))
+
+(extern Status "XGetWMProtocols"
+	(DisplayP dpy)
+	(Window w)
+	(out AtomAP protocols)
+	(out int count))
+
+;;; 9.1.11  Setting and Reading the WM_COLORMAP_WINDOWS Property
+
+(extern Status "XSetWMColormapWindows"
+	(DisplayP dpy)
+	(Window w)
+	(WindowAP windows)
+	(int count))
+
+(extern Status "XGetWMColormapWindows"
+	(DisplayP display)
+	(Window w)
+	(out WindowAP windows)
+	(out int count))
+
+;;; 9.1.13  Using Window Manager Convenience Functions
+
+(extern void "XSetWMProperties"
+	(DisplayP display)
+	(Window w)
+	(XTextPropertyP window_name)
+	(XTextPropertyP icon_name)
+	(charPAP argv)
+	(int argc)
+	(XSizeHintsP normal_hints)
+	(XWMHintsP wm_hints)
+	(XClassHintP class_hints))
+
+(extern int "XWMGeometry"
+	(DisplayP dpy)
+	(int screen)
+	(string user_geom)
+	(string def_geom)
+	(unsignedint bwidth)
+	(XSizeHintsP hints)
+	(out int x)
+	(out int y)
+	(out int width)
+	(out int height)
+	(out int gravity))
+
+;;; 9.2.1  Setting and Reading the WM_COMMAND Property
+
+(extern Status "XGetCommand"
+	(DisplayP dpy)
+	(Window w)
+	(out charPAP argv)
+	(out int argc))
+
+;;; 9.2.2  Setting and Reading the WM_CLIENT_MACHINE Property
+
+(extern void "XSetWMClientMachine"
+	(DisplayP dpy)
+	(Window w)
+	(XTextPropertyP text_prop))
+
+(extern Status "XGetWMClientMachine"
+	(DisplayP dpy)
+	(Window w)
+	(out XTextProperty text_prop))
+
+;;; 9.3.2  Setting and Obtaining Standard Colormaps
+
+(extern void "XSetRGBColormaps"
+	(DisplayP dpy)
+	(Window w)
+	(XStandardColormapP std_colormap)
+	(int count)
+	(Atom property))
+
+(extern Status "XGetRGBColormaps"
+	(DisplayP dpy)
+	(Window w)
+	(out XStandardColormapP std_colormap)
+	(out int count)
+	(Atom property))
+
+

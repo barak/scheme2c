@@ -1,0 +1,414 @@
+;;; 10.1  Keyboard Event Functions
+
+(extern KeySym "XLookupKeysym"
+	(XEventP event)
+	(int col))
+
+(extern void "XRefreshKeyboardMapping"
+	(XEventP event))
+
+(extern int "XLookupString"
+	(XEventP event)
+	(charAP buffer)
+	(int bytes_buffer)
+	(out KeySym keysym_return)
+	(XComposeStatusP status))
+
+(extern void "XRebindKeysym"
+	(DisplayP dpy)
+	(KeySym keysym)
+	(KeySymAP mlist)
+	(int nm)
+	(string str)
+	(int nbytes))
+
+(extern KeySym "XStringToKeysym"
+	(string s))
+
+(extern string "XKeysymToString"
+	(KeySym ks))
+
+(extern KeySym "XKeycodeToKeysym"
+	(DisplayP dpy)
+	(KeyCode kc)
+	(int col))
+
+(extern KeyCode "XKeysymToKeycode"
+	(DisplayP dpy)
+	(KeySym ks))
+
+;;; 10.2  Obtaining the X Environment Defaults
+
+(extern string "XGetDefault"
+	(DisplayP dpy)
+	(string prog)
+	(string name))
+
+(extern string "XResourceManagerString"
+	(DisplayP dpy))
+
+;;; 10.3  Parsing the Window Geometry
+
+(extern int "XParseGeometry"
+	(string string)
+	(out int x)
+	(out int y)
+	(out unsignedint width)
+	(out unsignedint height))
+
+(extern int "XGeometry"
+	(DisplayP dpy)
+	(int screen)
+	(string pos)
+	(string def)
+	(unsignedint bwidth)
+	(unsignedint fwidth)
+	(unsignedint fheight)
+	(int xadd)
+	(int yadd)
+	(out int x) (out int y) (out int width) (out int height))
+
+;;; 10.4  Parsing the Color Specifications
+
+(extern Status "XParseColor"
+	(DisplayP dpy)
+	(Colormap cmap)
+	(string spec)
+	(out XColor def))
+
+;;; 10.5  Generating Regions
+
+(extern Region "XPolygonRegion"
+	(XPointAP Pts)
+	(int Count)
+	(int rule))
+
+(extern void "XClipBox"
+	(Region r)
+	(out XRectangle rect))
+
+;;; 10.6.1  Creating, Copying, or Destroying Regions
+
+(extern Region "XCreateRegion")
+
+(extern void "XSetRegion"
+	(DisplayP dpy)
+	(GC gc)
+	(Region r))
+
+(extern void "XDestroyRegion"
+	(Region r))
+
+;;; 10.6.2  Moving or Shrinking Regions
+
+(extern void "XOffsetRegion"
+	(Region pRegion)
+	(int x)
+	(int y))
+
+(extern void "XShrinkRegion"
+	(Region r)
+	(int dx)
+	(int dy))
+
+;;; 10.6.3  Computing with Regions
+
+(extern void "XIntersectRegion"
+	(Region reg1)
+	(Region reg2)
+	(out Region newReg))
+
+(extern void "XUnionRegion"
+	(Region reg1)
+	(Region reg2)
+	(out Region newReg))
+
+(extern void "XUnionRectWithRegion"
+	(XRectangleP rect)
+	(Region source)
+	(out Region dest))
+
+(extern void "XSubtractRegion"
+	(Region regM)
+	(Region regS)
+	(out Region regD))
+
+(extern void "XXorRegion"
+	(Region sra)
+	(Region srb)
+	(out Region dr))
+
+;;; 10.6.4  Determining if Regions are Empty or Equal
+
+(extern int "XEmptyRegion"
+	(Region r))
+
+(extern int "XEqualRegion"
+	(Region r1)
+	(Region r2))
+
+;;; 10.6.5  Locating a Point or a Rectangle in a Region
+
+(extern int "XPointInRegion"
+	(Region pRegion)
+	(int x)
+	(int y))
+
+(extern int "XRectInRegion"
+	(Region region)
+	(int rx)
+	(int ry)
+	(unsignedint rwidth)
+	(unsignedint rheight))
+
+;;; 10.7  Using the Cut and Paste Buffers
+
+(extern void "XStoreBytes"
+	(DisplayP dpy)
+	(charAP bytes)
+	(int nbytes))
+
+(extern void "XStoreBuffer"
+	(DisplayP dpy)
+	(charAP bytes)
+	(int nbytes)
+	(int buffer))
+
+(extern charAP "XFetchBytes"
+	(DisplayP dpy)
+	(out int nbytes))
+
+(extern charAP "XFetchBuffer"
+	(DisplayP dpy)
+	(out int nbytes)
+	(int buffer))
+
+(extern void "XRotateBuffers"
+	(DisplayP dpy)
+	(int rotate))
+
+;;; 10.8  Determining the Appropriate Visual Type
+
+(extern XVisualInfoP "XGetVisualInfo"
+	(DisplayP dpy)
+	(long visual_info_mask)
+	(XVisualInfoP visual_info_template)
+	(out int nitems))
+
+(extern Status "XMatchVisualInfo"
+	(DisplayP dpy)
+	(int screen)
+	(int depth)
+	(int class)
+	(out XVisualInfo visual_info))
+
+;;; 10.9  Manipulating Images
+
+(extern XImageP "XCreateImage"
+	(DisplayP dpy)
+	(VisualP visual)
+	(unsignedint depth)
+	(int format)
+	(int offset)
+	(charP data)
+	(unsignedint width)
+	(unsignedint height)
+	(int xpad)
+	(int image_bytes_per_line))
+
+(extern long "XGetPixel"
+	(XImageP ximage)
+	(int x)
+	(int y))
+
+(extern int "XPutPixel"
+	(XImageP ximage)
+	(int x)
+	(int y)
+	(unsignedlong pixel))
+
+(extern XImageP "XSubImage"
+	(XImageP ximage)
+	(int x)
+	(int y)
+	(unsignedint width)
+	(unsignedint height))
+
+(extern void "XAddPixel"
+	(XImageP ximage)
+	(unsignedlong value))
+
+(extern int "XDestroyImage"
+	(XImageP ximage))
+
+;;; 10.10  Manipulating Bitmaps
+
+(extern int "XReadBitmapFile"
+	(DisplayP display)
+	(Drawable d)
+	(string filename)
+	(out unsignedint width)	(out unsignedint height)
+	(out Pixmap pixmap) (out int x_hot) (out int y_hot))
+
+(extern int "XWriteBitmapFile"
+	(DisplayP display)
+	(string filename)
+	(Pixmap bitmap)
+	(unsignedint width)
+	(unsignedint height)
+	(int x_hot)
+	(int y_hot))
+
+(extern Pixmap "XCreatePixmapFromBitmapData"
+	(DisplayP display)
+	(Drawable d)
+	(charP data)
+	(unsignedint width)
+	(unsignedint height)
+	(unsignedlong fg)
+	(unsignedlong bg)
+	(unsignedint depth))
+
+(extern Pixmap "XCreateBitmapFromData"
+	(DisplayP display)
+	(Drawable d)
+	(charP data)
+	(unsignedint width)
+	(unsignedint height))
+
+;;; 10.11.2  Basic Resource Manager Definitions
+
+(extern void "XrmInitialize")
+
+(extern XrmQuark "XrmUniqueQuark")
+
+(extern charP "Xpermalloc"
+	(unsignedint length))
+
+(extern XrmQuark "XrmStringToQuark"
+	(XrmString name))
+
+(extern XrmString "XrmQuarkToString"
+	(XrmQuark quark))
+
+(extern void "XrmStringToQuarkList"
+	(string name)
+	(out XrmQuarkList quarks))
+
+(extern void "XrmStringToBindingQuarkList"
+	(string name)
+	(out XrmBindingList bindings)
+	(out XrmQuarkList quarks))
+
+;;; 10.11.3.1  Storing into a Resource Database
+
+(extern void "XrmPutResource"
+	(XrmDatabaseP pdb)
+	(string specifier)
+	(string type)
+	(XrmValuePtr value))
+
+(extern void "XrmQPutResource"
+	(XrmDatabaseP pdb)
+	(XrmBindingList bindings)
+	(XrmQuarkList quarks)
+	(XrmRepresentation type)
+	(XrmValuePtr value))
+
+(extern void "XrmPutStringResource"
+	(XrmDatabaseP pdb)
+	(string specifier)
+	(string str))
+
+(extern void "XrmQPutStringResource"
+	(XrmDatabaseP pdb)
+	(XrmBindingList bindings)
+	(XrmQuarkList quarks)
+	(string str))
+
+(extern void "XrmPutLineResource"
+	(XrmDatabaseP pdb)
+	(string line))
+
+;;; 10.11.3.2  Looking Up from a Resource Database
+
+(extern Bool "XrmGetResource"
+	(XrmDataBase db)
+	(string name_str)
+	(string class_str)
+	(out string pType_str)
+	(out XrmValue pValue))
+
+(extern Bool "XrmQGetResource"
+	(XrmHashBucket db)
+	(XrmNameList names)
+	(XrmClassList classes)
+	(out XrmRepresentation pType)
+	(out XrmValuePtr pValue))
+
+;;; 10.11.3.3  Database Search Lists
+
+(extern Bool "XrmQGetSearchList"
+	(XrmHashBucket db)
+	(XrmNameList names)
+	(XrmClassList classes)
+;	(XrmSearchList searchList)
+	(int searchlist)
+	(int listLength))
+
+(extern Bool "XrmQGetSearchResource"
+	(int searchlist)
+;	(XrmSearchList searchList)
+	(XrmName name)
+	(XrmClass class)
+	(out XrmRepresentation pType)
+	(out XrmValue pVal))
+
+;;; 10.11.3.4  Merging Resource Databases
+
+(extern void "XrmMergeDatabases"
+	(XrmDatabase new)
+	(XrmDatabaseP into))
+
+;;; 10.11.3.5  Retrieving and Storing Database
+
+(extern XrmDatabase "XrmGetFileDatabase"
+	(string fileName))
+
+(extern void "XrmPutFileDatabase"
+	(XrmDatabase db)
+	(string fileName))
+
+(extern XrmDatabase "XrmGetStringDatabase"
+	(string data))
+
+;;; 10.11.4  Parsing Command Line Options
+
+(extern void "XrmParseCommand"
+	(XrmDatabaseP pdb)
+	(XrmOptionDescList options)
+	(int num_options)
+	(string prefix)
+	(intP argc)
+	(charPAP argv))
+
+;;; 10.12  Using the Context Manager
+
+(extern int "XSaveContext"
+	(DisplayP display)
+	(Window window)
+	(XContext context)
+	(caddr_t data))
+
+(extern int "XFindContext"
+	(DisplayP display)
+	(Window window)
+	(XContext context)
+	(out caddr_t data))
+
+(extern int "XDeleteContext"
+	(DisplayP display)
+	(Window window)
+	(XContext context))
+
+;;; Unique Context documented in Xlib but non-existent in R3 source...

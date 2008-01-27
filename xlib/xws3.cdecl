@@ -1,0 +1,129 @@
+;;; Window Functions
+
+;;; 3.1  Visual Types
+
+(extern VisualID "XVisualIDFromVisual" (VisualP visual))
+
+;;; 3.3  Creating Windows
+
+(extern Window "XCreateWindow"
+	(DisplayP dpy)
+	(Window parent)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height)
+	(unsignedint borderWidth)
+	(int depth)
+	(unsignedint class)
+	(VisualP visual)
+	(unsignedlong valuemask)
+	(XSetWindowAttributesP attributes))
+
+(extern Window "XCreateSimpleWindow"
+	(DisplayP dpy)
+	(Window parent)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height)
+	(unsignedint borderWidth)
+	(unsignedlong border)
+	(unsignedlong background))
+
+;;; 3.4  Destroying Windows
+
+(extern void "XDestroyWindow" (DisplayP dpy) (Window w))
+
+(extern void "XDestroySubwindows" (DisplayP dpy) (Window win))
+
+;;; 3.5  Mapping Windows
+
+(extern void "XMapWindow" (DisplayP dpy) (Window w))
+
+(extern void "XMapRaised" (DisplayP dpy) (Window w))
+
+(extern void "XMapSubwindows" (DisplayP dpy) (Window win))
+
+;;; 3.6  Unmapping Windows
+
+(extern void "XUnmapWindow" (DisplayP dpy) (Window w))
+
+(extern void "XUnmapSubwindows" (DisplayP dpy) (Window win))
+
+;;; 3.7  Configuring Windows
+
+(extern void "XConfigureWindow"
+	(DisplayP dpy)
+	(Window w)
+	(unsignedint mask)
+	(XWindowChangesP changes))
+
+(extern void "XMoveWindow" (DisplayP dpy) (Window w) (int x) (int y))
+
+(extern void "XResizeWindow"
+	(DisplayP dpy)
+	(Window w)
+	(unsignedint width)
+	(unsignedint height))
+
+(extern void "XMoveResizeWindow"
+	(DisplayP dpy)
+	(Window w) (int x) (int y)
+	(unsignedint width) (unsignedint height))
+
+(extern void "XSetWindowBorderWidth"
+	(DisplayP dpy)
+	(Window w)
+	(unsignedint width))
+
+;;; 3.8  Changing Window Stacking Order
+
+(extern void "XRaiseWindow" (DisplayP dpy) (Window w))
+
+(extern void "XLowerWindow" (DisplayP dpy) (Window w))
+
+(extern void "XCirculateSubwindows"
+	(DisplayP dpy)
+	(Window w)
+	(int direction))
+
+(extern void "XCirculateSubwindowsUp" (DisplayP dpy) (Window w))
+
+(extern void "XCirculateSubwindowsDown" (DisplayP dpy) (Window w))
+
+(extern void "XRestackWindows"
+	(DisplayP dpy) 
+	(unsignedAP windows)
+	(unsigned count))
+
+;;; 3.9  Changing Window Attributes
+
+(extern void "XChangeWindowAttributes"
+	(DisplayP dpy)
+	(Window w)
+	(unsignedlong valuemask)
+	(XSetWindowAttributesP attributes))
+
+(extern void "XSetWindowBackground"
+	(DisplayP dpy)
+	(Window w)
+	(unsignedlong pixel))
+
+(extern void "XSetWindowBackgroundPixmap"
+	(DisplayP dpy)
+	(Window w)
+	(Pixmap pixmap))
+
+(extern void "XSetWindowBorder"
+	(DisplayP dpy)
+	(Window w)
+	(unsignedlong pixel))
+
+(extern void "XSetWindowBorderPixmap"
+	(DisplayP dpy)
+	(Window w)
+	(Pixmap pixmap))
+
+(extern int "XTranslateCoordinates"
+	(DisplayP dpy)
+	(Window src_win) (Window dest_win)
+	(int src_x) (int src_y)
+	(out int dst_x) (out int dst_y)
+	(out Window child))

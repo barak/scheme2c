@@ -1,0 +1,177 @@
+Scheme->C for the Apple Macintosh on system 7.1
+
+Scheme->C can be built for the Macintosh using Think C 5.0 as either a
+component to be embedded in an application, or as an interactive Scheme
+interpreter.
+
+The MAC directory contains two directories, scrt, containing the Scheme
+interpreter and runtime system and test, containing test programs.
+
+The first step is to get the sources to the Macintosh.  If you're using
+xmodem, this can be done as follows.  First, on the workstation, pack all
+relevant files into one file:
+
+	csh 1 > cd MAC/scrt
+	csh 2 > pack
+
+The result of this is the file sourcefiles.
+
+Next, transfer MAC/scrt/sourcefiles amd MAC/scrt/unpack.c to the Macintosh
+desktop using xmodem and your favorite terminal emulator or some other file
+transfer tool.
+
+On the Macintosh inside Think C's development folder, create a folder called
+Scheme->C.  Move sourcefiles and unpack.c from the desktop to this folder,
+and start Think C.
+
+To unpack the source files, take the following steps.
+
+1.  Create a new project called unpack.pi in the Scheme->C folder.  Add
+    unpack.c and the ANSI library to it and then bring the project up to
+    date.  A compile error may occur if xmodem added extraneous characters
+    to the end of the file.  Edit and rebuild as required.
+
+2.  Run the program and select sourcefiles as the input file for the program.
+    As it executes, it lists the name of each file as it unpacks it.  The
+    message "Junk on end-of-file, Quit!" may be ignored as long as the
+    previous line is "test20-input.sc".
+
+3.  When the program completes, you may delete the file sourcefiles as it
+    is no longer needed.  
+
+The sci project, which builds an interactive Scheme interpreter, is now
+set up as follows:
+
+1.  Using the finder, create a new folder called Scheme->C inside the
+    the Think C 5.0 folder.  Place of a copy of objects.h into this
+    folder.
+
+2.  Returning to Think C, close the existing project and create a new
+    project called sci.pi in the Scheme->C folder.
+
+3.  Set the following options on the project via the Edit menu:
+
+	Code Optimization
+
+		disable Defer & combine stack adjusts
+		enable  Use Global Optimizer
+
+	Debugging
+
+		enable  Use Source Debugger
+		enable  Always generate stack frames
+
+4.  Set the following options on the project via the Project menu:
+
+	Partition (K) 1500
+	enable	Far DATA
+
+5.  Add all .c files to it except: cio.c, embedded.c, sci.c and unpack.c.
+    Put each file in a different code segment as there is significantly
+    more than 32KB of code.
+
+6.  Add the ANSI and unix libraries.
+
+7.  Bring the project up to date and then run it.
+
+8.  Press GO on the debug menu and you should see a window titled "Scheme->C"
+    with the following text at the buttom:
+
+	Scheme->C -- 01feb93jfb -- Copyright ....
+	> 
+
+9.  To run the tests, perform the following operations:
+
+	> (load "alltests.sc")
+	      .
+	      .
+              .
+	TEST23
+	TEST55
+	"alltests.sc"
+	> (test)
+	***** Begin Scheme->C Tests *****
+		.
+		.
+		.
+	***** End Scheme->C Tests  0 Errors *****
+	#F
+	>
+
+    Enter control-D to terminate the program.
+
+10. At this point, you may build the application sci.  You may wish to
+    resegment the code before doing this.
+
+    The result is a "double-clickable" Scheme interpreter.  Use it just
+    like sci on workstations:  control-c (or apple-.) to interrupt running
+    programs, control-d to continue after breakpoints or terminate the
+    program when at the top-level, (top-level) to return to the top level.
+    While a Scheme program is running, the mouse may be used to bring up
+    desk accessories or other applications.
+
+    The user interface of sci is "quick-and-dirty".  I'm sure you'll do better
+    on the interfaces that you build in your applications that incorporate
+    Scheme->C.
+	
+An alternative way to build Scheme->C is as an element that can be embedded
+in a program.  Create the project embedded.pi as follows:
+
+1.  Create a new project called embedded.pi in the Scheme->C folder.
+
+2.  Set the following options on the project via the Edit menu:
+
+	Code Optimization
+
+		disable Defer & combine stack adjusts
+		enable  Use Global Optimizer
+
+	Debugging
+
+		enable  Use Source Debugger
+		enable  Always generate stack frames
+
+3.  Set the following options on the project via the Project menu:
+
+	Partition (K) 1500
+	enable	Far DATA
+
+4.  Add all .c files to it except: cio-MACSCI.c, sci.c and unpack.c.
+    Put each file in a different code segment as there is significantly
+    more than 32KB of code.
+
+5.  Add the ANSI and unix libraries.
+
+6.  Bring the project up to date and then run it.
+
+7.  After pressing the GO button on the debug window, you'll see
+    a window titled Scheme->C with the following text at the
+    bottom:
+
+	Embedded Scheme->C Test Bed
+	0-
+
+    This behaves exactly as shown in the embedded document.  Entering
+    a control-D at the prompt or apple-. during execution will terminate
+    the program.
+
+8.  If desired, this application can be turned into a double-clickable
+    application.
+
+
+If you're seriously interested in embedding Scheme->C inside an application
+on the Macintosh, then you probably know a lot more about the Macintosh
+environment than I do, so here's a few things to keep in mind:
+
+larger heap - If you give Scheme more memory and it needs it, it will expand
+the heap.
+
+better user interface to sci - what you see now is a quick-and-dirty hack on
+the console interface, you can do better.
+
+Scheme->C compiler on the Macintosh - it needs a user interface and a little
+resegmenting to fit in 32KB segments.  It also needs more than 1.5MB!  Another
+exercise for the student.
+
+time slice setting - experiment, find the best trade off for your application
+between interactive response and work accomplished.

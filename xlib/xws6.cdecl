@@ -1,0 +1,393 @@
+;;; Graphics Functions
+
+;;; 6.1  Clearing Areas
+
+(extern void "XClearWindow" (DisplayP dpy) (Window w))
+
+(extern void "XClearArea"
+	(DisplayP dpy)
+	(Window w)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height)
+	(Bool exposures))
+
+;;; 6.2  Copying Areas
+
+(extern void "XCopyArea"
+	(DisplayP dpy)
+	(Drawable src_drawable)
+	(Drawable dst_drawable)
+	(GC gc)
+	(int src_x) (int src_y)
+	(unsignedint width) (unsignedint height)
+	(int dst_x) (int dst_y))
+
+(extern void "XCopyPlane"
+	(DisplayP dpy)
+	(Drawable src_drawable)
+	(Drawable dst_drawable)
+	(GC gc)
+	(int src_x) (int src_y)
+	(unsignedint width) (unsignedint height)
+	(int dst_x) (int dst_y)
+	(unsignedlong bit_plane))
+
+;;; 6.3.1  Drawing Single and Multiple Points
+
+(extern void "XDrawPoint"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y))
+
+(extern void "XDrawPoints"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XPointAP points)
+	(int n_points)
+	(int mode))
+
+;;; 6.3.2  Drawing Single and Multiple Lines
+
+(extern void "XDrawLine"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x1) (int y1)
+	(int x2) (int y2))
+
+(extern void "XDrawLines"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XPointAP points)
+	(int npoints)
+	(int mode))
+
+(extern void "XDrawSegments"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XSegmentAP segments)
+	(int nsegments))
+
+;;; 6.3.3  Drawing Single and Multiple Rectangles
+
+(extern void "XDrawRectangle"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height))
+
+(extern void "XDrawRectangles"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XRectangleAP rects)
+	(int n_rects))
+
+;;; 6.3.4  Drawing Single and Multiple Arcs
+
+(extern void "XDrawArc"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height)
+	(int angle1) (int angle2))
+
+(extern void "XDrawArcs"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XArcAP arcs)
+	(int n_arcs))
+
+;;; 6.4.1  Filling Single and Multiple Rectangles
+
+(extern void "XFillRectangle"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height))
+
+(extern void "XFillRectangles"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XRectangleAP rectangles)
+	(int n_rects))
+
+;;; 6.4.2  Filling a Single Polygon
+
+(extern void "XFillPolygon"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XPointAP points)
+	(int n_points)
+	(int shape)
+	(int mode))
+
+;;; 6.4.3  Filling Single and Multiple Arcs
+
+(extern void "XFillArc"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y)
+	(unsignedint width) (unsignedint height)
+	(int angle1) (int angle2))
+
+(extern void "XFillArcs"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XArcAP arcs)
+	(int n_arcs))
+
+;;; 6.5.1  Loading and Freeing Fonts
+
+(extern Font "XLoadFont" (DisplayP dpy) (string name))
+
+(extern XFontStructP "XQueryFont" (DisplayP dpy) (Font fid))
+
+(extern XFontStructP "XLoadQueryFont" (DisplayP dpy) (string name))
+
+(extern void "XFreeFont" (DisplayP dpy) (XFontStructP fs))
+
+(extern Bool "XGetFontProperty"
+	(XFontStructP fs)
+	(Atom name)
+	(out unsignedlong valuePtr))
+
+(extern void "XUnloadFont" (DisplayP dpy) (Font font))
+
+;;; 6.5.2  Obtaining and Freeing Font Names and Information
+
+(extern charPAP "XListFonts"
+	(DisplayP dpy)
+	(string pattern)
+	(int maxnames)
+	(out int actual_count))
+
+(extern void "XFreeFontNames" (charPAP list))
+
+(extern charPAP "XListFontsWithInfo"
+	(DisplayP dpy)
+	(string pattern)
+	(int maxnames)
+	(out int actual_count)
+	(out XFontStructAP info))
+
+(extern void "XFreeFontInfo" (charPAP names) (XFontStructAP info) (int count))
+
+;;; 6.5.3  Setting and Retrieving the Font Search Path
+
+(extern void "XSetFontPath"
+	(DisplayP dpy)
+	(charPAP directories)
+	(int ndirs))
+
+(extern charPAP "XGetFontPath" (DisplayP dpy) (int npaths))
+
+(extern charPAP "XFreeFontPath" (charPAP list))
+
+;;; 6.5.4  Computing Character String Sizes
+
+(extern int "XTextWidth"
+	(XFontStructP fontstruct)
+	(string string)
+	(int count))
+
+(extern int "XTextWidth16"
+	(XFontStructP fontstruct)
+	(XChar2bAP string)
+	(int count))
+
+;;; 6.5.5  Computing Logical Extents
+
+(extern void "XTextExtents"
+	(XFontStructP fontstruct)
+	(string string)
+	(int nchars)
+	(out int dir)
+	(out int font_ascent) (out int font_descent) (out XCharStruct overall))
+
+(extern void "XTextExtents16"
+	(XFontStructP fontstruct)
+	(XChar2bAP string)
+	(int nchars)
+	(out int dir)
+	(out int font_ascent) (out int font_descent) (out XCharStruct overall))
+
+;;; 6.5.6  Querying Character String Sizes
+
+(extern void "XQueryTextExtents"
+	(DisplayP dpy)
+	(Font fid)
+	(string string)
+	(int nchars)
+	(out int dir)
+	(out int font_ascent) (out int font_descent) (out XCharStruct overall))
+
+(extern void "XQueryTextExtents16"
+	(DisplayP dpy)
+	(Font fid)
+	(XChar2bAP string)
+	(int nchars)
+	(out int dir)
+	(out int font_ascent) (out int font_descent) (out XCharStruct overall))
+
+;;; 6.6.1  Drawing Complex Text
+
+(extern void "XDrawText"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x)
+	(int y)
+	(XTextItemAP items)
+	(int nitems))
+
+(extern void "XDrawText16"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x)
+	(int y)
+	(XTextItem16P items)
+	(int nitems))
+
+;;; 6.6.2  Drawing Text Characters
+
+(extern void "XDrawString"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x)
+	(int y)
+	(string string)
+	(int length))
+
+(extern void "XDrawString16"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x)
+	(int y)
+	(XChar2bAP string)
+	(int length))
+
+;;; 6.6.3  Drawing Image Text Characters
+
+(extern void "XDrawImageString"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y)
+	(string string)
+	(int length))
+
+(extern void "XDrawImageString16"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(int x) (int y)
+	(XChar2bAP string)
+	(int length))
+
+;;; 6.7  Transferring Images between Client and Server
+
+(extern void "XPutImage"
+	(DisplayP dpy)
+	(Drawable d)
+	(GC gc)
+	(XImageP image)
+	(int req_xoffset)
+	(int req_yoffset)
+	(int x)
+	(int y)
+	(unsignedint req_width)
+	(unsignedint req_height))
+
+(extern XImageP "XGetImage"
+	(DisplayP dpy)
+	(Drawable d)
+	(int x)
+	(int y)
+	(unsignedint width)
+	(unsignedint height)
+	(unsignedlong plane_mask)
+	(int format))
+
+(extern XImageP "XGetSubImage"
+	(DisplayP dpy)
+	(Drawable d)
+	(int x)
+	(int y)
+	(unsignedint width)
+	(unsignedint height)
+	(unsignedlong plane_mask)
+	(int format)
+	(XImageP dest_image)
+	(int dest_x)
+	(int dest_y))
+
+;;; 6.8.1 Creating a Cursor
+
+(extern Cursor "XCreateFontCursor"
+	(DisplayP dpy)
+	(unsignedint which))
+
+(extern Cursor "XCreatePixmapCursor"
+	(DisplayP dpy)
+	(Pixmap source)
+	(Pixmap mask)
+	(XColorP foreground)
+	(XColorP background)
+	(unsignedint x)
+	(unsignedint y))
+
+(extern Cursor "XCreateGlyphCursor"
+	(DisplayP dpy)
+	(Font source_font)
+	(Font mask_font)
+	(unsignedint source_char)
+	(unsignedint mask_char)
+	(XColorP foreground)
+	(XColorP background))
+
+;;; 6.8.2  Changing and Destroying Cursors
+
+(extern void "XRecolorCursor"
+	(DisplayP dpy)
+	(Cursor cursor)
+	(XColorP foreground)
+	(XColorP background))
+
+(extern void "XFreeCursor"
+	(DisplayP dpy)
+	(Cursor cursor))
+
+(extern Status "XQueryBestCursor"
+	(DisplayP dpy)
+	(Drawable drawable)
+	(unsignedint width)
+	(unsignedint height)
+	(out unsignedint ret_width)
+	(out unsignedint ret_height))
+
+;;; 6.8.3  Defining the Cursor
+
+(extern void "XDefineCursor"
+	(DisplayP dpy)
+	(Window w)
+	(Cursor cursor))
+
+(extern void "XUndefineCursor"
+	(DisplayP dpy)
+	(Window w))

@@ -1,0 +1,27 @@
+#
+# This is the header file for constructing make files for SONYMIPS.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -Xa -O
+CC = cc
+
+# Assembly language object files.
+
+Aruntime = mips.o 
+
+# Profiled library
+
+Plib =
+
+# Installation tools
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -lX11
+XLIBCFLAGS = -G0
+
+# End of SONYMIPS header.

@@ -1,0 +1,151 @@
+;;; 8.5  Selecting Events
+
+(extern void "XSelectInput"
+	(DisplayP dpy)
+	(Window w)
+	(long mask))
+
+;;; 8.6  Handling the Output Buffer
+
+(extern void "XFlush"
+	(DisplayP dpy))
+
+(extern void "XSync"
+	(DisplayP dpy)
+	(Bool discard))
+
+;;; 8.7  Event Queue Management
+
+(extern int "XEventsQueued"
+	(DisplayP dpy)
+	(int mode))
+
+(extern int "XPending"
+	(DisplayP dpy))
+
+;;; 8.8.1  Returning the Next Event
+
+(extern void "XNextEvent"
+	(DisplayP dpy)
+	(out XEvent event))
+
+(extern void "XPeekEvent"
+	(DisplayP dpy)
+	(out XEvent event))
+
+;;; 8.8.2  Selecting Events Using a Predicate Procedure
+
+(extern void "XIfEvent"
+	(DisplayP dpy)
+	(out XEvent event)
+	(BoolPROC predicate)
+	(charP arg))
+
+(extern Bool "XCheckIfEvent"
+	(DisplayP dpy)
+	(out XEvent event)
+	(BoolPROC predicate)
+	(charP arg))
+
+(extern void "XPeekIfEvent"
+	(DisplayP dpy)
+	(out XEvent event)
+	(BoolPROC predicate)
+	(charP arg))
+
+;;; 8.8.3  Selecting Events Using a Window or Event Mask
+
+(extern void "XWindowEvent"
+	(DisplayP dpy)
+	(Window w)
+	(long mask)
+	(out XEvent event))
+
+(extern Bool "XCheckWindowEvent"
+	(DisplayP dpy)
+	(Window w)
+	(long mask)
+	(out XEvent event))
+
+(extern void "XMaskEvent"
+	(DisplayP dpy)
+	(long mask)
+	(out XEvent event))
+
+(extern Bool "XCheckMaskEvent"
+	(DisplayP dpy)
+	(long mask)
+	(out XEvent event))
+
+(extern Bool "XCheckTypedEvent"
+	(DisplayP dpy)
+	(int type)
+	(out XEvent event))
+
+(extern Bool "XCheckTypedWindowEvent"
+	(DisplayP dpy)
+	(Window w)
+	(int type)
+	(out XEvent event))
+
+;;; 8.9  Putting an Event Back into the Queue
+
+(extern void "XPutBackEvent"
+	(DisplayP dpy)
+	(XEventP event))
+
+;;; 8.10  Sending Events to Other Applications
+
+(extern Status "XSendEvent"
+	(DisplayP dpy)
+	(Window w)
+	(Bool propagate)
+	(long event_mask)
+	(XEventP event))
+
+;;; 8.11  Getting Pointer Motion History
+
+(extern long "XDisplayMotionBufferSize"
+	(DisplayP dpy))
+
+(extern XTimeCoordAP "XGetMotionEvents"
+	(DisplayP dpy)
+	(Window w)
+	(Time start)
+	(Time stop)
+	(out int nevents))
+
+;;; 8.12.1  Enabling or Disabling Synchronization
+
+(extern intPROC "XSetAfterFunction"
+	(DisplayP dpy)
+	(intPROC func))
+
+(extern intPROC "XSynchronize"
+	(DisplayP dpy)
+	(int onoff))
+
+;;; 8.12.2  Using the Default Error Handlers
+
+(extern void "XSetErrorHandler"
+	(intPROC handler))
+
+(extern void "XGetErrorText"
+        (DisplayP dpy)
+	(int code)
+	(out char buffer)
+	(int nbytes))
+
+(extern void "XGetErrorDatabaseText"
+	(DisplayP dpy)
+	(string name)
+	(string type)
+	(string defaultp)
+	(out char buffer)
+	(int nbytes))
+
+(extern string "XDisplayName"
+	(string display))
+
+(extern void "XSetIOErrorHandler"
+	(intPROC handler))

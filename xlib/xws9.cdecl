@@ -1,0 +1,106 @@
+;;; 9.1.1  Setting Standard Properties
+
+	;;; YSetStandardProperties is in xwss.sc
+
+;;; 9.1.2  Setting and Getting Window Names
+
+(extern void "XStoreName"
+	(DisplayP dpy)
+	(Window w)
+	(string name))
+
+	;;; YFetchName is in xwss.sc
+
+;;; 9.1.3  Setting and Getting Icon Names
+
+(extern void "XSetIconName"
+	(DisplayP dpy)
+	(Window w)
+	(string icon_name))
+
+	;;; YGetIconName is in xwss.sc
+
+;;; 9.1.4  Setting the Command
+
+	;;; YSetCommand is in xwss.sc
+
+;;; 9.1.5  Getting and Setting Window Manager Hints
+
+(extern void "XSetWMHints"
+	(DisplayP dpy)
+	(Window w)
+	(XWMHintsP hints))
+
+	;;; YGetWMHints is in xwss.sc
+
+;;; 9.1.6  Setting and Getting Window Sizing Hints
+
+(extern void "XSetNormalHints"
+	(DisplayP dpy)
+	(Window w)
+	(XSizeHintsP hints))
+
+(extern Status "XGetNormalHints"
+	(DisplayP dpy)
+	(Window w)
+	(out XSizeHints hints))
+
+(extern void "XSetZoomHints"
+	(DisplayP dpy)
+	(Window w)
+	(XSizeHintsP zhints))
+
+(extern Status "XGetZoomHints"
+	(DisplayP dpy)
+	(Window w)
+	(out XSizeHints zhints))
+
+(extern void "XSetSizeHints"
+	(DisplayP dpy)
+	(Window w)
+	(XSizeHintsP hints)
+	(Atom property))
+
+(extern Status "XGetSizeHints"
+	(DisplayP dpy)
+	(Window w)
+	(out XSizeHints hints)
+	(Atom property))
+
+;;; 9.1.7  Setting and Getting Icon Size Hints
+
+	;;; YSetIconSizes is in xwss.sc
+
+	;;; YGetIconSizes is in xwss.sc
+
+;;; 9.1.8  Setting and Getting the Class of a Window
+
+	;;; YSetClassHint is in xwss.sc
+
+	;;; YGetClassHint is in xwss.sc
+
+;;; 9.1.9  Setting and Getting the Transient Property
+
+(extern void "XSetTransientForHint"
+	(DisplayP dpy)
+	(Window w)
+	(Window propWindow))
+
+(extern Status "XGetTransientForHint"
+	(DisplayP dpy)
+	(Window w)
+	(out Window propWindow))
+
+;;; 9.2.3  Getting and Setting an XStandardColormap Structure
+
+(extern Status "XGetStandardColormap"
+	(DisplayP dpy)
+	(Window w)
+	(out XStandardColormap cmap)
+	(Atom property))
+
+(extern void "XSetStandardColormap"
+	(DisplayP dpy)
+	(Window w)
+	(XStandardColormapP cmap)
+	(Atom property))

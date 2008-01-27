@@ -1,0 +1,125 @@
+;;; Display functions
+
+;;; 2.1  Opening the Display
+
+(extern DisplayP "XOpenDisplay" (string display))
+
+;;; 2.2.1  Display Macros
+
+(extern long "XAllPlanes")
+
+(extern long "XBlackPixel" (DisplayP dpy) (int scr))
+
+(extern long "XWhitePixel" (DisplayP dpy) (int scr))
+
+(extern int "XConnectionNumber" (DisplayP dpy))
+
+(extern Colormap "XDefaultColormap" (DisplayP dpy) (int scr))
+
+(extern int "XDefaultDepth" (DisplayP dpy) (int scr))
+
+(extern GC "XDefaultGC" (DisplayP dpy) (int scr))
+
+(extern Window "XDefaultRootWindow" (DisplayP dpy))
+
+(extern ScreenP "XDefaultScreenOfDisplay" (DisplayP dpy))
+
+(extern ScreenP "XScreenOfDisplay" (DisplayP dpy) (int scr))
+
+(extern int "XDefaultScreen" (DisplayP dpy))
+
+(extern VisualP "XDefaultVisual" (DisplayP dpy) (int scr))
+
+(extern int "XDisplayCells" (DisplayP dpy) (int scr))
+
+(extern int "XDisplayPlanes" (DisplayP dpy) (int scr))
+
+(extern string "XDisplayString" (DisplayP dpy))
+
+(extern long "XLastKnownRequestProcessed" (DisplayP dpy))
+
+(extern long "XNextRequest" (DisplayP dpy))
+
+(extern int "XProtocolVersion" (DisplayP dpy))
+
+(extern int "XProtocolRevision" (DisplayP dpy))
+
+(extern int "XQLength" (DisplayP dpy))
+
+(extern Window "XRootWindow" (DisplayP dpy) (int scr))
+
+(extern int "XScreenCount" (DisplayP dpy))
+
+(extern string "XServerVendor" (DisplayP dpy))
+
+(extern int "XVendorRelease" (DisplayP dpy))
+
+;;; 2.2.2  Image Format Macros
+
+(extern int "XImageByteOrder" (DisplayP dpy))
+
+(extern int "XBitmapUnit" (DisplayP dpy))
+
+(extern int "XBitmapBitOrder" (DisplayP dpy))
+
+(extern int "XBitmapPad" (DisplayP dpy))
+
+(extern int "XDisplayHeight" (DisplayP dpy) (int scr))
+
+(extern int "XDisplayHeightMM" (DisplayP dpy) (int scr))
+
+(extern int "XDisplayWidth" (DisplayP dpy) (int scr))
+
+(extern int "XDisplayWidthMM" (DisplayP dpy) (int scr))
+
+;;; 2.2.3  Screen Information Macros
+
+(extern long "XBlackPixelOfScreen" (ScreenP s))
+
+(extern long "XWhitePixelOfScreen" (ScreenP s))
+
+(extern int "XCellsOfScreen" (ScreenP s))
+
+(extern Colormap "XDefaultColormapOfScreen" (ScreenP s))
+
+(extern int "XDefaultDepthOfScreen" (ScreenP s))
+
+(extern GC "XDefaultGCOfScreen" (ScreenP s))
+
+(extern VisualP "XDefaultVisualOfScreen" (ScreenP s))
+
+(extern int "XDoesBackingStore" (ScreenP s))
+
+(extern Bool "XDoesSaveUnders" (ScreenP s))
+
+(extern DisplayP "XDisplayOfScreen" (ScreenP s))
+
+(extern long "XEventMaskOfScreen" (ScreenP s))
+
+(extern int "XWidthOfScreen" (ScreenP s))
+
+(extern int "XHeightOfScreen" (ScreenP s))
+
+(extern int "XWidthMMOfScreen" (ScreenP s))
+
+(extern int "XHeightMMOfScreen" (ScreenP s))
+
+(extern int "XMaxCmapsOfScreen" (ScreenP s))
+
+(extern int "XMinCmapsOfScreen" (ScreenP s))
+
+(extern int "XPlanesOfScreen" (ScreenP s))
+
+(extern Window "XRootWindowOfScreen" (ScreenP s))
+
+;;; 2.3  Generating a NoOperation Protocol Request
+
+(extern void "XNoOp" (DisplayP dpy))
+
+;;; 2.4  Freeing Client-Created Data
+
+(extern void "XFree" (unsignedint data))
+
+;;; 2.5  Closing the Display
+
+(extern void "XCloseDisplay" (DisplayP dpy))

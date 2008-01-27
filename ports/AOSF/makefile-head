@@ -1,0 +1,27 @@
+#
+# This is the header file for constructing make files for AOSF.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -O
+CC = cc
+
+# Assembly language object files.
+
+Aruntime = aosf.o 
+
+# Profiled library
+
+Plib =
+
+# May be machine dependent
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -non_shared -lX11 -ldnet_stub
+XLIBCFLAGS =
+
+# End of AOSF header.
