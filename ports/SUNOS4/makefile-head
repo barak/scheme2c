@@ -1,0 +1,32 @@
+#
+# This is the header file for constructing make files for SPARC-SunOS4.1.x.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -O
+CC = cc
+
+# Assembly language object files.
+
+Aruntime = sparc.o 
+
+# need to override the default ".s.o" rule in the generic makefile
+
+sparc.o:	sparc.s
+	as -o sparc.o -P -DSUNOS4 sparc.s
+
+# Profiled library
+
+Plib = libsc_p.a
+
+# Installation tools
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -lX11
+XLIBCFLAGS =
+
+# End of SPARC-SunOS4.1.x header.
