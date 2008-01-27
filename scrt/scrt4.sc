@@ -341,7 +341,7 @@
 
 (define (C-DOUBLE-SET! struct x v)
     ((lap (struct x v)
-	  (SET (MDOUBLE (TSCP_POINTER struct) (TSCP_S2CINT x)) (TSCP_DOUBLE v)))
+	  (SETMDOUBLE (TSCP_POINTER struct) (TSCP_S2CINT x) (TSCP_DOUBLE v)))
      struct x v)
     v)
 

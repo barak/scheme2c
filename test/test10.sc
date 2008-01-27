@@ -135,7 +135,7 @@
     (chk 755 (ABS 1.6) 1.6)
     (chk 756 (ABS 2) 2)
     (chk 757 (ABS 2.4) 2.4)
-    (if (member (list-ref (implementation-information) 3) '("VAX" "R2000"))
+    (if (member (list-ref (implementation-information) 3) '("VAX" "R2000" "SPARC"))
 	(chk 758 (ABS -536870912) 536870912.))
 
     (chk 760 (FLOOR -2) -2)

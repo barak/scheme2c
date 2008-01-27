@@ -427,6 +427,20 @@ static  trace_stack_and_registers()
 
 #endif
 
+#ifdef SPARC
+/* All processor registers which might contain pointers are traced by the
+   following procedure.
+*/
+static  trace_stack_and_registers()
+{
+      S2CINT  *pp;
+      sc_jmp_buf tmp;
+      STACKPTR( pp );
+      while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp++) );
+}
+#endif
+
+
 #ifdef WIN16
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
@@ -2028,6 +2042,14 @@ SCP  sc_allocateheap( S2CINT wordsize, S2CINT tag, S2CINT rest )
    the Scheme object with that value.
 */
 
+#ifdef SPARC
+extern void sc_set_double( XAL2( int* , double ) );
+#define SET_FLOAT_VALUE( scp, val ) sc_set_double(&(scp)->doublefloat.value[0], (val) )
+#else
+#define SET_FLOAT_VALUE( scp, val ) (scp)->doublefloat.value = (val)
+#endif
+
+
 #ifdef OLD_FASHIONED_C
 TSCP sc_makedoublefloat( value )
 	double value;
@@ -2048,7 +2070,7 @@ TSCP sc_makedoublefloat( double value )
 	}
 	else
 	   pp = sc_allocateheap( DOUBLEFLOATSIZE, DOUBLEFLOATTAG, 0 );
-	pp->doublefloat.value = value;
+	SET_FLOAT_VALUE( pp, value );
 	MUTEXOFF;
 	return( U_T( pp, EXTENDEDTAG ) );
 }

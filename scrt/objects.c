@@ -436,22 +436,25 @@ static TSCP  stringtosymbol( symbolstring, add )
 {
 	TSCP  tp, cell;
 	SCP  sp, utp;
-	S2CINT  x, *oldp, *newp, *endnewp;
+	S2CFINT  x, *oldp, *newp, *endnewp;
+
 	PATSCP  buckets;  
 
-	newp = (S2CINT *)T_U( symbolstring );
-	endnewp = newp+(T_U( symbolstring )->string.length+sizeof(S2CINT))/
+	newp = (S2CFINT *)T_U( symbolstring );
+	endnewp = newp+(T_U( symbolstring )->string.length+sizeof(S2CFINT))/
 		  sizeof(S2CINT);
 	x = 0;
 	do  x = x ^ *newp;  while  (newp++ != endnewp);
+#ifndef SPARC
 	if (x < 0) x = -x;
+#endif
 	x = x % T_U( sc_obarray )->vector.length;
 	buckets = &T_U( sc_obarray )->vector.element0;
 	tp = buckets[ x ];
 	while  (tp != EMPTYLIST)  {
 	   utp = T_U( tp );
-	   oldp = (S2CINT *)(T_U( T_U( utp->pair.car )->symbol.name ));
-	   newp = (S2CINT *)(T_U( symbolstring ));
+	   oldp = (S2CFINT *)(T_U( T_U( utp->pair.car )->symbol.name ));
+	   newp = (S2CFINT *)(T_U( symbolstring ));
 	   while  (*oldp++ == *newp)
 	      if  (newp++ == endnewp)  return( utp->pair.car );
 	   tp = utp->pair.cdr;
@@ -552,7 +555,7 @@ S2CINT  sc_tscp_s2cint( p )
 		break;
 	   case EXTENDEDTAG:
 	        if  (TX_U( p )->extendedobj.tag == DOUBLEFLOATTAG)
-		   return( (S2CINT)( TX_U( p )->doublefloat.value ) );
+ 		   return( (S2CINT) FLOAT_VALUE( p ) );
 		break;
 	}
 	sc_error( "TSCP_S2CINT", "Argument cannot be converted to C int",
@@ -575,7 +578,7 @@ S2CUINT  sc_tscp_s2cuint( p )
 		break;
 	   case EXTENDEDTAG:
 	        if  (TX_U( p )->extendedobj.tag == DOUBLEFLOATTAG)  {
-		   v = TX_U( p )->doublefloat.value;
+ 		   v = FLOAT_VALUE( p );
 		   if  (v <= MAXS2CINTF)
 		      return( (S2CUINT)( v ) );
 		   else
@@ -611,7 +614,7 @@ VOIDP  sc_tscp_pointer( p )
 		      return( (void*)sc_procedureaddress( p ) );
 		      break;
 		   case DOUBLEFLOATTAG:
-		      v = TX_U( p )->doublefloat.value;
+ 		      v = FLOAT_VALUE( p );
 		      if  (v <= MAXS2CINTF)
 		         return( (void*)((S2CUINT)( v )) );
 		      else
@@ -636,7 +639,7 @@ double  sc_tscp_double( p )
 		break;
 	   case EXTENDEDTAG:
 	        if  (TX_U( p )->extendedobj.tag == DOUBLEFLOATTAG)
-		   return( TX_U( p )->doublefloat.value );
+ 		   return( FLOAT_VALUE( p ) );
 		break;
 	}
 	sc_error( "TSCP_DOUBLE", "Argument cannot be converted to C double",

@@ -72,6 +72,12 @@
 #define S2CUINT_FIELDS3( a, b, c ) S2CUINT a; S2CUINT b; S2CUINT c
 #endif
 
+#ifdef SPARC
+#define S2CFINT S2CUINT
+#else
+#define S2CFINT S2CINT
+#endif
+
 /* Define the type VOIDP which is either void* or char*. */
 
 #ifdef OLD_FASHIONED_C
@@ -157,7 +163,11 @@ typedef union SCOBJ {		/* SCHEME to C OBJECT */
 	   }  record;
 	   struct {	/* DOUBLEFLOAT */
 	      S2CUINT_FIELDS2( tag:8, rest:S2CINTBITS-8 );
+#ifdef SPARC
+ 	      int value[2];
+#else
 	      double  value;
+#endif
 	   }  doublefloat;
 	   struct {	/* FORWARD */
 	      S2CUINT_FIELDS2( tag:8, length:S2CINTBITS-8 );
@@ -510,7 +520,11 @@ extern TSCP	sc_emptystring,
 #define UNDEFINED		((TSCP)26)
 
 #define C_CHAR( i )	 ((TSCP)(((S2CUINT)( i )<< 8)+CHARACTERTAG))
+#ifdef SPARC
+#define CHAR_C( c )	 ((int)(((S2CUINT)( c )) >> 8))
+#else
 #define CHAR_C( c )	 ((char)(((S2CUINT)( c )) >> 8))
+#endif
 #define CHAR_FIX( c )    ((TSCP)(((S2CUINT)( c )) >> 6))
 #define FIX_CHAR( fix )  ((TSCP)(((S2CUINT)( fix ) << 6)+CHARACTERTAG))
 
@@ -896,7 +910,12 @@ extern TSCP  sc_set_2dscheme_2dmode_21( XAL1( TSCP ) );
 	(*((PATSCP)(((char*)( tscp ))+((sizeof(S2CINT)*2)-1)+((S2CINT)n)*2)))
 #endif
 
+#ifdef SPARC
+extern double sc_get_double( XAL1( int* ) );
+#define FLOAT_VALUE( tscp ) sc_get_double(&(TX_U( tscp )->doublefloat.value[0]))
+#else
 #define FLOAT_VALUE( tscp )  (TX_U( tscp )->doublefloat.value)
+#endif
  
 #define PAIR_CAR( tscp )  (TP_U( tscp )->pair.car)
 #define PAIR_CDR( tscp )  (TP_U( tscp )->pair.cdr)
@@ -1064,7 +1083,12 @@ extern TSCP  sc_set_2dscheme_2dmode_21( XAL1( TSCP ) );
 #define FIX_FLT( fix )   MAKEFLOAT( (double)(FIXED_C( fix )) )
 #define FIX_FLTV( fix )  ((double)(FIXED_C( fix )))
 #define FLTV_FLT( flt )	 MAKEFLOAT( flt )
+
+#ifdef SPARC
+#define FLTP_FLT( fltp ) MAKEFLOAT( sc_get_double((int*)(fltp)) )
+#else
 #define FLTP_FLT( fltp ) MAKEFLOAT( *((double*)( fltp )) )
+#endif
 
 #define STRING_C( s ) (&T_U( s )->string.char0)
 
@@ -1082,7 +1106,14 @@ extern TSCP  sc_set_2dscheme_2dmode_21( XAL1( TSCP ) );
 #define MS2CUINT(base, bx)    (*((S2CUINT*)( ((char*)base) + bx )))
 #define MTSCP( base, bx )     (*((TSCP*)( ((char*)base) + bx )))
 #define MFLOAT( base, bx )    (*((float*)( ((char*)base) + bx )))
-#define MDOUBLE( base, bx )   (*((double*)( ((char*)base) + bx )))
+
+#ifdef SPARC
+#define MDOUBLE(base,bx)      sc_get_double( (int*)(((char*)base) + bx) )
+#define SETMDOUBLE(base,bx,y) sc_set_double( (int*)(((char*)base) + bx), y )
+#else
+#define MDOUBLE(base,bx)      (*((double*)(((char*)base) + bx)))
+#define SETMDOUBLE(base,bx,y) (*((double*)(((char*)base) + bx)) = y)
+#endif
 
 /* Low-level builtins */
 

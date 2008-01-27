@@ -48,6 +48,12 @@
 #undef TRUE
 #undef FALSE
 
+#ifdef SUNOS4
+extern long _sysconf(int);     /* System Private interface to sysconf() */
+#define        CLK_TCK ((clock_t) _sysconf(3)) /* clock ticks per second */
+                             /* 3 is _SC_CLK_TCK */
+#endif
+
 #ifdef WIN16
 
 #include <windows.h>
@@ -98,6 +104,9 @@ static int  remove( c )
 }
 #else
 #include <stdlib.h>
+#ifdef SUNOS4
+extern double strtod( XAL2(char*, char**) );
+#endif
 #endif
 
 #ifdef MAC
@@ -138,7 +147,7 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
    rusage; I had thought to use RUSAGE_SELF, but that is defined by
    HP-UX header file even though getrusage() isn't implemented.  */
 
-#if defined(AOSF) || defined(FREEBSD) || defined(VAX) 
+#if defined(AOSF) || defined(FREEBSD) || defined(VAX) || defined(SUNOS4)
 #define HAVE_RUSAGE
 #endif
 
@@ -168,7 +177,7 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
 #endif
 
 
-#ifdef VAX
+#if defined(VAX) || defined(SUNOS4)
 extern int sys_nerr;
 
 extern char *sys_errlist[];
@@ -841,6 +850,8 @@ static HGLOBAL address_to_handle( VOIDP address )
 }
 #endif
 
+#ifdef LINUX
+
 /* added by Qobi F2Nov2001 */
 int linux_mmap_hack = (0==1);
 int linux_getenv_hack = (0==1);
@@ -855,6 +866,8 @@ TSCP  sc__2dhack_21_6518f460( void )
       linux_mmap_hack = (0==0);
       return( FALSEVALUE );
 }
+
+#endif
 
 /* The following procedure is called to allocate memory for the Scheme->C
    heap.  Memory requests are filled by allocating one or more 64KB blocks
@@ -935,6 +948,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 	   memp = (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp &
 						  (PAGEBYTES-1))));
 #else
+#ifdef LINUX
       /* changed by Qobi S10Jan99 and again R18Feb99 and again F19Feb99
           and again R1Jun2000 and again F2Nov2001 */
        if (!linux_getenv_hack)
@@ -963,11 +977,16 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
         memp = NULL;
         l:;}
        else
-       { memp = sbrk( 0 );
+       {
+#endif  
+        memp = sbrk( 0 );
         if  ((S2CINT)memp & (PAGEBYTES-1))
            sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
         memp = sbrk( bytes );
-	if  ((S2CINT)memp == -1)  memp = NULL; }
+	if  ((S2CINT)memp == -1)  memp = NULL; 
+#ifdef LINUX
+       }
+#endif
 #endif
 	if  (memp == NULL)  {
 	   sc_heapblocks.count = 0;
@@ -1200,11 +1219,26 @@ static void  restore_signal_mask( SIGSET_T * old_mask )
 #endif
 #endif
 
-S2CINT  sc_mutex = 0;			/* Mutual exclusion flag */
+#ifndef SUNOS4
+#define SIGFIRST 0
+#else
+#define SIGFIRST 1
+#endif
 
-S2CINT  sc_pendingsignals = 0;		/* pending signal mask */
+#ifdef SPARC
+/* These definitions don't quite cover the range of signals in
+ * SunOS5.x -- SIGWAITING and SIGLWP cannot be handled.
+ * Some other time, perhaps.
+ */
+#define SIGLAST 31
+#define SIGAFTERGC 0                   /* Used by Scheme->C */
 
+#else
 #define SIGAFTERGC 31			/* Used by Scheme->C */
+#endif
+
+S2CINT  sc_mutex = 0;			/* Mutual exclusion flag */
+S2CINT  sc_pendingsignals = 0;		/* pending signal mask */
 
 #if S2CSIGNALS
 #ifdef OLD_FASHIONED_C
@@ -1235,7 +1269,12 @@ static  void  signal_handler( int sig )
 void  sc_dispatchpendingsignals()
 {
 #if S2CSIGNALS
+#ifdef SPARC
+	S2CINT  i;
+	S2CUINT mypendingsignals;
+#else
 	S2CINT  i, mypendingsignals;
+#endif
 	SIGSET_T oldmask;
 
 	sc_mutex = 0;
@@ -1246,7 +1285,7 @@ void  sc_dispatchpendingsignals()
 	   restore_signal_mask (&oldmask);
 	   if  (mypendingsignals & 1<<SIGAFTERGC)
 	      sc_apply_when_unreferenced();
-	   for  (i = 0; i < SIGAFTERGC; i++)  {
+	   for  (i = SIGFIRST; i < SIGAFTERGC; i++)  {
 	      if  (mypendingsignals & 1<<i)  {
 	         scrt4_callsignalhandler( C_FIXED( i ) );
 	      }  
@@ -1287,7 +1326,7 @@ TSCP  sc_ossignal( TSCP sig, TSCP handler )
 				        (__sig_func)signal_handler ) ) );
 #else
 	   return( S2CINT_TSCP( ossignal( TSCP_S2CINT( sig ),
-				          signal_handler ) ) );
+				          (VOIDP)signal_handler ) ) );
 #endif
 	else
 	   return( S2CINT_TSCP( ossignal( TSCP_S2CINT( sig ),

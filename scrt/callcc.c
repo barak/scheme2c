@@ -65,25 +65,14 @@ extern long int  sc_longjmp( long int* context, long int result );
 extern long int  sc_setjmp( long int* context );
 #endif
 
-#ifdef __hpux
-#define  LONGJMP( x, y )	longjmp( x, y )
-#define  SETJMP( x )		setjmp( x )
-#endif
-
-#ifdef LINUX
-#define  LONGJMP( x, y )	longjmp( x, y )
-#define  SETJMP( x )		setjmp( x )
-#endif
-
-#ifdef MAC
+#if defined(__hpux) || defined(LINUX) || defined(MAC) || defined(MIPS) \
+  || defined(FREEBSD)
 #define  LONGJMP( x, y )	longjmp( x, y )
 #define  SETJMP( x )		setjmp( x )
 #endif
 
 #ifdef MIPS
 extern  sc_setsp();
-#define  LONGJMP( x, y )	longjmp( x, y )
-#define  SETJMP( x )		setjmp( x )
 #endif
 
 #ifdef WIN16
@@ -91,15 +80,21 @@ extern  sc_setsp();
 #define  SETJMP( x )		Catch( x )
 #endif
 
-#ifdef VAX
+#ifdef SPARC
+extern int sc_setjmp( XAL1(int *) );
+extern void sc_longjmp( XAL2(int *, int) );
+/* The SPARC compilers need a special #pragma for setjmp-like functions, but
+ * some compilers generate error messages upon seeing such a directive.
+ * Hence this kludge.
+ */
+#include "sparc-pragma.h"
+#endif
+
+#if defined(VAX) || defined(SPARC)
 #define  LONGJMP( x, y )	sc_longjmp( x, y )
 #define  SETJMP( x )		sc_setjmp( x )
 #endif
 
-#ifdef FREEBSD
-#define  LONGJMP( x, y )	longjmp( x, y )
-#define  SETJMP( x )		setjmp( x )
-#endif
 
 TSCP  sc_clink;		/* Pointer to inner most continuation on stack. */
 

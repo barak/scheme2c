@@ -44,7 +44,7 @@ double  fd1()  { return d1; }
 
 /* Typed function arguments and return */
 
-#ifdef vax
+#ifndef __STDC__
 
 char* loop_pointer( x ) char *x; { return x; }
 

@@ -158,6 +158,7 @@ static void  decodearguments( S2CINT argc, char *argv[] )
 	   if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
 	}
 	else  scmaxheap = scheap*5;
+        if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
 	heapfilename = getargval( argc, argv, "-schf", "SCHEAPFILE" );
 	val = getargval( argc, argv, "-scgc", "SCGCINFO" );
 	if  (val != NULL)  {
@@ -315,15 +316,17 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 	S2CINT  bytes;
 	char*  addr;
 
-	if  ( (*pagegen = sc_gettable( (last-first+2)*sizeof( unsigned char ),
-				       ~module_initialized )) != NULL  &&
-              (*type = sc_gettable( (last-first+2)*sizeof( unsigned char ),
-				    ~module_initialized )) != NULL  &&
-              (*lock = sc_gettable( (last-first+2)*sizeof( unsigned char ),
-				    ~module_initialized )) != NULL  &&
+        typedef unsigned char uchar;
+
+        if  ( (*pagegen = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
+					       ~module_initialized )) != NULL  &&
+	      (*type = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
+					    ~module_initialized )) != NULL  &&
+	      (*lock = (uchar* )sc_gettable( (last-first+2)*sizeof( unsigned char ),
+					     ~module_initialized )) != NULL  &&
               (*link = (PAGELINK*)sc_gettable( (last-first+2)
-					          *sizeof( PAGELINK ),
-					         ~module_initialized ))
+					       *sizeof( PAGELINK ),
+					       ~module_initialized ))
 	      != NULL )  {
 	   return;
 	}
@@ -337,12 +340,27 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 }
 
 /* The following function is called to initialize the heap from scratch. */
+#ifdef STDERR_ISNT_UNBUFFERED
+#include <stdio.h>
+#endif
 
 sc_newheap()
 {
 	S2CINT  i, j, page, pagecnt;
 	TSCP  unknown;
 	SCP  ep;
+
+#ifdef STDERR_ISNT_UNBUFFERED
+      /* Older versions of SunOS (before 4.1.x?) may have a line-buffered
+       * stderr. According to "man stdio" on SunOS 4.1.2 and 5.2, stderr
+       * _should_ be unbuffered nowadays.
+       * If stderr isn't unbuffered, then logging messages written
+       * _before_ the heap has been initialized will cause some malloc-ing,
+       * which in turn confuses the heap management.
+       * This is the place to patch stderr if necessary.
+       */
+      setbuf(stderr, (char*)0);
+#endif
 
 	sc_limit = sclimit;
 	sc_heappages = 0;

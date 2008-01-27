@@ -6,6 +6,7 @@
 # constructed by the following commands which follow:
 
 forANY:
+	rm -Rf ${CPU}
 	-mkdir ${CPU}
 	cp ports/makefile ${CPU}
 	-mkdir ${CPU}/scsc
@@ -63,6 +64,22 @@ forLINUX:
 	cp ports/LINUX/options.h LINUX/scrt
 	cp ports/LINUX/linux.s LINUX/server
 	cp ports/LINUX/options-server.h LINUX/server/options.h
+
+forSUNOS5:
+	make "CPU=SUNOS5" forANY
+	cp ports/SUNOS5/sparc.s SUNOS5/scrt
+	cp ports/SUNOS5/sparc-pragma.h SUNOS5/scrt
+	cp ports/SUNOS5/options.h SUNOS5/scrt
+	cp ports/SUNOS5/sparc.s SUNOS5/server
+	cp ports/SUNOS5/options-server.h SUNOS5/server/options.h
+
+forSUNOS4:
+	make "CPU=SUNOS4" forANY
+	cp ports/SUNOS4/sparc.s SUNOS4/scrt
+	cp ports/SUNOS5/sparc-pragma.h SUNOS5/scrt
+	cp ports/SUNOS4/options.h SUNOS4/scrt
+	cp ports/SUNOS4/sparc.s SUNOS4/server
+	cp ports/SUNOS4/options-server.h SUNOS4/server/options.h
 
 forMAC:
 	make "CPU=MAC" forANY

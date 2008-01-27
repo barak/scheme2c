@@ -55,7 +55,7 @@
 
 (define (test11)
     (let ((arch (list-ref (implementation-information) 3)))
-	 (when (member arch '("VAX" "R2000"))
+	 (when (member arch '("VAX" "R2000" "SPARC"))
 	       (chk 01 (+ 268435455 268435456) 536870911)
 	       (chk 02 (+ 536870910 1) 536870911)
 	       (chk 03 (+ 536870909 2) 536870911)

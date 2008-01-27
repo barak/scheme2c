@@ -1441,9 +1441,9 @@ TSCP  scrt4_c_2ddouble_2dset_21( s2878, x2879, v2880 )
         TSCP  s2878, x2879, v2880;
 {
         PUSHSTACKTRACE( t3608 );
-        SET( MDOUBLE( TSCP_POINTER( s2878 ), 
-                      TSCP_S2CINT( x2879 ) ), 
-             TSCP_DOUBLE( v2880 ) );
+        SETMDOUBLE( TSCP_POINTER( s2878 ), 
+		    TSCP_S2CINT( x2879 ), 
+		    TSCP_DOUBLE( v2880 ) );
         POPSTACKTRACE( v2880 );
 }
 
