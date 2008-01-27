@@ -65,6 +65,11 @@ FILE  *stderr = NULL;
 #include <types.h>
 #else
 #include <sys/types.h>
+#ifdef LINUX
+#include <time.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#endif
 #endif
 
 #include <stdio.h>
@@ -100,10 +105,14 @@ static int  remove( c )
 #else
 #include <sys/ioctl.h>
 #include <sys/time.h>
+
 #ifdef __hpux
 #include <unistd.h>
 #else
+
+#if !defined(LINUX)
 extern  char *sbrk();
+#endif
 
 extern  int  select ( XAL5( int, fd_set *, fd_set *,
 		      fd_set *, struct timeval * ) );
@@ -152,6 +161,9 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
 #else
 #ifdef HAVE_TIMES
 #include <sys/times.h>
+#ifndef CLK_TCK
+#define CLK_TCK CLOCKS_PER_SEC
+#endif
 #endif
 #endif
 
@@ -466,9 +478,10 @@ TSCP  sc_charready( TSCP file )
 	stream = (FILE*)TSCP_POINTER( file );
 #ifdef LINUX
 	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
-#elifdef FREEBSD
+#elif defined(FREEBSD)
  	if  (((stream)->_r) <= 0)  {
 #else
+
 	if  (((stream)->_cnt) <= 0)  {
 #endif
 	   FD_ZERO( &readfds );
@@ -828,6 +841,21 @@ static HGLOBAL address_to_handle( VOIDP address )
 }
 #endif
 
+/* added by Qobi F2Nov2001 */
+int linux_mmap_hack = (0==1);
+int linux_getenv_hack = (0==1);
+
+/* (define-external (enable-linux-mmap-hack!) sc) */
+#ifdef OLD_FASHIONED_C
+TSCP  sc__2dhack_21_6518f460()
+#else
+TSCP  sc__2dhack_21_6518f460( void )
+#endif
+{
+      linux_mmap_hack = (0==0);
+      return( FALSEVALUE );
+}
+
 /* The following procedure is called to allocate memory for the Scheme->C
    heap.  Memory requests are filled by allocating one or more 64KB blocks
    of memory until the request is satisfied.  When quit is true, the program
@@ -907,11 +935,39 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 	   memp = (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp &
 						  (PAGEBYTES-1))));
 #else
-        memp = sbrk( 0 );
+      /* changed by Qobi S10Jan99 and again R18Feb99 and again F19Feb99
+          and again R1Jun2000 and again F2Nov2001 */
+       if (!linux_getenv_hack)
+      { linux_getenv_hack = (0==0);
+         if (getenv("SCMMAP")!=NULL) linux_mmap_hack = (0==0);}
+       if (linux_mmap_hack)
+       { for (; bytes>0; bytes -= PAGEBYTES)
+        /* This used to be 0x00000001. With that, under RH7.2 the maximum
+            amount that can be allocated is about 2G. Because allocation
+            starts around 0x40000000 and goes up to about 0xc0000000. If you
+            set this to 0x00001000 then allocation starts at 0x00001000 and
+            goes up to about 0xc0000000 giving about 3G maximum allocation.
+            I have not been able to get any pages allocated above 0xc0000000
+            and thus have not been able to get more than 3G. For some reason,
+            when this is 0x00001000 allocation starts below 0x40000000. But
+            when it is 0x00000000, 0x00000001, or above 0x40000000,
+            allocation starts at 0x40000000 and pages below that never get
+            allocated. */
+        { memp = mmap((void *)0x00001000, (size_t)(bytes+PAGEBYTES-1),
+                      PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0);
+          if ((S2CINT)memp!=-1)
+          { if ((S2CINT)memp&(PAGEBYTES-1))
+            { memp =
+              (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp&(PAGEBYTES-1))));}
+            goto l;}}
+        memp = NULL;
+        l:;}
+       else
+       { memp = sbrk( 0 );
         if  ((S2CINT)memp & (PAGEBYTES-1))
            sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
         memp = sbrk( bytes );
-	if  ((S2CINT)memp == -1)  memp = NULL;
+	if  ((S2CINT)memp == -1)  memp = NULL; }
 #endif
 	if  (memp == NULL)  {
 	   sc_heapblocks.count = 0;

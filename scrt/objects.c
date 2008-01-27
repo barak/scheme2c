@@ -48,7 +48,7 @@
 #include "heap.h"
 #include "apply.h"
 #include "cio.h"
-#include <varargs.h>
+#include <stdarg.h>
 
 #ifndef NULL
 #define NULL 0
@@ -293,18 +293,15 @@ TSCP  sc_make_2dvector( length, initial )
    allocate variables and is visible within the compiler as MAKECLOSURE.
 */
 
-TSCP sc_makeclosure( va_alist )
-	va_dcl
+TSCP sc_makeclosure( TSCP prevclosure, ... )
 {
 	va_list  argl;
-	TSCP prevclosure;
 	int  count;
 	SCP  cp;
 	PATSCP  vars;
 
 	MUTEXON;
-	va_start( argl );
-	prevclosure = va_arg( argl, TSCP );
+	va_start( argl, prevclosure );
 	count = va_arg( argl, int );
 	cp = sc_allocateheap( CLOSURESIZE( count ), CLOSURETAG, count );
 	cp->closure.closure = prevclosure;

@@ -798,7 +798,7 @@ extern TSCP   sc_make_2dvector();
 extern TSCP   sc_makeclosure(...);
 extern TSCP   sc_makeprocedure(...);
 #else
-extern TSCP   sc_makeclosure();
+extern TSCP   sc_makeclosure( TSCP va_alist, ... );
 extern TSCP   sc_makeprocedure();
 #endif
 

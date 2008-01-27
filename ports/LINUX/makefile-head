@@ -4,7 +4,7 @@
 
 # Default flags to use when invoking the C compiler.
 
-CFLAGS = -O2
+CFLAGS = -m32 -O2 -march=i386
 CC = gcc
 
 # Assembly language object files.

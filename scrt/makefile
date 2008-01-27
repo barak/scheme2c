@@ -46,7 +46,7 @@ ${Cruntime}:	${Chfiles}
 	${CC} -c ${CFLAGS} -I. $*.c
 
 .s.o:
-	${CC} -c $*.s
+	${CC} -c ${CFLAGS} $*.s
 
 sc-to-c:	${Sruntimec} sci.c
 
