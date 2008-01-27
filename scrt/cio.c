@@ -71,7 +71,7 @@ FILE  *stderr = NULL;
 #include <types.h>
 #else
 #include <sys/types.h>
-#ifdef LINUX
+#if defined(LINUX) || defined(AMD64)
 #include <time.h>
 #include <unistd.h>
 #include <sys/mman.h>
@@ -119,7 +119,7 @@ extern double strtod( XAL2(char*, char**) );
 #include <unistd.h>
 #else
 
-#if !defined(LINUX)
+#if !defined(LINUX) && !defined(AMD64)
 extern  char *sbrk();
 #endif
 
@@ -485,7 +485,7 @@ TSCP  sc_charready( TSCP file )
 	struct timeval  timeout;
 
 	stream = (FILE*)TSCP_POINTER( file );
-#ifdef LINUX
+#if defined(LINUX) || defined(AMD64)
 	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
 #elif defined(FREEBSD)
  	if  (((stream)->_r) <= 0)  {
@@ -687,7 +687,11 @@ double  sc_cputime()
 	struct tms buffer;
 
 	(void) times (&buffer);
+#if defined(AMD64) || defined(LINUX)
+	return ((buffer.tms_utime) / CLOCKS_PER_SEC);
+#else
 	return ((buffer.tms_utime) / CLK_TCK);
+#endif
 #endif
 #endif
 #endif

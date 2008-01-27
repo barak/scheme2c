@@ -881,13 +881,14 @@ extern TSCP  sc_set_2dscheme_2dmode_21( XAL1( TSCP ) );
 				   (sizeof(S2CINT)-1)))
 
 #define VECTOR_LENGTH( tscp )     (TX_U( tscp )->vector.length)
-#ifndef AOSF
-#define VECTOR_ELEMENT( tscp, n ) (*((PATSCP)(((char*)( tscp ))+ \
-				              (sizeof(S2CINT)-1)+((S2CINT)n))))
-#else
+
+#if defined(AOSF) || defined(AMD64)
 #define VECTOR_ELEMENT( tscp, n ) (*((PATSCP)(((char*)( tscp ))+ \
 				              (sizeof(S2CINT)-1)+ \
 					      ((S2CINT)n)*2)))
+#else
+#define VECTOR_ELEMENT( tscp, n ) (*((PATSCP)(((char*)( tscp ))+ \
+				              (sizeof(S2CINT)-1)+((S2CINT)n))))
 #endif
 
 #define PROCEDURE_REQUIRED( tscp )  (TX_U( tscp )->procedure.required)
@@ -902,12 +903,12 @@ extern TSCP  sc_set_2dscheme_2dmode_21( XAL1( TSCP ) );
 #define RECORD_LENGTH( tscp )      (TX_U( tscp )->vector.length)
 #define RECORD_METHODS( tscp )     \
 	(*((PATSCP)(((char*)( tscp ))+(sizeof(S2CINT)-1))))
-#ifndef AOSF
-#define RECORD_ELEMENT( tscp, n )  \
-	(*((PATSCP)(((char*)( tscp ))+((sizeof(S2CINT)*2)-1)+((S2CINT)n))))
-#else
+#if defined(AOSF) || defined(AMD64)
 #define RECORD_ELEMENT( tscp, n )  \
 	(*((PATSCP)(((char*)( tscp ))+((sizeof(S2CINT)*2)-1)+((S2CINT)n)*2)))
+#else
+#define RECORD_ELEMENT( tscp, n )  \
+	(*((PATSCP)(((char*)( tscp ))+((sizeof(S2CINT)*2)-1)+((S2CINT)n))))
 #endif
 
 #ifdef SPARC

@@ -65,6 +65,13 @@ forLINUX:
 	cp ports/LINUX/linux.s LINUX/server
 	cp ports/LINUX/options-server.h LINUX/server/options.h
 
+forAMD64:
+	make "CPU=AMD64" forANY
+	cp ports/AMD64/linux.s AMD64/scrt
+	cp ports/AMD64/options.h AMD64/scrt
+	cp ports/AMD64/linux.s AMD64/server
+	cp ports/AMD64/options-server.h AMD64/server/options.h
+
 forSUNOS5:
 	make "CPU=SUNOS5" forANY
 	cp ports/SUNOS5/sparc.s SUNOS5/scrt

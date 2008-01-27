@@ -66,7 +66,7 @@ extern long int  sc_setjmp( long int* context );
 #endif
 
 #if defined(__hpux) || defined(LINUX) || defined(MAC) || defined(MIPS) \
-  || defined(FREEBSD)
+  || defined(FREEBSD) || defined(AMD64)
 #define  LONGJMP( x, y )	longjmp( x, y )
 #define  SETJMP( x )		setjmp( x )
 #endif
