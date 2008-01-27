@@ -44,11 +44,14 @@
    by the compiler to call unknown functions.
 */
 
-#define MAXARGS 25	/* Maximum number of required arguments permitted.
+#define MAXARGS 50	/* Maximum number of required arguments permitted.
 			   Note that this does not preclude an optional
 			   argument list as an additional argument.  This
 			   number is typically determined by the ability
 			   of one's C compiler.  */
+                        /* I changed this from 25 to 30 -- Qobi M19Aug96 */
+                        /* I changed this from 30 to 40 -- Qobi T25Aug98 */
+                        /* I changed this from 40 to 50 -- Qobi H7Nov98 */
 
 extern  S2CINT  sc_unknownargc;	/* Data structures for sc_unknowncall */
 
@@ -60,4 +63,4 @@ extern  TSCP  sc_arg[MAXARGS];
 
 extern  TSCP  sc_apply_2dtwo();
 
-extern  TSCP  sc_unknowncall();
+extern  TSCP  sc_unknowncall(TSCP va_alist, ...); /* Qobi h15jan2005 */

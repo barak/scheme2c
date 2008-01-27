@@ -50,7 +50,7 @@
 #include "scinit.h"
 #include "heap.h"
 #include "apply.h"
-#include <varargs.h>
+#include <stdarg.h>
 
 /* Data structures used by UNKNOWNCALL.  These values must be pushed on the
    stack and then restored by interrupt handlers or when calling finalization
@@ -273,6 +273,346 @@ TSCP  sc_apply_2dtwo( proc, argl )
 					  arg[20], arg[21], arg[22], arg[23],
 					  arg[24], argl, closure ) );
 #endif
+#if (MAXARGS >= 26)
+           case 26: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], argl, closure ) );
+#endif
+#if (MAXARGS >= 27)
+           case 27: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 28)
+           case 28: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 29)
+           case 29: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], argl, closure ) );
+#endif
+#if (MAXARGS >= 30)
+           case 30: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], argl, closure ) );
+#endif
+#if (MAXARGS >= 31)
+           case 31: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 32)
+           case 32: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 33)
+           case 33: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], argl, closure ) );
+#endif
+#if (MAXARGS >= 34)
+           case 34: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], argl, closure ) );
+#endif
+#if (MAXARGS >= 35)
+           case 35: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 36)
+           case 36: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 37)
+           case 37: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], argl, closure ) );
+#endif
+#if (MAXARGS >= 38)
+           case 38: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], argl, closure ) );
+#endif
+#if (MAXARGS >= 39)
+           case 39: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 40)
+           case 40: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 41)
+           case 41: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 42)
+           case 42: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 43)
+           case 43: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 44)
+           case 44: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 45)
+           case 45: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  arg[44],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 46)
+           case 46: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  arg[44], arg[45],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 47)
+           case 47: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  arg[44], arg[45], arg[46],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 48)
+           case 48: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  arg[44], arg[45], arg[46], arg[47],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 49)
+           case 49: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  arg[44], arg[45], arg[46], arg[47],
+					  arg[48],
+					  argl, closure ) );
+#endif
+#if (MAXARGS >= 50)
+           case 50: return( (*utproc->procedure.code)
+                                        ( arg[0], arg[1], arg[2], arg[3],
+                                          arg[4], arg[5], arg[6], arg[7],
+                                          arg[8], arg[9], arg[10], arg[11],
+                                          arg[12], arg[13], arg[14], arg[15],
+                                          arg[16], arg[17], arg[18], arg[19],
+					  arg[20], arg[21], arg[22], arg[23],
+					  arg[24], arg[25], arg[26], arg[27],
+					  arg[28], arg[29], arg[30], arg[31],
+					  arg[32], arg[33], arg[34], arg[35],
+					  arg[36], arg[37], arg[38], arg[39],
+					  arg[40], arg[41], arg[42], arg[43],
+					  arg[44], arg[45], arg[46], arg[47],
+					  arg[48], arg[49],
+					  argl, closure ) );
+#endif
 	}
 }
 
@@ -283,8 +623,8 @@ TSCP  sc_apply_2dtwo( proc, argl )
    in the call, or the procedure takes a variable number of arguments.
 */
 
-TSCP  sc_unknowncall( va_alist )
-   va_dcl
+/* Qobi h15jan2005 */
+TSCP  sc_unknowncall( TSCP firstarg, ... )
 {
 	va_list  argl;			/* List of arguments on stack */
 	int  req;			/* # of required arguments */
@@ -293,7 +633,9 @@ TSCP  sc_unknowncall( va_alist )
 	TSCP  tail;			/* Tail of optional argument list */
 	SCP  utproc;			/* Untagged version of proc */
 
-	va_start( argl );
+        int argp = 0;
+
+	va_start( argl, firstarg );
 	utproc = T_U( sc_unknownproc[ 1 ] );
         if ((TSCPTAG( sc_unknownproc[ 1 ] ) != EXTENDEDTAG) ||
             (utproc->procedure.tag != PROCEDURETAG))
@@ -304,12 +646,13 @@ TSCP  sc_unknowncall( va_alist )
 	     ((utproc->procedure.optional == 0) && (sc_unknownargc != req)))
 	   sc_error( "APPLY", "PROCEDURE requires ~s arguments, ~s supplied",
 		      LIST2( C_FIXED( req ), C_FIXED( sc_unknownargc ) ) );
-	for  (i = 0; i < req; i++)  sc_arg[ i ] = va_arg( argl, TSCP );
+	for  (i = 0; i < req; i++)
+	  sc_arg[ i ] = ((argp==1)?va_arg( argl, TSCP ):(argp = 1, firstarg));
 	optl = EMPTYLIST;
 	if  (i++ < sc_unknownargc)  {
-	   tail = (optl = sc_cons( va_arg( argl, TSCP ), EMPTYLIST ));
+	   tail = (optl = sc_cons( ((argp==1)?va_arg( argl, TSCP ):(argp = 1, firstarg)), EMPTYLIST ));
 	   while  (i++ < sc_unknownargc)
-	      tail = (TP_U( tail )->pair.cdr = sc_cons( va_arg( argl, TSCP ),
+	      tail = (TP_U( tail )->pair.cdr = sc_cons( ((argp==1)?va_arg( argl, TSCP ):(argp = 1, firstarg)),
 							EMPTYLIST ));
 	}   
 	switch (req) {
@@ -498,6 +841,431 @@ TSCP  sc_unknowncall( va_alist )
 					  sc_arg[18], sc_arg[19], sc_arg[20],
 					  sc_arg[21], sc_arg[22], sc_arg[23],
 					  sc_arg[24],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 26)
+           case 26: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 27)
+           case 27: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 28)
+           case 28: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 29)
+           case 29: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 30)
+           case 30: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 31)
+           case 31: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 32)
+           case 32: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 33)
+           case 33: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 34)
+           case 34: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 35)
+           case 35: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 36)
+           case 36: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 37)
+           case 37: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 38)
+           case 38: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 39)
+           case 39: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 40)
+           case 40: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 41)
+           case 41: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 42)
+           case 42: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 43)
+           case 43: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 44)
+           case 44: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 45)
+           case 45: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43], sc_arg[44],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 46)
+           case 46: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43], sc_arg[44],
+					  sc_arg[45],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 47)
+           case 47: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43], sc_arg[44],
+					  sc_arg[45], sc_arg[46],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 48)
+           case 48: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43], sc_arg[44],
+					  sc_arg[45], sc_arg[46], sc_arg[47],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 49)
+           case 49: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43], sc_arg[44],
+					  sc_arg[45], sc_arg[46], sc_arg[47],
+					  sc_arg[48],
+					  optl, utproc->procedure.closure ) );
+#endif
+#if (MAXARGS >= 50)
+           case 50: return( (*utproc->procedure.code)
+                                        ( sc_arg[0], sc_arg[1], sc_arg[2],
+					  sc_arg[3], sc_arg[4], sc_arg[5],
+					  sc_arg[6], sc_arg[7], sc_arg[8],
+					  sc_arg[9], sc_arg[10], sc_arg[11],
+                                          sc_arg[12], sc_arg[13], sc_arg[14],
+					  sc_arg[15], sc_arg[16], sc_arg[17],
+					  sc_arg[18], sc_arg[19], sc_arg[20],
+					  sc_arg[21], sc_arg[22], sc_arg[23],
+					  sc_arg[24], sc_arg[25], sc_arg[26],
+					  sc_arg[27], sc_arg[28], sc_arg[29],
+					  sc_arg[30], sc_arg[31], sc_arg[32],
+					  sc_arg[33], sc_arg[34], sc_arg[35],
+					  sc_arg[36], sc_arg[37], sc_arg[38],
+					  sc_arg[39], sc_arg[40], sc_arg[41],
+					  sc_arg[42], sc_arg[43], sc_arg[44],
+					  sc_arg[45], sc_arg[46], sc_arg[47],
+					  sc_arg[48], sc_arg[49],
 					  optl, utproc->procedure.closure ) );
 #endif
 	}
