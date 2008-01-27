@@ -283,11 +283,6 @@ TSCP  sc_set_2dstack_2dsize_21( TSCP bytes )
 #else
 	ts = ((char*)sc_stackbase)-sc_stackbytes+STACKFUDGE;
 #endif
-#ifdef WIN16
-	if  (((S2CUINT)ts)>>16 != ((S2CUINT)sc_stackbase)>>16)
-	   sc_error( "SET-STACK-SIZE!", "Argument is too big",
-	   	     EMPTYLIST );
-#endif
 	sc_topofstack = ts;
 	return( bytes );
 }
@@ -712,10 +707,6 @@ TSCP  sc_implementation()
  * See the Scheme implementation in screp.sc for details.
  */
 
-#ifdef WIN16
-void FAR _loadds  scheme2c( char *input_expression, int *status,
-		            char **output, char **error )
-#else
 #if OLD_FASHIONED_C
 void  scheme2c( input_expression, status, output, error )
 	char *input_expression; int *status;
@@ -724,7 +715,6 @@ void  scheme2c( input_expression, status, output, error )
 
 void  scheme2c( char *input_expression, int *status,
 		char **output, char **error )
-#endif
 #endif
 {
 	TSCP  x;

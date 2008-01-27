@@ -466,33 +466,6 @@ static  trace_stack_and_registers()
 #endif
 
 
-#ifdef WIN16
-/* The following code is used to read the stack pointer.  The register
-   number is passed in to force an argument to be on the stack, which in
-   turn can be used to find the address of the top of stack.
-*/
-
-S2CINT  *sc_processor_register( S2CINT reg )
-{
-	return( &reg+1 );
-}
-
-/* Traces the stack, 2 bytes at a time.  No pointers are assumed to be in the
-   registers.
-*/
-
-static	trace_stack_and_registers()
-{
-	S2CINT  *pp;
-
-	STACKPTR( pp );
-	while  ((S2CUINT)pp < (S2CUINT)sc_stackbase)  {
-	   move_continuation_ptr( (SCP)*pp );
-	   pp = (S2CINT*)(((char*)pp)+2);
-	}
-}
-#endif
-
 /* The size of an extended object in words is returned by the following
    function.
 */
@@ -757,16 +730,7 @@ static SCP  move_object( SCP pp )
 		    obj = (PATSCP)(((char*)obj)+2);
 		 }
 #else
-#ifdef WIN16
-		 cnt = cnt*2-1;
-		 ++obj;
-		 while	(cnt--)  {
-		    move_continuation_ptr( (SCP)*obj );
-		    obj = (PATSCP)(((char*)obj)+2);
-		 }
-#else
 		 while	(cnt--)  move_continuation_ptr( ((SCP)*(++obj)) );
-#endif
 #endif
 		 size = CONTINUATIONSIZE( pp->continuation.length );
 		 break;
@@ -1918,12 +1882,6 @@ failed:
 	   generation = sc_pagegeneration[ sc_freepage ];
 	   if  (generation & 1  &&  generation != sc_current_generation)  {
 	      if  (freecnt == 0)  page = sc_freepage;
-#ifdef WIN16
-	      if  (SEGMENT_PAGE_0( PAGE_PHYPAGE( sc_freepage ) ))  {
-	         page = sc_freepage;
-		 freecnt = 0;
-	      }
-#endif
 	      freecnt++;
 	   }
 	   else

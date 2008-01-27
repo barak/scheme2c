@@ -1051,13 +1051,10 @@ extern double sc_get_double( XAL1( int* ) );
    N.B.  These macros assume a page size of 512 bytes.
 */
 
-#ifdef WIN16
-#define SETGEN( a, b )  	sc_setgeneration( &a, b )
-#else
 #define SETGEN( a, b )  \
 	((sc_pagelink[ (((S2CUINT)(&a))>>9)-sc_firstphypagem1 ])?  \
 	 (a = b):sc_setgeneration( &a, b ))
-#endif
+
 
 #define SETGENTL( a, b )	(sc_setgeneration( &a, b ))
 

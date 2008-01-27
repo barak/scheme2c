@@ -72,7 +72,6 @@
 	MIPS		DECstation, SGI, Sony News
 	VAX		Vax ULTRIX
  	FREEBSD		x86 FreeBSD
-	WIN16		Microsoft Windows 3.1
 */
 
 #define AOSF 1
@@ -82,7 +81,6 @@
 #define MIPS 1
 #define VAX 1
 #define FREEBSD 1
-#define WIN16 1
 
 /* Attributes of the selected architecture:
 
@@ -401,33 +399,3 @@ typedef int sc_jmp_buf[ 16 ];	/* The buffer contains the following items:
 #define STACKPTR( x ) x = sc_processor_register( 14 )
 #endif
 
-/***************/
-/*    WIN16    */
-/***************/
-
-#ifdef WIN16
-#define IMPLEMENTATION_MACHINE	"Generic PC"
-#define IMPLEMENTATION_CPU	"Intelx86"
-#define IMPLEMENTATION_OS	"Microsoft Windows 3.1"
-#undef  IMPLEMENTATION_FS
-
-typedef long int S2CINT;		/* Signed pointer size integer */
-typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
-
-typedef short int PAGELINK;		/* 16-bit sc_pagelink values */
-#define MAXS2CINT  0x7fffffffL		/* Maximum value of an S2CINT */
-#define MSBS2CUINT 0x80000000L		/* S2CUINT with 1 in the MSB */
-
-#include <windows.h>
-#undef TRUE
-#undef FALSE
-typedef CATCHBUF sc_jmp_buf;
-
-#define STACKPTR( x ) x = sc_processor_register( 0 )
-
-#define MAXSTRINGSIZE	       ((S2CINT)65532)
-#define MAXVECTORSIZE	       ((S2CINT)16383)
-
-#define SCHEAP 2
-#define SCMAXHEAP 15
-#endif

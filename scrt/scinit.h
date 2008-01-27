@@ -67,12 +67,7 @@ extern  TSCP  sc_implementation_v;
 
 extern  TSCP  sc_implementation();
 
-#ifdef WIN16
-extern  void  FAR _loadds scheme2c( char *input_expression, int *status,
-			            char **output, char **error );
-#else
 extern  void  scheme2c( XAL4( char *, int *, char **, char ** ) );
-#endif
 
 #define LIST1( x ) CONS( x, EMPTYLIST )
 #define LIST2( x, y ) CONS( x, CONS( y, EMPTYLIST ) )

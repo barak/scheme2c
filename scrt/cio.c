@@ -54,19 +54,6 @@ extern long _sysconf(int);     /* System Private interface to sysconf() */
                              /* 3 is _SC_CLK_TCK */
 #endif
 
-#ifdef WIN16
-
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#ifndef stderr
-FILE  *stderr = NULL;
-#endif
-
-#else
-
 #ifdef MAC
 #include <types.h>
 #else
@@ -125,7 +112,6 @@ extern  char *sbrk();
 
 extern  int  select ( XAL5( int, fd_set *, fd_set *,
 		      fd_set *, struct timeval * ) );
-#endif
 #endif
 
 #include <errno.h>
@@ -414,9 +400,6 @@ TSCP  sc_inputready( TSCP mask )
 #ifdef MAC
 	return( S2CUINT_TSCP( 0  ) );
 #else
-#ifdef WIN16
-	return( S2CUINT_TSCP( 0  ) );
-#else
 	S2CUINT  filemask;
 	fd_set  readfds;
 	int  i = 0,
@@ -444,7 +427,6 @@ TSCP  sc_inputready( TSCP mask )
 	   }
 	}
 	return( S2CUINT_TSCP( filemask ) );
-#endif
 #endif
 }
 	
@@ -476,9 +458,6 @@ TSCP  sc_charready( TSCP file )
 	else
 	   return( FALSEVALUE );
 #else
-#ifdef WIN16
-	return( TRUEVALUE );
-#else
 	FILE*  stream;
 	fd_set  readfds;
 	int  nfound;
@@ -501,7 +480,6 @@ TSCP  sc_charready( TSCP file )
 	   if  (nfound == 0)  return( FALSEVALUE );
 	}
 	return( TRUEVALUE );
-#endif
 #endif
 }
 
@@ -578,12 +556,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	      sprintf( format, "%%.%lilg", (long)TSCP_S2CINT( length ) );
 	      sprintf( buffer, format, TSCP_DOUBLE( number ) );
 #else
-#ifdef WIN16
-	      _gcvt( TSCP_DOUBLE( number ), (int)TSCP_S2CINT( length ),
-		     buffer );
-#else
 	      gcvt( TSCP_DOUBLE( number ), TSCP_S2CINT( length ), buffer );
-#endif
 #endif
 	      break;
 	}
@@ -650,9 +623,7 @@ void  sc_osexit( code )
 void  sc_osexit( TSCP  code )
 #endif
 {
-#ifndef WIN16
 	exit( FIXED_C( code ) );
-#endif
 }
 
 /* Return the time used by Scheme->C (in seconds).  This is either the cpu
@@ -663,18 +634,11 @@ void  sc_osexit( TSCP  code )
 #ifdef MAC
 static  clock_t  clockbase;
 #endif
-#ifdef WIN16
-static  clock_t  clockbase;
-#endif
 
 double  sc_cputime()
 {
 #ifdef MAC
 	return( ((double)(clock()-clockbase))/CLOCKS_PER_SEC );
-#else
-#ifdef WIN16
-	return( 0.0 );
-	/*return( ((double)(clock()-clockbase))/CLOCKS_PER_SEC );*/
 #else
 #ifdef HAVE_RUSAGE
 	struct rusage  ru;
@@ -691,7 +655,6 @@ double  sc_cputime()
 	return ((buffer.tms_utime) / CLOCKS_PER_SEC);
 #else
 	return ((buffer.tms_utime) / CLK_TCK);
-#endif
 #endif
 #endif
 #endif
@@ -792,67 +755,6 @@ TSCP  sc_error_2ddisplay( TSCP item )
 
 /* Memory allocation */
 
-#ifdef WIN16
-/* Segment translation. */
-
-static int  next_segment = 0;	/* Next linear segment number to use */
-
-unsigned char  *sc_s2cseg;	/* WIN16 segment # -> linear segment #,
-				   0 in unused entries */
-
-S2CUINT  *sc_win16seg;		/* linear segment # -> WIN16 segment #,
-				   segment # is properly positioned */
-
-/* Microsoft Windows  segment information.  The maximum segment size allocated
-   is 64KB.  Each allocated segment gets an entry in segments.
-*/
-
-#define HANDLES 260		/* 255 * 64KB = 16 MB-64KB + side tables */
-
-static  struct  {
-	HGLOBAL  handle;	/* Handle returned by WIN16 */
-	VOIDP  address;		/* Locked down address */
-        }
-	segments[ HANDLES ];
-
-/* Save a handle, address and segment size in the table. */
-
-static void  save_handle_address( HGLOBAL handle, VOIDP address )
-{
-	S2CINT  i;
-
-	for  (i = 0; i < HANDLES; i++)  {
-	   if  (segments[ i ].handle == NULL)  {
-	      segments[ i ].handle = handle;
-	      segments[ i ].address = address;
-	      return;
-	   }
-	}
-	sc_log_string( "Handle table overflowed!\n" );
-	sc_abort();
-}
-
-/* Convert an address to a handle and delete the entry from the table. */
-
-static HGLOBAL address_to_handle( VOIDP address )
-{
-	S2CINT  i;
-	HGLOBAL  handle;
-
-	for  (i = 0; i < HANDLES; i++)  {
-	   if  (segments[ i ].address == address)  {
-	      handle = segments[ i ].handle;
-	      segments[ i ].handle = NULL;
-	      segments[ i ].address = NULL;
-	      return( handle );
-	   }
-	}
-	sc_log_string( "Handle not found in table: " );
-	sc_log_hex( (S2CINT)address );
-	sc_log_string( "\n" );
-	sc_abort();
-}
-#endif
 
 #ifdef LINUX
 
@@ -893,57 +795,6 @@ void  sc_getheap( bytes, quit )
 void  sc_getheap( S2CINT bytes, S2CINT quit )
 #endif
 {
-#ifdef WIN16  
-	char huge *memp, huge *p;
-	HGLOBAL  handle;
-	S2CINT	i, bytesleft;
-
-	if  (next_segment == 0)  {
-	   /* Initialize segment translation tables */
-	   sc_s2cseg = (unsigned char*)sc_gettable( SIXTY4KB, 1 );
-	   for  (i = 0; i < SIXTY4KB; i++)  {
-	      sc_s2cseg[ i ] = 0;
-	   }
-	   sc_win16seg = (S2CUINT*)sc_gettable( 256*sizeof(S2CUINT), 1 );
-	   sc_win16seg[ 0 ] = 0;
-	   next_segment = 1;
-	}
-	sc_heapblocks.count = 0;
-	handle = GlobalAlloc( GPTR, bytes );
-	if  (handle != NULL)  {
-	   memp = GlobalLock( handle );
-	   save_handle_address( handle, memp );
-	}
-	else  {
-	   if  (quit)  {
-	      sc_log_string( "***** Memory allocation failed: " );
-	      sc_log_dec( bytes );
-	      sc_log_string( "\n" );
-	      sc_abort();
-	   }
-	   return;
-	}
-	if  (sc_gcinfo > 1)  {
-	   sc_log_string( "***** Memory  " );
-	   sc_log_hex( (S2CINT)memp );
-	   sc_log_string( " " );
-	   sc_log_hex(  (S2CINT)memp+bytes-1 );
-	   sc_log_string( "\n" );
-	}
-	p = memp;
-	bytesleft = bytes;
-	while  (bytesleft > 0)	{
-	   sc_heapblocks.block[ sc_heapblocks.count ].address = p;
-	   sc_heapblocks.block[ sc_heapblocks.count++ ].size = SIXTY4KB;
-	   sc_s2cseg[ ((S2CUINT)p)>>16 ] = next_segment;
-	   sc_win16seg[ next_segment ] = ((S2CUINT)p) & 0xffff0000L;
-	   next_segment = next_segment+1;
-	   p = p+SIXTY4KB;
-	   bytesleft = bytesleft-SIXTY4KB;
-	}
-	sc_heapblocks.minphypage = ADDRESS_PHYPAGE( memp );
-	sc_heapblocks.maxphypage = ADDRESS_PHYPAGE( memp+(bytes-1) );
-#else
 	VOIDP  memp;
 
 #ifdef MAC
@@ -1015,30 +866,6 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 	   sc_heapblocks.minphypage = ADDRESS_PHYPAGE( memp );
 	   sc_heapblocks.maxphypage = ADDRESS_PHYPAGE( ((char*)memp)+bytes-1 );
 	}
-#endif
-}
-
-/* Memory allocated for the heap can be freed by the calling the following
-   procedure.
-*/
-
-#ifdef OLD_FASHIONED_C
-void  sc_freeheap( addr )
-	VOIDP addr;
-#else
-
-void  sc_freeheap( VOIDP addr )
-#endif
-{
-#ifdef WIN16
-	HGLOBAL  handle;
-
-	if  (addr != NULL)  {
-	   handle = address_to_handle( addr );
-	   GlobalUnlock( handle );
-	   GlobalFree( handle );
-	}
-#endif
 }
 
 /* Memory is allocated for the side tables by calling the following procedure
@@ -1056,21 +883,8 @@ VOIDP  sc_gettable( S2CINT bytes, S2CINT quit )
 #endif
 {
 	VOIDP  memp;
-#ifdef WIN16
-	HGLOBAL  handle;
-#endif
-
-#ifdef WIN16
-	handle = GlobalAlloc( GPTR, bytes );
-	if  (handle != NULL)  {
-	   memp = GlobalLock( handle );
-	   save_handle_address( handle, memp );
-	}
-	else
-	   memp = NULL;
-#else
 	memp = malloc( bytes );
-#endif
+
 	if  (memp == NULL)  {
 	   if  (quit)  {
 	      sc_log_string( "***** Table allocation failed: malloc( " );
@@ -1101,11 +915,7 @@ void  sc_freetable( any )
 void  sc_freetable( VOIDP any )
 #endif
 {
-#ifdef WIN16
-	sc_freeheap( any );
-#else
 	if  (any != NULL)  free( any );
-#endif
 }
 
 /* Execute the operating system dependent system command and return the
@@ -1123,11 +933,7 @@ TSCP  sc_ossystem( TSCP command )
 #ifdef MAC
 	return( FALSEVALUE );
 #else
-#ifdef WIN16
-	return( FALSEVALUE );
-#else
 	return( S2CINT_TSCP( system( (char*)&STRING_CHAR( command, 0 ) ) ) );
-#endif
 #endif
 }
 
@@ -1498,8 +1304,5 @@ void  sc_cioinit()
 {
 #ifdef MAC
 	clockbase = clock();
-#endif
-#ifdef WIN16
-	/*clockbase = clock();*/
 #endif
 }

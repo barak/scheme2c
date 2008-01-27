@@ -131,17 +131,6 @@ forFREEBSD:
 	cp ports/FREEBSD/options-server.h FREEBSD/server/options.h
 
 
-forWIN16:
-	make "CPU=WIN16" forANY
-	rm -r WIN16/scsc
-	rm -r WIN16/scrt
-	rm -r WIN16/cdecl
-	rm -r WIN16/xlib
-	cp ports/WIN16/README WIN16
-	cp ports/WIN16/options-server.h WIN16/server/options.h
-	cp ports/WIN16/*.def WIN16/server
-	cp ports/WIN16/*.mak WIN16/server
-
 # Clean out working files.
 
 clean:

@@ -146,32 +146,6 @@ extern TSCP  sc_popstacktrace( XAL2( struct STACKTRACE *, TSCP ) );
 
 extern void  sc_cioinit();
 
-#ifdef WIN16
-/* One of the pleasures of dealing with Microsoft Windows is the seemingly
-   random assignment of segment numbers.  Rather than being seen an an
-   impediment to implementing a linear address space, they are seen as a
-   boon to avoid accidental storage smashing.  In order to implement the
-   vaguely linear addressing scheme that the Scheme->C collector prefers,
-   the WIN16 segment numbers are remapped outside of Scheme->C's view.
-*/
-
-#define WIN16ADDR( adr )	(sc_win16seg[ ((S2CUINT)(adr))>>16 ] |\
-				 (((S2CUINT)(adr)) & 0xFFFFL))
-#define LINADDR( adr )	(((S2CUINT)sc_s2cseg[ ((S2CUINT)(adr))>>16 ])<<16 |\
-			 (((S2CUINT)(adr)) & 0xFFFFL))
-
-extern  unsigned char  *sc_s2cseg;
-
-extern  S2CUINT  *sc_win16seg;
-
-#undef ADDRESS_PHYPAGE
-#undef PAGE_ADDRESS
-#define ADDRESS_PHYPAGE( adr )  ((S2CINT)(((S2CUINT)LINADDR(adr))>>PAGEBIT))
-#define PAGE_ADDRESS( page )	WIN16ADDR((page+sc_firstphypagem1)<<PAGEBIT)
-
-extern S2CINT*  sc_getsp();
-#endif
-
 extern TSCP  sc_time_2dof_2dday_v;
 
 extern TSCP  sc_time_2dof_2dday();

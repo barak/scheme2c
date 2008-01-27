@@ -75,11 +75,6 @@ extern long int  sc_setjmp( long int* context );
 extern  sc_setsp();
 #endif
 
-#ifdef WIN16
-#define  LONGJMP( x, y )	Throw( x, y )
-#define  SETJMP( x )		Catch( x )
-#endif
-
 #ifdef SPARC
 extern int sc_setjmp( XAL1(int *) );
 extern void sc_longjmp( XAL2(int *, int) );
@@ -147,11 +142,6 @@ static char   *bfp,
 static  callcccontinuing( result, cp )
 	TSCP  result, cp;
 {
-#ifdef WIN16
-	static union { struct { unsigned spx, sps; } s16;
-		       S2CUINT  s32;
-	}  sreg;
-#endif
 	MUTEXON;
 	callccresult = result;
 	callcccp = cp;
@@ -171,11 +161,6 @@ static  callcccontinuing( result, cp )
 #ifdef COPY_STACK_BEFORE_LONGJMP
 	COPY_STACK ();
 #endif
-#endif
-#ifdef WIN16
-	sreg.s32 = (S2CUINT)(T_U(callcccp))->continuation.address;
-	_asm  mov  sp, sreg.s16.spx;
-	_asm  mov  bp, sp;
 #endif
 	LONGJMP( (T_U(callcccp))->continuation.savedstate, 1 );
 }
