@@ -96,6 +96,11 @@ extern  sc_setsp();
 #define  SETJMP( x )		sc_setjmp( x )
 #endif
 
+#ifdef FREEBSD
+#define  LONGJMP( x, y )	longjmp( x, y )
+#define  SETJMP( x )		setjmp( x )
+#endif
+
 TSCP  sc_clink;		/* Pointer to inner most continuation on stack. */
 
 /* Static declarations for data structures internal to the module.  These

@@ -41,7 +41,7 @@
 
 /* This file defines compilation options for a specific implementation */
 
-#define CHECKSTACK	0	/* 0 = don't check stack height */
+#define CHECKSTACK	1	/* 0 = don't check stack height */
 				/* 1 = check stack height */
 
 #define TIMESLICE	0	/* 0 = don't time slice execution */
@@ -60,7 +60,7 @@
 #define S2CSIGNALS	1	/* 0 = Scheme->C doesn't handle signals */
 				/* 1 = Scheme->C does handle signals */
 
-#define	MATHTRAPS	1	/* 0 = don't detect fixed point overflow */
+#define	MATHTRAPS	0	/* 0 = don't detect fixed point overflow */
 				/* 1 = recover on fixed point overflow */
 
 /* Define only one of the supported processor types:
@@ -71,18 +71,11 @@
 	MC680X0		HP 9000/300, Sun 3, Next
 	MIPS		DECstation, SGI, Sony News
 	VAX		Vax ULTRIX
- 	FREEBSD		x86 FreeBSD
+	FREEBSD		x86 FreeBSD
 	WIN16		Microsoft Windows 3.1
 */
 
-#define AOSF 1
-#define HP700 1
-#define MAC 1
-#define MC680X0 1
-#define MIPS 1
-#define VAX 1
 #define FREEBSD 1
-#define WIN16 1
 
 /* Attributes of the selected architecture:
 
@@ -206,34 +199,6 @@ typedef jmp_buf sc_jmp_buf;
 
 #define SYSV 1
 #define POSIX 1
-
-#endif
-
-/***************/
-/*   FREEBSD   */
-/***************/
-
-#ifdef FREEBSD
-#define IMPLEMENTATION_MACHINE	"Generic PC"
-#define IMPLEMENTATION_CPU	"Intelx86"
-#define IMPLEMENTATION_OS	"FreeBSD"
-#undef  IMPLEMENTATION_FS
-
-typedef int S2CINT;		/* Signed pointer size integer */
-typedef unsigned S2CUINT;	/* Unsigned pointer size interger */
-
-typedef int PAGELINK;		/* 32-bit sc_pagelink values */
-#define MAXS2CINT  0x7fffffff	/* Maximum value of an S2CINT */
-#define MSBS2CUINT 0x80000000	/* S2CUINT with 1 in the MSB */
-
-#define STACKPTR( x ) x = sc_processor_register( 0 )
-
-#include <setjmp.h>
-typedef jmp_buf sc_jmp_buf;
-
-/* Horrid kludge.  See callcc.c for the full story: */
-#define LAZY_STACK_POP 1
-#define LAZY_STACK_INCREMENT 4
 
 #endif
 
@@ -399,6 +364,34 @@ typedef int sc_jmp_buf[ 16 ];	/* The buffer contains the following items:
 				*/
 
 #define STACKPTR( x ) x = sc_processor_register( 14 )
+#endif
+
+/***************/
+/*   FREEBSD   */
+/***************/
+
+#ifdef FREEBSD
+#define IMPLEMENTATION_MACHINE	"Generic PC"
+#define IMPLEMENTATION_CPU	"Intelx86"
+#define IMPLEMENTATION_OS	"FreeBSD"
+#undef  IMPLEMENTATION_FS
+
+typedef int S2CINT;		/* Signed pointer size integer */
+typedef unsigned S2CUINT;	/* Unsigned pointer size interger */
+
+typedef int PAGELINK;		/* 32-bit sc_pagelink values */
+#define MAXS2CINT  0x7fffffff	/* Maximum value of an S2CINT */
+#define MSBS2CUINT 0x80000000	/* S2CUINT with 1 in the MSB */
+
+#define STACKPTR( x ) x = sc_processor_register( 0 )
+
+#include <setjmp.h>
+typedef jmp_buf sc_jmp_buf;
+
+/* Horrid kludge.  See callcc.c for the full story: */
+#define LAZY_STACK_POP 1
+#define LAZY_STACK_INCREMENT 4
+
 #endif
 
 /***************/

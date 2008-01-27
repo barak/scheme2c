@@ -129,7 +129,7 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
    rusage; I had thought to use RUSAGE_SELF, but that is defined by
    HP-UX header file even though getrusage() isn't implemented.  */
 
-#ifdef AOSF
+#if defined(AOSF) || defined(FREEBSD) || defined(VAX) 
 #define HAVE_RUSAGE
 #endif
 
@@ -137,10 +137,6 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
 #ifndef SYSV
 #define HAVE_RUSAGE
 #endif
-#endif
-
-#ifdef VAX
-#define HAVE_RUSAGE
 #endif
 
 #ifdef SYSV
@@ -158,6 +154,7 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
 #include <sys/times.h>
 #endif
 #endif
+
 
 #ifdef VAX
 extern int sys_nerr;
@@ -469,6 +466,8 @@ TSCP  sc_charready( TSCP file )
 	stream = (FILE*)TSCP_POINTER( file );
 #ifdef LINUX
 	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
+#elifdef FREEBSD
+ 	if  (((stream)->_r) <= 0)  {
 #else
 	if  (((stream)->_cnt) <= 0)  {
 #endif
@@ -553,7 +552,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	      break;
 
 	   case 3:
-#if defined(MAC) || defined(LINUX)
+#if defined(MAC) || defined(LINUX) || defined(FREEBSD)
 	      sprintf( format, "%%.%lilg", (long)TSCP_S2CINT( length ) );
 	      sprintf( buffer, format, TSCP_DOUBLE( number ) );
 #else

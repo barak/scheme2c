@@ -99,6 +99,14 @@ forVAX:
 	cp ports/VAX/vax.s VAX/server
 	cp ports/VAX/options-server.h VAX/server/options.h
 
+forFREEBSD:
+	make "CPU=FREEBSD" forANY
+	cp ports/FREEBSD/x86.s FREEBSD/scrt
+	cp ports/FREEBSD/options.h FREEBSD/scrt
+	cp ports/FREEBSD/x86.s FREEBSD/server
+	cp ports/FREEBSD/options-server.h FREEBSD/server/options.h
+
+
 forWIN16:
 	make "CPU=WIN16" forANY
 	rm -r WIN16/scsc
