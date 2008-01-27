@@ -70,6 +70,11 @@ extern long int  sc_setjmp( long int* context );
 #define  SETJMP( x )		setjmp( x )
 #endif
 
+#ifdef LINUX
+#define  LONGJMP( x, y )	longjmp( x, y )
+#define  SETJMP( x )		setjmp( x )
+#endif
+
 #ifdef MAC
 #define  LONGJMP( x, y )	longjmp( x, y )
 #define  SETJMP( x )		setjmp( x )
@@ -192,6 +197,17 @@ TSCP  sc_callcc( function )
 	STACKPTR( tos );
  	count = (((STACK_BYTES (bfp, tos)) + ((sizeof (S2CINT)) - 1))
 		 / (sizeof (S2CINT)));
+#ifdef LAZY_STACK_POP
+	/* NOTE WELL!
+	 * For machines that must pop arguments after a function call, 
+	 * the compiler may let arguments accumulate on the stack for several 
+	 * function calls and pop them all at once.
+	 * If your compiler uses this optimization, 'count' must be incremented
+	 * by the number of S2CINTs pushed as arguments between this point and 
+	 * the point where 'bcount' is computed.
+	 */
+	count += LAZY_STACK_INCREMENT;
+#endif
 	save_fp = (S2CINT*)bfp;
 	cp = sc_allocateheap( NULLCONTINUATIONSIZE+count+2+sc_maxdisplay,
 			      CONTINUATIONTAG,
@@ -199,6 +215,13 @@ TSCP  sc_callcc( function )
 	STACKPTR( tos );	
 	fp = save_fp;
 	bcount = (STACK_BYTES (fp, tos));
+	if (bcount > count*sizeof(S2CINT))
+	    /* If you get this error, look above at LAZY_STACK_POP */
+	    sc_error( "CALL-WITH-CURRENT-CONTINUATION",
+		     "internal error: want to write ~s bytes of stack, "
+		     "but only ~s bytes allocated.",
+		      LIST2( C_FIXED( bcount ),
+			     C_FIXED( count*sizeof(S2CINT) ) ) );
 	cp->continuation.continuation = sc_clink;
 	cp->continuation.stackbytes = bcount;
 	cp->continuation.stacktrace = sc_stacktrace;

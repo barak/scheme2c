@@ -57,6 +57,9 @@
 #ifdef HP700
 extern  sc_r1tor18( );
 #endif
+#ifdef LINUX
+extern  sc_geti386regs( S2CINT* a );
+#endif
 #ifdef MC680X0
 extern  sc_a2to5d2to7( );
 #endif
@@ -266,6 +269,31 @@ static  trace_stack_and_registers()
         sc_r1tor18( r1tor18 );
         STACKPTR( pp );
         while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp--) );
+}
+#endif
+
+#ifdef LINUX
+/* The following code is used to read the stack pointer.  The register
+   number is passed in to force an argument to be on the stack, which in
+   turn can be used to find the address of the top of stack.
+*/
+
+S2CINT  *sc_processor_register( S2CINT reg )
+{
+	return( &reg );
+}
+
+/* All processor registers which might contain pointers are traced by the
+   following procedure.
+*/
+
+static  trace_stack_and_registers()
+{
+	S2CINT  i386regs[6], *pp;
+
+	sc_geti386regs( i386regs );
+	STACKPTR( pp );
+	while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp++) );
 }
 #endif
 

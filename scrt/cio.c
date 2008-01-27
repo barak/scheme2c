@@ -467,7 +467,11 @@ TSCP  sc_charready( TSCP file )
 	struct timeval  timeout;
 
 	stream = (FILE*)TSCP_POINTER( file );
+#ifdef LINUX
+	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
+#else
 	if  (((stream)->_cnt) <= 0)  {
+#endif
 	   FD_ZERO( &readfds );
 	   FD_SET( fileno( stream ), &readfds );
 	   timeout.tv_sec = 0;
@@ -549,7 +553,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	      break;
 
 	   case 3:
-#ifdef MAC
+#if defined(MAC) || defined(LINUX)
 	      sprintf( format, "%%.%lilg", (long)TSCP_S2CINT( length ) );
 	      sprintf( buffer, format, TSCP_DOUBLE( number ) );
 #else

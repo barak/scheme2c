@@ -57,6 +57,13 @@ forHP700:
 	cp ports/HP700/hp700.s HP700/server
 	cp ports/HP700/options-server.h HP700/server/options.h
 
+forLINUX:
+	make "CPU=LINUX" forANY
+	cp ports/LINUX/linux.s LINUX/scrt
+	cp ports/LINUX/options.h LINUX/scrt
+	cp ports/LINUX/linux.s LINUX/server
+	cp ports/LINUX/options-server.h LINUX/server/options.h
+
 forMAC:
 	make "CPU=MAC" forANY
 	rm -r MAC/scsc
