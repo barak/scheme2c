@@ -93,6 +93,8 @@
 	      (proc-args-to-display formals free-display) bindings)
 	  (emit-lap `(INDENT 0))
 	  (emit-lap '(LIT "}"))
+	  (if (not (null? (lambda-name id)))
+	      (set-id-external! (lambda-name id) #t))
 	  (done-lap (save-current-lap save-lap))))
 
 ;;; The next type of procedure to emit is one which is closed over its free
@@ -131,6 +133,8 @@
 		   (lambda-body-genc 'return exp formals formals bindings)))
 	  (emit-lap `(INDENT 0))
 	  (emit-lap '(LIT "}"))
+	  (if (not (null? (lambda-name id)))
+	      (set-id-external! (lambda-name id) #t))
 	  (done-lap (save-current-lap save-lap))))
 
 ;;; The following function is called to load procedure arguments into their
