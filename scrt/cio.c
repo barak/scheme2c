@@ -258,13 +258,7 @@ void  sc_setstdio()
    file.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_fopen( filename, option )
-	TSCP filename;  TSCP option;
-#else
-
 TSCP  sc_fopen( TSCP filename, TSCP option )
-#endif
 {
 	FILE*  f;
 
@@ -278,13 +272,7 @@ TSCP  sc_fopen( TSCP filename, TSCP option )
 
 /* Closes a file with the "file-number". */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_fclose( file )
-	TSCP file;
-#else
-
 TSCP  sc_fclose( TSCP file )
-#endif
 {
 	fclose( (FILE*)TSCP_POINTER( file ) );
 	return( FALSEVALUE );
@@ -292,13 +280,7 @@ TSCP  sc_fclose( TSCP file )
 
 /* Flushes any OS supplied buffers associated with the "file-number". */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_fflush( file )
-	TSCP file;
-#else
-
 TSCP  sc_fflush( TSCP file )
-#endif
 {
 	fflush( (FILE*)TSCP_POINTER( file ) );
 	return( FALSEVALUE );
@@ -308,13 +290,7 @@ TSCP  sc_fflush( TSCP file )
    on an error.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_fgetc( file )
-	TSCP file;
-#else
-
 TSCP  sc_fgetc( TSCP file )
-#endif
 {
 	FILE*  stream;
 	int  character;
@@ -352,13 +328,7 @@ TSCP  sc_fgetc( TSCP file )
    string on failure.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_fputc( character, file )
-	TSCP character; TSCP file;
-#else
-
 TSCP  sc_fputc( TSCP character, TSCP file )
-#endif
 {
 	FILE*  stream;
 	int  error;
@@ -373,13 +343,7 @@ TSCP  sc_fputc( TSCP character, TSCP file )
 
 /* Returns the operating system's file number for a stream. */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_fileno( file )
-	TSCP file;
-#else
-
 TSCP  sc_fileno( TSCP file )
-#endif
 {
 	return( C_FIXED( fileno( (FILE*)TSCP_POINTER( file ) ) ) );
 }
@@ -389,13 +353,7 @@ TSCP  sc_fileno( TSCP file )
    specific I/O errors are handled here.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_inputready( mask )
-	TSCP mask;
-#else
-
 TSCP  sc_inputready( TSCP mask )
-#endif
 {
 #ifdef MAC
 	return( S2CUINT_TSCP( 0  ) );
@@ -433,13 +391,7 @@ TSCP  sc_inputready( TSCP mask )
 
 /* Boolean reporting whether a character is available for reading. */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_charready( file )
-	TSCP file;
-#else
-
 TSCP  sc_charready( TSCP file )
-#endif
 {
 #ifdef MAC
 	FILE*  stream;
@@ -487,13 +439,7 @@ TSCP  sc_charready( TSCP file )
    on an error.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_removefile( filename )
-	TSCP filename;
-#else
-
 TSCP  sc_removefile( TSCP filename )
-#endif
 {
 	if  (remove( (char*)&STRING_CHAR( filename, 0 ) ) == 0)
 	   return( FALSEVALUE );
@@ -503,13 +449,7 @@ TSCP  sc_removefile( TSCP filename )
 
 /* Rename a file.  Return #F on success, or an error message on failure. */
 
-#ifdef OLD_FASHIONED_C
-extern TSCP  sc_rename( old, new )
-	TSCP old; TSCP new;
-#else
-
 extern TSCP  sc_rename( TSCP old, TSCP new )
-#endif
 {
 	char  buffer[100];
 
@@ -524,13 +464,7 @@ extern TSCP  sc_rename( TSCP old, TSCP new )
    following routine.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_formatnumber( number, type, length )
-	TSCP number; TSCP type; TSCP length;
-#else
-
 TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
-#endif
 {
 	char  buffer[100],
 	      format[10];
@@ -568,13 +502,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
    error.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_readnumber( string, type )
-	TSCP string; TSCP type;
-#else
-
 TSCP  sc_readnumber( TSCP string, TSCP type )
-#endif
 {
 	char  *nptr, *eptr;
 	double  value;
@@ -595,13 +523,7 @@ TSCP  sc_readnumber( TSCP string, TSCP type )
 
 /* Look up the value of an environment variable. */
 
-#ifdef OLD_FASHIONED_C
-char*  sc_getenv( name )
-	char* name;
-#else
-
 char*  sc_getenv( char* name )
-#endif
 {
 	return( getenv( name ) );
 }
@@ -615,13 +537,7 @@ void  sc_abort()
 
 /* Normal exit */
 
-#ifdef OLD_FASHIONED_C
-void  sc_osexit( code )
-	TSCP  code;
-#else
-
 void  sc_osexit( TSCP  code )
-#endif
 {
 	exit( FIXED_C( code ) );
 }
@@ -663,26 +579,14 @@ double  sc_cputime()
 
 /* Log a string in a system dependent manner. */
 
-#ifdef OLD_FASHIONED_C
-void  sc_log_string( s )
-	char *s;
-#else
-
 void  sc_log_string( char *s )
-#endif
 {
 	fprintf( stderr, "%s", s );
 }
 
 /* Log a decimal integer in a system dependent manner. */
 
-#ifdef OLD_FASHIONED_C
-void  sc_log_dec( d )
-	S2CINT d;
-#else
-
 void  sc_log_dec( S2CINT d )
-#endif
 {
 	char  buffer[30];
 
@@ -692,13 +596,7 @@ void  sc_log_dec( S2CINT d )
 
 /* Log a hex integer in a system dependent manner. */
 
-#ifdef OLD_FASHIONED_C
-void  sc_log_hex( d )
-	S2CUINT d;
-#else
-
 void  sc_log_hex( S2CUINT d )
-#endif
 {
 	char  buffer[30];
 
@@ -710,13 +608,7 @@ void  sc_log_hex( S2CUINT d )
    build the error message.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_error_2ddisplay( item )
-	TSCP item;
-#else
-
 TSCP  sc_error_2ddisplay( TSCP item )
-#endif
 {
 	char  s[2];
 
@@ -763,11 +655,7 @@ int linux_mmap_hack = (0==1);
 int linux_getenv_hack = (0==1);
 
 /* (define-external (enable-linux-mmap-hack!) sc) */
-#ifdef OLD_FASHIONED_C
-TSCP  sc__2dhack_21_6518f460()
-#else
 TSCP  sc__2dhack_21_6518f460( void )
-#endif
 {
       linux_mmap_hack = (0==0);
       return( FALSEVALUE );
@@ -787,13 +675,7 @@ struct HEAPBLOCKS  sc_heapblocks;
 
 #define SIXTY4KB  0x10000L
 
-#ifdef OLD_FASHIONED_C
-void  sc_getheap( bytes, quit )
-	S2CINT bytes; S2CINT quit;
-#else
-
 void  sc_getheap( S2CINT bytes, S2CINT quit )
-#endif
 {
 	VOIDP  memp;
 
@@ -874,13 +756,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
    Later errors will return NULL as the procedure's value. 
 */
 
-#ifdef OLD_FASHIONED_C
-VOIDP  sc_gettable( bytes, quit )
-	S2CINT bytes; S2CINT quit;
-#else
-
 VOIDP  sc_gettable( S2CINT bytes, S2CINT quit )
-#endif
 {
 	VOIDP  memp;
 	memp = malloc( bytes );
@@ -907,13 +783,7 @@ VOIDP  sc_gettable( S2CINT bytes, S2CINT quit )
    Note that one may attempt to free NULL.
 */
 
-#ifdef OLD_FASHIONED_C
-void  sc_freetable( any )
-	VOIDP any;
-#else
-
 void  sc_freetable( VOIDP any )
-#endif
 {
 	if  (any != NULL)  free( any );
 }
@@ -922,13 +792,7 @@ void  sc_freetable( VOIDP any )
    result.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_ossystem( command )
-	TSCP command;
-#else
-
 TSCP  sc_ossystem( TSCP command )
-#endif
 {
 #ifdef MAC
 	return( FALSEVALUE );
@@ -949,14 +813,7 @@ TSCP  sc_ossystem( TSCP command )
 
 typedef sigset_t SIGSET_T;
 
-#ifdef OLD_FASHIONED_C
-static VOIDP  ossignal( sig, handler )
-	int  sig;
-	VOIDP  handler;
-#else
-
 static VOIDP  ossignal( int sig, VOIDP handler )
-#endif
 {
 	struct sigaction  new_action, old_action;
 
@@ -967,13 +824,7 @@ static VOIDP  ossignal( int sig, VOIDP handler )
 	return (old_action.sa_handler);
 }
 
-#ifdef OLD_FASHIONED_C
-static void  block_all_signals( old_mask )
-	SIGSET_T *  old_mask;
-#else
-
 static void  block_all_signals( SIGSET_T * old_mask )
-#endif
 {
 	SIGSET_T  new_mask;
 
@@ -981,13 +832,7 @@ static void  block_all_signals( SIGSET_T * old_mask )
 	sigprocmask( SIG_BLOCK, (&new_mask), old_mask );
 }
 
-#ifdef OLD_FASHIONED_C
-static void  restore_signal_mask( old_mask )
-	SIGSET_T *  old_mask;
-#else
-
 static void  restore_signal_mask( SIGSET_T * old_mask )
-#endif
 {
 	sigprocmask( SIG_SETMASK, old_mask, ((SIGSET_T *) 0) );
 }
@@ -1000,26 +845,14 @@ typedef S2CINT SIGSET_T;
 
 #define ossignal signal
 
-#ifdef OLD_FASHIONED_C
-static void  block_all_signals( old_mask )
-	SIGSET_T * old_mask;
-#else
-
 static void  block_all_signals( SIGSET_T * old_mask )
-#endif
 {
 #ifndef MAC
 	(*old_mask) = (sigsetmask( 0xffffffff ));
 #endif
 }
 
-#ifdef OLD_FASHIONED_C
-static void  restore_signal_mask( old_mask )
-	SIGSET_T *  old_mask;
-#else
-
 static void  restore_signal_mask( SIGSET_T * old_mask )
-#endif
 {
 #ifndef MAC
 	sigsetmask( *old_mask );
@@ -1051,13 +884,7 @@ S2CINT  sc_mutex = 0;			/* Mutual exclusion flag */
 S2CINT  sc_pendingsignals = 0;		/* pending signal mask */
 
 #if S2CSIGNALS
-#ifdef OLD_FASHIONED_C
-static  void  signal_handler( sig )
-	int sig;
-#else
-
 static  void  signal_handler( int sig )
-#endif
 {
 	SIGSET_T  oldmask;
 
@@ -1109,13 +936,7 @@ void  sc_dispatchpendingsignals()
 
 /* Arm operating system dependent signal handlers. */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_ossignal( sig, handler )
-	TSCP sig; TSCP handler;
-#else
-
 TSCP  sc_ossignal( TSCP sig, TSCP handler )
-#endif
 {
 #if  S2CSIGNALS
 #ifdef MACSCI
@@ -1248,13 +1069,7 @@ void  sc_timesliced()
    is 1.
 */
 
-#ifdef OLD_FASHIONED_C
-void  sc_pushstacktrace( st, procname )
-	struct STACKTRACE *st; char *procname;
-#else
-
 void  sc_pushstacktrace( struct STACKTRACE *st, char *procname )
-#endif
 {
 	st->prevstacktrace = sc_stacktrace;
 	st->procname = procname;
@@ -1267,13 +1082,7 @@ void  sc_pushstacktrace( struct STACKTRACE *st, char *procname )
    link when COMPACTPOPTRACE is 1.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_popstacktrace( st, result )
-	struct STACKTRACE *st; TSCP  result;
-#else
-
 TSCP  sc_popstacktrace( struct STACKTRACE *st, TSCP result )
-#endif
 {
 	sc_stacktrace = st->prevstacktrace;
 	return( result );

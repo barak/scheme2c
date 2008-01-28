@@ -36,7 +36,6 @@
  */
 typedef int sc_jmp_buf[2+7+8+8+1+4];	/* heap.c, objects.h, sparc.s */
 
-#undef  OLD_FASHIONED_C
 #undef  DOUBLE_ALIGN			/* heap.h, objects.h */
 #undef  STACK_GROWS_POSITIVE		/* callcc.c, objects.h, scinit.c */
 #define MATHTRAPS 1			/* mtraps.c, objects.h, sparc.s */

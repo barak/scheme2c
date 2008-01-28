@@ -96,13 +96,7 @@ static S2CINT   scheap,			/* Heap size in megabytes */
 
 /* Get value from either the command line or the environment. */
 
-#ifdef OLD_FASHIONED_C
-static char*  getargval( argc, argv, cl, env )
-	S2CINT argc; char *argv[]; char* cl; char* env;
-#else
-
 static char*  getargval( S2CINT argc, char *argv[], char* cl, char* env )
-#endif
 {
 	S2CINT  i;
 
@@ -114,13 +108,7 @@ static char*  getargval( S2CINT argc, char *argv[], char* cl, char* env )
 
 /* Convert a string to a number, returning -1 on an error */
 
-#ifdef OLD_FASHIONED_C
-static S2CINT  getinteger( cp )
-	char* cp;
-#else
-
 static S2CINT  getinteger( char* cp )
-#endif
 {
 	S2CINT  value = 0;
 
@@ -134,13 +122,7 @@ static S2CINT  getinteger( char* cp )
 
 /* Decode all Scheme->C specific arguments. */
 
-#ifdef OLD_FASHIONED_C	
-static void  decodearguments( argc, argv )
-	S2CINT argc; char *argv[];
-#else
-
 static void  decodearguments( S2CINT argc, char *argv[] )
-#endif
 {
 	char  *val;
 	
@@ -185,13 +167,7 @@ static void  decodearguments( S2CINT argc, char *argv[] )
    command line.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_clarguments( argc, argv )
-	int argc; char *argv[];
-#else
-
 TSCP  sc_clarguments( int argc, char *argv[] )
-#endif
 {
 	int  i;
 	TSCP  argl, main;
@@ -233,13 +209,7 @@ TSCP  sc_time_2dslice()  {
 	return( C_FIXED( sc_timesliceinit ) );
 }
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_set_2dtime_2dslice_21( ticks )
-	TSCP ticks;
-#else
-
 TSCP  sc_set_2dtime_2dslice_21( TSCP ticks )
-#endif
 {
 	if  (TSCPTAG( ticks ) != FIXNUMTAG  ||  FIXED_C( ticks ) <= 0)
 	   sc_error( "SET-TIME-SLICE!", "Argument is not a POSITIVE INTEGER",
@@ -262,13 +232,7 @@ TSCP  sc_stack_2dsize()
 	return( C_FIXED( sc_stackbytes ) );
 }
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_set_2dstack_2dsize_21( bytes )
-	TSCP bytes;
-#else
-
 TSCP  sc_set_2dstack_2dsize_21( TSCP bytes )
-#endif
 {
 	char  *ts;
 
@@ -293,12 +257,6 @@ TSCP  sc_set_2dstack_2dsize_21( TSCP bytes )
    be returned as NULL.
 */
 
-#ifdef OLD_FASHIONED_C
-static void  allocate_sidetables( first, last, pagegen, type, lock, link )
-	S2CINT first; S2CINT last; unsigned char **pagegen;  
-	unsigned char **type; unsigned char **lock; PAGELINK  **link;
-#else
-
 static void  allocate_sidetables( S2CINT first,	/* heap pages */
 				  S2CINT last,
 						/* Ptrs to ptrs to tbls */
@@ -306,7 +264,6 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 				  unsigned char **type,
 	       			  unsigned char **lock,
 				  PAGELINK  **link )
-#endif
 {
 	S2CINT  bytes;
 	char*  addr;
@@ -590,14 +547,8 @@ S2CINT  sc_expandheap()
 
 /* Initialization from a compiled Scheme program. */
 
-#ifdef OLD_FASHIONED_C
-void  sc_restoreheap( desiredheap, argc, argv, mainproc )
-	S2CINT desiredheap; int argc; char *argv[]; void (*mainproc)();
-#else
-
 void  sc_restoreheap( S2CINT desiredheap, int argc, char *argv[],
 		      void (*mainproc)() )
-#endif
 {
 	if  (module_initialized)  return;
 	if  (desiredheap  &&  desiredheap > scheap)  {
@@ -623,13 +574,7 @@ void  sc__init()
    string which is a format descriptor.  ARGS is a list of TSCP arguments.
 */
 
-#ifdef OLD_FASHIONED_C
-sc_error( symbol, format, args )
-	char *symbol; char *format; TSCP args;
-#else
-
 sc_error( char *symbol, char *format, TSCP args )
-#endif
 {
 	sc_timeslice = 1000000;
 	sc_savetopofstack = sc_topofstack;
@@ -707,15 +652,8 @@ TSCP  sc_implementation()
  * See the Scheme implementation in screp.sc for details.
  */
 
-#if OLD_FASHIONED_C
-void  scheme2c( input_expression, status, output, error )
-	char *input_expression; int *status;
-	char **output; char **error;
-#else
-
 void  scheme2c( char *input_expression, int *status,
 		char **output, char **error )
-#endif
 {
 	TSCP  x;
 	S2CINT  *sp;

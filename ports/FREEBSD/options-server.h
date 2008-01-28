@@ -91,10 +91,6 @@
 
 	BIGENDIAN		defined to 1 to denote bigendian systems
 
-   C compiler:
-
-	OLD_FASHIONED_C		defined to 1 for pre-ANSI compilers
-
    Alignment:
 
 	DOUBLE_ALIGN		defined to 1 to force doubles to be aligned on

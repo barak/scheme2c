@@ -216,13 +216,7 @@ TSCP  sc_string_2dcopy( string )
    function.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_cstringtostring( cstring )
-	char* cstring;
-#else
-
 TSCP  sc_cstringtostring( char* cstring )
-#endif
 {
 	S2CINT  len, x;
 	char  *cp;
@@ -246,13 +240,7 @@ TSCP  sc_cstringtostring( char* cstring )
 
 TSCP  sc_c_2dstring_2d_3estring_v;
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_c_2dstring_2d_3estring( cstring )
-	TSCP cstring;
-#else
-
 TSCP  sc_c_2dstring_2d_3estring( TSCP cstring )
-#endif
 {
 	return( sc_cstringtostring( (char*)TSCP_POINTER( cstring ) ) );
 
@@ -702,13 +690,7 @@ TSCP  sc_scheme_2dmode()
 
 /* The following procedure is called to set the Scheme execution mode. */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_set_2dscheme_2dmode_21( mode )
-	TSCP mode;
-#else
-
 TSCP  sc_set_2dscheme_2dmode_21( TSCP mode )
-#endif
 {
 	if  (mode == CSTRING_SYMBOL( "STAND-ALONE" ))
 	   sc_schememode = STANDALONESCHEME;

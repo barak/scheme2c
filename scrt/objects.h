@@ -80,11 +80,7 @@
 
 /* Define the type VOIDP which is either void* or char*. */
 
-#ifdef OLD_FASHIONED_C
-typedef char *VOIDP;
-#else
 typedef void *VOIDP;
-#endif
 
 /* The data encoding scheme is similar to that used by Vax NIL and T, where
    all objects are represented by S2CINT size pointers, with a "low tag"
@@ -687,38 +683,6 @@ extern  S2CINT  sc_schememode;
    such arguments are not allowed by older C compilers.
 */
 
-#ifdef OLD_FASHIONED_C
-
-#define XAL0()
-#define XAL1(a)
-#define XAL2(a,b)
-#define XAL3(a,b,c)
-#define XAL4(a,b,c,d)
-#define XAL5(a,b,c,d,e)
-#define XAL6(a,b,c,d,e,f)
-#define XAL7(a,b,c,d,e,f,g)
-#define XAL8(a,b,c,d,e,f,g,h)
-#define XAL9(a,b,c,d,e,f,g,h,i)
-#define XAL10(a,b,c,d,e,f,g,h,i,j)
-#define XAL11(a,b,c,d,e,f,g,h,i,j,k) 
-#define XAL12(a,b,c,d,e,f,g,h,i,j,k,l)
-#define XAL13(a,b,c,d,e,f,g,h,i,j,k,l,m)
-#define XAL14(a,b,c,d,e,f,g,h,i,j,k,l,m,n)
-#define XAL15(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o)
-#define XAL16(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p)
-#define XAL17(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q)
-#define XAL18(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r)
-#define XAL19(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s)
-#define XAL20(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t)
-#define XAL21(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u) 
-#define XAL22(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v) 
-#define XAL23(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w) 
-#define XAL24(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x) 
-#define XAL25(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y) 
-#define XAL26(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z)
-
-#else
-
 #ifdef NEED_MACRO_ARGS
 #define XAL0(dummy)
 #else
@@ -786,7 +750,6 @@ extern  S2CINT  sc_schememode;
 	l v12,m v13,n v14,o v15,p v16,q v17,r v18,s v19,t v20,u v21,v v22,\
 	w v23,x v24,y v25,z v26
 
-#endif
 
 /* The procedural interfaces to this module are: */
 

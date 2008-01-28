@@ -145,13 +145,7 @@ double  sc_usertime = 0.0,	/* Scheme time */
    a timer is stopped, it updates it and returns the delta added to it.
 */
 
-#ifdef OLD_FASHIONED_C
-double  sc_stoptimer( timer )
-	double  *timer;
-#else
-
 double  sc_stoptimer( double *timer )
-#endif
 {
 	double  currenttime, delta;
 
@@ -215,13 +209,7 @@ static SCP  moving_object;
 
 static S2CINT  pointer_errors = 0;
 
-#ifdef OLD_FASHIONED_C
-static void  pointererror( msg, pp )
-	char* msg; S2CUINT pp;
-#else
-
 static void  pointererror( char* msg, S2CUINT pp )
-#endif
 {
 	sc_log_string( "***** COLLECT pointer error in " );
 	sc_log_hex( (S2CUINT)moving_object );
@@ -470,13 +458,7 @@ static  trace_stack_and_registers()
    function.
 */
 
-#ifdef OLD_FASHIONED_C
-static S2CINT  extendedsize( obj )
-	SCP obj;
-#else
-
 static S2CINT  extendedsize( SCP obj )
-#endif
 {
 	switch  (obj->extendedobj.tag)  {
 
@@ -525,13 +507,7 @@ static S2CINT  extendedsize( SCP obj )
    locked and the object will be moved.  
 */
 
-#ifdef OLD_FASHIONED_C
-static void  move_continuation_ptr( pp )
-	SCP pp;
-#else
-
 static void  move_continuation_ptr( SCP pp )
-#endif
 {
 	S2CINT  page, tag;
 	SCP  sweep, next;
@@ -601,13 +577,7 @@ static void  move_continuation_ptr( SCP pp )
    scheme, only objects in sc_current_generation are moved.
 */
 
-#ifdef OLD_FASHIONED_C
-static void  move_ptr( tpp )
-	TSCP tpp;
-#else
-
 static void  move_ptr( TSCP tpp )
-#endif
 {
 	S2CINT  length, words, *oldp, *newp, page;
 	TSCP  new;
@@ -668,13 +638,7 @@ static void  move_ptr( TSCP tpp )
    could not move, or NULL if the page was finished.
 */
 
-#ifdef OLD_FASHIONED_C
-static SCP  move_object( pp )
-	SCP pp;
-#else
-
 static SCP  move_object( SCP pp )
-#endif
 {
 	S2CINT  size, cnt, vpage, left;
 	PATSCP  obj;
@@ -771,13 +735,7 @@ static SCP  move_object( SCP pp )
    forwarded.  It returns the resolved pointer.
 */
 
-#ifdef OLD_FASHIONED_C
-static TSCP  resolveptr( obj )
-	TSCP obj;
-#else
-
 static TSCP  resolveptr( TSCP obj )
-#endif
 {
 	if  ((TSCPTAG( obj ) & 1) && (T_U( obj )->forward.tag == FORWARDTAG))
 	   return( T_U( obj )->forward.forward );
@@ -977,13 +935,7 @@ static  move_the_generations()
    tagged pointer as its argument and returns the new value of the pointer.
 */
 
-#ifdef OLD_FASHIONED_C
-static TSCP  correct( tobj )
-	TSCP tobj;
-#else
-
 static TSCP  correct( TSCP tobj )
-#endif
 {
 	SCP  obj;
 
@@ -1001,13 +953,7 @@ static TSCP  correct( TSCP tobj )
    follow it on that page will be corrected.
 */
 
-#ifdef OLD_FASHIONED_C
-static  correct_object( pp )
-	SCP pp;
-#else
-
 static  correct_object( SCP pp )
-#endif
 {
 	S2CINT  page, size, cnt;
 	PATSCP  obj;
@@ -1096,13 +1042,7 @@ static  correct_object( SCP pp )
    is set to linkvalue.
 */
 
-#ifdef OLD_FASHIONED_C
-static  correct_pointers( page, linkvalue )
-	S2CINT page; S2CINT linkvalue;
-#else
-
 static  correct_pointers( S2CINT page, S2CINT linkvalue )
-#endif
 {
 	S2CINT  count, i;
 	PATSCP  ptr;
@@ -1146,13 +1086,7 @@ static  correct_pointers( S2CINT page, S2CINT linkvalue )
    next collection.
 */
 
-#ifdef OLD_FASHIONED_C
-static  copyback_locked_pages( locklist )
-	S2CINT locklist;
-#else
-
 static  copyback_locked_pages( S2CINT locklist )
-#endif
 {
 	S2CINT  page, count, vpage;
 	SCP  obj, fobj, sobj;
@@ -1355,13 +1289,7 @@ static void  check_obarray()
 
 /* The following procedure verifies that a pointer is correct. */
 
-#ifdef OLD_FASHIONED_C
-static void  check_ptr( tpp )
-	TSCP tpp;
-#else
-
 static void  check_ptr( TSCP tpp )
-#endif
 {
 	S2CINT  page;
 
@@ -1383,13 +1311,7 @@ static void  check_ptr( TSCP tpp )
 
 /* A page of objects is checked by the following procedure. */
 
-#ifdef OLD_FASHIONED_C
-static SCP  check_object( pp )
-	SCP pp;
-#else
-
 static SCP  check_object( SCP pp )
-#endif
 {
 	S2CINT  page, size, cnt, vpage;
 	PATSCP  obj;
@@ -1467,13 +1389,7 @@ static SCP  check_object( SCP pp )
 
 /* A page of pairs is checkled by the following procedure. */
 
-#ifdef OLD_FASHIONED_C
-static void  check_pairs( pp )
-	SCP pp;
-#else
-
 static void  check_pairs( SCP pp )
-#endif
 {
 	S2CINT  count;
 	PATSCP  ptr;
@@ -1768,13 +1684,7 @@ TSCP  sc_collect_2dinfo()
 
 TSCP  sc_set_2dgcinfo_21_v;
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_set_2dgcinfo_21( flag )
-	TSCP flag;
-#else
-
 TSCP  sc_set_2dgcinfo_21( TSCP flag )
-#endif
 {
 	S2CINT  old_sc_gcinfo = sc_gcinfo;
 
@@ -1791,13 +1701,7 @@ TSCP  sc_set_2dgcinfo_21( TSCP flag )
 
 TSCP  sc_2dlimit_21_de4d3427_v;
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_2dlimit_21_de4d3427( limit )
-	TSCP limit;
-#else
-
 TSCP  sc_2dlimit_21_de4d3427( TSCP limit )
-#endif
 {
 	if  (TSCPTAG( limit ) != FIXNUMTAG  ||
 	     FIXED_C( limit ) < 10  ||  FIXED_C( limit ) > 45)
@@ -1812,13 +1716,7 @@ TSCP  sc_2dlimit_21_de4d3427( TSCP limit )
 
 TSCP  sc_set_2dmaximum_2dheap_21_v;
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_set_2dmaximum_2dheap_21( maxheap )
-	TSCP maxheap;
-#else
-
 TSCP  sc_set_2dmaximum_2dheap_21( TSCP maxheap )
-#endif
 {
         /* changed by Qobi R24Dec98 */
         if (TSCPTAG(maxheap)==FIXNUMTAG)
@@ -1851,13 +1749,7 @@ TSCP  sc_set_2dmaximum_2dheap_21( TSCP maxheap )
 static S2CINT  allocatepage_failed = 0;	/* Set following collection, cleared on
 				   	   successful allocation */
 
-#ifdef OLD_FASHIONED_C
-static void  allocatepage( count, tag )
-	S2CINT count; S2CINT tag;
-#else
-
 static void  allocatepage( S2CINT count, S2CINT tag )
-#endif
 {
 	S2CINT  start, page, freecnt, generation;
 
@@ -1921,13 +1813,7 @@ failed:
    values outside the heap.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_setgeneration( a, b )
-	TSCP* a; TSCP b;
-#else
-
 TSCP  sc_setgeneration( TSCP* a, TSCP b )
-#endif
 {
 	S2CINT  oldpage = ADDRESS_PAGE( a );
 
@@ -1971,13 +1857,7 @@ TSCP  sc_setgeneration( TSCP* a, TSCP b )
 	 CAUSE PROBLEMS DURING ALLOCATION.
 */
 
-#ifdef OLD_FASHIONED_C
-SCP  sc_allocateheap( wordsize, tag, rest )
-	S2CINT wordsize; S2CINT tag; S2CINT rest;
-#else
-
 SCP  sc_allocateheap( S2CINT wordsize, S2CINT tag, S2CINT rest )
-#endif
 {
 	SCP  alloc;
 	S2CINT  isastring = (tag == STRINGTAG);
@@ -2033,13 +1913,7 @@ extern void sc_set_double( XAL2( int* , double ) );
 #endif
 
 
-#ifdef OLD_FASHIONED_C
-TSCP sc_makedoublefloat( value )
-	double value;
-#else
-
 TSCP sc_makedoublefloat( double value )
-#endif
 {
 	SCP  pp;
 
@@ -2064,13 +1938,7 @@ TSCP sc_makedoublefloat( double value )
 
 TSCP  sc_cons_v;
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_cons( x, y )
-	TSCP x; TSCP y;
-#else
-
 TSCP  sc_cons( TSCP x, TSCP y )
-#endif
 {
 	SCP  oconsp;
 
@@ -2093,13 +1961,7 @@ retry:
    a pointer is a TSCP or a C string.
 */
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_schemepointer( any )
-	TSCP any;
-#else
-
 TSCP  sc_schemepointer( TSCP any )
-#endif
 {
 	SCP  pp = T_U( any );
 
@@ -2127,13 +1989,7 @@ static  verifyfail()
 	sc_abort();
 }
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_verifyobject( any )
-	TSCP any;
-#else
-
 TSCP  sc_verifyobject( TSCP any )
-#endif
 {
 	S2CINT  i;
 	struct SEEN  seen, *sp;
@@ -2235,13 +2091,7 @@ TSCP  sc_verifyobject( TSCP any )
 
 TSCP  sc_weak_2dcons_v;
 
-#ifdef OLD_FASHIONED_C
-TSCP  sc_weak_2dcons( x, y )
-	TSCP  x, y;
-#else
-
 TSCP  sc_weak_2dcons( TSCP x, TSCP y )
-#endif
 {
 	TSCP  cons,	/* cons cell holding x & y */
 	      weak;	/* 3 element "weak" string: link, cons, car */

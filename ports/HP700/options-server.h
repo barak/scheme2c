@@ -90,10 +90,6 @@
 
 	BIGENDIAN		defined to 1 to denote bigendian systems
 
-   C compiler:
-
-	OLD_FASHIONED_C		defined to 1 for pre-ANSI compilers
-
    Alignment:
 
 	DOUBLE_ALIGN		defined to 1 to force doubles to be aligned on
@@ -157,12 +153,6 @@ typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #ifdef __hpux
 #define IMPLEMENTATION_OS	"HP-UX"
 #undef  IMPLEMENTATION_FS
-
-#ifdef __STDC__
-#undef OLD_FASHIONED_C
-#else
-#define OLD_FASHIONED_C 1
-#endif
 
 #include <setjmp.h>
 typedef jmp_buf sc_jmp_buf;
