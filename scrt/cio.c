@@ -648,21 +648,6 @@ TSCP  sc_error_2ddisplay( TSCP item )
 /* Memory allocation */
 
 
-#ifdef LINUX
-
-/* added by Qobi F2Nov2001 */
-int linux_mmap_hack = (0==1);
-int linux_getenv_hack = (0==1);
-
-/* (define-external (enable-linux-mmap-hack!) sc) */
-TSCP  sc__2dhack_21_6518f460( void )
-{
-      linux_mmap_hack = (0==0);
-      return( FALSEVALUE );
-}
-
-#endif
-
 /* The following procedure is called to allocate memory for the Scheme->C
    heap.  Memory requests are filled by allocating one or more 64KB blocks
    of memory until the request is satisfied.  When quit is true, the program
@@ -679,51 +664,17 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 {
 	VOIDP  memp;
 
-#ifdef MAC
+#if defined(MAC) || defined(LINUX) || defined(FREEBSD) || defined(AMD64)
 	memp = malloc( (size_t)(bytes+PAGEBYTES-1) );
 	if  ((S2CINT)memp & (PAGEBYTES-1))
 	   memp = (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp &
 						  (PAGEBYTES-1))));
 #else
-#ifdef LINUX
-      /* changed by Qobi S10Jan99 and again R18Feb99 and again F19Feb99
-          and again R1Jun2000 and again F2Nov2001 */
-       if (!linux_getenv_hack)
-      { linux_getenv_hack = (0==0);
-         if (getenv("SCMMAP")!=NULL) linux_mmap_hack = (0==0);}
-       if (linux_mmap_hack)
-       { for (; bytes>0; bytes -= PAGEBYTES)
-        /* This used to be 0x00000001. With that, under RH7.2 the maximum
-            amount that can be allocated is about 2G. Because allocation
-            starts around 0x40000000 and goes up to about 0xc0000000. If you
-            set this to 0x00001000 then allocation starts at 0x00001000 and
-            goes up to about 0xc0000000 giving about 3G maximum allocation.
-            I have not been able to get any pages allocated above 0xc0000000
-            and thus have not been able to get more than 3G. For some reason,
-            when this is 0x00001000 allocation starts below 0x40000000. But
-            when it is 0x00000000, 0x00000001, or above 0x40000000,
-            allocation starts at 0x40000000 and pages below that never get
-            allocated. */
-        { memp = mmap((void *)0x00001000, (size_t)(bytes+PAGEBYTES-1),
-                      PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0);
-          if ((S2CINT)memp!=-1)
-          { if ((S2CINT)memp&(PAGEBYTES-1))
-            { memp =
-              (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp&(PAGEBYTES-1))));}
-            goto l;}}
-        memp = NULL;
-        l:;}
-       else
-       {
-#endif  
         memp = sbrk( 0 );
         if  ((S2CINT)memp & (PAGEBYTES-1))
            sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
         memp = sbrk( bytes );
 	if  ((S2CINT)memp == -1)  memp = NULL; 
-#ifdef LINUX
-       }
-#endif
 #endif
 	if  (memp == NULL)  {
 	   sc_heapblocks.count = 0;
