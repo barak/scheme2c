@@ -546,7 +546,6 @@ EXTERNTSCP( scrt2__3c_2dtwo_v );
 EXTERNTSCPP( gencode_exp_2dgenc, 
              XAL3( TSCP, TSCP, TSCP ) );
 EXTERNTSCP( gencode_exp_2dgenc_v );
-EXTERNTSCPP( callcode_b2296, XAL1( TSCP ) );
 EXTERNTSCPP( callcode_nal_2dargs_9446856b, 
              XAL3( TSCP, TSCP, TSCP ) );
 EXTERNTSCP( callcode_nal_2dargs_9446856b_v );

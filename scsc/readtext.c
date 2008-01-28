@@ -1053,7 +1053,6 @@ TSCP  readtext_c2584( x2681 )
         POPSTACKTRACE( scrt1_memq( x2681, c2682 ) );
 }
 
-EXTERNTSCPP( readtext_c2584, XAL1( TSCP ) );
 EXTERNTSCPP( scrt1_reverse, XAL1( TSCP ) );
 EXTERNTSCP( scrt1_reverse_v );
 

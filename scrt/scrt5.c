@@ -840,8 +840,6 @@ L3465:
         POPSTACKTRACE( X3 );
 }
 
-EXTERNTSCPP( scrt5_w2289, XAL2( TSCP, TSCP ) );
-
 TSCP  scrt5_w2296( t2498, c3467 )
         TSCP  t2498, c3467;
 {

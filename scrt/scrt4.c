@@ -3,138 +3,138 @@
 
 #include <objects.h>
 
-DEFCSTRING( t3194, "Argument is not a STRING: ~s" );
-DEFSTATICTSCP( c3143 );
-DEFSTATICTSCP( c3142 );
-DEFCSTRING( t3195, "Argument is not a valid SIGNAL HANDLER: ~s" );
-DEFSTATICTSCP( c3087 );
-DEFCSTRING( t3196, "Argument is not a valid SIGNAL: ~s" );
-DEFSTATICTSCP( c3070 );
-DEFSTATICTSCP( c3069 );
-DEFCSTRING( t3197, "Argument is not a PROCEDURE: ~s" );
-DEFSTATICTSCP( c3024 );
-DEFSTATICTSCP( c3023 );
-DEFSTATICTSCP( c2933 );
-DEFSTATICTSCP( c2926 );
-DEFSTATICTSCP( c2919 );
-DEFSTATICTSCP( c2912 );
-DEFSTATICTSCP( c2905 );
-DEFSTATICTSCP( c2899 );
-DEFSTATICTSCP( c2893 );
-DEFCSTRING( t3198, "Structure is not a SCHEME pointer: ~s" );
-DEFSTATICTSCP( c2887 );
-DEFSTATICTSCP( c2886 );
-DEFCSTRING( t3199, "#~" );
-DEFSTATICTSCP( c2792 );
-DEFSTATICTSCP( c2785 );
-DEFSTATICTSCP( c2781 );
-DEFSTATICTSCP( c2777 );
-DEFSTATICTSCP( t3200 );
-DEFSTATICTSCP( t3201 );
-DEFSTATICTSCP( c2760 );
-DEFSTATICTSCP( c2666 );
-DEFSTATICTSCP( c2650 );
-DEFCSTRING( t3202, "Argument is not a %RECORD: ~s" );
-DEFSTATICTSCP( c2641 );
-DEFSTATICTSCP( c2640 );
-DEFCSTRING( t3203, "***** ~a " );
-DEFSTATICTSCP( c2625 );
-DEFCSTRING( t3204, "Argument not a PAIR: ~s" );
-DEFSTATICTSCP( c2400 );
-DEFSTATICTSCP( c2399 );
+DEFCSTRING( t3115, "Argument is not a STRING: ~s" );
+DEFSTATICTSCP( c3064 );
+DEFSTATICTSCP( c3063 );
+DEFCSTRING( t3116, "Argument is not a valid SIGNAL HANDLER: ~s" );
+DEFSTATICTSCP( c3008 );
+DEFCSTRING( t3117, "Argument is not a valid SIGNAL: ~s" );
+DEFSTATICTSCP( c2991 );
+DEFSTATICTSCP( c2990 );
+DEFCSTRING( t3118, "Argument is not a PROCEDURE: ~s" );
+DEFSTATICTSCP( c2945 );
+DEFSTATICTSCP( c2944 );
+DEFSTATICTSCP( c2854 );
+DEFSTATICTSCP( c2847 );
+DEFSTATICTSCP( c2840 );
+DEFSTATICTSCP( c2833 );
+DEFSTATICTSCP( c2826 );
+DEFSTATICTSCP( c2820 );
+DEFSTATICTSCP( c2814 );
+DEFCSTRING( t3119, "Structure is not a SCHEME pointer: ~s" );
+DEFSTATICTSCP( c2808 );
+DEFSTATICTSCP( c2807 );
+DEFCSTRING( t3120, "#~" );
+DEFSTATICTSCP( c2713 );
+DEFSTATICTSCP( c2706 );
+DEFSTATICTSCP( c2702 );
+DEFSTATICTSCP( c2698 );
+DEFSTATICTSCP( t3121 );
+DEFSTATICTSCP( t3122 );
+DEFSTATICTSCP( c2681 );
+DEFSTATICTSCP( c2587 );
+DEFSTATICTSCP( c2571 );
+DEFCSTRING( t3123, "Argument is not a %RECORD: ~s" );
+DEFSTATICTSCP( c2562 );
+DEFSTATICTSCP( c2561 );
+DEFCSTRING( t3124, "***** ~a " );
+DEFSTATICTSCP( c2546 );
+DEFCSTRING( t3125, "Argument not a PAIR: ~s" );
+DEFSTATICTSCP( c2470 );
+DEFSTATICTSCP( c2469 );
 DEFSTATICTSCP( c2170 );
-DEFCSTRING( t3205, "Index is not in bounds: ~s" );
+DEFCSTRING( t3126, "Index is not in bounds: ~s" );
 DEFSTATICTSCP( c2159 );
-DEFCSTRING( t3206, "Argument is not an INTEGER: ~s" );
+DEFCSTRING( t3127, "Argument is not an INTEGER: ~s" );
 DEFSTATICTSCP( c2155 );
 DEFSTATICTSCP( c2152 );
-DEFCSTRING( t3207, "Argument is not a VECTOR: ~s" );
+DEFCSTRING( t3128, "Argument is not a VECTOR: ~s" );
 DEFSTATICTSCP( c2143 );
 DEFSTATICTSCP( c2142 );
 
 static void  init_constants()
 {
-        c3143 = CSTRING_TSCP( t3194 );
-        CONSTANTEXP( ADR( c3143 ) );
-        c3142 = STRINGTOSYMBOL( CSTRING_TSCP( "SYSTEM" ) );
-        CONSTANTEXP( ADR( c3142 ) );
-        c3087 = CSTRING_TSCP( t3195 );
-        CONSTANTEXP( ADR( c3087 ) );
-        c3070 = CSTRING_TSCP( t3196 );
-        CONSTANTEXP( ADR( c3070 ) );
-        c3069 = STRINGTOSYMBOL( CSTRING_TSCP( "SIGNAL" ) );
-        CONSTANTEXP( ADR( c3069 ) );
-        c3024 = CSTRING_TSCP( t3197 );
-        CONSTANTEXP( ADR( c3024 ) );
-        c3023 = STRINGTOSYMBOL( CSTRING_TSCP( "WHEN-UNREFERENCED" ) );
-        CONSTANTEXP( ADR( c3023 ) );
-        c2933 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-S2CUINT-SET!" ) );
-        CONSTANTEXP( ADR( c2933 ) );
-        c2926 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-TSCP-SET!" ) );
-        CONSTANTEXP( ADR( c2926 ) );
-        c2919 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-INT-SET!" ) );
-        CONSTANTEXP( ADR( c2919 ) );
-        c2912 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-BYTE-SET!" ) );
-        CONSTANTEXP( ADR( c2912 ) );
-        c2905 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-S2CUINT-REF" ) );
-        CONSTANTEXP( ADR( c2905 ) );
-        c2899 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-TSCP-REF" ) );
-        CONSTANTEXP( ADR( c2899 ) );
-        c2893 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-INT-REF" ) );
-        CONSTANTEXP( ADR( c2893 ) );
-        c2887 = CSTRING_TSCP( t3198 );
-        CONSTANTEXP( ADR( c2887 ) );
-        c2886 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-BYTE-REF" ) );
-        CONSTANTEXP( ADR( c2886 ) );
-        c2792 = CSTRING_TSCP( t3199 );
-        CONSTANTEXP( ADR( c2792 ) );
-        c2785 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-EVAL" ) );
-        CONSTANTEXP( ADR( c2785 ) );
-        c2781 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-EQUAL?" ) );
-        CONSTANTEXP( ADR( c2781 ) );
-        c2777 = EMPTYLIST;
-        t3200 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-DISPLAY" ) );
-        c2777 = CONS( t3200, c2777 );
-        t3201 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-WRITE" ) );
-        c2777 = CONS( t3201, c2777 );
-        CONSTANTEXP( ADR( c2777 ) );
-        c2760 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-METHODS" ) );
-        CONSTANTEXP( ADR( c2760 ) );
-        c2666 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-SET!" ) );
-        CONSTANTEXP( ADR( c2666 ) );
-        c2650 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-REF" ) );
-        CONSTANTEXP( ADR( c2650 ) );
-        c2641 = CSTRING_TSCP( t3202 );
-        CONSTANTEXP( ADR( c2641 ) );
-        c2640 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-LENGTH" ) );
-        CONSTANTEXP( ADR( c2640 ) );
-        c2625 = CSTRING_TSCP( t3203 );
-        CONSTANTEXP( ADR( c2625 ) );
-        c2400 = CSTRING_TSCP( t3204 );
-        CONSTANTEXP( ADR( c2400 ) );
-        c2399 = STRINGTOSYMBOL( CSTRING_TSCP( "SET-CDR!" ) );
-        CONSTANTEXP( ADR( c2399 ) );
+        c3064 = CSTRING_TSCP( t3115 );
+        CONSTANTEXP( ADR( c3064 ) );
+        c3063 = STRINGTOSYMBOL( CSTRING_TSCP( "SYSTEM" ) );
+        CONSTANTEXP( ADR( c3063 ) );
+        c3008 = CSTRING_TSCP( t3116 );
+        CONSTANTEXP( ADR( c3008 ) );
+        c2991 = CSTRING_TSCP( t3117 );
+        CONSTANTEXP( ADR( c2991 ) );
+        c2990 = STRINGTOSYMBOL( CSTRING_TSCP( "SIGNAL" ) );
+        CONSTANTEXP( ADR( c2990 ) );
+        c2945 = CSTRING_TSCP( t3118 );
+        CONSTANTEXP( ADR( c2945 ) );
+        c2944 = STRINGTOSYMBOL( CSTRING_TSCP( "WHEN-UNREFERENCED" ) );
+        CONSTANTEXP( ADR( c2944 ) );
+        c2854 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-S2CUINT-SET!" ) );
+        CONSTANTEXP( ADR( c2854 ) );
+        c2847 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-TSCP-SET!" ) );
+        CONSTANTEXP( ADR( c2847 ) );
+        c2840 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-INT-SET!" ) );
+        CONSTANTEXP( ADR( c2840 ) );
+        c2833 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-BYTE-SET!" ) );
+        CONSTANTEXP( ADR( c2833 ) );
+        c2826 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-S2CUINT-REF" ) );
+        CONSTANTEXP( ADR( c2826 ) );
+        c2820 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-TSCP-REF" ) );
+        CONSTANTEXP( ADR( c2820 ) );
+        c2814 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-INT-REF" ) );
+        CONSTANTEXP( ADR( c2814 ) );
+        c2808 = CSTRING_TSCP( t3119 );
+        CONSTANTEXP( ADR( c2808 ) );
+        c2807 = STRINGTOSYMBOL( CSTRING_TSCP( "SCHEME-BYTE-REF" ) );
+        CONSTANTEXP( ADR( c2807 ) );
+        c2713 = CSTRING_TSCP( t3120 );
+        CONSTANTEXP( ADR( c2713 ) );
+        c2706 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-EVAL" ) );
+        CONSTANTEXP( ADR( c2706 ) );
+        c2702 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-EQUAL?" ) );
+        CONSTANTEXP( ADR( c2702 ) );
+        c2698 = EMPTYLIST;
+        t3121 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-DISPLAY" ) );
+        c2698 = CONS( t3121, c2698 );
+        t3122 = STRINGTOSYMBOL( CSTRING_TSCP( "%TO-WRITE" ) );
+        c2698 = CONS( t3122, c2698 );
+        CONSTANTEXP( ADR( c2698 ) );
+        c2681 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-METHODS" ) );
+        CONSTANTEXP( ADR( c2681 ) );
+        c2587 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-SET!" ) );
+        CONSTANTEXP( ADR( c2587 ) );
+        c2571 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-REF" ) );
+        CONSTANTEXP( ADR( c2571 ) );
+        c2562 = CSTRING_TSCP( t3123 );
+        CONSTANTEXP( ADR( c2562 ) );
+        c2561 = STRINGTOSYMBOL( CSTRING_TSCP( "%RECORD-LENGTH" ) );
+        CONSTANTEXP( ADR( c2561 ) );
+        c2546 = CSTRING_TSCP( t3124 );
+        CONSTANTEXP( ADR( c2546 ) );
+        c2470 = CSTRING_TSCP( t3125 );
+        CONSTANTEXP( ADR( c2470 ) );
+        c2469 = STRINGTOSYMBOL( CSTRING_TSCP( "SET-CDR!" ) );
+        CONSTANTEXP( ADR( c2469 ) );
         c2170 = STRINGTOSYMBOL( CSTRING_TSCP( "VECTOR-SET!" ) );
         CONSTANTEXP( ADR( c2170 ) );
-        c2159 = CSTRING_TSCP( t3205 );
+        c2159 = CSTRING_TSCP( t3126 );
         CONSTANTEXP( ADR( c2159 ) );
-        c2155 = CSTRING_TSCP( t3206 );
+        c2155 = CSTRING_TSCP( t3127 );
         CONSTANTEXP( ADR( c2155 ) );
         c2152 = STRINGTOSYMBOL( CSTRING_TSCP( "VECTOR-REF" ) );
         CONSTANTEXP( ADR( c2152 ) );
-        c2143 = CSTRING_TSCP( t3207 );
+        c2143 = CSTRING_TSCP( t3128 );
         CONSTANTEXP( ADR( c2143 ) );
         c2142 = STRINGTOSYMBOL( CSTRING_TSCP( "VECTOR-LENGTH" ) );
         CONSTANTEXP( ADR( c2142 ) );
 }
 
 DEFTSCP( scrt4_vector_3f_v );
-DEFCSTRING( t3208, "VECTOR?" );
+DEFCSTRING( t3129, "VECTOR?" );
 
 TSCP  scrt4_vector_3f( x2131 )
         TSCP  x2131;
 {
-        PUSHSTACKTRACE( t3208 );
+        PUSHSTACKTRACE( t3129 );
         POPSTACKTRACE( BOOLEAN( AND( EQ( TSCPTAG( x2131 ), 
                                          EXTENDEDTAG ), 
                                      EQ( TSCP_EXTENDEDTAG( x2131 ), 
@@ -142,88 +142,88 @@ TSCP  scrt4_vector_3f( x2131 )
 }
 
 DEFTSCP( scrt4_vector_v );
-DEFCSTRING( t3210, "VECTOR" );
+DEFCSTRING( t3131, "VECTOR" );
 EXTERNTSCPP( scrt4_list_2d_3evector, XAL1( TSCP ) );
 EXTERNTSCP( scrt4_list_2d_3evector_v );
 
 TSCP  scrt4_vector( x2135 )
         TSCP  x2135;
 {
-        PUSHSTACKTRACE( t3210 );
+        PUSHSTACKTRACE( t3131 );
         POPSTACKTRACE( scrt4_list_2d_3evector( x2135 ) );
 }
 
 DEFTSCP( scrt4_vector_2dlength_v );
-DEFCSTRING( t3212, "VECTOR-LENGTH" );
+DEFCSTRING( t3133, "VECTOR-LENGTH" );
 EXTERNTSCPP( scdebug_error, XAL3( TSCP, TSCP, TSCP ) );
 EXTERNTSCP( scdebug_error_v );
 
 TSCP  scrt4_vector_2dlength( x2137 )
         TSCP  x2137;
 {
-        PUSHSTACKTRACE( t3212 );
+        PUSHSTACKTRACE( t3133 );
         if  ( AND( EQ( TSCPTAG( x2137 ), EXTENDEDTAG ), 
                    EQ( TSCP_EXTENDEDTAG( x2137 ), VECTORTAG ) )
-            )  goto L3215;
+            )  goto L3136;
         scdebug_error( c2142, 
                        c2143, CONS( x2137, EMPTYLIST ) );
-L3215:
+L3136:
         POPSTACKTRACE( C_FIXED( VECTOR_LENGTH( x2137 ) ) );
 }
 
 DEFTSCP( scrt4_vector_2dref_v );
-DEFCSTRING( t3217, "VECTOR-REF" );
+DEFCSTRING( t3138, "VECTOR-REF" );
 
 TSCP  scrt4_vector_2dref( x2145, y2146 )
         TSCP  x2145, y2146;
 {
-        PUSHSTACKTRACE( t3217 );
+        PUSHSTACKTRACE( t3138 );
         if  ( AND( EQ( TSCPTAG( x2145 ), EXTENDEDTAG ), 
                    EQ( TSCP_EXTENDEDTAG( x2145 ), VECTORTAG ) )
-            )  goto L3220;
+            )  goto L3141;
         scdebug_error( c2152, 
                        c2143, CONS( x2145, EMPTYLIST ) );
-L3220:
-        if  ( EQ( TSCPTAG( y2146 ), FIXNUMTAG ) )  goto L3222;
+L3141:
+        if  ( EQ( TSCPTAG( y2146 ), FIXNUMTAG ) )  goto L3143;
         scdebug_error( c2152, 
                        c2155, CONS( y2146, EMPTYLIST ) );
-L3222:
+L3143:
         if  ( LT( _S2CUINT( FIXED_C( y2146 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( x2145 ) ) ) )  goto L3224;
+                  _S2CUINT( VECTOR_LENGTH( x2145 ) ) ) )  goto L3145;
         scdebug_error( c2152, 
                        c2159, CONS( y2146, EMPTYLIST ) );
-L3224:
+L3145:
         POPSTACKTRACE( VECTOR_ELEMENT( x2145, y2146 ) );
 }
 
 DEFTSCP( scrt4_vector_2dset_21_v );
-DEFCSTRING( t3226, "VECTOR-SET!" );
+DEFCSTRING( t3147, "VECTOR-SET!" );
 
 TSCP  scrt4_vector_2dset_21( x2161, y2162, z2163 )
         TSCP  x2161, y2162, z2163;
 {
-        PUSHSTACKTRACE( t3226 );
+        PUSHSTACKTRACE( t3147 );
         if  ( AND( EQ( TSCPTAG( x2161 ), EXTENDEDTAG ), 
                    EQ( TSCP_EXTENDEDTAG( x2161 ), VECTORTAG ) )
-            )  goto L3229;
+            )  goto L3150;
         scdebug_error( c2170, 
                        c2143, CONS( x2161, EMPTYLIST ) );
-L3229:
-        if  ( EQ( TSCPTAG( y2162 ), FIXNUMTAG ) )  goto L3231;
+L3150:
+        if  ( EQ( TSCPTAG( y2162 ), FIXNUMTAG ) )  goto L3152;
         scdebug_error( c2170, 
                        c2155, CONS( y2162, EMPTYLIST ) );
-L3231:
+L3152:
         if  ( LT( _S2CUINT( FIXED_C( y2162 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( x2161 ) ) ) )  goto L3233;
+                  _S2CUINT( VECTOR_LENGTH( x2161 ) ) ) )  goto L3154;
         scdebug_error( c2170, 
                        c2159, CONS( y2162, EMPTYLIST ) );
-L3233:
+L3154:
         POPSTACKTRACE( SETGEN( VECTOR_ELEMENT( x2161, y2162 ), 
                                z2163 ) );
 }
 
 DEFTSCP( scrt4_vector_2d_3elist_v );
-DEFCSTRING( t3235, "VECTOR->LIST" );
+DEFCSTRING( t3156, "VECTOR->LIST" );
 EXTERNTSCPP( scrt2__2d_2dtwo, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt2__2d_2dtwo_v );
 EXTERNTSCPP( scrt2__3d_2dtwo, XAL2( TSCP, TSCP ) );
@@ -236,63 +236,63 @@ TSCP  scrt4_vector_2d_3elist( x2177 )
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3235 );
+        PUSHSTACKTRACE( t3156 );
         if  ( AND( EQ( TSCPTAG( x2177 ), EXTENDEDTAG ), 
                    EQ( TSCP_EXTENDEDTAG( x2177 ), VECTORTAG ) )
-            )  goto L3239;
+            )  goto L3160;
         scdebug_error( c2142, 
                        c2143, CONS( x2177, EMPTYLIST ) );
-L3239:
+L3160:
         X2 = C_FIXED( VECTOR_LENGTH( x2177 ) );
         if  ( BITAND( BITOR( _S2CINT( X2 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3242;
+                      3 ) )  goto L3163;
         X1 = _TSCP( IDIFFERENCE( _S2CINT( X2 ), 
                                  _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3243;
-L3242:
+        goto L3164;
+L3163:
         X1 = scrt2__2d_2dtwo( X2, _TSCP( 4 ) );
-L3243:
+L3164:
         X2 = EMPTYLIST;
-L3244:
+L3165:
         X2 = CONS( X2, EMPTYLIST );
         if  ( BITAND( BITOR( _S2CINT( X1 ), 
                              _S2CINT( _TSCP( -4 ) ) ), 
-                      3 ) )  goto L3246;
-        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( _TSCP( -4 ) ) ) )  goto L3250;
+                      3 ) )  goto L3167;
+        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( _TSCP( -4 ) ) ) )  goto L3171;
         POPSTACKTRACE( PAIR_CAR( X2 ) );
-L3246:
-        if  ( FALSE( scrt2__3d_2dtwo( X1, _TSCP( -4 ) ) ) )  goto L3250;
+L3167:
+        if  ( FALSE( scrt2__3d_2dtwo( X1, _TSCP( -4 ) ) ) )  goto L3171;
         POPSTACKTRACE( PAIR_CAR( X2 ) );
-L3250:
-        if  ( EQ( TSCPTAG( X1 ), FIXNUMTAG ) )  goto L3255;
+L3171:
+        if  ( EQ( TSCPTAG( X1 ), FIXNUMTAG ) )  goto L3176;
         scdebug_error( c2152, 
                        c2155, CONS( X1, EMPTYLIST ) );
-L3255:
+L3176:
         if  ( LT( _S2CUINT( FIXED_C( X1 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( x2177 ) ) ) )  goto L3257;
+                  _S2CUINT( VECTOR_LENGTH( x2177 ) ) ) )  goto L3178;
         scdebug_error( c2152, 
                        c2159, CONS( X1, EMPTYLIST ) );
-L3257:
+L3178:
         X4 = VECTOR_ELEMENT( x2177, X1 );
         X3 = sc_cons( X4, PAIR_CAR( X2 ) );
         SETGEN( PAIR_CAR( X2 ), X3 );
         if  ( BITAND( BITOR( _S2CINT( X1 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3259;
+                      3 ) )  goto L3180;
         X3 = _TSCP( IDIFFERENCE( _S2CINT( X1 ), 
                                  _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3260;
-L3259:
+        goto L3181;
+L3180:
         X3 = scrt2__2d_2dtwo( X1, _TSCP( 4 ) );
-L3260:
+L3181:
         X2 = PAIR_CAR( X2 );
         X1 = X3;
-        GOBACK( L3244 );
+        GOBACK( L3165 );
 }
 
 DEFTSCP( scrt4_list_2d_3evector_v );
-DEFCSTRING( t3261, "LIST->VECTOR" );
+DEFCSTRING( t3182, "LIST->VECTOR" );
 EXTERNTSCPP( sc_make_2dvector, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( sc_make_2dvector_v );
 EXTERNTSCPP( scrt1_length, XAL1( TSCP ) );
@@ -307,110 +307,110 @@ TSCP  scrt4_list_2d_3evector( x2223 )
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3261 );
+        PUSHSTACKTRACE( t3182 );
         X2 = scrt1_length( x2223 );
         X1 = sc_make_2dvector( X2, EMPTYLIST );
         X2 = x2223;
         X3 = _TSCP( 0 );
-L3264:
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3265;
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3269;
+L3185:
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3186;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3190;
         scrt1__24__car_2derror( X2 );
-L3269:
+L3190:
         X4 = PAIR_CAR( X2 );
         if  ( AND( EQ( TSCPTAG( X1 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( X1 ), VECTORTAG ) ) )  goto L3272;
+                   EQ( TSCP_EXTENDEDTAG( X1 ), VECTORTAG ) ) )  goto L3193;
         scdebug_error( c2170, 
                        c2143, CONS( X1, EMPTYLIST ) );
-L3272:
-        if  ( EQ( TSCPTAG( X3 ), FIXNUMTAG ) )  goto L3274;
+L3193:
+        if  ( EQ( TSCPTAG( X3 ), FIXNUMTAG ) )  goto L3195;
         scdebug_error( c2170, 
                        c2155, CONS( X3, EMPTYLIST ) );
-L3274:
+L3195:
         if  ( LT( _S2CUINT( FIXED_C( X3 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( X1 ) ) ) )  goto L3276;
+                  _S2CUINT( VECTOR_LENGTH( X1 ) ) ) )  goto L3197;
         scdebug_error( c2170, 
                        c2159, CONS( X3, EMPTYLIST ) );
-L3276:
+L3197:
         SETGEN( VECTOR_ELEMENT( X1, X3 ), X4 );
         X4 = PAIR_CDR( X2 );
         if  ( BITAND( BITOR( _S2CINT( X3 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3279;
+                      3 ) )  goto L3200;
         X3 = _TSCP( IPLUS( _S2CINT( X3 ), 
                            _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3280;
-L3279:
+        goto L3201;
+L3200:
         X3 = scrt2__2b_2dtwo( X3, _TSCP( 4 ) );
-L3280:
+L3201:
         X2 = X4;
-        GOBACK( L3264 );
-L3265:
+        GOBACK( L3185 );
+L3186:
         POPSTACKTRACE( X1 );
 }
 
 DEFTSCP( scrt4_vector_2dfill_21_v );
-DEFCSTRING( t3281, "VECTOR-FILL!" );
+DEFCSTRING( t3202, "VECTOR-FILL!" );
 
 TSCP  scrt4_vector_2dfill_21( v2262, x2263 )
         TSCP  v2262, x2263;
 {
         TSCP  X2, X1;
 
-        PUSHSTACKTRACE( t3281 );
+        PUSHSTACKTRACE( t3202 );
         if  ( AND( EQ( TSCPTAG( v2262 ), EXTENDEDTAG ), 
                    EQ( TSCP_EXTENDEDTAG( v2262 ), VECTORTAG ) )
-            )  goto L3285;
+            )  goto L3206;
         scdebug_error( c2142, 
                        c2143, CONS( v2262, EMPTYLIST ) );
-L3285:
+L3206:
         X2 = C_FIXED( VECTOR_LENGTH( v2262 ) );
         if  ( BITAND( BITOR( _S2CINT( X2 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3288;
+                      3 ) )  goto L3209;
         X1 = _TSCP( IDIFFERENCE( _S2CINT( X2 ), 
                                  _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3289;
-L3288:
+        goto L3210;
+L3209:
         X1 = scrt2__2d_2dtwo( X2, _TSCP( 4 ) );
-L3289:
+L3210:
         if  ( BITAND( BITOR( _S2CINT( X1 ), 
                              _S2CINT( _TSCP( -4 ) ) ), 
-                      3 ) )  goto L3292;
-        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( _TSCP( -4 ) ) ) )  goto L3296;
+                      3 ) )  goto L3213;
+        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( _TSCP( -4 ) ) ) )  goto L3217;
         POPSTACKTRACE( v2262 );
-L3292:
-        if  ( FALSE( scrt2__3d_2dtwo( X1, _TSCP( -4 ) ) ) )  goto L3296;
+L3213:
+        if  ( FALSE( scrt2__3d_2dtwo( X1, _TSCP( -4 ) ) ) )  goto L3217;
         POPSTACKTRACE( v2262 );
-L3296:
-        if  ( EQ( TSCPTAG( X1 ), FIXNUMTAG ) )  goto L3301;
+L3217:
+        if  ( EQ( TSCPTAG( X1 ), FIXNUMTAG ) )  goto L3222;
         scdebug_error( c2170, 
                        c2155, CONS( X1, EMPTYLIST ) );
-L3301:
+L3222:
         if  ( LT( _S2CUINT( FIXED_C( X1 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( v2262 ) ) ) )  goto L3303;
+                  _S2CUINT( VECTOR_LENGTH( v2262 ) ) ) )  goto L3224;
         scdebug_error( c2170, 
                        c2159, CONS( X1, EMPTYLIST ) );
-L3303:
+L3224:
         SETGEN( VECTOR_ELEMENT( v2262, X1 ), x2263 );
         if  ( BITAND( BITOR( _S2CINT( X1 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3305;
+                      3 ) )  goto L3226;
         X1 = _TSCP( IDIFFERENCE( _S2CINT( X1 ), 
                                  _S2CINT( _TSCP( 4 ) ) ) );
-        GOBACK( L3289 );
-L3305:
+        GOBACK( L3210 );
+L3226:
         X1 = scrt2__2d_2dtwo( X1, _TSCP( 4 ) );
-        GOBACK( L3289 );
+        GOBACK( L3210 );
 }
 
 DEFTSCP( scrt4_procedure_3f_v );
-DEFCSTRING( t3307, "PROCEDURE?" );
+DEFCSTRING( t3228, "PROCEDURE?" );
 
 TSCP  scrt4_procedure_3f( x2306 )
         TSCP  x2306;
 {
-        PUSHSTACKTRACE( t3307 );
+        PUSHSTACKTRACE( t3228 );
         POPSTACKTRACE( BOOLEAN( AND( EQ( TSCPTAG( x2306 ), 
                                          EXTENDEDTAG ), 
                                      EQ( TSCP_EXTENDEDTAG( x2306 ), 
@@ -418,7 +418,7 @@ TSCP  scrt4_procedure_3f( x2306 )
 }
 
 DEFTSCP( scrt4_apply_v );
-DEFCSTRING( t3309, "APPLY" );
+DEFCSTRING( t3230, "APPLY" );
 EXTERNTSCPP( sc_apply_2dtwo, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( sc_apply_2dtwo_v );
 EXTERNTSCPP( scrt1__24__cdr_2derror, XAL1( TSCP ) );
@@ -431,15 +431,15 @@ TSCP  scrt4_l2316( o2318 )
         TSCP  X3, X2, X1;
 
         PUSHSTACKTRACE( "LOOP [inside APPLY]" );
-        if  ( EQ( TSCPTAG( o2318 ), PAIRTAG ) )  goto L3316;
+        if  ( EQ( TSCPTAG( o2318 ), PAIRTAG ) )  goto L3237;
         scrt1__24__cdr_2derror( o2318 );
-L3316:
-        if  ( FALSE( PAIR_CDR( o2318 ) ) )  goto L3318;
+L3237:
+        if  ( FALSE( PAIR_CDR( o2318 ) ) )  goto L3239;
         X1 = PAIR_CAR( o2318 );
         X3 = PAIR_CDR( o2318 );
         X2 = scrt4_l2316( X3 );
         POPSTACKTRACE( sc_cons( X1, X2 ) );
-L3318:
+L3239:
         POPSTACKTRACE( PAIR_CAR( o2318 ) );
 }
 
@@ -448,269 +448,210 @@ TSCP  scrt4_apply( p2310, a2311, o2312 )
 {
         TSCP  X2, X1;
 
-        PUSHSTACKTRACE( t3309 );
-        if  ( FALSE( o2312 ) )  goto L3311;
+        PUSHSTACKTRACE( t3230 );
+        if  ( FALSE( o2312 ) )  goto L3232;
         X2 = scrt4_l2316( o2312 );
         X1 = sc_cons( a2311, X2 );
         POPSTACKTRACE( sc_apply_2dtwo( p2310, X1 ) );
-L3311:
+L3232:
         POPSTACKTRACE( sc_apply_2dtwo( p2310, a2311 ) );
 }
 
 DEFTSCP( scrt4_map_v );
-DEFCSTRING( t3323, "MAP" );
-EXTERNTSCPP( scrt1_car, XAL1( TSCP ) );
-EXTERNTSCP( scrt1_car_v );
-EXTERNTSCPP( scrt1_cdr, XAL1( TSCP ) );
-EXTERNTSCP( scrt1_cdr_v );
+DEFCSTRING( t3244, "MAP" );
+EXTERNTSCPP( scrt1_reverse, XAL1( TSCP ) );
+EXTERNTSCP( scrt1_reverse_v );
 
-TSCP  scrt4_map( p2336, a2337, o2338 )
-        TSCP  p2336, a2337, o2338;
+TSCP  scrt4_map( f2336, x2337, _262338 )
+        TSCP  f2336, x2337, _262338;
 {
-        TSCP  X13, 
-              X12, 
+        TSCP  X12, 
               X11, 
               X10, 
               X9, 
               X8, X7, X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3323 );
-        X1 = sc_cons( a2337, o2338 );
+        PUSHSTACKTRACE( t3244 );
+        X1 = sc_cons( x2337, _262338 );
         X2 = X1;
         X3 = EMPTYLIST;
-        X4 = EMPTYLIST;
-L3327:
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3331;
+L3249:
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3253;
         scrt1__24__car_2derror( X2 );
-L3331:
-        X5 = PAIR_CAR( X2 );
-        if  ( EQ( _S2CUINT( X5 ), _S2CUINT( EMPTYLIST ) ) )  goto L3328;
-        X8 = X2;
-        X9 = EMPTYLIST;
-        X10 = EMPTYLIST;
-L3335:
-        if  ( NEQ( _S2CUINT( X8 ), _S2CUINT( EMPTYLIST ) ) )  goto L3336;
-        X7 = X9;
-        goto L3343;
-L3336:
-        if  ( EQ( TSCPTAG( X8 ), PAIRTAG ) )  goto L3339;
-        scrt1__24__car_2derror( X8 );
-L3339:
-        X13 = PAIR_CAR( X8 );
-        X12 = scrt1_car( X13 );
-        X11 = sc_cons( X12, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X9 ), _S2CUINT( EMPTYLIST ) ) )  goto L3342;
-        X12 = PAIR_CDR( X8 );
-        X10 = X11;
-        X9 = X11;
-        X8 = X12;
-        GOBACK( L3335 );
-L3342:
-        X12 = PAIR_CDR( X8 );
-        if  ( EQ( TSCPTAG( X10 ), PAIRTAG ) )  goto L3347;
-        scdebug_error( c2399, 
-                       c2400, CONS( X10, EMPTYLIST ) );
-L3347:
-        X10 = SETGEN( PAIR_CDR( X10 ), X11 );
-        X8 = X12;
-        GOBACK( L3335 );
-L3343:
-        X6 = sc_apply_2dtwo( p2336, X7 );
-        X5 = sc_cons( X6, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3350;
-        X7 = X2;
-        X8 = EMPTYLIST;
-        X9 = EMPTYLIST;
-L3354:
-        if  ( NEQ( _S2CUINT( X7 ), _S2CUINT( EMPTYLIST ) ) )  goto L3355;
+L3253:
+        X4 = PAIR_CAR( X2 );
+        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( EMPTYLIST ) ) )  goto L3250;
+        POPSTACKTRACE( scrt1_reverse( X3 ) );
+L3250:
+        X5 = X2;
+        X6 = X5;
+        X7 = EMPTYLIST;
+L3257:
+        if  ( NEQ( _S2CUINT( X6 ), _S2CUINT( EMPTYLIST ) ) )  goto L3258;
+        X4 = scrt1_reverse( X7 );
+        goto L3259;
+L3258:
+        if  ( EQ( TSCPTAG( X6 ), PAIRTAG ) )  goto L3261;
+        scrt1__24__cdr_2derror( X6 );
+L3261:
+        X8 = PAIR_CDR( X6 );
+        X10 = PAIR_CAR( X6 );
+        if  ( EQ( TSCPTAG( X10 ), PAIRTAG ) )  goto L3265;
+        scrt1__24__cdr_2derror( X10 );
+L3265:
+        X9 = PAIR_CDR( X10 );
+        X7 = sc_cons( X9, X7 );
         X6 = X8;
-        goto L3362;
-L3355:
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3358;
-        scrt1__24__car_2derror( X7 );
-L3358:
-        X12 = PAIR_CAR( X7 );
-        X11 = scrt1_cdr( X12 );
-        X10 = sc_cons( X11, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X8 ), _S2CUINT( EMPTYLIST ) ) )  goto L3361;
-        X11 = PAIR_CDR( X7 );
-        X9 = X10;
-        X8 = X10;
-        X7 = X11;
-        GOBACK( L3354 );
-L3361:
-        X11 = PAIR_CDR( X7 );
-        if  ( EQ( TSCPTAG( X9 ), PAIRTAG ) )  goto L3366;
-        scdebug_error( c2399, 
-                       c2400, CONS( X9, EMPTYLIST ) );
-L3366:
-        X9 = SETGEN( PAIR_CDR( X9 ), X10 );
-        X7 = X11;
-        GOBACK( L3354 );
-L3362:
-        X4 = X5;
-        X3 = X5;
-        X2 = X6;
-        GOBACK( L3327 );
-L3350:
+        GOBACK( L3257 );
+L3259:
         X7 = X2;
-        X8 = EMPTYLIST;
+        X8 = X7;
         X9 = EMPTYLIST;
-L3370:
-        if  ( NEQ( _S2CUINT( X7 ), _S2CUINT( EMPTYLIST ) ) )  goto L3371;
-        X6 = X8;
-        goto L3378;
-L3371:
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3374;
-        scrt1__24__car_2derror( X7 );
-L3374:
-        X12 = PAIR_CAR( X7 );
-        X11 = scrt1_cdr( X12 );
-        X10 = sc_cons( X11, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X8 ), _S2CUINT( EMPTYLIST ) ) )  goto L3377;
-        X11 = PAIR_CDR( X7 );
-        X9 = X10;
+L3269:
+        if  ( NEQ( _S2CUINT( X8 ), _S2CUINT( EMPTYLIST ) ) )  goto L3270;
+        X6 = scrt1_reverse( X9 );
+        goto L3271;
+L3270:
+        if  ( EQ( TSCPTAG( X8 ), PAIRTAG ) )  goto L3273;
+        scrt1__24__cdr_2derror( X8 );
+L3273:
+        X10 = PAIR_CDR( X8 );
+        X12 = PAIR_CAR( X8 );
+        if  ( EQ( TSCPTAG( X12 ), PAIRTAG ) )  goto L3277;
+        scrt1__24__car_2derror( X12 );
+L3277:
+        X11 = PAIR_CAR( X12 );
+        X9 = sc_cons( X11, X9 );
         X8 = X10;
-        X7 = X11;
-        GOBACK( L3370 );
-L3377:
-        X11 = PAIR_CDR( X7 );
-        if  ( EQ( TSCPTAG( X9 ), PAIRTAG ) )  goto L3382;
-        scdebug_error( c2399, 
-                       c2400, CONS( X9, EMPTYLIST ) );
-L3382:
-        X9 = SETGEN( PAIR_CDR( X9 ), X10 );
-        X7 = X11;
-        GOBACK( L3370 );
-L3378:
-        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3385;
-        scdebug_error( c2399, 
-                       c2400, CONS( X4, EMPTYLIST ) );
-L3385:
-        X4 = SETGEN( PAIR_CDR( X4 ), X5 );
-        X2 = X6;
-        GOBACK( L3327 );
-L3328:
-        POPSTACKTRACE( X3 );
+        GOBACK( L3269 );
+L3271:
+        X5 = sc_apply_2dtwo( f2336, X6 );
+        X3 = sc_cons( X5, X3 );
+        X2 = X4;
+        GOBACK( L3249 );
 }
 
 DEFTSCP( scrt4_for_2deach_v );
-DEFCSTRING( t3387, "FOR-EACH" );
+DEFCSTRING( t3279, "FOR-EACH" );
+EXTERNTSCPP( scrt1_car, XAL1( TSCP ) );
+EXTERNTSCP( scrt1_car_v );
+EXTERNTSCPP( scrt1_cdr, XAL1( TSCP ) );
+EXTERNTSCP( scrt1_cdr_v );
 
-TSCP  scrt4_for_2deach( p2499, a2500, o2501 )
-        TSCP  p2499, a2500, o2501;
+TSCP  scrt4_for_2deach( p2418, a2419, o2420 )
+        TSCP  p2418, a2419, o2420;
 {
         TSCP  X8, X7, X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3387 );
-        X1 = sc_cons( a2500, o2501 );
-L3390:
-        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3394;
+        PUSHSTACKTRACE( t3279 );
+        X1 = sc_cons( a2419, o2420 );
+L3282:
+        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3286;
         scrt1__24__car_2derror( X1 );
-L3394:
+L3286:
         X2 = PAIR_CAR( X1 );
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3391;
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3283;
         X3 = X1;
         X4 = EMPTYLIST;
         X5 = EMPTYLIST;
-L3399:
-        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3400;
+L3291:
+        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3292;
         X2 = X4;
-        goto L3407;
-L3400:
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3403;
+        goto L3299;
+L3292:
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3295;
         scrt1__24__car_2derror( X3 );
-L3403:
+L3295:
         X8 = PAIR_CAR( X3 );
         X7 = scrt1_car( X8 );
         X6 = sc_cons( X7, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( EMPTYLIST ) ) )  goto L3406;
+        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( EMPTYLIST ) ) )  goto L3298;
         X7 = PAIR_CDR( X3 );
         X5 = X6;
         X4 = X6;
         X3 = X7;
-        GOBACK( L3399 );
-L3406:
+        GOBACK( L3291 );
+L3298:
         X7 = PAIR_CDR( X3 );
-        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3411;
-        scdebug_error( c2399, 
-                       c2400, CONS( X5, EMPTYLIST ) );
-L3411:
+        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3303;
+        scdebug_error( c2469, 
+                       c2470, CONS( X5, EMPTYLIST ) );
+L3303:
         X5 = SETGEN( PAIR_CDR( X5 ), X6 );
         X3 = X7;
-        GOBACK( L3399 );
-L3407:
-        sc_apply_2dtwo( p2499, X2 );
+        GOBACK( L3291 );
+L3299:
+        sc_apply_2dtwo( p2418, X2 );
         X2 = X1;
         X3 = EMPTYLIST;
         X4 = EMPTYLIST;
-L3415:
-        if  ( NEQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3416;
+L3307:
+        if  ( NEQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3308;
         X1 = X3;
-        GOBACK( L3390 );
-L3416:
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3419;
+        GOBACK( L3282 );
+L3308:
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3311;
         scrt1__24__car_2derror( X2 );
-L3419:
+L3311:
         X7 = PAIR_CAR( X2 );
         X6 = scrt1_cdr( X7 );
         X5 = sc_cons( X6, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3422;
+        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3314;
         X6 = PAIR_CDR( X2 );
         X4 = X5;
         X3 = X5;
         X2 = X6;
-        GOBACK( L3415 );
-L3422:
+        GOBACK( L3307 );
+L3314:
         X6 = PAIR_CDR( X2 );
-        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3427;
-        scdebug_error( c2399, 
-                       c2400, CONS( X4, EMPTYLIST ) );
-L3427:
+        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3319;
+        scdebug_error( c2469, 
+                       c2470, CONS( X4, EMPTYLIST ) );
+L3319:
         X4 = SETGEN( PAIR_CDR( X4 ), X5 );
         X2 = X6;
-        GOBACK( L3415 );
-L3391:
+        GOBACK( L3307 );
+L3283:
         POPSTACKTRACE( FALSEVALUE );
 }
 
 DEFTSCP( scrt4_force_v );
-DEFCSTRING( t3429, "FORCE" );
+DEFCSTRING( t3321, "FORCE" );
 
-TSCP  scrt4_force( o2601 )
-        TSCP  o2601;
+TSCP  scrt4_force( o2522 )
+        TSCP  o2522;
 {
         TSCP  X1;
 
-        PUSHSTACKTRACE( t3429 );
-        X1 = o2601;
+        PUSHSTACKTRACE( t3321 );
+        X1 = o2522;
         X1 = UNKNOWNCALL( X1, 0 );
         POPSTACKTRACE( VIA( PROCEDURE_CODE( X1 ) )( PROCEDURE_CLOSURE( X1 ) ) );
 }
 
 DEFTSCP( scrt4_make_2dpromise_v );
-DEFCSTRING( t3431, "MAKE-PROMISE" );
+DEFCSTRING( t3323, "MAKE-PROMISE" );
 
-TSCP  scrt4_l2607( c3434 )
-        TSCP  c3434;
+TSCP  scrt4_l2528( c3326 )
+        TSCP  c3326;
 {
         TSCP  X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( "scrt4_l2607 [inside MAKE-PROMISE]" );
+        PUSHSTACKTRACE( "scrt4_l2528 [inside MAKE-PROMISE]" );
         X1 = DISPLAY( 0 );
-        DISPLAY( 0 ) = CLOSURE_VAR( c3434, 0 );
+        DISPLAY( 0 ) = CLOSURE_VAR( c3326, 0 );
         X2 = DISPLAY( 1 );
-        DISPLAY( 1 ) = CLOSURE_VAR( c3434, 1 );
+        DISPLAY( 1 ) = CLOSURE_VAR( c3326, 1 );
         X3 = DISPLAY( 2 );
-        DISPLAY( 2 ) = CLOSURE_VAR( c3434, 2 );
-        if  ( TRUE( PAIR_CAR( DISPLAY( 2 ) ) ) )  goto L3436;
+        DISPLAY( 2 ) = CLOSURE_VAR( c3326, 2 );
+        if  ( TRUE( PAIR_CAR( DISPLAY( 2 ) ) ) )  goto L3328;
         X6 = DISPLAY( 0 );
         X6 = UNKNOWNCALL( X6, 0 );
         X5 = VIA( PROCEDURE_CODE( X6 ) )( PROCEDURE_CLOSURE( X6 ) );
         SETGEN( PAIR_CAR( DISPLAY( 1 ) ), X5 );
         X5 = TRUEVALUE;
         SETGEN( PAIR_CAR( DISPLAY( 2 ) ), X5 );
-L3436:
+L3328:
         X4 = PAIR_CAR( DISPLAY( 1 ) );
         DISPLAY( 0 ) = X1;
         DISPLAY( 1 ) = X2;
@@ -718,23 +659,23 @@ L3436:
         POPSTACKTRACE( X4 );
 }
 
-TSCP  scrt4_make_2dpromise( p2603 )
-        TSCP  p2603;
+TSCP  scrt4_make_2dpromise( p2524 )
+        TSCP  p2524;
 {
         TSCP  SD0 = DISPLAY( 0 );
         TSCP  SD1 = DISPLAY( 1 );
         TSCP  SD2 = DISPLAY( 2 );
         TSCP  SDVAL;
 
-        PUSHSTACKTRACE( t3431 );
-        DISPLAY( 0 ) = p2603;
+        PUSHSTACKTRACE( t3323 );
+        DISPLAY( 0 ) = p2524;
         DISPLAY( 1 ) = FALSEVALUE;
         DISPLAY( 2 ) = FALSEVALUE;
         DISPLAY( 2 ) = CONS( DISPLAY( 2 ), EMPTYLIST );
         DISPLAY( 1 ) = CONS( DISPLAY( 1 ), EMPTYLIST );
         SDVAL = MAKEPROCEDURE( 0, 
                                0, 
-                               scrt4_l2607, 
+                               scrt4_l2528, 
                                MAKECLOSURE( EMPTYLIST, 
                                             3, 
                                             DISPLAY( 0 ), 
@@ -747,7 +688,7 @@ TSCP  scrt4_make_2dpromise( p2603 )
 }
 
 DEFTSCP( scrt4_catch_2derror_v );
-DEFCSTRING( t3439, "CATCH-ERROR" );
+DEFCSTRING( t3331, "CATCH-ERROR" );
 EXTERNTSCP( scdebug__2aerror_2dhandler_2a_v );
 EXTERNTSCPP( scrt5_open_2doutput_2dstring, XAL0(  ) );
 EXTERNTSCP( scrt5_open_2doutput_2dstring_v );
@@ -758,22 +699,22 @@ EXTERNTSCP( scrt1_cons_2a_v );
 EXTERNTSCPP( scrt6_get_2doutput_2dstring, XAL1( TSCP ) );
 EXTERNTSCP( scrt6_get_2doutput_2dstring_v );
 
-TSCP  scrt4_e2618( i2620, f2621, a2622, c3445 )
-        TSCP  i2620, f2621, a2622, c3445;
+TSCP  scrt4_e2539( i2541, f2542, a2543, c3337 )
+        TSCP  i2541, f2542, a2543, c3337;
 {
         TSCP  X6, X5, X4, X3, X2, X1;
 
         PUSHSTACKTRACE( "ERROR [inside CATCH-ERROR]" );
         X1 = DISPLAY( 1 );
-        DISPLAY( 1 ) = CLOSURE_VAR( c3445, 0 );
+        DISPLAY( 1 ) = CLOSURE_VAR( c3337, 0 );
         X2 = DISPLAY( 2 );
-        DISPLAY( 2 ) = CLOSURE_VAR( c3445, 1 );
+        DISPLAY( 2 ) = CLOSURE_VAR( c3337, 1 );
         X4 = scrt5_open_2doutput_2dstring(  );
         scdebug__2aerror_2dhandler_2a_v = DISPLAY( 1 );
-        X5 = CONS( i2620, EMPTYLIST );
-        scrt6_format( X4, CONS( c2625, X5 ) );
-        X6 = CONS( a2622, EMPTYLIST );
-        X5 = scrt1_cons_2a( X4, CONS( f2621, X6 ) );
+        X5 = CONS( i2541, EMPTYLIST );
+        scrt6_format( X4, CONS( c2546, X5 ) );
+        X6 = CONS( a2543, EMPTYLIST );
+        X5 = scrt1_cons_2a( X4, CONS( f2542, X6 ) );
         sc_apply_2dtwo( scrt6_format_v, X5 );
         X6 = scrt6_get_2doutput_2dstring( X4 );
         X5 = DISPLAY( 2 );
@@ -785,24 +726,24 @@ TSCP  scrt4_e2618( i2620, f2621, a2622, c3445 )
         POPSTACKTRACE( X3 );
 }
 
-TSCP  scrt4_l2615( r2616, c3442 )
-        TSCP  r2616, c3442;
+TSCP  scrt4_l2536( r2537, c3334 )
+        TSCP  r2537, c3334;
 {
         TSCP  X7, X6, X5, X4, X3, X2, X1;
         TSCP  SD2 = DISPLAY( 2 );
         TSCP  SDVAL;
 
-        PUSHSTACKTRACE( "scrt4_l2615 [inside CATCH-ERROR]" );
+        PUSHSTACKTRACE( "scrt4_l2536 [inside CATCH-ERROR]" );
         X1 = DISPLAY( 1 );
-        DISPLAY( 1 ) = CLOSURE_VAR( c3442, 0 );
+        DISPLAY( 1 ) = CLOSURE_VAR( c3334, 0 );
         X2 = DISPLAY( 0 );
-        DISPLAY( 0 ) = CLOSURE_VAR( c3442, 1 );
-        DISPLAY( 2 ) = r2616;
+        DISPLAY( 0 ) = CLOSURE_VAR( c3334, 1 );
+        DISPLAY( 2 ) = r2537;
         X4 = _TSCP( 0 );
         X4 = CONS( X4, EMPTYLIST );
         X5 = MAKEPROCEDURE( 2, 
                             1, 
-                            scrt4_e2618, 
+                            scrt4_e2539, 
                             MAKECLOSURE( EMPTYLIST, 
                                          2, 
                                          DISPLAY( 1 ), 
@@ -823,20 +764,20 @@ TSCP  scrt4_l2615( r2616, c3442 )
 
 EXTERNTSCP( sc_ntinuation_1af38b9f_v );
 
-TSCP  scrt4_catch_2derror( p2610 )
-        TSCP  p2610;
+TSCP  scrt4_catch_2derror( p2531 )
+        TSCP  p2531;
 {
         TSCP  X3, X2, X1;
         TSCP  SD0 = DISPLAY( 0 );
         TSCP  SD1 = DISPLAY( 1 );
         TSCP  SDVAL;
 
-        PUSHSTACKTRACE( t3439 );
-        DISPLAY( 0 ) = p2610;
+        PUSHSTACKTRACE( t3331 );
+        DISPLAY( 0 ) = p2531;
         DISPLAY( 1 ) = scdebug__2aerror_2dhandler_2a_v;
         X3 = MAKEPROCEDURE( 1, 
                             0, 
-                            scrt4_l2615, 
+                            scrt4_l2536, 
                             MAKECLOSURE( EMPTYLIST, 
                                          2, 
                                          DISPLAY( 1 ), 
@@ -853,250 +794,250 @@ TSCP  scrt4_catch_2derror( p2610 )
 }
 
 DEFTSCP( scrt4__25record_3f_v );
-DEFCSTRING( t3450, "%RECORD?" );
+DEFCSTRING( t3342, "%RECORD?" );
 
-TSCP  scrt4__25record_3f( x2629 )
-        TSCP  x2629;
+TSCP  scrt4__25record_3f( x2550 )
+        TSCP  x2550;
 {
-        PUSHSTACKTRACE( t3450 );
-        POPSTACKTRACE( BOOLEAN( AND( EQ( TSCPTAG( x2629 ), 
+        PUSHSTACKTRACE( t3342 );
+        POPSTACKTRACE( BOOLEAN( AND( EQ( TSCPTAG( x2550 ), 
                                          EXTENDEDTAG ), 
-                                     EQ( TSCP_EXTENDEDTAG( x2629 ), 
+                                     EQ( TSCP_EXTENDEDTAG( x2550 ), 
                                          RECORDTAG ) ) ) );
 }
 
 DEFTSCP( scrt4__25record_v );
-DEFCSTRING( t3452, "%RECORD" );
+DEFCSTRING( t3344, "%RECORD" );
 EXTERNTSCPP( scrt4_list_2d_3e_25record, XAL1( TSCP ) );
 EXTERNTSCP( scrt4_list_2d_3e_25record_v );
 
-TSCP  scrt4__25record( x2633 )
-        TSCP  x2633;
+TSCP  scrt4__25record( x2554 )
+        TSCP  x2554;
 {
-        PUSHSTACKTRACE( t3452 );
-        POPSTACKTRACE( scrt4_list_2d_3e_25record( x2633 ) );
+        PUSHSTACKTRACE( t3344 );
+        POPSTACKTRACE( scrt4_list_2d_3e_25record( x2554 ) );
 }
 
 DEFTSCP( scrt4__25record_2dlength_v );
-DEFCSTRING( t3454, "%RECORD-LENGTH" );
+DEFCSTRING( t3346, "%RECORD-LENGTH" );
 
-TSCP  scrt4__25record_2dlength( x2635 )
-        TSCP  x2635;
+TSCP  scrt4__25record_2dlength( x2556 )
+        TSCP  x2556;
 {
-        PUSHSTACKTRACE( t3454 );
-        if  ( AND( EQ( TSCPTAG( x2635 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( x2635 ), RECORDTAG ) )
-            )  goto L3457;
-        scdebug_error( c2640, 
-                       c2641, CONS( x2635, EMPTYLIST ) );
-L3457:
-        POPSTACKTRACE( C_FIXED( RECORD_LENGTH( x2635 ) ) );
+        PUSHSTACKTRACE( t3346 );
+        if  ( AND( EQ( TSCPTAG( x2556 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( x2556 ), RECORDTAG ) )
+            )  goto L3349;
+        scdebug_error( c2561, 
+                       c2562, CONS( x2556, EMPTYLIST ) );
+L3349:
+        POPSTACKTRACE( C_FIXED( RECORD_LENGTH( x2556 ) ) );
 }
 
 DEFTSCP( scrt4__25record_2dref_v );
-DEFCSTRING( t3459, "%RECORD-REF" );
+DEFCSTRING( t3351, "%RECORD-REF" );
 
-TSCP  scrt4__25record_2dref( x2643, y2644 )
-        TSCP  x2643, y2644;
+TSCP  scrt4__25record_2dref( x2564, y2565 )
+        TSCP  x2564, y2565;
 {
-        PUSHSTACKTRACE( t3459 );
-        if  ( AND( EQ( TSCPTAG( x2643 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( x2643 ), RECORDTAG ) )
-            )  goto L3462;
-        scdebug_error( c2650, 
-                       c2641, CONS( x2643, EMPTYLIST ) );
-L3462:
-        if  ( EQ( TSCPTAG( y2644 ), FIXNUMTAG ) )  goto L3464;
-        scdebug_error( c2650, 
-                       c2155, CONS( y2644, EMPTYLIST ) );
-L3464:
-        if  ( LT( _S2CUINT( FIXED_C( y2644 ) ), 
-                  _S2CUINT( RECORD_LENGTH( x2643 ) ) ) )  goto L3466;
-        scdebug_error( c2650, 
-                       c2159, CONS( y2644, EMPTYLIST ) );
-L3466:
-        POPSTACKTRACE( RECORD_ELEMENT( x2643, y2644 ) );
+        PUSHSTACKTRACE( t3351 );
+        if  ( AND( EQ( TSCPTAG( x2564 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( x2564 ), RECORDTAG ) )
+            )  goto L3354;
+        scdebug_error( c2571, 
+                       c2562, CONS( x2564, EMPTYLIST ) );
+L3354:
+        if  ( EQ( TSCPTAG( y2565 ), FIXNUMTAG ) )  goto L3356;
+        scdebug_error( c2571, 
+                       c2155, CONS( y2565, EMPTYLIST ) );
+L3356:
+        if  ( LT( _S2CUINT( FIXED_C( y2565 ) ), 
+                  _S2CUINT( RECORD_LENGTH( x2564 ) ) ) )  goto L3358;
+        scdebug_error( c2571, 
+                       c2159, CONS( y2565, EMPTYLIST ) );
+L3358:
+        POPSTACKTRACE( RECORD_ELEMENT( x2564, y2565 ) );
 }
 
 DEFTSCP( scrt4__25record_2dset_21_v );
-DEFCSTRING( t3468, "%RECORD-SET!" );
+DEFCSTRING( t3360, "%RECORD-SET!" );
 
-TSCP  scrt4__25record_2dset_21( x2657, y2658, z2659 )
-        TSCP  x2657, y2658, z2659;
+TSCP  scrt4__25record_2dset_21( x2578, y2579, z2580 )
+        TSCP  x2578, y2579, z2580;
 {
-        PUSHSTACKTRACE( t3468 );
-        if  ( AND( EQ( TSCPTAG( x2657 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( x2657 ), RECORDTAG ) )
-            )  goto L3471;
-        scdebug_error( c2666, 
-                       c2641, CONS( x2657, EMPTYLIST ) );
-L3471:
-        if  ( EQ( TSCPTAG( y2658 ), FIXNUMTAG ) )  goto L3473;
-        scdebug_error( c2666, 
-                       c2155, CONS( y2658, EMPTYLIST ) );
-L3473:
-        if  ( LT( _S2CUINT( FIXED_C( y2658 ) ), 
-                  _S2CUINT( RECORD_LENGTH( x2657 ) ) ) )  goto L3475;
-        scdebug_error( c2666, 
-                       c2159, CONS( y2658, EMPTYLIST ) );
-L3475:
-        POPSTACKTRACE( SETGEN( RECORD_ELEMENT( x2657, y2658 ), 
-                               z2659 ) );
+        PUSHSTACKTRACE( t3360 );
+        if  ( AND( EQ( TSCPTAG( x2578 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( x2578 ), RECORDTAG ) )
+            )  goto L3363;
+        scdebug_error( c2587, 
+                       c2562, CONS( x2578, EMPTYLIST ) );
+L3363:
+        if  ( EQ( TSCPTAG( y2579 ), FIXNUMTAG ) )  goto L3365;
+        scdebug_error( c2587, 
+                       c2155, CONS( y2579, EMPTYLIST ) );
+L3365:
+        if  ( LT( _S2CUINT( FIXED_C( y2579 ) ), 
+                  _S2CUINT( RECORD_LENGTH( x2578 ) ) ) )  goto L3367;
+        scdebug_error( c2587, 
+                       c2159, CONS( y2579, EMPTYLIST ) );
+L3367:
+        POPSTACKTRACE( SETGEN( RECORD_ELEMENT( x2578, y2579 ), 
+                               z2580 ) );
 }
 
 DEFTSCP( scrt4__25record_2d_3elist_v );
-DEFCSTRING( t3477, "%RECORD->LIST" );
+DEFCSTRING( t3369, "%RECORD->LIST" );
 
-TSCP  scrt4__25record_2d_3elist( x2673 )
-        TSCP  x2673;
+TSCP  scrt4__25record_2d_3elist( x2594 )
+        TSCP  x2594;
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3477 );
-        if  ( AND( EQ( TSCPTAG( x2673 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( x2673 ), RECORDTAG ) )
-            )  goto L3481;
-        scdebug_error( c2640, 
-                       c2641, CONS( x2673, EMPTYLIST ) );
-L3481:
-        X2 = C_FIXED( RECORD_LENGTH( x2673 ) );
+        PUSHSTACKTRACE( t3369 );
+        if  ( AND( EQ( TSCPTAG( x2594 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( x2594 ), RECORDTAG ) )
+            )  goto L3373;
+        scdebug_error( c2561, 
+                       c2562, CONS( x2594, EMPTYLIST ) );
+L3373:
+        X2 = C_FIXED( RECORD_LENGTH( x2594 ) );
         if  ( BITAND( BITOR( _S2CINT( X2 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3484;
+                      3 ) )  goto L3376;
         X1 = _TSCP( IDIFFERENCE( _S2CINT( X2 ), 
                                  _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3485;
-L3484:
+        goto L3377;
+L3376:
         X1 = scrt2__2d_2dtwo( X2, _TSCP( 4 ) );
-L3485:
+L3377:
         X2 = EMPTYLIST;
-L3486:
+L3378:
         X2 = CONS( X2, EMPTYLIST );
         if  ( BITAND( BITOR( _S2CINT( X1 ), 
                              _S2CINT( _TSCP( -4 ) ) ), 
-                      3 ) )  goto L3488;
-        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( _TSCP( -4 ) ) ) )  goto L3492;
+                      3 ) )  goto L3380;
+        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( _TSCP( -4 ) ) ) )  goto L3384;
         POPSTACKTRACE( PAIR_CAR( X2 ) );
-L3488:
-        if  ( FALSE( scrt2__3d_2dtwo( X1, _TSCP( -4 ) ) ) )  goto L3492;
+L3380:
+        if  ( FALSE( scrt2__3d_2dtwo( X1, _TSCP( -4 ) ) ) )  goto L3384;
         POPSTACKTRACE( PAIR_CAR( X2 ) );
-L3492:
-        if  ( EQ( TSCPTAG( X1 ), FIXNUMTAG ) )  goto L3497;
-        scdebug_error( c2650, 
+L3384:
+        if  ( EQ( TSCPTAG( X1 ), FIXNUMTAG ) )  goto L3389;
+        scdebug_error( c2571, 
                        c2155, CONS( X1, EMPTYLIST ) );
-L3497:
+L3389:
         if  ( LT( _S2CUINT( FIXED_C( X1 ) ), 
-                  _S2CUINT( RECORD_LENGTH( x2673 ) ) ) )  goto L3499;
-        scdebug_error( c2650, 
+                  _S2CUINT( RECORD_LENGTH( x2594 ) ) ) )  goto L3391;
+        scdebug_error( c2571, 
                        c2159, CONS( X1, EMPTYLIST ) );
-L3499:
-        X4 = RECORD_ELEMENT( x2673, X1 );
+L3391:
+        X4 = RECORD_ELEMENT( x2594, X1 );
         X3 = sc_cons( X4, PAIR_CAR( X2 ) );
         SETGEN( PAIR_CAR( X2 ), X3 );
         if  ( BITAND( BITOR( _S2CINT( X1 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3501;
+                      3 ) )  goto L3393;
         X3 = _TSCP( IDIFFERENCE( _S2CINT( X1 ), 
                                  _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3502;
-L3501:
+        goto L3394;
+L3393:
         X3 = scrt2__2d_2dtwo( X1, _TSCP( 4 ) );
-L3502:
+L3394:
         X2 = PAIR_CAR( X2 );
         X1 = X3;
-        GOBACK( L3486 );
+        GOBACK( L3378 );
 }
 
 DEFTSCP( scrt4_list_2d_3e_25record_v );
-DEFCSTRING( t3503, "LIST->%RECORD" );
+DEFCSTRING( t3395, "LIST->%RECORD" );
 EXTERNTSCPP( sc_make_2d_25record, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( sc_make_2d_25record_v );
 
-TSCP  scrt4_list_2d_3e_25record( x2716 )
-        TSCP  x2716;
+TSCP  scrt4_list_2d_3e_25record( x2637 )
+        TSCP  x2637;
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3503 );
-        X2 = scrt1_length( x2716 );
+        PUSHSTACKTRACE( t3395 );
+        X2 = scrt1_length( x2637 );
         X1 = sc_make_2d_25record( X2, EMPTYLIST );
-        X2 = x2716;
+        X2 = x2637;
         X3 = _TSCP( 0 );
-L3506:
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3507;
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3511;
+L3398:
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3399;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3403;
         scrt1__24__car_2derror( X2 );
-L3511:
+L3403:
         X4 = PAIR_CAR( X2 );
         if  ( AND( EQ( TSCPTAG( X1 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( X1 ), RECORDTAG ) ) )  goto L3514;
-        scdebug_error( c2666, 
-                       c2641, CONS( X1, EMPTYLIST ) );
-L3514:
-        if  ( EQ( TSCPTAG( X3 ), FIXNUMTAG ) )  goto L3516;
-        scdebug_error( c2666, 
+                   EQ( TSCP_EXTENDEDTAG( X1 ), RECORDTAG ) ) )  goto L3406;
+        scdebug_error( c2587, 
+                       c2562, CONS( X1, EMPTYLIST ) );
+L3406:
+        if  ( EQ( TSCPTAG( X3 ), FIXNUMTAG ) )  goto L3408;
+        scdebug_error( c2587, 
                        c2155, CONS( X3, EMPTYLIST ) );
-L3516:
+L3408:
         if  ( LT( _S2CUINT( FIXED_C( X3 ) ), 
-                  _S2CUINT( RECORD_LENGTH( X1 ) ) ) )  goto L3518;
-        scdebug_error( c2666, 
+                  _S2CUINT( RECORD_LENGTH( X1 ) ) ) )  goto L3410;
+        scdebug_error( c2587, 
                        c2159, CONS( X3, EMPTYLIST ) );
-L3518:
+L3410:
         SETGEN( RECORD_ELEMENT( X1, X3 ), X4 );
         X4 = PAIR_CDR( X2 );
         if  ( BITAND( BITOR( _S2CINT( X3 ), 
                              _S2CINT( _TSCP( 4 ) ) ), 
-                      3 ) )  goto L3521;
+                      3 ) )  goto L3413;
         X3 = _TSCP( IPLUS( _S2CINT( X3 ), 
                            _S2CINT( _TSCP( 4 ) ) ) );
-        goto L3522;
-L3521:
+        goto L3414;
+L3413:
         X3 = scrt2__2b_2dtwo( X3, _TSCP( 4 ) );
-L3522:
+L3414:
         X2 = X4;
-        GOBACK( L3506 );
-L3507:
+        GOBACK( L3398 );
+L3399:
         POPSTACKTRACE( X1 );
 }
 
 DEFTSCP( scrt4__25record_2dmethods_v );
-DEFCSTRING( t3523, "%RECORD-METHODS" );
+DEFCSTRING( t3415, "%RECORD-METHODS" );
 
-TSCP  scrt4__25record_2dmethods( x2755 )
-        TSCP  x2755;
+TSCP  scrt4__25record_2dmethods( x2676 )
+        TSCP  x2676;
 {
-        PUSHSTACKTRACE( t3523 );
-        if  ( AND( EQ( TSCPTAG( x2755 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( x2755 ), RECORDTAG ) )
-            )  goto L3526;
-        scdebug_error( c2760, 
-                       c2641, CONS( x2755, EMPTYLIST ) );
-L3526:
-        POPSTACKTRACE( RECORD_METHODS( x2755 ) );
+        PUSHSTACKTRACE( t3415 );
+        if  ( AND( EQ( TSCPTAG( x2676 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( x2676 ), RECORDTAG ) )
+            )  goto L3418;
+        scdebug_error( c2681, 
+                       c2562, CONS( x2676, EMPTYLIST ) );
+L3418:
+        POPSTACKTRACE( RECORD_METHODS( x2676 ) );
 }
 
 DEFTSCP( scrt4_s_2dset_21_fcaf91b1_v );
-DEFCSTRING( t3528, "%RECORD-METHODS-SET!" );
+DEFCSTRING( t3420, "%RECORD-METHODS-SET!" );
 
-TSCP  scrt4_s_2dset_21_fcaf91b1( x2762, y2763 )
-        TSCP  x2762, y2763;
+TSCP  scrt4_s_2dset_21_fcaf91b1( x2683, y2684 )
+        TSCP  x2683, y2684;
 {
-        PUSHSTACKTRACE( t3528 );
-        if  ( AND( EQ( TSCPTAG( x2762 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( x2762 ), RECORDTAG ) )
-            )  goto L3531;
-        scdebug_error( c2666, 
-                       c2641, CONS( x2762, EMPTYLIST ) );
-L3531:
-        POPSTACKTRACE( SETGEN( RECORD_METHODS( x2762 ), y2763 ) );
+        PUSHSTACKTRACE( t3420 );
+        if  ( AND( EQ( TSCPTAG( x2683 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( x2683 ), RECORDTAG ) )
+            )  goto L3423;
+        scdebug_error( c2587, 
+                       c2562, CONS( x2683, EMPTYLIST ) );
+L3423:
+        POPSTACKTRACE( SETGEN( RECORD_METHODS( x2683 ), y2684 ) );
 }
 
 DEFTSCP( scrt4_fix_2dchar_c117a402_v );
-DEFCSTRING( t3533, "%RECORD-PREFIX-CHAR" );
+DEFCSTRING( t3425, "%RECORD-PREFIX-CHAR" );
 DEFTSCP( scrt4__25record_2dread_v );
-DEFCSTRING( t3534, "%RECORD-READ" );
+DEFCSTRING( t3426, "%RECORD-READ" );
 DEFTSCP( scrt4_p_2dmethod_3ccf392b_v );
-DEFCSTRING( t3535, "%RECORD-LOOKUP-METHOD" );
+DEFCSTRING( t3427, "%RECORD-LOOKUP-METHOD" );
 EXTERNTSCPP( scrt1_assq, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt1_assq_v );
 EXTERNTSCPP( scrt1_memv, XAL2( TSCP, TSCP ) );
@@ -1106,646 +1047,646 @@ EXTERNTSCP( scrt6_display_v );
 EXTERNTSCPP( scrt3_string, XAL1( TSCP ) );
 EXTERNTSCP( scrt3_string_v );
 
-TSCP  scrt4_l2788( r2789, p2790, i2791, c3548 )
-        TSCP  r2789, p2790, i2791, c3548;
+TSCP  scrt4_l2709( r2710, p2711, i2712, c3440 )
+        TSCP  r2710, p2711, i2712, c3440;
 {
         TSCP  X2, X1;
 
-        PUSHSTACKTRACE( "scrt4_l2788 [inside %RECORD-LOOKUP-METHOD]" );
-        if  ( FALSE( scrt4_fix_2dchar_c117a402_v ) )  goto L3550;
+        PUSHSTACKTRACE( "scrt4_l2709 [inside %RECORD-LOOKUP-METHOD]" );
+        if  ( FALSE( scrt4_fix_2dchar_c117a402_v ) )  goto L3442;
         X2 = CONS( scrt4_fix_2dchar_c117a402_v, EMPTYLIST );
         X1 = scrt3_string( CONS( _TSCP( 8978 ), X2 ) );
-        goto L3551;
-L3550:
-        X1 = c2792;
-L3551:
-        scrt6_display( X1, CONS( p2790, EMPTYLIST ) );
-        X2 = scrt4__25record_2d_3elist( r2789 );
+        goto L3443;
+L3442:
+        X1 = c2713;
+L3443:
+        scrt6_display( X1, CONS( p2711, EMPTYLIST ) );
+        X2 = scrt4__25record_2d_3elist( r2710 );
         X1 = sc_cons( X2, EMPTYLIST );
         POPSTACKTRACE( X1 );
 }
 
-TSCP  scrt4_l2786( x2787, c3557 )
-        TSCP  x2787, c3557;
+TSCP  scrt4_l2707( x2708, c3449 )
+        TSCP  x2708, c3449;
 {
-        PUSHSTACKTRACE( "scrt4_l2786 [inside %RECORD-LOOKUP-METHOD]" );
-        POPSTACKTRACE( x2787 );
+        PUSHSTACKTRACE( "scrt4_l2707 [inside %RECORD-LOOKUP-METHOD]" );
+        POPSTACKTRACE( x2708 );
 }
 
 EXTERNTSCPP( scrt1_eq_3f, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt1_eq_3f_v );
 
-TSCP  scrt4_p_2dmethod_3ccf392b( r2771, m2772 )
-        TSCP  r2771, m2772;
+TSCP  scrt4_p_2dmethod_3ccf392b( r2692, m2693 )
+        TSCP  r2692, m2693;
 {
         TSCP  X2, X1;
 
-        PUSHSTACKTRACE( t3535 );
-        if  ( AND( EQ( TSCPTAG( r2771 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( r2771 ), RECORDTAG ) )
-            )  goto L3538;
-        scdebug_error( c2760, 
-                       c2641, CONS( r2771, EMPTYLIST ) );
-L3538:
-        X2 = RECORD_METHODS( r2771 );
-        X1 = scrt1_assq( m2772, X2 );
-        if  ( FALSE( X1 ) )  goto L3541;
-        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3544;
+        PUSHSTACKTRACE( t3427 );
+        if  ( AND( EQ( TSCPTAG( r2692 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( r2692 ), RECORDTAG ) )
+            )  goto L3430;
+        scdebug_error( c2681, 
+                       c2562, CONS( r2692, EMPTYLIST ) );
+L3430:
+        X2 = RECORD_METHODS( r2692 );
+        X1 = scrt1_assq( m2693, X2 );
+        if  ( FALSE( X1 ) )  goto L3433;
+        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3436;
         scrt1__24__cdr_2derror( X1 );
-L3544:
+L3436:
         POPSTACKTRACE( PAIR_CDR( X1 ) );
-L3541:
-        if  ( FALSE( scrt1_memv( m2772, c2777 ) ) )  goto L3546;
+L3433:
+        if  ( FALSE( scrt1_memv( m2693, c2698 ) ) )  goto L3438;
         POPSTACKTRACE( MAKEPROCEDURE( 2, 
-                                      1, scrt4_l2788, EMPTYLIST ) );
-L3546:
-        if  ( EQ( _S2CUINT( m2772 ), _S2CUINT( c2781 ) ) )  goto L3553;
-        if  ( NEQ( _S2CUINT( m2772 ), _S2CUINT( c2785 ) ) )  goto L3555;
+                                      1, scrt4_l2709, EMPTYLIST ) );
+L3438:
+        if  ( EQ( _S2CUINT( m2693 ), _S2CUINT( c2702 ) ) )  goto L3445;
+        if  ( NEQ( _S2CUINT( m2693 ), _S2CUINT( c2706 ) ) )  goto L3447;
         POPSTACKTRACE( MAKEPROCEDURE( 1, 
-                                      0, scrt4_l2786, EMPTYLIST ) );
-L3555:
+                                      0, scrt4_l2707, EMPTYLIST ) );
+L3447:
         POPSTACKTRACE( FALSEVALUE );
-L3553:
+L3445:
         POPSTACKTRACE( scrt1_eq_3f_v );
 }
 
 DEFTSCP( scrt4_c_2dsizeof_2dshort_v );
-DEFCSTRING( t3559, "C-SIZEOF-SHORT" );
+DEFCSTRING( t3451, "C-SIZEOF-SHORT" );
 DEFTSCP( scrt4_c_2dsizeof_2dint_v );
-DEFCSTRING( t3560, "C-SIZEOF-INT" );
+DEFCSTRING( t3452, "C-SIZEOF-INT" );
 DEFTSCP( scrt4_c_2dsizeof_2dlong_v );
-DEFCSTRING( t3561, "C-SIZEOF-LONG" );
+DEFCSTRING( t3453, "C-SIZEOF-LONG" );
 DEFTSCP( scrt4_c_2dsizeof_2dfloat_v );
-DEFCSTRING( t3562, "C-SIZEOF-FLOAT" );
+DEFCSTRING( t3454, "C-SIZEOF-FLOAT" );
 DEFTSCP( scrt4_c_2dsizeof_2ddouble_v );
-DEFCSTRING( t3563, "C-SIZEOF-DOUBLE" );
+DEFCSTRING( t3455, "C-SIZEOF-DOUBLE" );
 DEFTSCP( scrt4_c_2dsizeof_2dtscp_v );
-DEFCSTRING( t3564, "C-SIZEOF-TSCP" );
+DEFCSTRING( t3456, "C-SIZEOF-TSCP" );
 DEFTSCP( scrt4_c_2dsizeof_2ds2cuint_v );
-DEFCSTRING( t3565, "C-SIZEOF-S2CUINT" );
+DEFCSTRING( t3457, "C-SIZEOF-S2CUINT" );
 DEFTSCP( scrt4_c_2dbyte_2dref_v );
-DEFCSTRING( t3566, "C-BYTE-REF" );
+DEFCSTRING( t3458, "C-BYTE-REF" );
 
-TSCP  scrt4_c_2dbyte_2dref( s2805, x2806 )
-        TSCP  s2805, x2806;
+TSCP  scrt4_c_2dbyte_2dref( s2726, x2727 )
+        TSCP  s2726, x2727;
 {
-        PUSHSTACKTRACE( t3566 );
-        POPSTACKTRACE( S2CINT_TSCP( _S2CUINT( MBYTE( TSCP_POINTER( s2805 ), 
-                                                     TSCP_S2CINT( x2806 ) ) ) ) );
+        PUSHSTACKTRACE( t3458 );
+        POPSTACKTRACE( S2CINT_TSCP( _S2CUINT( MBYTE( TSCP_POINTER( s2726 ), 
+                                                     TSCP_S2CINT( x2727 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dshortint_2dref_v );
-DEFCSTRING( t3568, "C-SHORTINT-REF" );
+DEFCSTRING( t3460, "C-SHORTINT-REF" );
 
-TSCP  scrt4_c_2dshortint_2dref( s2808, x2809 )
-        TSCP  s2808, x2809;
+TSCP  scrt4_c_2dshortint_2dref( s2729, x2730 )
+        TSCP  s2729, x2730;
 {
-        PUSHSTACKTRACE( t3568 );
-        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MSINT( TSCP_POINTER( s2808 ), 
-                                                    TSCP_S2CINT( x2809 ) ) ) ) );
+        PUSHSTACKTRACE( t3460 );
+        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MSINT( TSCP_POINTER( s2729 ), 
+                                                    TSCP_S2CINT( x2730 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dshortunsigned_2dref_v );
-DEFCSTRING( t3570, "C-SHORTUNSIGNED-REF" );
+DEFCSTRING( t3462, "C-SHORTUNSIGNED-REF" );
 
-TSCP  scrt4_c_2dshortunsigned_2dref( s2811, x2812 )
-        TSCP  s2811, x2812;
+TSCP  scrt4_c_2dshortunsigned_2dref( s2732, x2733 )
+        TSCP  s2732, x2733;
 {
-        PUSHSTACKTRACE( t3570 );
-        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MSUNSIGNED( TSCP_POINTER( s2811 ), 
-                                                           TSCP_S2CINT( x2812 ) ) ) ) );
+        PUSHSTACKTRACE( t3462 );
+        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MSUNSIGNED( TSCP_POINTER( s2732 ), 
+                                                           TSCP_S2CINT( x2733 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dint_2dref_v );
-DEFCSTRING( t3572, "C-INT-REF" );
+DEFCSTRING( t3464, "C-INT-REF" );
 
-TSCP  scrt4_c_2dint_2dref( s2814, x2815 )
-        TSCP  s2814, x2815;
+TSCP  scrt4_c_2dint_2dref( s2735, x2736 )
+        TSCP  s2735, x2736;
 {
-        PUSHSTACKTRACE( t3572 );
-        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MINT( TSCP_POINTER( s2814 ), 
-                                                   TSCP_S2CINT( x2815 ) ) ) ) );
+        PUSHSTACKTRACE( t3464 );
+        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MINT( TSCP_POINTER( s2735 ), 
+                                                   TSCP_S2CINT( x2736 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dunsigned_2dref_v );
-DEFCSTRING( t3574, "C-UNSIGNED-REF" );
+DEFCSTRING( t3466, "C-UNSIGNED-REF" );
 
-TSCP  scrt4_c_2dunsigned_2dref( s2817, x2818 )
-        TSCP  s2817, x2818;
+TSCP  scrt4_c_2dunsigned_2dref( s2738, x2739 )
+        TSCP  s2738, x2739;
 {
-        PUSHSTACKTRACE( t3574 );
-        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MUNSIGNED( TSCP_POINTER( s2817 ), 
-                                                          TSCP_S2CINT( x2818 ) ) ) ) );
+        PUSHSTACKTRACE( t3466 );
+        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MUNSIGNED( TSCP_POINTER( s2738 ), 
+                                                          TSCP_S2CINT( x2739 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dlongint_2dref_v );
-DEFCSTRING( t3576, "C-LONGINT-REF" );
+DEFCSTRING( t3468, "C-LONGINT-REF" );
 
-TSCP  scrt4_c_2dlongint_2dref( s2820, x2821 )
-        TSCP  s2820, x2821;
+TSCP  scrt4_c_2dlongint_2dref( s2741, x2742 )
+        TSCP  s2741, x2742;
 {
-        PUSHSTACKTRACE( t3576 );
-        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MLINT( TSCP_POINTER( s2820 ), 
-                                                    TSCP_S2CINT( x2821 ) ) ) ) );
+        PUSHSTACKTRACE( t3468 );
+        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MLINT( TSCP_POINTER( s2741 ), 
+                                                    TSCP_S2CINT( x2742 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dlongunsigned_2dref_v );
-DEFCSTRING( t3578, "C-LONGUNSIGNED-REF" );
+DEFCSTRING( t3470, "C-LONGUNSIGNED-REF" );
 
-TSCP  scrt4_c_2dlongunsigned_2dref( s2823, x2824 )
-        TSCP  s2823, x2824;
+TSCP  scrt4_c_2dlongunsigned_2dref( s2744, x2745 )
+        TSCP  s2744, x2745;
 {
-        PUSHSTACKTRACE( t3578 );
-        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MLUNSIGNED( TSCP_POINTER( s2823 ), 
-                                                           TSCP_S2CINT( x2824 ) ) ) ) );
+        PUSHSTACKTRACE( t3470 );
+        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MLUNSIGNED( TSCP_POINTER( s2744 ), 
+                                                           TSCP_S2CINT( x2745 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2ds2cuint_2dref_v );
-DEFCSTRING( t3580, "C-S2CUINT-REF" );
+DEFCSTRING( t3472, "C-S2CUINT-REF" );
 
-TSCP  scrt4_c_2ds2cuint_2dref( s2826, x2827 )
-        TSCP  s2826, x2827;
+TSCP  scrt4_c_2ds2cuint_2dref( s2747, x2748 )
+        TSCP  s2747, x2748;
 {
-        PUSHSTACKTRACE( t3580 );
-        POPSTACKTRACE( S2CUINT_TSCP( MS2CUINT( TSCP_POINTER( s2826 ), 
-                                               TSCP_S2CINT( x2827 ) ) ) );
+        PUSHSTACKTRACE( t3472 );
+        POPSTACKTRACE( S2CUINT_TSCP( MS2CUINT( TSCP_POINTER( s2747 ), 
+                                               TSCP_S2CINT( x2748 ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dtscp_2dref_v );
-DEFCSTRING( t3582, "C-TSCP-REF" );
+DEFCSTRING( t3474, "C-TSCP-REF" );
 
-TSCP  scrt4_c_2dtscp_2dref( s2829, x2830 )
-        TSCP  s2829, x2830;
+TSCP  scrt4_c_2dtscp_2dref( s2750, x2751 )
+        TSCP  s2750, x2751;
 {
-        PUSHSTACKTRACE( t3582 );
-        POPSTACKTRACE( MTSCP( TSCP_POINTER( s2829 ), 
-                              TSCP_S2CINT( x2830 ) ) );
+        PUSHSTACKTRACE( t3474 );
+        POPSTACKTRACE( MTSCP( TSCP_POINTER( s2750 ), 
+                              TSCP_S2CINT( x2751 ) ) );
 }
 
 DEFTSCP( scrt4_c_2dfloat_2dref_v );
-DEFCSTRING( t3584, "C-FLOAT-REF" );
+DEFCSTRING( t3476, "C-FLOAT-REF" );
 
-TSCP  scrt4_c_2dfloat_2dref( s2832, x2833 )
-        TSCP  s2832, x2833;
+TSCP  scrt4_c_2dfloat_2dref( s2753, x2754 )
+        TSCP  s2753, x2754;
 {
-        PUSHSTACKTRACE( t3584 );
-        POPSTACKTRACE( DOUBLE_TSCP( CDOUBLE( MFLOAT( TSCP_POINTER( s2832 ), 
-                                                     TSCP_S2CINT( x2833 ) ) ) ) );
+        PUSHSTACKTRACE( t3476 );
+        POPSTACKTRACE( DOUBLE_TSCP( CDOUBLE( MFLOAT( TSCP_POINTER( s2753 ), 
+                                                     TSCP_S2CINT( x2754 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2ddouble_2dref_v );
-DEFCSTRING( t3586, "C-DOUBLE-REF" );
+DEFCSTRING( t3478, "C-DOUBLE-REF" );
 
-TSCP  scrt4_c_2ddouble_2dref( s2835, x2836 )
-        TSCP  s2835, x2836;
+TSCP  scrt4_c_2ddouble_2dref( s2756, x2757 )
+        TSCP  s2756, x2757;
 {
-        PUSHSTACKTRACE( t3586 );
-        POPSTACKTRACE( DOUBLE_TSCP( MDOUBLE( TSCP_POINTER( s2835 ), 
-                                             TSCP_S2CINT( x2836 ) ) ) );
+        PUSHSTACKTRACE( t3478 );
+        POPSTACKTRACE( DOUBLE_TSCP( MDOUBLE( TSCP_POINTER( s2756 ), 
+                                             TSCP_S2CINT( x2757 ) ) ) );
 }
 
 DEFTSCP( scrt4_c_2dbyte_2dset_21_v );
-DEFCSTRING( t3588, "C-BYTE-SET!" );
+DEFCSTRING( t3480, "C-BYTE-SET!" );
 
-TSCP  scrt4_c_2dbyte_2dset_21( s2838, x2839, v2840 )
-        TSCP  s2838, x2839, v2840;
+TSCP  scrt4_c_2dbyte_2dset_21( s2759, x2760, v2761 )
+        TSCP  s2759, x2760, v2761;
 {
-        PUSHSTACKTRACE( t3588 );
-        SET( MBYTE( TSCP_POINTER( s2838 ), 
-                    TSCP_S2CINT( x2839 ) ), 
-             TSCP_S2CINT( v2840 ) );
-        POPSTACKTRACE( v2840 );
+        PUSHSTACKTRACE( t3480 );
+        SET( MBYTE( TSCP_POINTER( s2759 ), 
+                    TSCP_S2CINT( x2760 ) ), 
+             TSCP_S2CINT( v2761 ) );
+        POPSTACKTRACE( v2761 );
 }
 
 DEFTSCP( scrt4_c_2dshortint_2dset_21_v );
-DEFCSTRING( t3590, "C-SHORTINT-SET!" );
+DEFCSTRING( t3482, "C-SHORTINT-SET!" );
 
-TSCP  scrt4_c_2dshortint_2dset_21( s2842, x2843, v2844 )
-        TSCP  s2842, x2843, v2844;
+TSCP  scrt4_c_2dshortint_2dset_21( s2763, x2764, v2765 )
+        TSCP  s2763, x2764, v2765;
 {
-        PUSHSTACKTRACE( t3590 );
-        SET( MSINT( TSCP_POINTER( s2842 ), 
-                    TSCP_S2CINT( x2843 ) ), 
-             TSCP_S2CINT( v2844 ) );
-        POPSTACKTRACE( v2844 );
+        PUSHSTACKTRACE( t3482 );
+        SET( MSINT( TSCP_POINTER( s2763 ), 
+                    TSCP_S2CINT( x2764 ) ), 
+             TSCP_S2CINT( v2765 ) );
+        POPSTACKTRACE( v2765 );
 }
 
 DEFTSCP( scrt4_d_2dset_21_828269c5_v );
-DEFCSTRING( t3592, "C-SHORTUNSIGNED-SET!" );
+DEFCSTRING( t3484, "C-SHORTUNSIGNED-SET!" );
 
-TSCP  scrt4_d_2dset_21_828269c5( s2846, x2847, v2848 )
-        TSCP  s2846, x2847, v2848;
+TSCP  scrt4_d_2dset_21_828269c5( s2767, x2768, v2769 )
+        TSCP  s2767, x2768, v2769;
 {
-        PUSHSTACKTRACE( t3592 );
-        SET( MSUNSIGNED( TSCP_POINTER( s2846 ), 
-                         TSCP_S2CINT( x2847 ) ), 
-             TSCP_S2CUINT( v2848 ) );
-        POPSTACKTRACE( v2848 );
+        PUSHSTACKTRACE( t3484 );
+        SET( MSUNSIGNED( TSCP_POINTER( s2767 ), 
+                         TSCP_S2CINT( x2768 ) ), 
+             TSCP_S2CUINT( v2769 ) );
+        POPSTACKTRACE( v2769 );
 }
 
 DEFTSCP( scrt4_c_2dint_2dset_21_v );
-DEFCSTRING( t3594, "C-INT-SET!" );
+DEFCSTRING( t3486, "C-INT-SET!" );
 
-TSCP  scrt4_c_2dint_2dset_21( s2850, x2851, v2852 )
-        TSCP  s2850, x2851, v2852;
+TSCP  scrt4_c_2dint_2dset_21( s2771, x2772, v2773 )
+        TSCP  s2771, x2772, v2773;
 {
-        PUSHSTACKTRACE( t3594 );
-        SET( MINT( TSCP_POINTER( s2850 ), 
-                   TSCP_S2CINT( x2851 ) ), 
-             TSCP_S2CINT( v2852 ) );
-        POPSTACKTRACE( v2852 );
+        PUSHSTACKTRACE( t3486 );
+        SET( MINT( TSCP_POINTER( s2771 ), 
+                   TSCP_S2CINT( x2772 ) ), 
+             TSCP_S2CINT( v2773 ) );
+        POPSTACKTRACE( v2773 );
 }
 
 DEFTSCP( scrt4_c_2dunsigned_2dset_21_v );
-DEFCSTRING( t3596, "C-UNSIGNED-SET!" );
+DEFCSTRING( t3488, "C-UNSIGNED-SET!" );
 
-TSCP  scrt4_c_2dunsigned_2dset_21( s2854, x2855, v2856 )
-        TSCP  s2854, x2855, v2856;
+TSCP  scrt4_c_2dunsigned_2dset_21( s2775, x2776, v2777 )
+        TSCP  s2775, x2776, v2777;
 {
-        PUSHSTACKTRACE( t3596 );
-        SET( MUNSIGNED( TSCP_POINTER( s2854 ), 
-                        TSCP_S2CINT( x2855 ) ), 
-             TSCP_S2CUINT( v2856 ) );
-        POPSTACKTRACE( v2856 );
+        PUSHSTACKTRACE( t3488 );
+        SET( MUNSIGNED( TSCP_POINTER( s2775 ), 
+                        TSCP_S2CINT( x2776 ) ), 
+             TSCP_S2CUINT( v2777 ) );
+        POPSTACKTRACE( v2777 );
 }
 
 DEFTSCP( scrt4_c_2dlongint_2dset_21_v );
-DEFCSTRING( t3598, "C-LONGINT-SET!" );
+DEFCSTRING( t3490, "C-LONGINT-SET!" );
 
-TSCP  scrt4_c_2dlongint_2dset_21( s2858, x2859, v2860 )
-        TSCP  s2858, x2859, v2860;
+TSCP  scrt4_c_2dlongint_2dset_21( s2779, x2780, v2781 )
+        TSCP  s2779, x2780, v2781;
 {
-        PUSHSTACKTRACE( t3598 );
-        SET( MLINT( TSCP_POINTER( s2858 ), 
-                    TSCP_S2CINT( x2859 ) ), 
-             TSCP_S2CINT( v2860 ) );
-        POPSTACKTRACE( v2860 );
+        PUSHSTACKTRACE( t3490 );
+        SET( MLINT( TSCP_POINTER( s2779 ), 
+                    TSCP_S2CINT( x2780 ) ), 
+             TSCP_S2CINT( v2781 ) );
+        POPSTACKTRACE( v2781 );
 }
 
 DEFTSCP( scrt4_d_2dset_21_2e97375c_v );
-DEFCSTRING( t3600, "C-LONGUNSIGNED-SET!" );
+DEFCSTRING( t3492, "C-LONGUNSIGNED-SET!" );
 
-TSCP  scrt4_d_2dset_21_2e97375c( s2862, x2863, v2864 )
-        TSCP  s2862, x2863, v2864;
+TSCP  scrt4_d_2dset_21_2e97375c( s2783, x2784, v2785 )
+        TSCP  s2783, x2784, v2785;
 {
-        PUSHSTACKTRACE( t3600 );
-        SET( MLUNSIGNED( TSCP_POINTER( s2862 ), 
-                         TSCP_S2CINT( x2863 ) ), 
-             TSCP_S2CUINT( v2864 ) );
-        POPSTACKTRACE( v2864 );
+        PUSHSTACKTRACE( t3492 );
+        SET( MLUNSIGNED( TSCP_POINTER( s2783 ), 
+                         TSCP_S2CINT( x2784 ) ), 
+             TSCP_S2CUINT( v2785 ) );
+        POPSTACKTRACE( v2785 );
 }
 
 DEFTSCP( scrt4_c_2ds2cuint_2dset_21_v );
-DEFCSTRING( t3602, "C-S2CUINT-SET!" );
+DEFCSTRING( t3494, "C-S2CUINT-SET!" );
 
-TSCP  scrt4_c_2ds2cuint_2dset_21( s2866, x2867, v2868 )
-        TSCP  s2866, x2867, v2868;
+TSCP  scrt4_c_2ds2cuint_2dset_21( s2787, x2788, v2789 )
+        TSCP  s2787, x2788, v2789;
 {
-        PUSHSTACKTRACE( t3602 );
-        SET( MS2CUINT( TSCP_POINTER( s2866 ), 
-                       TSCP_S2CINT( x2867 ) ), 
-             TSCP_S2CUINT( v2868 ) );
-        POPSTACKTRACE( v2868 );
+        PUSHSTACKTRACE( t3494 );
+        SET( MS2CUINT( TSCP_POINTER( s2787 ), 
+                       TSCP_S2CINT( x2788 ) ), 
+             TSCP_S2CUINT( v2789 ) );
+        POPSTACKTRACE( v2789 );
 }
 
 DEFTSCP( scrt4_c_2dtscp_2dset_21_v );
-DEFCSTRING( t3604, "C-TSCP-SET!" );
+DEFCSTRING( t3496, "C-TSCP-SET!" );
 
-TSCP  scrt4_c_2dtscp_2dset_21( s2870, x2871, v2872 )
-        TSCP  s2870, x2871, v2872;
+TSCP  scrt4_c_2dtscp_2dset_21( s2791, x2792, v2793 )
+        TSCP  s2791, x2792, v2793;
 {
-        PUSHSTACKTRACE( t3604 );
-        SET( MTSCP( TSCP_POINTER( s2870 ), 
-                    TSCP_S2CINT( x2871 ) ), 
-             v2872 );
-        POPSTACKTRACE( v2872 );
+        PUSHSTACKTRACE( t3496 );
+        SET( MTSCP( TSCP_POINTER( s2791 ), 
+                    TSCP_S2CINT( x2792 ) ), 
+             v2793 );
+        POPSTACKTRACE( v2793 );
 }
 
 DEFTSCP( scrt4_c_2dfloat_2dset_21_v );
-DEFCSTRING( t3606, "C-FLOAT-SET!" );
+DEFCSTRING( t3498, "C-FLOAT-SET!" );
 
-TSCP  scrt4_c_2dfloat_2dset_21( s2874, x2875, v2876 )
-        TSCP  s2874, x2875, v2876;
+TSCP  scrt4_c_2dfloat_2dset_21( s2795, x2796, v2797 )
+        TSCP  s2795, x2796, v2797;
 {
-        PUSHSTACKTRACE( t3606 );
-        SET( MFLOAT( TSCP_POINTER( s2874 ), 
-                     TSCP_S2CINT( x2875 ) ), 
-             TSCP_DOUBLE( v2876 ) );
-        POPSTACKTRACE( v2876 );
+        PUSHSTACKTRACE( t3498 );
+        SET( MFLOAT( TSCP_POINTER( s2795 ), 
+                     TSCP_S2CINT( x2796 ) ), 
+             TSCP_DOUBLE( v2797 ) );
+        POPSTACKTRACE( v2797 );
 }
 
 DEFTSCP( scrt4_c_2ddouble_2dset_21_v );
-DEFCSTRING( t3608, "C-DOUBLE-SET!" );
+DEFCSTRING( t3500, "C-DOUBLE-SET!" );
 
-TSCP  scrt4_c_2ddouble_2dset_21( s2878, x2879, v2880 )
-        TSCP  s2878, x2879, v2880;
+TSCP  scrt4_c_2ddouble_2dset_21( s2799, x2800, v2801 )
+        TSCP  s2799, x2800, v2801;
 {
-        PUSHSTACKTRACE( t3608 );
-        SETMDOUBLE( TSCP_POINTER( s2878 ), 
-		    TSCP_S2CINT( x2879 ), 
-		    TSCP_DOUBLE( v2880 ) );
-        POPSTACKTRACE( v2880 );
+        PUSHSTACKTRACE( t3500 );
+        SETMDOUBLE( TSCP_POINTER( s2799 ), 
+                    TSCP_S2CINT( x2800 ), 
+                    TSCP_DOUBLE( v2801 ) );
+        POPSTACKTRACE( v2801 );
 }
 
 DEFTSCP( scrt4_scheme_2dbyte_2dref_v );
-DEFCSTRING( t3610, "SCHEME-BYTE-REF" );
+DEFCSTRING( t3502, "SCHEME-BYTE-REF" );
 
-TSCP  scrt4_scheme_2dbyte_2dref( s2882, x2883 )
-        TSCP  s2882, x2883;
+TSCP  scrt4_scheme_2dbyte_2dref( s2803, x2804 )
+        TSCP  s2803, x2804;
 {
-        PUSHSTACKTRACE( t3610 );
-        if  ( BITAND( TSCPTAG( s2882 ), 1 ) )  goto L3612;
-        scdebug_error( c2886, 
-                       c2887, CONS( s2882, EMPTYLIST ) );
-L3612:
-        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MBYTE( T_U( s2882 ), 
-                                                      TSCP_S2CINT( x2883 ) ) ) ) );
+        PUSHSTACKTRACE( t3502 );
+        if  ( BITAND( TSCPTAG( s2803 ), 1 ) )  goto L3504;
+        scdebug_error( c2807, 
+                       c2808, CONS( s2803, EMPTYLIST ) );
+L3504:
+        POPSTACKTRACE( S2CUINT_TSCP( _S2CUINT( MBYTE( T_U( s2803 ), 
+                                                      TSCP_S2CINT( x2804 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_scheme_2dint_2dref_v );
-DEFCSTRING( t3614, "SCHEME-INT-REF" );
+DEFCSTRING( t3506, "SCHEME-INT-REF" );
 
-TSCP  scrt4_scheme_2dint_2dref( s2889, x2890 )
-        TSCP  s2889, x2890;
+TSCP  scrt4_scheme_2dint_2dref( s2810, x2811 )
+        TSCP  s2810, x2811;
 {
-        PUSHSTACKTRACE( t3614 );
-        if  ( BITAND( TSCPTAG( s2889 ), 1 ) )  goto L3616;
-        scdebug_error( c2893, 
-                       c2887, CONS( s2889, EMPTYLIST ) );
-L3616:
-        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MINT( T_U( s2889 ), 
-                                                   TSCP_S2CINT( x2890 ) ) ) ) );
+        PUSHSTACKTRACE( t3506 );
+        if  ( BITAND( TSCPTAG( s2810 ), 1 ) )  goto L3508;
+        scdebug_error( c2814, 
+                       c2808, CONS( s2810, EMPTYLIST ) );
+L3508:
+        POPSTACKTRACE( S2CINT_TSCP( _S2CINT( MINT( T_U( s2810 ), 
+                                                   TSCP_S2CINT( x2811 ) ) ) ) );
 }
 
 DEFTSCP( scrt4_scheme_2dtscp_2dref_v );
-DEFCSTRING( t3618, "SCHEME-TSCP-REF" );
+DEFCSTRING( t3510, "SCHEME-TSCP-REF" );
 
-TSCP  scrt4_scheme_2dtscp_2dref( s2895, x2896 )
-        TSCP  s2895, x2896;
+TSCP  scrt4_scheme_2dtscp_2dref( s2816, x2817 )
+        TSCP  s2816, x2817;
 {
-        PUSHSTACKTRACE( t3618 );
-        if  ( BITAND( TSCPTAG( s2895 ), 1 ) )  goto L3620;
-        scdebug_error( c2899, 
-                       c2887, CONS( s2895, EMPTYLIST ) );
-L3620:
-        POPSTACKTRACE( MTSCP( T_U( s2895 ), 
-                              TSCP_S2CINT( x2896 ) ) );
+        PUSHSTACKTRACE( t3510 );
+        if  ( BITAND( TSCPTAG( s2816 ), 1 ) )  goto L3512;
+        scdebug_error( c2820, 
+                       c2808, CONS( s2816, EMPTYLIST ) );
+L3512:
+        POPSTACKTRACE( MTSCP( T_U( s2816 ), 
+                              TSCP_S2CINT( x2817 ) ) );
 }
 
 DEFTSCP( scrt4_scheme_2ds2cuint_2dref_v );
-DEFCSTRING( t3622, "SCHEME-S2CUINT-REF" );
+DEFCSTRING( t3514, "SCHEME-S2CUINT-REF" );
 
-TSCP  scrt4_scheme_2ds2cuint_2dref( s2901, x2902 )
-        TSCP  s2901, x2902;
+TSCP  scrt4_scheme_2ds2cuint_2dref( s2822, x2823 )
+        TSCP  s2822, x2823;
 {
-        PUSHSTACKTRACE( t3622 );
-        if  ( BITAND( TSCPTAG( s2901 ), 1 ) )  goto L3624;
-        scdebug_error( c2905, 
-                       c2887, CONS( s2901, EMPTYLIST ) );
-L3624:
-        POPSTACKTRACE( S2CUINT_TSCP( MS2CUINT( T_U( s2901 ), 
-                                               TSCP_S2CINT( x2902 ) ) ) );
+        PUSHSTACKTRACE( t3514 );
+        if  ( BITAND( TSCPTAG( s2822 ), 1 ) )  goto L3516;
+        scdebug_error( c2826, 
+                       c2808, CONS( s2822, EMPTYLIST ) );
+L3516:
+        POPSTACKTRACE( S2CUINT_TSCP( MS2CUINT( T_U( s2822 ), 
+                                               TSCP_S2CINT( x2823 ) ) ) );
 }
 
 DEFTSCP( scrt4_scheme_2dbyte_2dset_21_v );
-DEFCSTRING( t3626, "SCHEME-BYTE-SET!" );
+DEFCSTRING( t3518, "SCHEME-BYTE-SET!" );
 
-TSCP  scrt4_scheme_2dbyte_2dset_21( s2907, x2908, v2909 )
-        TSCP  s2907, x2908, v2909;
+TSCP  scrt4_scheme_2dbyte_2dset_21( s2828, x2829, v2830 )
+        TSCP  s2828, x2829, v2830;
 {
-        PUSHSTACKTRACE( t3626 );
-        if  ( BITAND( TSCPTAG( s2907 ), 1 ) )  goto L3628;
-        scdebug_error( c2912, 
-                       c2887, CONS( s2907, EMPTYLIST ) );
-L3628:
-        SET( MBYTE( T_U( s2907 ), TSCP_S2CINT( x2908 ) ), 
-             TSCP_S2CINT( v2909 ) );
-        POPSTACKTRACE( v2909 );
+        PUSHSTACKTRACE( t3518 );
+        if  ( BITAND( TSCPTAG( s2828 ), 1 ) )  goto L3520;
+        scdebug_error( c2833, 
+                       c2808, CONS( s2828, EMPTYLIST ) );
+L3520:
+        SET( MBYTE( T_U( s2828 ), TSCP_S2CINT( x2829 ) ), 
+             TSCP_S2CINT( v2830 ) );
+        POPSTACKTRACE( v2830 );
 }
 
 DEFTSCP( scrt4_scheme_2dint_2dset_21_v );
-DEFCSTRING( t3630, "SCHEME-INT-SET!" );
+DEFCSTRING( t3522, "SCHEME-INT-SET!" );
 
-TSCP  scrt4_scheme_2dint_2dset_21( s2914, x2915, v2916 )
-        TSCP  s2914, x2915, v2916;
+TSCP  scrt4_scheme_2dint_2dset_21( s2835, x2836, v2837 )
+        TSCP  s2835, x2836, v2837;
 {
-        PUSHSTACKTRACE( t3630 );
-        if  ( BITAND( TSCPTAG( s2914 ), 1 ) )  goto L3632;
-        scdebug_error( c2919, 
-                       c2887, CONS( s2914, EMPTYLIST ) );
-L3632:
-        SET( MINT( T_U( s2914 ), TSCP_S2CINT( x2915 ) ), 
-             TSCP_S2CINT( v2916 ) );
-        POPSTACKTRACE( v2916 );
+        PUSHSTACKTRACE( t3522 );
+        if  ( BITAND( TSCPTAG( s2835 ), 1 ) )  goto L3524;
+        scdebug_error( c2840, 
+                       c2808, CONS( s2835, EMPTYLIST ) );
+L3524:
+        SET( MINT( T_U( s2835 ), TSCP_S2CINT( x2836 ) ), 
+             TSCP_S2CINT( v2837 ) );
+        POPSTACKTRACE( v2837 );
 }
 
 DEFTSCP( scrt4_scheme_2dtscp_2dset_21_v );
-DEFCSTRING( t3634, "SCHEME-TSCP-SET!" );
+DEFCSTRING( t3526, "SCHEME-TSCP-SET!" );
 
-TSCP  scrt4_scheme_2dtscp_2dset_21( s2921, x2922, v2923 )
-        TSCP  s2921, x2922, v2923;
+TSCP  scrt4_scheme_2dtscp_2dset_21( s2842, x2843, v2844 )
+        TSCP  s2842, x2843, v2844;
 {
-        PUSHSTACKTRACE( t3634 );
-        if  ( BITAND( TSCPTAG( s2921 ), 1 ) )  goto L3636;
-        scdebug_error( c2926, 
-                       c2887, CONS( s2921, EMPTYLIST ) );
-L3636:
-        SETGENTL( MTSCP( T_U( s2921 ), 
-                         TSCP_S2CINT( x2922 ) ), 
-                  v2923 );
-        POPSTACKTRACE( v2923 );
+        PUSHSTACKTRACE( t3526 );
+        if  ( BITAND( TSCPTAG( s2842 ), 1 ) )  goto L3528;
+        scdebug_error( c2847, 
+                       c2808, CONS( s2842, EMPTYLIST ) );
+L3528:
+        SETGENTL( MTSCP( T_U( s2842 ), 
+                         TSCP_S2CINT( x2843 ) ), 
+                  v2844 );
+        POPSTACKTRACE( v2844 );
 }
 
 DEFTSCP( scrt4_t_2dset_21_925753db_v );
-DEFCSTRING( t3638, "SCHEME-S2CUINT-SET!" );
+DEFCSTRING( t3530, "SCHEME-S2CUINT-SET!" );
 
-TSCP  scrt4_t_2dset_21_925753db( s2928, x2929, v2930 )
-        TSCP  s2928, x2929, v2930;
+TSCP  scrt4_t_2dset_21_925753db( s2849, x2850, v2851 )
+        TSCP  s2849, x2850, v2851;
 {
-        PUSHSTACKTRACE( t3638 );
-        if  ( BITAND( TSCPTAG( s2928 ), 1 ) )  goto L3640;
-        scdebug_error( c2933, 
-                       c2887, CONS( s2928, EMPTYLIST ) );
-L3640:
-        SET( MS2CUINT( T_U( s2928 ), TSCP_S2CINT( x2929 ) ), 
-             TSCP_S2CUINT( v2930 ) );
-        POPSTACKTRACE( v2930 );
+        PUSHSTACKTRACE( t3530 );
+        if  ( BITAND( TSCPTAG( s2849 ), 1 ) )  goto L3532;
+        scdebug_error( c2854, 
+                       c2808, CONS( s2849, EMPTYLIST ) );
+L3532:
+        SET( MS2CUINT( T_U( s2849 ), TSCP_S2CINT( x2850 ) ), 
+             TSCP_S2CUINT( v2851 ) );
+        POPSTACKTRACE( v2851 );
 }
 
 DEFTSCP( scrt4_bit_2dand_v );
-DEFCSTRING( t3642, "BIT-AND" );
+DEFCSTRING( t3534, "BIT-AND" );
 
-TSCP  scrt4_bit_2dand( x2935, y2936 )
-        TSCP  x2935, y2936;
+TSCP  scrt4_bit_2dand( x2856, y2857 )
+        TSCP  x2856, y2857;
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3642 );
-        X1 = x2935;
-        X2 = y2936;
-L3645:
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3646;
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3649;
+        PUSHSTACKTRACE( t3534 );
+        X1 = x2856;
+        X2 = y2857;
+L3537:
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3538;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3541;
         scrt1__24__car_2derror( X2 );
-L3649:
+L3541:
         X4 = PAIR_CAR( X2 );
         X3 = S2CUINT_TSCP( BITAND32( TSCP_S2CUINT( X4 ), 
                                      TSCP_S2CUINT( X1 ) ) );
         X2 = PAIR_CDR( X2 );
         X1 = X3;
-        GOBACK( L3645 );
-L3646:
+        GOBACK( L3537 );
+L3538:
         POPSTACKTRACE( X1 );
 }
 
 DEFTSCP( scrt4_bit_2dor_v );
-DEFCSTRING( t3652, "BIT-OR" );
+DEFCSTRING( t3544, "BIT-OR" );
 
-TSCP  scrt4_bit_2dor( x2959, y2960 )
-        TSCP  x2959, y2960;
+TSCP  scrt4_bit_2dor( x2880, y2881 )
+        TSCP  x2880, y2881;
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3652 );
-        X1 = x2959;
-        X2 = y2960;
-L3655:
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3656;
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3659;
+        PUSHSTACKTRACE( t3544 );
+        X1 = x2880;
+        X2 = y2881;
+L3547:
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3548;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3551;
         scrt1__24__car_2derror( X2 );
-L3659:
+L3551:
         X4 = PAIR_CAR( X2 );
         X3 = S2CUINT_TSCP( BITOR32( TSCP_S2CUINT( X4 ), 
                                     TSCP_S2CUINT( X1 ) ) );
         X2 = PAIR_CDR( X2 );
         X1 = X3;
-        GOBACK( L3655 );
-L3656:
+        GOBACK( L3547 );
+L3548:
         POPSTACKTRACE( X1 );
 }
 
 DEFTSCP( scrt4_bit_2dnot_v );
-DEFCSTRING( t3662, "BIT-NOT" );
+DEFCSTRING( t3554, "BIT-NOT" );
 EXTERNTSCPP( scrt4_bit_2dxor, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt4_bit_2dxor_v );
 
-TSCP  scrt4_bit_2dnot( x2983 )
-        TSCP  x2983;
+TSCP  scrt4_bit_2dnot( x2904 )
+        TSCP  x2904;
 {
-        PUSHSTACKTRACE( t3662 );
-        POPSTACKTRACE( scrt4_bit_2dxor( x2983, 
+        PUSHSTACKTRACE( t3554 );
+        POPSTACKTRACE( scrt4_bit_2dxor( x2904, 
                                         CONS( _TSCP( -4 ), EMPTYLIST ) ) );
 }
 
 DEFTSCP( scrt4_bit_2dxor_v );
-DEFCSTRING( t3664, "BIT-XOR" );
+DEFCSTRING( t3556, "BIT-XOR" );
 
-TSCP  scrt4_bit_2dxor( x2985, y2986 )
-        TSCP  x2985, y2986;
+TSCP  scrt4_bit_2dxor( x2906, y2907 )
+        TSCP  x2906, y2907;
 {
         TSCP  X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3664 );
-        X1 = x2985;
-        X2 = y2986;
-L3667:
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3668;
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3671;
+        PUSHSTACKTRACE( t3556 );
+        X1 = x2906;
+        X2 = y2907;
+L3559:
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3560;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3563;
         scrt1__24__car_2derror( X2 );
-L3671:
+L3563:
         X4 = PAIR_CAR( X2 );
         X3 = S2CUINT_TSCP( BITXOR32( TSCP_S2CUINT( X4 ), 
                                      TSCP_S2CUINT( X1 ) ) );
         X2 = PAIR_CDR( X2 );
         X1 = X3;
-        GOBACK( L3667 );
-L3668:
+        GOBACK( L3559 );
+L3560:
         POPSTACKTRACE( X1 );
 }
 
 DEFTSCP( scrt4_bit_2dlsh_v );
-DEFCSTRING( t3674, "BIT-LSH" );
+DEFCSTRING( t3566, "BIT-LSH" );
 
-TSCP  scrt4_bit_2dlsh( x3009, y3010 )
-        TSCP  x3009, y3010;
+TSCP  scrt4_bit_2dlsh( x2930, y2931 )
+        TSCP  x2930, y2931;
 {
-        PUSHSTACKTRACE( t3674 );
-        POPSTACKTRACE( S2CUINT_TSCP( BITLSH32( TSCP_S2CUINT( x3009 ), 
-                                               TSCP_S2CUINT( y3010 ) ) ) );
+        PUSHSTACKTRACE( t3566 );
+        POPSTACKTRACE( S2CUINT_TSCP( BITLSH32( TSCP_S2CUINT( x2930 ), 
+                                               TSCP_S2CUINT( y2931 ) ) ) );
 }
 
 DEFTSCP( scrt4_bit_2drsh_v );
-DEFCSTRING( t3676, "BIT-RSH" );
+DEFCSTRING( t3568, "BIT-RSH" );
 
-TSCP  scrt4_bit_2drsh( x3012, y3013 )
-        TSCP  x3012, y3013;
+TSCP  scrt4_bit_2drsh( x2933, y2934 )
+        TSCP  x2933, y2934;
 {
-        PUSHSTACKTRACE( t3676 );
-        POPSTACKTRACE( S2CUINT_TSCP( BITRSH32( TSCP_S2CUINT( x3012 ), 
-                                               TSCP_S2CUINT( y3013 ) ) ) );
+        PUSHSTACKTRACE( t3568 );
+        POPSTACKTRACE( S2CUINT_TSCP( BITRSH32( TSCP_S2CUINT( x2933 ), 
+                                               TSCP_S2CUINT( y2934 ) ) ) );
 }
 
 DEFTSCP( scrt4_when_2dunreferenced_v );
-DEFCSTRING( t3678, "WHEN-UNREFERENCED" );
+DEFCSTRING( t3570, "WHEN-UNREFERENCED" );
 EXTERNTSCP( sc_whenfreed );
 EXTERNTSCPP( scrt1_remq, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt1_remq_v );
 
-TSCP  scrt4_when_2dunreferenced( o3015, p3016 )
-        TSCP  o3015, p3016;
+TSCP  scrt4_when_2dunreferenced( o2936, p2937 )
+        TSCP  o2936, p2937;
 {
         TSCP  X3, X2, X1;
 
-        PUSHSTACKTRACE( t3678 );
-        if  ( FALSE( p3016 ) )  goto L3682;
-        if  ( AND( EQ( TSCPTAG( p3016 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( p3016 ), PROCEDURETAG ) )
-            )  goto L3682;
-        scdebug_error( c3023, 
-                       c3024, CONS( p3016, EMPTYLIST ) );
-L3682:
-        X1 = scrt1_assq( o3015, sc_whenfreed );
-        if  ( FALSE( X1 ) )  goto L3685;
-        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3688;
+        PUSHSTACKTRACE( t3570 );
+        if  ( FALSE( p2937 ) )  goto L3574;
+        if  ( AND( EQ( TSCPTAG( p2937 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( p2937 ), PROCEDURETAG ) )
+            )  goto L3574;
+        scdebug_error( c2944, 
+                       c2945, CONS( p2937, EMPTYLIST ) );
+L3574:
+        X1 = scrt1_assq( o2936, sc_whenfreed );
+        if  ( FALSE( X1 ) )  goto L3577;
+        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3580;
         scrt1__24__cdr_2derror( X1 );
-L3688:
+L3580:
         X2 = PAIR_CDR( X1 );
-        goto L3686;
-L3685:
+        goto L3578;
+L3577:
         X2 = X1;
-L3686:
-        if  ( FALSE( p3016 ) )  goto L3691;
-        if  ( FALSE( X1 ) )  goto L3693;
-        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3696;
-        scdebug_error( c2399, 
-                       c2400, CONS( X1, EMPTYLIST ) );
-L3696:
-        SETGEN( PAIR_CDR( X1 ), p3016 );
-        goto L3698;
-L3693:
-        X3 = sc_cons( o3015, p3016 );
+L3578:
+        if  ( FALSE( p2937 ) )  goto L3583;
+        if  ( FALSE( X1 ) )  goto L3585;
+        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3588;
+        scdebug_error( c2469, 
+                       c2470, CONS( X1, EMPTYLIST ) );
+L3588:
+        SETGEN( PAIR_CDR( X1 ), p2937 );
+        goto L3590;
+L3585:
+        X3 = sc_cons( o2936, p2937 );
         sc_whenfreed = sc_cons( X3, sc_whenfreed );
-        goto L3698;
-L3691:
-        if  ( FALSE( X1 ) )  goto L3698;
+        goto L3590;
+L3583:
+        if  ( FALSE( X1 ) )  goto L3590;
         sc_whenfreed = scrt1_remq( X1, sc_whenfreed );
-L3698:
+L3590:
         POPSTACKTRACE( X2 );
 }
 
 DEFTSCP( scrt4_sc__whenfreed_v );
-DEFCSTRING( t3700, "SCRT4_SC_WHENFREED" );
+DEFCSTRING( t3592, "SCRT4_SC_WHENFREED" );
 
 TSCP  scrt4_sc__whenfreed(  )
 {
-        PUSHSTACKTRACE( t3700 );
+        PUSHSTACKTRACE( t3592 );
         POPSTACKTRACE( sc_whenfreed );
 }
 
 DEFTSCP( scrt4_signals_v );
-DEFCSTRING( t3702, "SCRT4_SIGNALS" );
+DEFCSTRING( t3594, "SCRT4_SIGNALS" );
 DEFTSCP( scrt4_signal_v );
-DEFCSTRING( t3703, "SIGNAL" );
+DEFCSTRING( t3595, "SIGNAL" );
 EXTERNTSCPP( scrt2_negative_3f, XAL1( TSCP ) );
 EXTERNTSCP( scrt2_negative_3f_v );
 EXTERNTSCPP( scrt2__3e_3d_2dtwo, XAL2( TSCP, TSCP ) );
@@ -1753,142 +1694,142 @@ EXTERNTSCP( scrt2__3e_3d_2dtwo_v );
 EXTERNTSCPP( sc_ossignal, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( sc_ossignal_v );
 
-TSCP  scrt4_signal( s3047, h3048 )
-        TSCP  s3047, h3048;
+TSCP  scrt4_signal( s2968, h2969 )
+        TSCP  s2968, h2969;
 {
         TSCP  X3, X2, X1;
 
-        PUSHSTACKTRACE( t3703 );
-        if  ( NEQ( TSCPTAG( s3047 ), FIXNUMTAG ) )  goto L3705;
-        X1 = BOOLEAN( LT( _S2CINT( s3047 ), 0 ) );
-        goto L3706;
-L3705:
-        X1 = scrt2_negative_3f( s3047 );
-L3706:
-        if  ( TRUE( X1 ) )  goto L3711;
+        PUSHSTACKTRACE( t3595 );
+        if  ( NEQ( TSCPTAG( s2968 ), FIXNUMTAG ) )  goto L3597;
+        X1 = BOOLEAN( LT( _S2CINT( s2968 ), 0 ) );
+        goto L3598;
+L3597:
+        X1 = scrt2_negative_3f( s2968 );
+L3598:
+        if  ( TRUE( X1 ) )  goto L3603;
         X3 = scrt4_signals_v;
         if  ( AND( EQ( TSCPTAG( X3 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( X3 ), VECTORTAG ) ) )  goto L3713;
+                   EQ( TSCP_EXTENDEDTAG( X3 ), VECTORTAG ) ) )  goto L3605;
         scdebug_error( c2142, 
                        c2143, CONS( X3, EMPTYLIST ) );
-L3713:
+L3605:
         X2 = C_FIXED( VECTOR_LENGTH( X3 ) );
-        if  ( BITAND( BITOR( _S2CINT( s3047 ), 
+        if  ( BITAND( BITOR( _S2CINT( s2968 ), 
                              _S2CINT( X2 ) ), 
-                      3 ) )  goto L3717;
-        if  ( GTE( _S2CINT( s3047 ), _S2CINT( X2 ) ) )  goto L3711;
-        goto L3724;
-L3717:
-        if  ( FALSE( scrt2__3e_3d_2dtwo( s3047, X2 ) ) )  goto L3724;
-L3711:
-        scdebug_error( c3069, 
-                       c3070, CONS( s3047, EMPTYLIST ) );
-L3724:
-        if  ( AND( EQ( TSCPTAG( h3048 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( h3048 ), PROCEDURETAG ) )
-            )  goto L3729;
-        if  ( EQ( TSCPTAG( h3048 ), FIXNUMTAG ) )  goto L3729;
-        if  ( AND( EQ( TSCPTAG( h3048 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( h3048 ), DOUBLEFLOATTAG ) )
-            )  goto L3729;
-        scdebug_error( c3069, 
-                       c3087, CONS( h3048, EMPTYLIST ) );
-L3729:
+                      3 ) )  goto L3609;
+        if  ( GTE( _S2CINT( s2968 ), _S2CINT( X2 ) ) )  goto L3603;
+        goto L3616;
+L3609:
+        if  ( FALSE( scrt2__3e_3d_2dtwo( s2968, X2 ) ) )  goto L3616;
+L3603:
+        scdebug_error( c2990, 
+                       c2991, CONS( s2968, EMPTYLIST ) );
+L3616:
+        if  ( AND( EQ( TSCPTAG( h2969 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( h2969 ), PROCEDURETAG ) )
+            )  goto L3621;
+        if  ( EQ( TSCPTAG( h2969 ), FIXNUMTAG ) )  goto L3621;
+        if  ( AND( EQ( TSCPTAG( h2969 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( h2969 ), DOUBLEFLOATTAG ) )
+            )  goto L3621;
+        scdebug_error( c2990, 
+                       c3008, CONS( h2969, EMPTYLIST ) );
+L3621:
         X2 = scrt4_signals_v;
         if  ( AND( EQ( TSCPTAG( X2 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( X2 ), VECTORTAG ) ) )  goto L3732;
+                   EQ( TSCP_EXTENDEDTAG( X2 ), VECTORTAG ) ) )  goto L3624;
         scdebug_error( c2152, 
                        c2143, CONS( X2, EMPTYLIST ) );
-L3732:
-        if  ( EQ( TSCPTAG( s3047 ), FIXNUMTAG ) )  goto L3734;
+L3624:
+        if  ( EQ( TSCPTAG( s2968 ), FIXNUMTAG ) )  goto L3626;
         scdebug_error( c2152, 
-                       c2155, CONS( s3047, EMPTYLIST ) );
-L3734:
-        if  ( LT( _S2CUINT( FIXED_C( s3047 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( X2 ) ) ) )  goto L3736;
+                       c2155, CONS( s2968, EMPTYLIST ) );
+L3626:
+        if  ( LT( _S2CUINT( FIXED_C( s2968 ) ), 
+                  _S2CUINT( VECTOR_LENGTH( X2 ) ) ) )  goto L3628;
         scdebug_error( c2152, 
-                       c2159, CONS( s3047, EMPTYLIST ) );
-L3736:
-        X1 = VECTOR_ELEMENT( X2, s3047 );
+                       c2159, CONS( s2968, EMPTYLIST ) );
+L3628:
+        X1 = VECTOR_ELEMENT( X2, s2968 );
         X2 = scrt4_signals_v;
         if  ( AND( EQ( TSCPTAG( X2 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( X2 ), VECTORTAG ) ) )  goto L3740;
+                   EQ( TSCP_EXTENDEDTAG( X2 ), VECTORTAG ) ) )  goto L3632;
         scdebug_error( c2170, 
                        c2143, CONS( X2, EMPTYLIST ) );
-L3740:
-        if  ( LT( _S2CUINT( FIXED_C( s3047 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( X2 ) ) ) )  goto L3742;
+L3632:
+        if  ( LT( _S2CUINT( FIXED_C( s2968 ) ), 
+                  _S2CUINT( VECTOR_LENGTH( X2 ) ) ) )  goto L3634;
         scdebug_error( c2170, 
-                       c2159, CONS( s3047, EMPTYLIST ) );
-L3742:
-        SETGEN( VECTOR_ELEMENT( X2, s3047 ), h3048 );
-        if  ( NEQ( TSCPTAG( h3048 ), FIXNUMTAG ) )  goto L3744;
-        X3 = h3048;
-        goto L3747;
-L3744:
-        if  ( NOT( AND( EQ( TSCPTAG( h3048 ), EXTENDEDTAG ), 
-                        EQ( TSCP_EXTENDEDTAG( h3048 ), 
-                            DOUBLEFLOATTAG ) ) ) )  goto L3746;
-        X3 = h3048;
-        goto L3747;
-L3746:
+                       c2159, CONS( s2968, EMPTYLIST ) );
+L3634:
+        SETGEN( VECTOR_ELEMENT( X2, s2968 ), h2969 );
+        if  ( NEQ( TSCPTAG( h2969 ), FIXNUMTAG ) )  goto L3636;
+        X3 = h2969;
+        goto L3639;
+L3636:
+        if  ( NOT( AND( EQ( TSCPTAG( h2969 ), EXTENDEDTAG ), 
+                        EQ( TSCP_EXTENDEDTAG( h2969 ), 
+                            DOUBLEFLOATTAG ) ) ) )  goto L3638;
+        X3 = h2969;
+        goto L3639;
+L3638:
         X3 = TRUEVALUE;
-L3747:
-        X2 = sc_ossignal( s3047, X3 );
+L3639:
+        X2 = sc_ossignal( s2968, X3 );
         if  ( AND( EQ( TSCPTAG( X1 ), EXTENDEDTAG ), 
                    EQ( TSCP_EXTENDEDTAG( X1 ), PROCEDURETAG ) )
-            )  goto L3749;
+            )  goto L3641;
         POPSTACKTRACE( X2 );
-L3749:
+L3641:
         POPSTACKTRACE( X1 );
 }
 
 DEFTSCP( scrt4_callsignalhandler_v );
-DEFCSTRING( t3751, "SCRT4_CALLSIGNALHANDLER" );
+DEFCSTRING( t3643, "SCRT4_CALLSIGNALHANDLER" );
 
-TSCP  scrt4_callsignalhandler( s3127 )
-        TSCP  s3127;
+TSCP  scrt4_callsignalhandler( s3048 )
+        TSCP  s3048;
 {
         TSCP  X2, X1;
 
-        PUSHSTACKTRACE( t3751 );
+        PUSHSTACKTRACE( t3643 );
         X2 = scrt4_signals_v;
         if  ( AND( EQ( TSCPTAG( X2 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( X2 ), VECTORTAG ) ) )  goto L3754;
+                   EQ( TSCP_EXTENDEDTAG( X2 ), VECTORTAG ) ) )  goto L3646;
         scdebug_error( c2152, 
                        c2143, CONS( X2, EMPTYLIST ) );
-L3754:
-        if  ( EQ( TSCPTAG( s3127 ), FIXNUMTAG ) )  goto L3756;
+L3646:
+        if  ( EQ( TSCPTAG( s3048 ), FIXNUMTAG ) )  goto L3648;
         scdebug_error( c2152, 
-                       c2155, CONS( s3127, EMPTYLIST ) );
-L3756:
-        if  ( LT( _S2CUINT( FIXED_C( s3127 ) ), 
-                  _S2CUINT( VECTOR_LENGTH( X2 ) ) ) )  goto L3758;
+                       c2155, CONS( s3048, EMPTYLIST ) );
+L3648:
+        if  ( LT( _S2CUINT( FIXED_C( s3048 ) ), 
+                  _S2CUINT( VECTOR_LENGTH( X2 ) ) ) )  goto L3650;
         scdebug_error( c2152, 
-                       c2159, CONS( s3127, EMPTYLIST ) );
-L3758:
-        X1 = VECTOR_ELEMENT( X2, s3127 );
+                       c2159, CONS( s3048, EMPTYLIST ) );
+L3650:
+        X1 = VECTOR_ELEMENT( X2, s3048 );
         X1 = UNKNOWNCALL( X1, 1 );
-        POPSTACKTRACE( VIA( PROCEDURE_CODE( X1 ) )( s3127, 
+        POPSTACKTRACE( VIA( PROCEDURE_CODE( X1 ) )( s3048, 
                                                     PROCEDURE_CLOSURE( X1 ) ) );
 }
 
 DEFTSCP( scrt4_system_v );
-DEFCSTRING( t3760, "SYSTEM" );
+DEFCSTRING( t3652, "SYSTEM" );
 EXTERNTSCPP( sc_ossystem, XAL1( TSCP ) );
 EXTERNTSCP( sc_ossystem_v );
 
-TSCP  scrt4_system( c3139 )
-        TSCP  c3139;
+TSCP  scrt4_system( c3060 )
+        TSCP  c3060;
 {
-        PUSHSTACKTRACE( t3760 );
-        if  ( AND( EQ( TSCPTAG( c3139 ), EXTENDEDTAG ), 
-                   EQ( TSCP_EXTENDEDTAG( c3139 ), STRINGTAG ) )
-            )  goto L3762;
-        scdebug_error( c3142, 
-                       c3143, CONS( c3139, EMPTYLIST ) );
-L3762:
-        POPSTACKTRACE( sc_ossystem( c3139 ) );
+        PUSHSTACKTRACE( t3652 );
+        if  ( AND( EQ( TSCPTAG( c3060 ), EXTENDEDTAG ), 
+                   EQ( TSCP_EXTENDEDTAG( c3060 ), STRINGTAG ) )
+            )  goto L3654;
+        scdebug_error( c3063, 
+                       c3064, CONS( c3060, EMPTYLIST ) );
+L3654:
+        POPSTACKTRACE( sc_ossystem( c3060 ) );
 }
 
 static void  init_modules( compiler_version )
@@ -1911,395 +1852,395 @@ void  scrt4__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt4 SCHEME->C COMPILER 15mar93jfb)" );
-        INITIALIZEVAR( t3208, 
+        INITIALIZEVAR( t3129, 
                        ADR( scrt4_vector_3f_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_vector_3f, EMPTYLIST ) );
-        INITIALIZEVAR( t3210, 
+        INITIALIZEVAR( t3131, 
                        ADR( scrt4_vector_v ), 
                        MAKEPROCEDURE( 0, 
                                       1, scrt4_vector, EMPTYLIST ) );
-        INITIALIZEVAR( t3212, 
+        INITIALIZEVAR( t3133, 
                        ADR( scrt4_vector_2dlength_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_vector_2dlength, EMPTYLIST ) );
-        INITIALIZEVAR( t3217, 
+        INITIALIZEVAR( t3138, 
                        ADR( scrt4_vector_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_vector_2dref, EMPTYLIST ) );
-        INITIALIZEVAR( t3226, 
+        INITIALIZEVAR( t3147, 
                        ADR( scrt4_vector_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_vector_2dset_21, EMPTYLIST ) );
-        INITIALIZEVAR( t3235, 
+        INITIALIZEVAR( t3156, 
                        ADR( scrt4_vector_2d_3elist_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_vector_2d_3elist, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3261, 
+        INITIALIZEVAR( t3182, 
                        ADR( scrt4_list_2d_3evector_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_list_2d_3evector, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3281, 
+        INITIALIZEVAR( t3202, 
                        ADR( scrt4_vector_2dfill_21_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_vector_2dfill_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3307, 
+        INITIALIZEVAR( t3228, 
                        ADR( scrt4_procedure_3f_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_procedure_3f, EMPTYLIST ) );
-        INITIALIZEVAR( t3309, 
+        INITIALIZEVAR( t3230, 
                        ADR( scrt4_apply_v ), 
                        MAKEPROCEDURE( 2, 
                                       1, scrt4_apply, EMPTYLIST ) );
-        INITIALIZEVAR( t3323, 
+        INITIALIZEVAR( t3244, 
                        ADR( scrt4_map_v ), 
                        MAKEPROCEDURE( 2, 
                                       1, scrt4_map, EMPTYLIST ) );
-        INITIALIZEVAR( t3387, 
+        INITIALIZEVAR( t3279, 
                        ADR( scrt4_for_2deach_v ), 
                        MAKEPROCEDURE( 2, 
                                       1, 
                                       scrt4_for_2deach, EMPTYLIST ) );
-        INITIALIZEVAR( t3429, 
+        INITIALIZEVAR( t3321, 
                        ADR( scrt4_force_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, scrt4_force, EMPTYLIST ) );
-        INITIALIZEVAR( t3431, 
+        INITIALIZEVAR( t3323, 
                        ADR( scrt4_make_2dpromise_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_make_2dpromise, EMPTYLIST ) );
-        INITIALIZEVAR( t3439, 
+        INITIALIZEVAR( t3331, 
                        ADR( scrt4_catch_2derror_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_catch_2derror, EMPTYLIST ) );
-        INITIALIZEVAR( t3450, 
+        INITIALIZEVAR( t3342, 
                        ADR( scrt4__25record_3f_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4__25record_3f, EMPTYLIST ) );
-        INITIALIZEVAR( t3452, 
+        INITIALIZEVAR( t3344, 
                        ADR( scrt4__25record_v ), 
                        MAKEPROCEDURE( 0, 
                                       1, 
                                       scrt4__25record, EMPTYLIST ) );
-        INITIALIZEVAR( t3454, 
+        INITIALIZEVAR( t3346, 
                        ADR( scrt4__25record_2dlength_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4__25record_2dlength, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3459, 
+        INITIALIZEVAR( t3351, 
                        ADR( scrt4__25record_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4__25record_2dref, EMPTYLIST ) );
-        INITIALIZEVAR( t3468, 
+        INITIALIZEVAR( t3360, 
                        ADR( scrt4__25record_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4__25record_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3477, 
+        INITIALIZEVAR( t3369, 
                        ADR( scrt4__25record_2d_3elist_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4__25record_2d_3elist, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3503, 
+        INITIALIZEVAR( t3395, 
                        ADR( scrt4_list_2d_3e_25record_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_list_2d_3e_25record, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3523, 
+        INITIALIZEVAR( t3415, 
                        ADR( scrt4__25record_2dmethods_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4__25record_2dmethods, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3528, 
+        INITIALIZEVAR( t3420, 
                        ADR( scrt4_s_2dset_21_fcaf91b1_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_s_2dset_21_fcaf91b1, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3533, 
+        INITIALIZEVAR( t3425, 
                        ADR( scrt4_fix_2dchar_c117a402_v ), 
                        FALSEVALUE );
-        INITIALIZEVAR( t3534, 
+        INITIALIZEVAR( t3426, 
                        ADR( scrt4__25record_2dread_v ), 
                        FALSEVALUE );
-        INITIALIZEVAR( t3535, 
+        INITIALIZEVAR( t3427, 
                        ADR( scrt4_p_2dmethod_3ccf392b_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_p_2dmethod_3ccf392b, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3559, 
+        INITIALIZEVAR( t3451, 
                        ADR( scrt4_c_2dsizeof_2dshort_v ), 
                        C_FIXED( SIZEOF( short ) ) );
-        INITIALIZEVAR( t3560, 
+        INITIALIZEVAR( t3452, 
                        ADR( scrt4_c_2dsizeof_2dint_v ), 
                        C_FIXED( SIZEOF( int ) ) );
-        INITIALIZEVAR( t3561, 
+        INITIALIZEVAR( t3453, 
                        ADR( scrt4_c_2dsizeof_2dlong_v ), 
                        C_FIXED( SIZEOF( long ) ) );
-        INITIALIZEVAR( t3562, 
+        INITIALIZEVAR( t3454, 
                        ADR( scrt4_c_2dsizeof_2dfloat_v ), 
                        C_FIXED( SIZEOF( float ) ) );
-        INITIALIZEVAR( t3563, 
+        INITIALIZEVAR( t3455, 
                        ADR( scrt4_c_2dsizeof_2ddouble_v ), 
                        C_FIXED( SIZEOF( double ) ) );
-        INITIALIZEVAR( t3564, 
+        INITIALIZEVAR( t3456, 
                        ADR( scrt4_c_2dsizeof_2dtscp_v ), 
                        C_FIXED( SIZEOF( TSCP ) ) );
-        INITIALIZEVAR( t3565, 
+        INITIALIZEVAR( t3457, 
                        ADR( scrt4_c_2dsizeof_2ds2cuint_v ), 
                        C_FIXED( SIZEOF( S2CUINT ) ) );
-        INITIALIZEVAR( t3566, 
+        INITIALIZEVAR( t3458, 
                        ADR( scrt4_c_2dbyte_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dbyte_2dref, EMPTYLIST ) );
-        INITIALIZEVAR( t3568, 
+        INITIALIZEVAR( t3460, 
                        ADR( scrt4_c_2dshortint_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dshortint_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3570, 
+        INITIALIZEVAR( t3462, 
                        ADR( scrt4_c_2dshortunsigned_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dshortunsigned_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3572, 
+        INITIALIZEVAR( t3464, 
                        ADR( scrt4_c_2dint_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dint_2dref, EMPTYLIST ) );
-        INITIALIZEVAR( t3574, 
+        INITIALIZEVAR( t3466, 
                        ADR( scrt4_c_2dunsigned_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dunsigned_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3576, 
+        INITIALIZEVAR( t3468, 
                        ADR( scrt4_c_2dlongint_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dlongint_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3578, 
+        INITIALIZEVAR( t3470, 
                        ADR( scrt4_c_2dlongunsigned_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dlongunsigned_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3580, 
+        INITIALIZEVAR( t3472, 
                        ADR( scrt4_c_2ds2cuint_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2ds2cuint_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3582, 
+        INITIALIZEVAR( t3474, 
                        ADR( scrt4_c_2dtscp_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dtscp_2dref, EMPTYLIST ) );
-        INITIALIZEVAR( t3584, 
+        INITIALIZEVAR( t3476, 
                        ADR( scrt4_c_2dfloat_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2dfloat_2dref, EMPTYLIST ) );
-        INITIALIZEVAR( t3586, 
+        INITIALIZEVAR( t3478, 
                        ADR( scrt4_c_2ddouble_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_c_2ddouble_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3588, 
+        INITIALIZEVAR( t3480, 
                        ADR( scrt4_c_2dbyte_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dbyte_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3590, 
+        INITIALIZEVAR( t3482, 
                        ADR( scrt4_c_2dshortint_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dshortint_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3592, 
+        INITIALIZEVAR( t3484, 
                        ADR( scrt4_d_2dset_21_828269c5_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_d_2dset_21_828269c5, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3594, 
+        INITIALIZEVAR( t3486, 
                        ADR( scrt4_c_2dint_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dint_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3596, 
+        INITIALIZEVAR( t3488, 
                        ADR( scrt4_c_2dunsigned_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dunsigned_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3598, 
+        INITIALIZEVAR( t3490, 
                        ADR( scrt4_c_2dlongint_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dlongint_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3600, 
+        INITIALIZEVAR( t3492, 
                        ADR( scrt4_d_2dset_21_2e97375c_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_d_2dset_21_2e97375c, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3602, 
+        INITIALIZEVAR( t3494, 
                        ADR( scrt4_c_2ds2cuint_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2ds2cuint_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3604, 
+        INITIALIZEVAR( t3496, 
                        ADR( scrt4_c_2dtscp_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dtscp_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3606, 
+        INITIALIZEVAR( t3498, 
                        ADR( scrt4_c_2dfloat_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2dfloat_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3608, 
+        INITIALIZEVAR( t3500, 
                        ADR( scrt4_c_2ddouble_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_c_2ddouble_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3610, 
+        INITIALIZEVAR( t3502, 
                        ADR( scrt4_scheme_2dbyte_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_scheme_2dbyte_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3614, 
+        INITIALIZEVAR( t3506, 
                        ADR( scrt4_scheme_2dint_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_scheme_2dint_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3618, 
+        INITIALIZEVAR( t3510, 
                        ADR( scrt4_scheme_2dtscp_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_scheme_2dtscp_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3622, 
+        INITIALIZEVAR( t3514, 
                        ADR( scrt4_scheme_2ds2cuint_2dref_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_scheme_2ds2cuint_2dref, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3626, 
+        INITIALIZEVAR( t3518, 
                        ADR( scrt4_scheme_2dbyte_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_scheme_2dbyte_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3630, 
+        INITIALIZEVAR( t3522, 
                        ADR( scrt4_scheme_2dint_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_scheme_2dint_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3634, 
+        INITIALIZEVAR( t3526, 
                        ADR( scrt4_scheme_2dtscp_2dset_21_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_scheme_2dtscp_2dset_21, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3638, 
+        INITIALIZEVAR( t3530, 
                        ADR( scrt4_t_2dset_21_925753db_v ), 
                        MAKEPROCEDURE( 3, 
                                       0, 
                                       scrt4_t_2dset_21_925753db, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3642, 
+        INITIALIZEVAR( t3534, 
                        ADR( scrt4_bit_2dand_v ), 
                        MAKEPROCEDURE( 1, 
                                       1, 
                                       scrt4_bit_2dand, EMPTYLIST ) );
-        INITIALIZEVAR( t3652, 
+        INITIALIZEVAR( t3544, 
                        ADR( scrt4_bit_2dor_v ), 
                        MAKEPROCEDURE( 1, 
                                       1, scrt4_bit_2dor, EMPTYLIST ) );
-        INITIALIZEVAR( t3662, 
+        INITIALIZEVAR( t3554, 
                        ADR( scrt4_bit_2dnot_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_bit_2dnot, EMPTYLIST ) );
-        INITIALIZEVAR( t3664, 
+        INITIALIZEVAR( t3556, 
                        ADR( scrt4_bit_2dxor_v ), 
                        MAKEPROCEDURE( 1, 
                                       1, 
                                       scrt4_bit_2dxor, EMPTYLIST ) );
-        INITIALIZEVAR( t3674, 
+        INITIALIZEVAR( t3566, 
                        ADR( scrt4_bit_2dlsh_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_bit_2dlsh, EMPTYLIST ) );
-        INITIALIZEVAR( t3676, 
+        INITIALIZEVAR( t3568, 
                        ADR( scrt4_bit_2drsh_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_bit_2drsh, EMPTYLIST ) );
-        INITIALIZEVAR( t3678, 
+        INITIALIZEVAR( t3570, 
                        ADR( scrt4_when_2dunreferenced_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, 
                                       scrt4_when_2dunreferenced, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3700, 
+        INITIALIZEVAR( t3592, 
                        ADR( scrt4_sc__whenfreed_v ), 
                        MAKEPROCEDURE( 0, 
                                       0, 
                                       scrt4_sc__whenfreed, EMPTYLIST ) );
-        INITIALIZEVAR( t3702, 
+        INITIALIZEVAR( t3594, 
                        ADR( scrt4_signals_v ), 
                        sc_make_2dvector( _TSCP( 128 ), 
                                          CONS( FALSEVALUE, EMPTYLIST ) ) );
-        INITIALIZEVAR( t3703, 
+        INITIALIZEVAR( t3595, 
                        ADR( scrt4_signal_v ), 
                        MAKEPROCEDURE( 2, 
                                       0, scrt4_signal, EMPTYLIST ) );
-        INITIALIZEVAR( t3751, 
+        INITIALIZEVAR( t3643, 
                        ADR( scrt4_callsignalhandler_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scrt4_callsignalhandler, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3760, 
+        INITIALIZEVAR( t3652, 
                        ADR( scrt4_system_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, scrt4_system, EMPTYLIST ) );

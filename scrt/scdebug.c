@@ -1085,7 +1085,6 @@ TSCP  scdebug_x2372( a2427 )
 
 EXTERNTSCPP( scdebug_dbacktrace_a8071371, XAL1( TSCP ) );
 EXTERNTSCP( scdebug_dbacktrace_a8071371_v );
-EXTERNTSCPP( scdebug_x2372, XAL1( TSCP ) );
 
 TSCP  scdebug_i2371( x2433, c3091 )
         TSCP  x2433, c3091;

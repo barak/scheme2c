@@ -1057,7 +1057,6 @@ EXTERNTSCPP( scrt2__3d_2dtwo, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt2__3d_2dtwo_v );
 EXTERNTSCPP( scrt1_memv, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt1_memv_v );
-EXTERNTSCPP( scrt6_a2467, XAL0(  ) );
 EXTERNTSCPP( scrt2__2b_2dtwo, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt2__2b_2dtwo_v );
 

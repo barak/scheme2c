@@ -1530,7 +1530,6 @@ EXTERNTSCPP( scrt2__2b_2dtwo, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt2__2b_2dtwo_v );
 EXTERNTSCPP( scrt1_append_2dtwo, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt1_append_2dtwo_v );
-EXTERNTSCPP( gencode_c2403, XAL1( TSCP ) );
 
 TSCP  gencode_ern_2dargl_18fb6091( l2401 )
         TSCP  l2401;

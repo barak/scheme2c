@@ -2600,8 +2600,6 @@ L5576:
                                                     PROCEDURE_CLOSURE( X1 ) ) );
 }
 
-EXTERNTSCPP( scrt7_p3605, XAL1( TSCP ) );
-
 TSCP  scrt7_write_2fdisplay_2dlist( o3598, 
                                     r3599, 
                                     i3600, w3601, w3602, c3603 )

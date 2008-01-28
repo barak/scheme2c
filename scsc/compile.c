@@ -1145,8 +1145,6 @@ L3817:
         POPSTACKTRACE( FALSEVALUE );
 }
 
-EXTERNTSCPP( compile_c2396, XAL1( TSCP ) );
-
 TSCP  compile_close_2dsc_2dfiles(  )
 {
         TSCP  X3, X2, X1;

@@ -303,9 +303,7 @@ L2602:
         POPSTACKTRACE( SDVAL );
 }
 
-EXTERNTSCPP( screp_m2182, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( sc_ntinuation_1af38b9f_v );
-EXTERNTSCPP( screp_m2183, XAL2( TSCP, TSCP ) );
 EXTERNTSCPP( scdebug_on_2dinterrupt, XAL1( TSCP ) );
 EXTERNTSCP( scdebug_on_2dinterrupt_v );
 EXTERNTSCPP( scrt6_echo, XAL2( TSCP, TSCP ) );
@@ -832,7 +830,6 @@ TSCP  screp_e2391( r2393, c2698 )
         POPSTACKTRACE( X2 );
 }
 
-EXTERNTSCPP( screp_e2391, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( screp__2ascheme2c_2dresult_2a_v );
 EXTERNTSCPP( scrt2_zero_3f, XAL1( TSCP ) );
 EXTERNTSCP( scrt2_zero_3f_v );

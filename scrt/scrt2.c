@@ -132,7 +132,7 @@ static void  init_constants()
         CONSTANTEXP( ADR( c3769 ) );
         c3768 = STRINGTOSYMBOL( CSTRING_TSCP( "SQRT" ) );
         CONSTANTEXP( ADR( c3768 ) );
-        c3738 = DOUBLE_TSCP( .5 );
+        c3738 = DOUBLE_TSCP( 0.5 );
         CONSTANTEXP( ADR( c3738 ) );
         c3163 = CSTRING_TSCP( t4801 );
         CONSTANTEXP( ADR( c3163 ) );
@@ -2004,7 +2004,6 @@ L5621:
 
 EXTERNTSCPP( scrt1_length, XAL1( TSCP ) );
 EXTERNTSCP( scrt1_length_v );
-EXTERNTSCPP( scrt2_g3397, XAL2( TSCP, TSCP ) );
 
 TSCP  scrt2_gcd( x3395 )
         TSCP  x3395;
@@ -2191,8 +2190,6 @@ L5756:
 L5758:
         POPSTACKTRACE( scrt2__2a_2dtwo( X3, X1 ) );
 }
-
-EXTERNTSCPP( scrt2_l3538, XAL2( TSCP, TSCP ) );
 
 TSCP  scrt2_lcm( x3536 )
         TSCP  x3536;

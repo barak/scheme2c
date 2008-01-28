@@ -2087,7 +2087,6 @@ EXTERNTSCPP( scrt2_zero_3f, XAL1( TSCP ) );
 EXTERNTSCP( scrt2_zero_3f_v );
 EXTERNTSCPP( transform_log_2dtransform, XAL1( TSCP ) );
 EXTERNTSCP( transform_log_2dtransform_v );
-EXTERNTSCPP( transform_m4661, XAL2( TSCP, TSCP ) );
 
 TSCP  transform_mbda_2dvar_cbbaf994( v4653, v4654, e4655 )
         TSCP  v4653, v4654, e4655;
