@@ -13,7 +13,7 @@ SCC = ../scsc/scc
 	${SCC} -C $*.sc
 
 all:	
-	make "SCC=${SCC}" "SRCDIR=${SRCDIR}" cdecl sizeof
+	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" cdecl sizeof
 
 cdecl:	${CSRC}
 	${SCC} -o cdecl ${CSRC}

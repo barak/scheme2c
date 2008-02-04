@@ -77,22 +77,22 @@ Xmv:		Xsci Xlibsc.a
 	mv Xlibsc.a libsc.a
 	
 port:
-	make "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo" \
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo" \
 	     Xlibsc.a Xsci Xmv ${Plib}
 
 libsc_p.a:	libsc.a
-	mkdir saveobj
-	mv ${Sruntime} ${Cruntime} ${Aruntime} saveobj
+	mkdir -p saveobj
+	mv ${Sruntime} ${Cruntime} ${Aruntime} saveobj/
 	rm -f libsc_p.a
-	make "CC = ${CC}" "CFLAGS = ${CFLAGS} -pg" ${Sruntime} ${Cruntime} \
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS} -pg" ${Sruntime} ${Cruntime} \
 	     ${Aruntime}
 	ar q libsc_p.a ${Cruntime} ${Sruntime} ${Aruntime}
 	${RANLIB} libsc_p.a
-	mv saveobj/* .
+	mv saveobj/* ./
 	rmdir saveobj
 
 install-private:
-	make "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
+	$(MAKE) "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
 	     "OWNER = -o `whoami`" install
 
 install:
@@ -124,7 +124,7 @@ bindist:
 	      libsc.a ${Plib} sci ${destdir}
 
 all:
-	make "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = ${SCC}" \
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = ${SCC}" \
 	     "SCCFLAGS = ${SCCFLAGS}" Xlibsc.a Xsci Xmv ${Plib}
 
 srclinks:

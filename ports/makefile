@@ -7,44 +7,43 @@
 # following:
 
 port:
-	cd scrt; make port
-	cd scsc; make port
+	$(MAKE) -C scrt port
+	$(MAKE) -C scsc port
 
 # A "private" working copy of the current compiler, libary, and interpreter
 # is installed in a directory by the following command:
 
 install-private:
-	cd scrt; make "DESTDIR = ${DESTDIR}" install-private
-	cd scsc; make "DESTDIR = ${DESTDIR}" install-private
+	$(MAKE) -C scrt "DESTDIR = ${DESTDIR}" install-private
+	$(MAKE) -C scsc "DESTDIR = ${DESTDIR}" install-private
 
 # Clean out working files.
 
 clean:
 	rm -f *.BAK *.CKP SC-TO-C*
-	cd scrt; make clean
-	cd scsc; make clean
-	cd test; make clean
+	$(MAKE) -C scrt clean
+	$(MAKE) -C scsc clean
+	$(MAKE) -C test clean
 
 # Clean up C source files generated from Scheme source.
 
 clean-sc-to-c:
-	cd scrt; make clean-sc-to-c
-	cd scsc; make clean-sc-to-c
-	cd test; make clean-sc-to-c
+	$(MAKE) -C scrt clean-sc-to-c
+	$(MAKE) -C scsc clean-sc-to-c
+	$(MAKE) -C test clean-sc-to-c
 
 # Delete programs and libraries.
 
 noprogs:
-	cd scrt; make noprogs
-	cd scsc; make noprogs
-	cd test; make noprogs
+	$(MAKE) -C scrt noprogs
+	$(MAKE) -C scsc noprogs
+	$(MAKE) -C test noprogs
 
 # All files which must be constructed are made by the following command:
 
 all:
-	cd scrt; make all
-	cd scsc; make all
+	$(MAKE) -C scrt all
+	$(MAKE) -C scsc all
 
 tarfiles:
 	@echo " ports/makefile ports/*/README ports/*/[S-z]* "
-

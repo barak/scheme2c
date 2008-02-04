@@ -50,10 +50,10 @@ Xmv:
 	mv Xsccomp sccomp
 
 port:
-	make "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xsccomp Xmv
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xsccomp Xmv
 
 install-private:
-	make "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
+	$(MAKE) "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
 	     "OWNER = -o `whoami`" install
 
 install:
@@ -73,7 +73,7 @@ noprogs:
 	rm -f sccomp Xsccomp
 
 all:
-	make "SCC = ${SCC}" "RTDIR = ${RTDIR}" "CFLAGS = ${CFLAGS}" \
+	$(MAKE) "SCC = ${SCC}" "RTDIR = ${RTDIR}" "CFLAGS = ${CFLAGS}" \
 		Xsccomp Xmv
 
 srclinks:

@@ -88,9 +88,9 @@ noprogs:
 	rm -f ${progs}
 
 all:
-	make "SCC = ${SCC}" "SCCFLAGS = ${SCCFLAGS}" \
+	$(MAKE) "SCC = ${SCC}" "SCCFLAGS = ${SCCFLAGS}" \
 	     test test50 test51 test52 test54
-	make "SCC = ${SCC}" "SCCFLAGS = ${SCCFLAGS}" "n = 53" testn
+	$(MAKE) "SCC = ${SCC}" "SCCFLAGS = ${SCCFLAGS}" "n = 53" testn
 
 alltests.sc: ${alltests}
 	cat ${alltests} > alltests.sc

@@ -103,7 +103,7 @@ ${xwssc}:	xlibTYPES.c
 
 scixl:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	${SCC} -o scixl -i -m xlib ${xwso} ${xdo} ${XLIB}
-	
+
 scxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}	
 	rm -f scxl.a
 	ar q scxl.a ${xdo} ${xwso}
@@ -132,10 +132,10 @@ clean-sc-to-c:
 		puzzle.c npuzzle.c
 
 all:
-	make scixl scxl.a
+	$(MAKE) scixl scxl.a
 
 gensource:
-	make ${xwssc} ${xwsc}
+	$(MAKE) ${xwssc} ${xwsc}
 
 srclinks:
 	for x in ${XD} ${XDP} ${XMISC}; \
