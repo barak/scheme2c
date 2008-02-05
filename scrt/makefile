@@ -65,12 +65,12 @@ libscsrv.a:	Xlibsc.a
 embedded:	${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
 		 embedded.o
 	${CC} -o embedded ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} \
-	      embedded.o -lm
+	      embedded.o -lm ${LDFLAGS}
 
 Xsci:		${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
 		 sci.c sci.o
 	${CC} -o Xsci ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} sci.o \
-	      -lm
+	      -lm ${LDFLAGS}
 
 Xmv:		Xsci Xlibsc.a
 	mv Xsci sci

@@ -116,6 +116,7 @@
 		   (CSTRING ,(string-append "(" module-name
 				 " SCHEME->C COMPILER " scc-version ")"))
 		   " );"))
+	 (emit-lap '(LIT "sc_segv__handlers();"))
 	 (for-each (lambda (exp) 
 		     (set! global-condition-info empty-condition-info)
 		     (exp-genc 'no-value exp bindings))

@@ -5,6 +5,7 @@
 # Default flags to use when invoking the C compiler.
 
 CFLAGS = -m32 -O2 -march=i386
+LDFLAGS = -lsigsegv
 CC = gcc
 
 # Assembly language object files.

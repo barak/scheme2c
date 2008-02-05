@@ -44,7 +44,7 @@ scsch = expform.sch gencode.sch lambdaexp.sch lap.sch miscexp.sch plist.sch
 sc-to-c:	${scc}
 
 Xsccomp:	${scc} ${sco} ${RT}
-	${CC} -o Xsccomp ${CFLAGS} ${sco} ${RT} -lm
+	${CC} -o Xsccomp ${CFLAGS} ${sco} ${RT} -lm ${LDFLAGS}
 
 Xmv:
 	mv Xsccomp sccomp

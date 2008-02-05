@@ -65,6 +65,45 @@ extern long _sysconf(int);     /* System Private interface to sysconf() */
 #endif
 #endif
 
+#if STACK_OVERFLOW
+#include <sigsegv.h>
+#if HAVE_STACK_OVERFLOW_RECOVERY && HAVE_SIGSEGV_RECOVERY
+#include <stdlib.h>
+#include <stdio.h>
+
+char overflow_stack[16384];
+
+void stackoverflow_handler(int emergency, stackoverflow_context_t scp)
+{
+  printf("***** Stack overflow!\n");
+  printf("***** Now we're going to see if we can print a backtrace, good luck!\n");
+  sc_stackoverflow();
+
+  abort();
+}
+
+int sigsegv_handler(void* address, int emergency)
+{
+  // this tells libsigsegv that this is a stack overflow
+  if(!emergency)
+    return 0;
+
+  printf("***** Segfault -- Please tell the scheme->c maintainers!\n");
+  printf("***** Now we're going to try to print out a bracktrace, good luck!\n");
+
+  char *procname = "SIGSEGV";
+  
+  if  (sc_stacktrace != NULL)  procname = sc_stacktrace->procname;
+  sc_error( procname, "Segfault:", EMPTYLIST );
+  
+  abort();
+}
+
+#else
+#error "Stack overflow is enabled for this architecture but you are either missing libsigsegv or do not have stack overflow and sigsegv recovery built in"
+#endif
+#endif
+
 #include <stdio.h>
 
 #ifdef VAX
@@ -764,6 +803,17 @@ TSCP  sc_ossystem( TSCP command )
 
 typedef sigset_t SIGSET_T;
 
+void sc_segv__handlers()
+{
+#if STACK_OVERFLOW
+	stackoverflow_install_handler(&stackoverflow_handler,
+				      overflow_stack, 
+				      sizeof (overflow_stack));
+
+	sigsegv_install_handler(&sigsegv_handler);
+#endif
+}
+
 static VOIDP  ossignal( int sig, VOIDP handler )
 {
 	struct sigaction  new_action, old_action;
@@ -772,6 +822,9 @@ static VOIDP  ossignal( int sig, VOIDP handler )
 	sigemptyset (& (new_action.sa_mask));
 	(new_action.sa_flags) = 0;
 	sigaction (sig, (&new_action), (&old_action));
+	
+	sc_segv__handlers();
+
 	return (old_action.sa_handler);
 }
 

@@ -97,6 +97,8 @@ extern VOIDP sc_gettable( XAL2( S2CINT, S2CINT ) );
 
 extern void  sc_freetable( XAL1( void* ) );
 
+extern void sc_segv__handlers();
+
 /* Signal handling - N.B. signals and time slicing are mutually exclusive. */
 
 extern void  sc_dispatchpendingsignals();

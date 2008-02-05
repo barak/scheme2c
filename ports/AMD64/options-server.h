@@ -63,6 +63,8 @@
 #define	MATHTRAPS	0	/* 0 = don't detect fixed point overflow */
 				/* 1 = recover on fixed point overflow */
 
+#define STACK_OVERFLOW  1
+
 /* Define only one of the supported processor types:
 
 	AOSF		Alpha AXP OSF/1
