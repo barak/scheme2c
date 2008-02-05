@@ -5,8 +5,6 @@
 
 (include "xlibTYPES.sch")
 
-(define-c-external ERRNO int "errno")
-
 (define SIZEOF-PTR c-sizeof-tscp)
 
 (define SIZEOF-LONG c-sizeof-long)
@@ -328,10 +326,7 @@
 					     (loop (+ mask mask)
 						   (+ index 1)))))
 				   ((= nfiles -1)
-				    (if (= errno 4)
-					(apply yselect dpy ports-time)
-					(error 'yselect "Select error: ~s"
-					       errno)))
+					(apply yselect dpy ports-time))
 				   (else #f)))))))
 
 (define-c-external (xgetmotionevents* pointer int int int pointer) pointer
