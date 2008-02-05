@@ -28,6 +28,7 @@ sc_geti386regs:
 	movq %r13,80(%rdi)
 	movq %r14,88(%rdi)
 	movq %r15,96(%rdi)
+	movq %rdi,%rax 
 	movq %rbp,%rsp
 	popq %rbp
 	ret

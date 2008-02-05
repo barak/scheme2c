@@ -47,12 +47,12 @@
 #define TIMESLICE	0	/* 0 = don't time slice execution */
 				/* 1 = time slice execution */
 
-#define COMPACTPUSHTRACE 1	/* 0 = inline procedure entry checks.
+#define COMPACTPUSHTRACE 0	/* 0 = inline procedure entry checks.
 				   1 = emit procedure call for procedure
 				       entry checks.
 				*/
 
-#define COMPACTPOPTRACE 1	/* 0 = inline procedure exit cleanup.
+#define COMPACTPOPTRACE 0	/* 0 = inline procedure exit cleanup.
 				   1 = emit procedure call for procedure exit
 				       cleanup.
 				*/

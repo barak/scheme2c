@@ -251,7 +251,7 @@ S2CINT  *sc_processor_register( S2CINT reg )
 
 static  trace_stack_and_registers()
 {
-      S2CINT  i386regs[6], *pp;
+      S2CINT  i386regs[13], *pp;
 
       sc_geti386regs( i386regs );
       STACKPTR( pp );
