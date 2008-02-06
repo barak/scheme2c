@@ -12,7 +12,7 @@ XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \
 XDP = xws2.cdecl xws3.cdecl xws4.cdecl xws5.cdecl xws6.cdecl xws7.cdecl \
       xws8.cdecl xws9.cdecl xws10.cdecl xwsr4.cdecl
 
-XMISC = doc.mss xwss.sc xlib.sc clear.sc hello.sc hello2.sc puzzle.sc \
+XMISC = doc.txt xwss.sc xlib.sc clear.sc hello.sc hello2.sc puzzle.sc \
 	npuzzle.sc
 
 xdsc =	depth.sc screen.sc visual.sc xarc.sc xchar2b.sc xcharstruct.sc \
@@ -143,4 +143,4 @@ srclinks:
 	done
 
 tarfiles:
-	@echo " xlib/README xlib/makefile xlib/*.cdecl xlib/*.sc xlib/*.mss "
+	@echo " xlib/README xlib/makefile xlib/*.cdecl xlib/*.sc xlib/*.txt "
