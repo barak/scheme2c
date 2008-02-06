@@ -43,6 +43,7 @@
 
 /* Import definitions */
 
+#include <stdlib.h>		/* for abort(3) */
 #include "objects.h"
 #include "scinit.h"
 #include "heap.h"
