@@ -95,7 +95,7 @@ Xsci:		${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
 Xmv:		Xsci Xlibsc.a
 	mv Xsci sci
 	mv Xlibsc.a libsc.a
-	
+
 port:
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo" \
 	     Xlibsc.a Xsci Xmv ${Plib}
