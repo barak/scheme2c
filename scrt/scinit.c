@@ -47,6 +47,7 @@
 
 /* Definitions for objects within sc */
 
+#include <string.h>		/* for strcmp(), strncmp() */
 #include "objects.h"
 #include "scinit.h"
 #include "heap.h"
@@ -422,8 +423,8 @@ static void  addrtoheap( )
 	   /* Block fits in the side table */
 	   for  (i = 0; i < sc_heapblocks.count; i++)  {
 	      page = ADDRESS_PAGE( sc_heapblocks.block[ i ].address );
-	      if  (j = ((S2CINT)sc_heapblocks.block[ i ].address) &
-		       (PAGEBYTES-1))  {
+	      if  ((j = ((S2CINT)sc_heapblocks.block[ i ].address) &
+		    (PAGEBYTES-1)))  {
 	         page = page+1;
 	      }
 	      pagecnt = (sc_heapblocks.block[ i ].size-j)/PAGEBYTES;
