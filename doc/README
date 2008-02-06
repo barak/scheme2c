@@ -1,19 +1,13 @@
 This directory contains documentation for Scheme->C.
 
-embedded.mss	Scribe document describing embedding Scheme->C inside an
+embedded.tex	LaTeX document describing embedding Scheme->C inside an
 		application.
 
-embedded.psf	PostScript for embedded.mss.
-
-index.mss	a Scribe reference document for the language
+index.tex	a LaTeX reference document for the language
 		which is in the form of an annoted index to
 		the Revised**4 Scheme standard.
 
-index.psf	PostScript for index.mss.
-
-intro.mss	a Scribe document introducing Scheme->C.
-
-intro.psf	PostScript for intro.mss.
+intro.tex	a LaTeX document introducing Scheme->C.
 
 r4rs.psf	PostScript for the R4RS scheme standard.
 
@@ -21,7 +15,5 @@ scc.l		UNIX man page for the Scheme->C compiler.
 
 sci.l		UNIX man page for the Scheme->C interpreter.
 
-smithnotes.mss	notes to accompany "An Introduction to Scheme"
+smithnotes.tex	notes to accompany "An Introduction to Scheme"
 		by Jerry D. Smith.
-
-smithnotes.psf	PostScript for smithnotes.mss.

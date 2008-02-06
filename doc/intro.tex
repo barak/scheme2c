@@ -1,11 +1,16 @@
-@Style(FontFamily <TimesRoman>, Singlesided)
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{newcent}
 
-@Begin(Heading)
-An Introduction to Scheme->C in 19 Prompts
-12 August 1988
-@End(Heading)
+\title{An Introduction to \texttt{Scheme->C} in 19 Prompts}
+\date{12 August 1988}
 
-@t(Scheme->C) is an implementation of the language Scheme.  Besides
+\begin{document}
+
+\maketitle
+
+\texttt{Scheme->C} is an implementation of the language Scheme.  Besides
 the usual interpreter, the implementation includes an unusual
 compiler which compiles Scheme to C.  This allows stand-alone
 programs and programs combining Scheme and other programming
@@ -15,7 +20,9 @@ combined with a good C compiler, fairly efficient.
 Please consider this annotated typescript an invitation to try it.
 Questions and comments are encouraged.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 1 >man sci
 
 SCI(1)               UNIX Programmer's Manual                SCI(1)
@@ -29,13 +36,17 @@ SYNTAX
 DESCRIPTION
      The sci command invokes a Scheme interpreter.  The language
      accepted by ...
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 Using your favorite editor, create a file containing the Fibonacci
 function.  Scheme code is generally expected to be in files ending
-with ".sc".
+with ``.sc''.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 2>more fib.sc
 ;;; (FIB n) returns the Fibonacci number for n.
 
@@ -46,32 +57,41 @@ alerion 2>more fib.sc
 	  ((= n 1) 1)
 	  ((= n 0) 0)
 	  (else  (error 'FIB "Argument is out of range: ~s" n))))
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
-A ";" indicates that the rest of the line is a comment.  The form
-@t[(module fib)] which must be the first form is the file indicates
-that the functions in the file should be part of the module "fib".
-Typically the module name is the file name (less the ".sc" extension)
+A ``;'' indicates that the rest of the line is a comment.  The form
+\texttt{(module fib)} which must be the first form is the file indicates
+that the functions in the file should be part of the module ``fib''.
+Typically the module name is the file name (less the ``.sc'' extension)
 of the source file.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 3 >sci
 SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation
 > (load "fib.sc")
 MODULE form ignored
 FIB
 "fib.sc"
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
-(@t[load] "@i(file-name)") loads a file into the interpreter.  Each
+\texttt{(load "\textnormal{\emph{file-name}}")} loads a file into the
+interpreter.  Each
 form in the file is evaluated and the result is printed on the
 standard output device.  Note that the module form is currently
 ignored by the interpreter.  Another way to load the file is to use
-(@t[loade] "@i(file-name)") which will also echo the text read from
-the file onto the standard output file.  Since @t(FIB) was defined
+\texttt{(loade "\textnormal{\emph{file-name}}")} which will also echo the text read from
+the file onto the standard output file.  Since \texttt{FIB} was defined
 when this function was evaluated, a warning message is printed:
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 > (loade "fib.sc")
 ;;; (FIB n) returns the Fibonacci number for n.
 
@@ -95,13 +115,17 @@ FIB
 0
 > (fib -1)
 ***** FIB Argument is out of range: -1
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
-(@t[trace] @i(function) ...) allows one or more functions to be
-traced. (@t[untrace] @i(function) ...) removes tracing from selected
-functions, and (@t[untrace]) removes tracing from all functions.
+(\texttt{trace} \emph{function} ...) allows one or more functions to be
+traced. (\texttt{untrace} \emph{function} ...) removes tracing from selected
+functions, and (\texttt{untrace}) removes tracing from all functions.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 > (trace fib)
 (FIB)
 > (fib 5)
@@ -138,22 +162,27 @@ functions, and (@t[untrace]) removes tracing from all functions.
 5
 > (untrace)
 (FIB)
-@End(verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
-(@t[bpt] @i[function]) sets a breakpoint on function entry and
-exit. At the function call, the arguments are in @t[*args*]
-which may be changed. After completing inspection, type ^D to
+\texttt{(bpt \textnormal{\emph{function}})} sets a breakpoint on function entry and
+exit. At the function call, the arguments are in \texttt{*args*}
+which may be changed. After completing inspection, type \^D to
 evaluate the function.  On function exit, the result is in
-@t[*result*] and the program stops for inspection.  To
-continue with that result, one types ^D or (@t[proceed]).  A
-different result may be returned by entering (@t[proceed]
-@i(expression)).  (@t[unbpt] @i(function) ...) removes
-breakpoints from selected functions, and (@t[unbpt]) removes
+\texttt{*result*} and the program stops for inspection.  To
+continue with that result, one types \^D or \texttt{(proceed)}.  A
+different result may be returned by entering \texttt{(proceed
+\textnormal{\emph{expression}})}.
+\texttt{(unbpt \textnormal{\emph{function ...}})} removes
+breakpoints from selected functions, and \texttt{(unbpt)} removes
 all breakpoints. While at a breakpoint, one may return to the
-"top-level" interpreter by executing the function
-(@t[top-level]).
+``top-level'' interpreter by executing the function
+\texttt{(top-level)}.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 > (bpt fib)
 FIB
 > (fib 1)
@@ -171,13 +200,17 @@ FIB
 23.7
 > (unbpt fib)
 (FIB)
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 Breakpoints may also have a boolean function supplied which decides
 whether to take the breakpoint.  Needless to say, such a function can
 also do things like count the number of times the function is called.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 > (bpt fib (lambda (n) (set! fibcnt (+ 1 fibcnt)) #f))
 FIB
 > (set! fibcnt 0)
@@ -192,13 +225,17 @@ FIB
 6765
 >^D
 alerion 4 >
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
-Since @t[(fib 20)] took a while to compute, it might be a good idea
+Since \texttt{(fib 20)} took a while to compute, it might be a good idea
 to compile it, so the interpreter is exited, and an augmented version
 of the interpreter is created which has a compiled version of FIB.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 4 >man scc
 
 SCC(1)              UNIX Programmer's Manual               SCC(1)
@@ -228,17 +265,21 @@ SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation
 > (fib 20)
 6765
 >^D
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 Now for a little different example, where a Scheme version of the
-shell command "echo" is created as a stand alone program. The module
-form now has an additional component, @t[(main do-echo)], which
-indicates that the @t[do-echo] function is the program main. As with
+shell command ``echo'' is created as a stand alone program. The module
+form now has an additional component, \texttt{(main do-echo)}, which
+indicates that the \texttt{do-echo} function is the program main. As with
 any other UNIX program, the main is called with the arguments from
 the shell.  This is done in Scheme by providing the main with a list
 of strings which are the arguments.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 7 >more echo.sc
 ;;; ECHO - Echo Arguments
 ;;;
@@ -257,13 +298,17 @@ alerion 7 >more echo.sc
 	     (display (car args))
 	     (if (cdr args) (display " ")))))
 alerion 8>
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 The program is loaded into the interpreter and tested with a few
 possible values.  Note that the first argument is always the program
 name.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 8>sci
 SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation
 > (load "echo.sc")
@@ -281,25 +326,33 @@ a b c#F
 
 #F
 > ^D
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 Now, compile it and build a stand-alone program:
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 9 >scc -o scheme-echo echo.sc
 echo.sc:
 alerion 10 >scheme-echo *.sc
 counter.sc echo.sc fib.sc fsm2.sc fsmexample.sc hello.sc
 alerion 11 >scheme-echo -n *.sc
 counter.sc echo.sc fib.sc fsm2.sc fsmexample.sc hello.scalerion 12 >
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 The next example shows the interface to routines written in other
 languages by building a program which uses the routines in the C library 
-(described in the @i(ULTRX-32 Programmer's Manual)) to print out the
+(described in the \emph{ULTRX-32 Programmer's Manual}) to print out the
 current Greenwich mean time.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 12 >more gmt.sc
 ;;; Print current GMT on standard output.
 
@@ -313,27 +366,35 @@ alerion 12 >more gmt.sc
     (let ((current-time (make-string 4)))
 	 (time current-time)
 	 (display (c-string->string (asctime (gmtime current-time))))))
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
-The procedure @i(time) stores the number of seconds since GMT. Jan.
-1. 1970 in the location referenced by @i(pointer). @i(gmtime)
-converts that value to a @i(tm) structure and returns a pointer to
-it. @i(asctime) then converts the referenced @i(tm) structure to a
+The procedure \emph{time} stores the number of seconds since GMT. Jan.
+1. 1970 in the location referenced by \emph{pointer}. \emph{gmtime}
+converts that value to a \emph{tm} structure and returns a pointer to
+it. \emph{asctime} then converts the referenced \emph{tm} structure to a
 string and returns a pointer to it.  In order to display it,
-@i(c-string->string) is used to make a Scheme copy of the string.
+\emph{c-string->string} is used to make a Scheme copy of the string.
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 13 >scc -o gmt gmt.sc
 gmt.sc:
 alerion 14 >gmt
 Thu Aug 11 22:19:08 1988
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
 
 To allay any doubts that this implementation might not be
-Scheme, we conclude with the following "proof by example",
+Scheme, we conclude with the following ``proof by example'',
 produced by Eugene Kohlbecker:
 
-@Begin(Verbatim)
+\begin{small}
+\begin{quote}
+\begin{verbatim}
 alerion 15 >more mondo.sc
 (module mondo (main call-mondo))
 
@@ -362,4 +423,7 @@ mondo.sc:
 alerion 18 >mondo
 11213
 alerion 19 >logout
-@End(Verbatim)
+\end{verbatim}
+\end{quote}
+\end{small}
+\end{document}
