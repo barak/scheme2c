@@ -1,2 +1,0 @@
-tarfiles:
-	@echo " gnuemacs/* "

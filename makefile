@@ -168,7 +168,6 @@ noprogs:
 
 TARFILES = CHANGES README makefile \
 	   `make -C doc      tarfiles` \
-	   `make -C gnuemacs tarfiles` \
 	   `make -C ports    tarfiles` \
 	   `make -C scrt     tarfiles` \
 	   `make -C scsc     tarfiles` \

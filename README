@@ -48,8 +48,6 @@ The compiler distribution consists of several directories:
 
 	doc		contains documentation.
 
-	gnuemacs	contains emacs lisp code.
-
 	ports		contains implementation specific files.	
 
 	scrt		contains the runtime system.
