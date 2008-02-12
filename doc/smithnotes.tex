@@ -2,8 +2,10 @@
 \usepackage{fullpage}
 \usepackage{parskip}
 \usepackage{newcent}
+\usepackage{s2c}
 
-\title{\texttt{Scheme->C} notes for \emph{An Introduction to Scheme}}
+\title{\StoC\ notes for \emph{An Introduction to Scheme}}
+\author{Joel F. Bartlett}
 \date{}
 
 \begin{document}
@@ -15,25 +17,25 @@ text on the programming language Scheme.  Rather than being
 directed at a specific implementation of Scheme, it attempts
 to stick close to the dialect defined in the \emph{Revised$^4$
 Report on the Algorithmic Language Scheme} that is the base
-for many implementations including \texttt{Scheme->C}.  This document
+for many implementations including \StoC.  This document
 provides section notes to point out the differences between TI
-PC Scheme used in the text and \texttt{Scheme->C}.  The user will also
-find it helpful to read \emph{An Introduction to \texttt{Scheme->C} in 19
-Prompts} and have the \emph{\texttt{Scheme->C} Index to the Revised$^4$
+PC Scheme used in the text and \StoC.  The user will also
+find it helpful to read \emph{An Introduction to \StoC\ in 19
+Prompts} and have the \emph{\StoC\ Index to the Revised$^4$
 Report on the Algorithmic Language Scheme} and the
 \emph{Revised$^4$ Report on the Algorithmic Language Scheme}
 available for reference.
 
 \subsection*{1.8 (((((())))))}
 
-\texttt{Scheme->C} does not have an internal editor.  Instead, users
+\StoC\ does not have an internal editor.  Instead, users
 use the editor of their choice (which may or may not have
 parentheses matching) and then use \textbf{load} to load the file
 into the Scheme system.
 
 \subsection*{1.10 PC Scheme and the Listener}
 
-This is what the interaction on page 9 looks like in \texttt{Scheme->C}:
+This is what the interaction on page 9 looks like in \StoC:
 
 \begin{quote}
 \begin{verbatim}
@@ -48,14 +50,14 @@ SQUARE
 \end{verbatim}
 \end{quote}
 
-User input is prompted by ``\texttt{>}'', \texttt{Scheme->C} files end with the
+User input is prompted by ``\texttt{>}'', \StoC\ files end with the
 suffix ``.sc'', and the command primitives \textbf{\%c} and \textbf{\%d} are
 not supported.  User input is not evaluated until the user
 types return.
 
 \subsection*{2.2 The Scheme Listener}
 
-\texttt{Scheme->C} is started by the command \textbf{sci}.  Once the command
+\StoC\ is started by the command \textbf{sci}.  Once the command
 is executed, the window looks like this:
 
 \begin{quote}
@@ -92,11 +94,11 @@ SQUARE
 
 \subsection*{2.3 Simple Arithmetic}
 
-Most \texttt{Scheme->C} systems do not have bignums.  Numbers are
+Most \StoC\ systems do not have bignums.  Numbers are
 represented as either 29-bit integers or 64-bit floating point
 values.
 
-Exercise for the student:  Add bignums to \texttt{Scheme->C}.
+Exercise for the student:  Add bignums to \StoC.
 
 The boolean constant for true is \textbf{\#t} and false is \textbf{\#f}.
 In keeping with tradition, both the empty list \textbf{()} and \textbf{\#f}
@@ -157,7 +159,7 @@ always returned when a predicate returns false:
 
 In the text, the programming convention is that one calls
 \textbf{newline} and then calls \textbf{display}.  In printing to the
-terminal with \texttt{Scheme->C}, it is better to call \textbf{display} and
+terminal with \StoC, it is better to call \textbf{display} and
 then call \textbf{newline} as a newline is not automatically
 generated when Scheme prompts the user for additional input.
 
@@ -172,12 +174,12 @@ The user need not define these as they are part of the system.
 
 \subsection*{8.4.3 String Conversion Functions}
 
-See the \texttt{Scheme->C} documentation for information about
+See the \StoC\ documentation for information about
 \textbf{number-\texttt{>}string} and \textbf{string-\texttt{>}number}.
 
 \subsection*{9.4 User-defined Port Operations}
 
-Ports in \texttt{Scheme->C} are represented as a pair of the symbol
+Ports in \StoC\ are represented as a pair of the symbol
 \textbf{port} and the procedure that implements it.  For example:
 
 \begin{quote}
@@ -507,13 +509,13 @@ Exercise for the student:  implement \textbf{assert}.
 
 \subsection*{11.3 dir: A Utility for Listing Filenames (Implementation-specific)}
 
-In order to implement this in \texttt{Scheme->C} you'll need to implement your
+In order to implement this in \StoC\ you'll need to implement your
 own version of \textbf{sort!}\ and use \textbf{(open-input-port \texttt{"}ls\texttt{"})} to generate a
 list of file names.
 
 \subsection*{11.4 format: A Utility for Formatted Output}
 
-\texttt{Scheme->C} contains a procedure \textbf{format}.  See the documentation for
+\StoC\ contains a procedure \textbf{format}.  See the documentation for
 details.
 
 \subsection*{13.2 Memory Organization}
@@ -522,7 +524,7 @@ Exercise for the student:  implement \textbf{append!}.
 
 \subsection*{15.4 Macros [OPTIONAL]}
 
-\texttt{Scheme->C} macros implements ``expansion passing'' macros based upon the
+\StoC\ macros implements ``expansion passing'' macros based upon the
 ideas found in \emph{Expansion-Passing Style: Beyond Conventional Macros},
 1986 ACM Conference on Lisp and Functional Programming, 143--150.
 

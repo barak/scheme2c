@@ -10,7 +10,7 @@ TEX=latex
 %.pdf: %.ps; ps2pdf $< $@
 
 clean:
-	-rm -r *.pdf *.dvi *.aux *.log *.BAK *.CKP
+	-rm -rf *.pdf *.dvi *.aux *.log *.BAK *.CKP
 
 tarfiles:
 	@echo " doc/README doc/*.tex doc/*.psf doc/*.l doc/makefile "

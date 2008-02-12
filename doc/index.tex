@@ -3,10 +3,11 @@
 \usepackage{parskip}
 \usepackage{textcomp}
 \usepackage{newcent}
+\usepackage{s2c}
 
-\title{\texttt{Scheme->C} Index to the\\
+\title{\StoC\ Index to the\\
 Revised$^4$ Report on the Algorithmic Language Scheme}
-
+\author{Joel F. Bartlett}
 \date{15 March 1993}
 
 \begin{document}
@@ -15,7 +16,7 @@ Revised$^4$ Report on the Algorithmic Language Scheme}
 
 \section*{Implementation Notes}
 
-\texttt{Scheme->C} is an implementation of the language Scheme as
+\StoC\ is an implementation of the language Scheme as
 described in the \emph{Revised$^4$ Report on the Algorithmic Language
 Scheme} (\emph{LISP Pointers}, Volume IV, Number 3, July-September 1991).
 
@@ -92,12 +93,12 @@ c-tscp-ref     c-tscp-set!
 c-unsigned-ref
 c-unsigned-set!
 catch-error    close-port
-collect	       collect-all        
+collect        collect-all        
 collect-info   cons*
 define-system-file-task
 echo
 enable-sytem-file-tasks
-error	       eval
+error          eval
 exit
 expand         expand-once
 fixed->float   fixed?
@@ -153,9 +154,9 @@ uninterned-symbol?
 wait-system-file
 weak-cons
 when-unreferenced
-write-circle    write-count
-write-length    write-level
-write-pretty	write-width
+write-circle   write-count
+write-length   write-level
+write-pretty   write-width
 \end{verbatim}
 
 \item Additional syntax:
@@ -191,65 +192,75 @@ trace-output-port
 
 \section*{Index}
 
-\texttt{"} delimits strings.  Inside a string constant, a \texttt{"} is represented
-by \texttt{\textbackslash"}, and a \texttt{\textbackslash} is represented by \texttt{\textbackslash\textbackslash}.  Revised$^4$ 25.
+\texttt{"} delimits strings.  Inside a string constant, a \texttt{"}
+is represented by \texttt{\textbackslash"}, and a
+\texttt{\textbackslash} is represented by
+\texttt{\textbackslash\textbackslash}.  \RRRRRS~25.
 
-\texttt{\#(} denotes the start of a vector.  Revised$^4$ 26.
+\texttt{\#(} denotes the start of a vector.  \RRRRRS~26.
 
-\texttt{\#\textbackslash}\emph{character} written notation for characters.  Revised$^4$ 24.
+\texttt{\#\textbackslash}\emph{character} written notation for
+characters.  \RRRRRS~24.
 
-\texttt{\#\textbackslash{}formfeed} ASCII form feed character (\#o14).  Revised$^4$ 24.
+\texttt{\#\textbackslash{}formfeed} ASCII form feed character (\#o14).
+\RRRRRS~24.
 
-\texttt{\#\textbackslash{}linefeed} ASCII line feed character (\#o12).  Revised$^4$ 24.
+\texttt{\#\textbackslash{}linefeed} ASCII line feed character (\#o12).
+\RRRRRS~24.
 
-\texttt{\#\textbackslash{}newline} new line character (\#o12).  Revised$^4$ 24.
+\texttt{\#\textbackslash{}newline} new line character (\#o12).
+\RRRRRS~24.
 
-\texttt{\#\textbackslash{}return} ASCII carriage return character (\#o15).  Revised$^4$ 24.
+\texttt{\#\textbackslash{}return} ASCII carriage return character
+(\#o15).  \RRRRRS~24.
 
-\texttt{\#\textbackslash{}space} ASCII space character (\#o40).  Revised$^4$ 24.
+\texttt{\#\textbackslash{}space} ASCII space character (\#o40).
+\RRRRRS~24.
 
-\texttt{\#\textbackslash{}tab} ASCII tab character (\#o11).  Revised$^4$ 24.
+\texttt{\#\textbackslash{}tab} ASCII tab character (\#o11).
+\RRRRRS~24.
 
-\texttt{\#b} binary radix  prefix.  Revised$^4$ 20.
+\texttt{\#b} binary radix prefix.  \RRRRRS~20.
 
-\texttt{\#d} decimal radix prefix.  Revised$^4$ 20.
+\texttt{\#d} decimal radix prefix.  \RRRRRS~20.
 
-\texttt{\#f} boolean constant for false.  Note that while the empty list
-\texttt{()} is also treated as a false value in conditional expressions,
-it is not the same as \texttt{\#f}.  Revised$^4$ 13.
+\texttt{\#f} boolean constant for false.  Note that while the empty
+list \texttt{()} is also treated as a false value in conditional
+expressions, it is not the same as \texttt{\#f}.  \RRRRRS~13.
 
-\texttt{\#o} octal radix prefix.  Revised$^4$ 20.
+\texttt{\#o} octal radix prefix.  \RRRRRS~20.
 
-\texttt{\#t} boolean constant for true.  Revised$^4$ 13.
+\texttt{\#t} boolean constant for true.  \RRRRRS~13.
 
-\texttt{\#x} hex radix prefix.  Revised$^4$ 20.
+\texttt{\#x} hex radix prefix.  \RRRRRS~20.
 
-(\texttt{\%list->record} \emph{list}) returns a newly created \emph{record} whose
-elements are the members of \emph{list}.
+(\texttt{\%list->record} \emph{list}) returns a newly created
+\emph{record} whose elements are the members of \emph{list}.
 
 (\texttt{\%record} \emph{expression} ...)\ returns a newly created
 \emph{record} whose elements contain the given arguments.
 
 (\texttt{\%record->list} \emph{record}) returns a newly created
-\emph{list} of the objects contained in the elements of
-\emph{record}.
+\emph{list} of the objects contained in the elements of \emph{record}.
 
-(\texttt{\%record-length} \emph{record}) returns the number of elements
-in \emph{record}.
+(\texttt{\%record-length} \emph{record}) returns the number of
+elements in \emph{record}.
 
 (\texttt{\%record-lookup-method} \emph{record} \emph{method}) returns
-either the \emph{record}'s method \emph{procedure} or \texttt{\#f} when no method is
-defined for the method named \emph{method}.  All records have
-defaults for the following methods: 
-\texttt{\%to-display}, \texttt{to-equal?}, \texttt{\%to-eval}, and \texttt{\%to-write}.  
+either the \emph{record}'s method \emph{procedure} or \texttt{\#f}
+when no method is defined for the method named \emph{method}.  All
+records have defaults for the following methods:
+\texttt{\%to-display}, \texttt{to-equal?}, \texttt{\%to-eval}, and
+\texttt{\%to-write}.
 
-(\texttt{\%record-methods} \emph{record}) returns a list of \emph{pairs}
-that denote the methods for \emph{record}.  Each \emph{pair} is composed of a
-\emph{symbol} denoting the method name and the method \emph{procedure}.
+(\texttt{\%record-methods} \emph{record}) returns a list of
+\emph{pairs} that denote the methods for \emph{record}.  Each
+\emph{pair} is composed of a \emph{symbol} denoting the method name
+and the method \emph{procedure}.
 
-(\texttt{\%record-methods-set!}\ \emph{record} \emph{methods}) sets the
-methods associated with \emph{record} to \emph{methods}, a \emph{list} of method
-\emph{pairs}.
+(\texttt{\%record-methods-set!}\ \emph{record} \emph{methods}) sets
+the methods associated with \emph{record} to \emph{methods}, a
+\emph{list} of method \emph{pairs}.
 
 \texttt{\%record-prefix-char} is the character that denotes a
 \emph{record}.
@@ -258,11 +269,12 @@ methods associated with \emph{record} to \emph{methods}, a \emph{list} of method
 \emph{record}. When \texttt{read} encounters the value of
 \texttt{\%read-prefix-char} following a \texttt{\#}, it calls
 \texttt{\%record-read} with the current \emph{input-port} as its
-argument to input the record.  The value read is the value
-returned by this procedure.
+argument to input the record.  The value read is the value returned by
+this procedure.
 
-(\texttt{\%record-ref} \emph{record} \emph{integer}) returns the contents of element
-\emph{integer} of \emph{record}.  The first element is 0.
+(\texttt{\%record-ref} \emph{record} \emph{integer}) returns the
+contents of element \emph{integer} of \emph{record}.  The first
+element is 0.
 
 (\texttt{\%record-set!}\ \emph{record} \emph{integer}) sets element
 \emph{integer} of \emph{record} to \emph{expression}.
@@ -270,309 +282,335 @@ returned by this procedure.
 (\texttt{\%record?}\ \emph{expression}) \emph{predicate} that returns
 \texttt{\#t} when \emph{expression} is a \emph{record}.
 
-\texttt{\%to-display} method to \texttt{display} a \emph{record}.  When
-\texttt{display} encounters a record, it calls the record's
-\texttt{\%to-display} method with the following arguments:  the
-record, the output port, the number of spaces to indent (or
-\texttt{\#f}), the number of levels to print (or \texttt{\#f}), the length
-of lists, vectors, or records to print (or \texttt{\#f}), and a list
-of pairs, vectors, and records already seen (or \texttt{\#f}).  The
-method returns either \texttt{\#f} indicating no further action is
-to be taken, or a pair indicating that the car of the pair
-is to be output.  For example, if \texttt{\%record-prefix-char} is
-\texttt{\#\textbackslash\texttildelow}, the method could be: \texttt{(lambda (r port .\ ignore)
-(display "\#\texttildelow" port) (list (\%record->list r)))}.
+\texttt{\%to-display} method to \texttt{display} a \emph{record}.
+When \texttt{display} encounters a record, it calls the record's
+\texttt{\%to-display} method with the following arguments: the record,
+the output port, the number of spaces to indent (or \texttt{\#f}), the
+number of levels to print (or \texttt{\#f}), the length of lists,
+vectors, or records to print (or \texttt{\#f}), and a list of pairs,
+vectors, and records already seen (or \texttt{\#f}).  The method
+returns either \texttt{\#f} indicating no further action is to be
+taken, or a pair indicating that the car of the pair is to be output.
+For example, if \texttt{\%record-prefix-char} is
+\texttt{\#\textbackslash\texttildelow}, the method could be:
+\texttt{(lambda (r port .\ ignore) (display "\#\texttildelow" port)
+  (list (\%record->list r)))}.
 
 \texttt{\%to-equal?}\ method to compare a \emph{record} to any value
 using \texttt{equal?}.  The method \emph{prediate} is called with the
-\emph{record} and the comparison value as its arguments.  The
-default method is \texttt{eq?}. 
+\emph{record} and the comparison value as its arguments.  The default
+method is \texttt{eq?}.
 
 \texttt{\%to-eval} method to evaluate a \emph{record}.  \texttt{Eval}
 evaluates a \emph{record} by returning the value of calling the
-\emph{record}'s \texttt{\%to-eval} method with the \emph{record} as the
-argument.  The default method is \texttt{(lambda (x) x)}.
+\emph{record}'s \texttt{\%to-eval} method with the \emph{record} as
+the argument.  The default method is \texttt{(lambda (x) x)}.
 
 \texttt{\%to-write} method to \texttt{write} a \emph{record}.  When
 \texttt{write} encounters a record, it calls the record's
-\texttt{\%to-write} method with the following arguments:  the
-record, the output port, the number of spaces to indent (or
-\texttt{\#f}), the number of levels to print (or \texttt{\#f}), the length
-of lists, vectors, or records to print (or \texttt{\#f}), and a list
-of pairs, vectors, and records already seen (or \texttt{\#f}).  The
-method returns either \texttt{\#f} indicating no further action is
-to be taken, or a pair indicating that the car of the pair is
-to be output.  For example, if \texttt{\%record-prefix-char} is
-\texttt{\#\textbackslash\texttildelow}, the method could be: \texttt{(lambda (r port .\ ignore)
-(display "\#\texttildelow" port) (list (\%record->list r)))}.
+\texttt{\%to-write} method with the following arguments: the record,
+the output port, the number of spaces to indent (or \texttt{\#f}), the
+number of levels to print (or \texttt{\#f}), the length of lists,
+vectors, or records to print (or \texttt{\#f}), and a list of pairs,
+vectors, and records already seen (or \texttt{\#f}).  The method
+returns either \texttt{\#f} indicating no further action is to be
+taken, or a pair indicating that the car of the pair is to be output.
+For example, if \texttt{\%record-prefix-char} is
+\texttt{\#\textbackslash\texttildelow}, the method could be:
+\texttt{(lambda (r port .\ ignore) (display "\#\texttildelow" port)
+  (list (\%record->list r)))}.
 
-\texttt{'}\emph{expression} abbreviation for (\texttt{quote} \emph{expression}).  Revised$^4$
-7, 16.
+\texttt{'}\emph{expression} abbreviation for (\texttt{quote}
+\emph{expression}).  \RRRRRS~7, 16.
 
 (\texttt{*} \emph{number} ...)\ returns the product of its arguments.
-Revised$^4$ 21.
+\RRRRRS~21.
 
-\texttt{*args*} arguments of the \emph{procedure} when a breakpoint has been
-hit.  The value of this symbol will be used as the arguments when the
-user continues from the breakpoint.  See \texttt{bpt}, \texttt{proceed}.
+\texttt{*args*} arguments of the \emph{procedure} when a breakpoint
+has been hit.  The value of this symbol will be used as the arguments
+when the user continues from the breakpoint.  See \texttt{bpt},
+\texttt{proceed}.
 
-\texttt{*bpt-env*} list of environments when a breakpoint is encountered
-in an embedded \texttt{Scheme->C} system.
+\texttt{*bpt-env*} list of environments when a breakpoint is
+encountered in an embedded \StoC\ system.
 
 \texttt{*error-env*} list of environments when an error occurs in an
-embedded \texttt{Scheme->C} system.
+embedded \StoC\ system.
 
-\texttt{*error-handler*} the error handling \emph{procedure}.  See \texttt{error}.
+\texttt{*error-handler*} the error handling \emph{procedure}.  See
+\texttt{error}.
 
 \texttt{*frozen-objects*} list of objects that are never moved by the
-garbage collector.  Scheme programs can use this to ``lock down'' objects
-in memory before passing them to programs written in other languages.
+garbage collector.  Scheme programs can use this to ``lock down''
+objects in memory before passing them to programs written in other
+languages.
 
 \texttt{*obarray*} is a vector of lists of symbols.  It is used by
 \texttt{read} to assure that symbols written and then read back in are
-\texttt{eqv?}.  See \emph{interned}, Revised$^4$ 18.
+\texttt{eqv?}.  See \emph{interned}, \RRRRRS~18.
 
-\texttt{*result*} result of the \emph{procedure} when a breakpoint has been
-hit.  The value of this symbol be returned as the value of the
+\texttt{*result*} result of the \emph{procedure} when a breakpoint has
+been hit.  The value of this symbol be returned as the value of the
 \emph{procedure} after the user continues from the breakpoint.  See
 \texttt{bpt}, \texttt{proceed}.
 
 \texttt{*scheme2c-result*} normal result of computation in an embedded
-\texttt{Scheme->C} system.
+\StoC\ system.
 
-\texttt{`}\emph{back-quote-template} abbreviation for (\texttt{quasiquote}
-\emph{back-quote template}). Revised$^4$ 11.
+\texttt{`}\emph{back-quote-template} abbreviation for
+(\texttt{quasiquote} \emph{back-quote template}). \RRRRRS~11.
 
-\texttt{(} used to group and notate lists.  Revised$^4$ 5.
+\texttt{(} used to group and notate lists.  \RRRRRS~5.
 
-\texttt{()} the empty list.  Revised$^4$ 15.
+\texttt{()} the empty list.  \RRRRRS~15.
 
-\texttt{)} used to group and notate lists.  Revised$^4$ 5.
+\texttt{)} used to group and notate lists.  \RRRRRS~5.
 
 (\texttt{+} \emph{number} ...)\ returns the sum of its arguments.
-Revised$^4$ 21.
+\RRRRRS~21.
 
-\texttt{,}\emph{expression} abbreviation for (\texttt{unquote} \emph{expression})
-that causes the expression to be replaced by its value in the
-\emph{back-quote-template}.  Revised$^4$ 11.
+\texttt{,}\emph{expression} abbreviation for (\texttt{unquote}
+\emph{expression}) that causes the expression to be replaced by its
+value in the \emph{back-quote-template}.  \RRRRRS~11.
 
-\texttt{,@}\emph{expression} abbreviation for (\texttt{unquote-splicing}
-\emph{expression}) that causes the expression to be evaluated and
-``spliced'' into the \emph{back-quote-template}. Revised$^4$ 11.
+\texttt{,@}\emph{expression} abbreviation for
+(\texttt{unquote-splicing} \emph{expression}) that causes the
+expression to be evaluated and ``spliced'' into the
+\emph{back-quote-template}. \RRRRRS~11.
 
-(\texttt{-} \emph{number} \emph{number} ...)\ with two or more arguments, this
-returns the difference of its arguments, associating to the left.
-With one argument it returns the additive inverse of the argument.
-Revised$^4$ 21.
+(\texttt{-} \emph{number} \emph{number} ...)\ with two or more
+arguments, this returns the difference of its arguments, associating
+to the left.  With one argument it returns the additive inverse of the
+argument.  \RRRRRS~21.
 
-\texttt{-C} command line flag to \texttt{scc} that will cause the compiler to
-compile the Scheme files \emph{source}\texttt{.sc} to C source in \emph{source}\texttt{.c}.
-No further processing is performed.
+\texttt{-C} command line flag to \texttt{scc} that will cause the
+compiler to compile the Scheme files \emph{source}\texttt{.sc} to C
+source in \emph{source}\texttt{.c}.  No further processing is
+performed.
 
-\texttt{-I} \emph{directory} command line flag to \texttt{scc} to supply a
-directory to be searched by \texttt{include} when it is looking for a
-source file.  When multiple flags are supplied, the directories are
-searched in the order that the flags are specified.
+\texttt{-I} \emph{directory} command line flag to \texttt{scc} to
+supply a directory to be searched by \texttt{include} when it is
+looking for a source file.  When multiple flags are supplied, the
+directories are searched in the order that the flags are specified.
 
-\texttt{-LIBDIR} \emph{directory} command line flag to \texttt{scc} to supply the
-\emph{directory} containing the files: predef.sc, objects.h, libsc.a,
-and optionally libsc\_p.a.
+\texttt{-LIBDIR} \emph{directory} command line flag to \texttt{scc} to
+supply the \emph{directory} containing the files: predef.sc,
+objects.h, libsc.a, and optionally libsc\_p.a.
 
-\texttt{-Ob} command line flag to \texttt{scc} that controls bounds checking.
-When it is supplied to the compiler, no bounds checking code for
-\emph{vector} or \emph{string} accesses will be generated.  Supplying this
-flag is equivalent to supplying the flags \texttt{-f '*bounds-check*'
-'\#f'}.
+\texttt{-Ob} command line flag to \texttt{scc} that controls bounds
+checking.  When it is supplied to the compiler, no bounds checking
+code for \emph{vector} or \emph{string} accesses will be generated.
+Supplying this flag is equivalent to supplying the flags \texttt{-f
+  '*bounds-check*' '\#f'}.
 
-\texttt{-Og} command line flag to \texttt{scc} that controls the generation of
-stack-trace debugging code. When it is supplied to the compiler,
-stack-trace code will not be generated.
+\texttt{-Og} command line flag to \texttt{scc} that controls the
+generation of stack-trace debugging code. When it is supplied to the
+compiler, stack-trace code will not be generated.
 
 \texttt{-On} command line flag to \texttt{scc} that controls number
 representation. When it is supplied to the compiler, all numbers will
 be assumed to be \emph{fixed} integers.  Supplying this flag is
 equivalent to supplying the flags \texttt{-f '*fixed-only*' '\#t'}.
 
-\texttt{-Ot} command line flag to \texttt{scc} that controls type error
-checking. When it is supplied, no error checking code will be
+\texttt{-Ot} command line flag to \texttt{scc} that controls type
+error checking. When it is supplied, no error checking code will be
 generated. Supplying this flag is equivalent to supplying the flags
 \texttt{-f '*type-check*' '\#f'}.
 
-\texttt{-e} command line flag to \texttt{sci}.  When it is supplied, all text
-read on the standard input file will be echoed on the standard output
-file.
+\texttt{-e} command line flag to \texttt{sci}.  When it is supplied,
+all text read on the standard input file will be echoed on the
+standard output file.
 
 \texttt{-emacs} command line flag to \texttt{sci}.  When supplied, the
 interpreter assumes that it is being run by GNU emacs.
 
-\texttt{-i} command line flag to \texttt{scc} that will combine the source and
-object files into a Scheme interpreter.  Module names for files other
-than Scheme source files must be supplied using the \texttt{-m} command
-line flag.
+\texttt{-i} command line flag to \texttt{scc} that will combine the
+source and object files into a Scheme interpreter.  Module names for
+files other than Scheme source files must be supplied using the
+\texttt{-m} command line flag.
 
-\texttt{-log} command line flag to \texttt{scc} to log information internal to
-the compiler.  Each type of compiler information is denoted by one of
-the flags: \texttt{-source}, \texttt{-macro}, \texttt{-expand}, \texttt{-closed},
-\texttt{-transform}, \texttt{-lambda}, \texttt{-tree}, \texttt{-lap}, \texttt{-peep}.  The
-flag \texttt{-log} is equivalent to specifying the flags: \texttt{-source},
-\texttt{-macro}, \texttt{-expand}, \texttt{-closed}, \texttt{-transform}, \texttt{-lambda}, and
-\texttt{-tree}.
+\texttt{-log} command line flag to \texttt{scc} to log information
+internal to the compiler.  Each type of compiler information is
+denoted by one of the flags: \texttt{-source}, \texttt{-macro},
+\texttt{-expand}, \texttt{-closed}, \texttt{-transform},
+\texttt{-lambda}, \texttt{-tree}, \texttt{-lap}, \texttt{-peep}.  The
+flag \texttt{-log} is equivalent to specifying the flags:
+\texttt{-source}, \texttt{-macro}, \texttt{-expand}, \texttt{-closed},
+\texttt{-transform}, \texttt{-lambda}, and \texttt{-tree}.
 
-\texttt{-m} \emph{module} command line flag to \texttt{scc} to specify the name of
-a module that must be initialized by calling the procedure
-\emph{module\_\_init}.  Note that the Scheme compiler will downshift the
-alphabetic characters in module names supplied in the \texttt{module}
-directive.  Modules are initialized in the order that the \texttt{-m} command
-flags are specified.
+\texttt{-m} \emph{module} command line flag to \texttt{scc} to specify
+the name of a module that must be initialized by calling the procedure
+\emph{module\_\_init}.  Note that the Scheme compiler will downshift
+the alphabetic characters in module names supplied in the
+\texttt{module} directive.  Modules are initialized in the order that
+the \texttt{-m} command flags are specified.
 
-\texttt{-nh} command line flag to \texttt{sci}.  When it is supplied, the
-interpreter version header will not be printed on the standard output
-file.
+\texttt{-nh} command line flag to \texttt{sci}.  When it is supplied,
+the interpreter version header will not be printed on the standard
+output file.
 
-\texttt{-np} command line flag to \texttt{sci}.  When it is supplied, prompts
-for input from standard input will not be printed on standard output.
+\texttt{-np} command line flag to \texttt{sci}.  When it is supplied,
+prompts for input from standard input will not be printed on standard
+output.
 
-\texttt{-q} command line flag to \texttt{sci}.  When it is supplied, the result
-of each expression evaluation will not be printed on standard output.
+\texttt{-q} command line flag to \texttt{sci}.  When it is supplied,
+the result of each expression evaluation will not be printed on
+standard output.
 
-\texttt{-pg} command line flag to \texttt{scc} that will cause it to produce
-profiled code for run-time measurement using \emph{gprof}.  The profiled
-library will be used in lieu of the standard Scheme library.
+\texttt{-pg} command line flag to \texttt{scc} that will cause it to
+produce profiled code for run-time measurement using \emph{gprof}.
+The profiled library will be used in lieu of the standard Scheme
+library.
 
-\texttt{-scgc} \emph{flag} command line flag to any Scheme program that
-controls the reporting of garbage collection statistics.  If \emph{flag}
-is set to 1, then garbage collection statistics will be printed on
-stderr.  This flag will override \texttt{SCGCINFO}.
+\texttt{-scgc} \emph{flag} command line flag to any Scheme program
+that controls the reporting of garbage collection statistics.  If
+\emph{flag} is set to 1, then garbage collection statistics will be
+printed on stderr.  This flag will override \texttt{SCGCINFO}.
 
-\texttt{-sch} \emph{integer} command line flag to any Scheme program to set
-the initial heap size in megabytes.  If it is not supplied, and the
-\texttt{SCHEAP} environment variable was not set, and the program did not
-have a default, then the implementation dependent default is used.
-This flag will override \texttt{SCHEAP}.
+\texttt{-sch} \emph{integer} command line flag to any Scheme program
+to set the initial heap size in megabytes.  If it is not supplied, and
+the \texttt{SCHEAP} environment variable was not set, and the program
+did not have a default, then the implementation dependent default is
+used.  This flag will override \texttt{SCHEAP}.
 
-\texttt{-scl} \emph{integer} command line flag to any Scheme program to set
-the full collection limit.  When more than this percent of the heap
-is allocated following a generational garbage collection, then a full
-garbage collection will be done.  The default value is 40.  This flag
-will override \texttt{SCLIMIT}.
+\texttt{-scl} \emph{integer} command line flag to any Scheme program
+to set the full collection limit.  When more than this percent of the
+heap is allocated following a generational garbage collection, then a
+full garbage collection will be done.  The default value is 40.  This
+flag will override \texttt{SCLIMIT}.
 
-\texttt{-scm} \emph{symbol} command line flag to any Scheme program to cause
-execution to start at the procedure that is the value of \emph{symbol},
-rather than at the main program.  Note that the Scheme \texttt{read}
-procedure typically upshifts alphabetic characters.  Thus, to start
-execution in the Scheme interpreter, one would enter \texttt{-scm
-READ-EVAL-PRINT} on the command line.
+\texttt{-scm} \emph{symbol} command line flag to any Scheme program to
+cause execution to start at the procedure that is the value of
+\emph{symbol}, rather than at the main program.  Note that the Scheme
+\texttt{read} procedure typically upshifts alphabetic characters.
+Thus, to start execution in the Scheme interpreter, one would enter
+\texttt{-scm READ-EVAL-PRINT} on the command line.
 
-\texttt{-scmh} \emph{integer} command line flag to any Scheme program to set
-the maximum heap size in megabytes.  If it is not supplied, and the
-\texttt{SCMAXHEAP} environment variable was not set, then the maximum heap
-size is five times the initial heap size. This flag will override
-\texttt{SCMAXHEAP}.
+\texttt{-scmh} \emph{integer} command line flag to any Scheme program
+to set the maximum heap size in megabytes.  If it is not supplied, and
+the \texttt{SCMAXHEAP} environment variable was not set, then the
+maximum heap size is five times the initial heap size. This flag will
+override \texttt{SCMAXHEAP}.
 
-\texttt{.}\ denotes a dotted-pair: (\emph{obj} \texttt{.}\ \emph{obj}).  Revised$^4$ 15.
+\texttt{.}\ denotes a dotted-pair: (\emph{obj}
+\texttt{.}\ \emph{obj}).  \RRRRRS~15.
 
-\texttt{.sc} file name extension for \texttt{Scheme->C} source files.
+\texttt{.sc} file name extension for \StoC\ source files.
 
-(\texttt{/} \emph{number} ...)\ with two or more arguments, this returns the
-quotient of its arguments, associating to the left.  With one
-argument it returns the multiplicative inverse of the argument.
-Revised$^4$ 21.
+(\texttt{/} \emph{number} ...)\ with two or more arguments, this
+returns the quotient of its arguments, associating to the left.  With
+one argument it returns the multiplicative inverse of the argument.
+\RRRRRS~21.
 
-\texttt{;} indicates the start of a comment.  The comment continues until
-the end of the line.  Revised$^4$ 5.
+\texttt{;} indicates the start of a comment.  The comment continues
+until the end of the line.  \RRRRRS~5.
 
-(\texttt{<} \emph{number} \emph{number} \emph{number} ...)\ \emph{predicate} that returns
-\texttt{\#t} when the arguments are monotonically increasing.
-Revised$^4$ 21.
+(\texttt{<} \emph{number} \emph{number} \emph{number}
+...)\ \emph{predicate} that returns \texttt{\#t} when the arguments
+are monotonically increasing.  \RRRRRS~21.
 
-(\texttt{<=} \emph{number} \emph{number} \emph{number} ...)\ \emph{predicate} that returns
-\texttt{\#t} when the arguments are monotonically nondecreasing.  Revised$^4$ 21.
+(\texttt{<=} \emph{number} \emph{number} \emph{number}
+...)\ \emph{predicate} that returns \texttt{\#t} when the arguments
+are monotonically nondecreasing.  \RRRRRS~21.
 
-(\texttt{=} \emph{number} \emph{number} \emph{number} ...)\ \emph{predicate} that returns
-\texttt{\#t} when the arguments are equal.
-Revised$^4$ 21.
+(\texttt{=} \emph{number} \emph{number} \emph{number}
+...)\ \emph{predicate} that returns \texttt{\#t} when the arguments
+are equal.  \RRRRRS~21.
 
-\texttt{=>} used in a \texttt{cond} conditional clause.  Revised$^4$ 9.
+\texttt{=>} used in a \texttt{cond} conditional clause.  \RRRRRS~9.
 
-(\texttt{>} \emph{number} \emph{number} \emph{number} ...)\ \emph{predicate} that returns
-\texttt{\#t} when the arguments are monotonically decreasing.  Revised$^4$ 21.
+(\texttt{>} \emph{number} \emph{number} \emph{number}
+...)\ \emph{predicate} that returns \texttt{\#t} when the arguments
+are monotonically decreasing.  \RRRRRS~21.
 
-(\texttt{>=} \emph{number} \emph{number} \emph{number} ...)\ \emph{predicate} that returns
-\texttt{\#t} when the arguments are monotonically nonincreasing. Revised$^4$ 21.
+(\texttt{>=} \emph{number} \emph{number} \emph{number}
+...)\ \emph{predicate} that returns \texttt{\#t} when the arguments
+are monotonically nonincreasing. \RRRRRS~21.
 
-\texttt{\textbackslash} tells \texttt{read} to treat the character that follows it as a
-letter when reading a symbol.  If the character is a lower-case
-alphabetic character, it will not be upshifted.  Revised$^4$ 18.
+\texttt{\textbackslash} tells \texttt{read} to treat the character
+that follows it as a letter when reading a symbol.  If the character
+is a lower-case alphabetic character, it will not be upshifted.
+\RRRRRS~18.
 
-\texttt{\textbackslash"} represents a \texttt{"} inside a string constant.  Revised$^4$ 25.
+\texttt{\textbackslash"} represents a \texttt{"} inside a string
+constant.  \RRRRRS~25.
 
-\texttt{\textbackslash\textbackslash} represents a \texttt{\textbackslash} inside a string constant.  Revised$^4$ 25.
+\texttt{\textbackslash\textbackslash} represents a
+\texttt{\textbackslash} inside a string constant.  \RRRRRS~25.
 
-(\texttt{abs} \emph{number}) returns the magnitude of its argument.  Revised$^4$ 21.
+(\texttt{abs} \emph{number}) returns the magnitude of its argument.
+\RRRRRS~21.
 
 (\texttt{acos} \emph{number}) returns the arccosine of its argument.
-Revised$^4$ 23.
+\RRRRRS~23.
 
 \texttt{after-collect} is a variable in the top level environment.
 Following each garbage collection, if its value is not \texttt{\#f},
 then it is assumed to be a procedure and is called with three
-arguments:  the heap size in bytes, the currently allocated
-storage in bytes, and the allocation percentage that will
-cause a full garbage collection.  The value returned by the
-procedure is ignored.
+arguments: the heap size in bytes, the currently allocated storage in
+bytes, and the allocation percentage that will cause a full garbage
+collection.  The value returned by the procedure is ignored.
 
-\emph{alist} a list of \emph{pairs}.  Revised$^4$ 17.
+\emph{alist} a list of \emph{pairs}.  \RRRRRS~17.
 
-(\texttt{and} \emph{expression} ...)\ \emph{syntax} for a conditional expression.
-Revised$^4$ 9.
+(\texttt{and} \emph{expression} ...)\ \emph{syntax} for a conditional
+expression.  \RRRRRS~9.
 
 (\texttt{append} \emph{list} ...)\ returns a list consisting of the
-elements of the first \emph{list} followed by the elements of the other
-\emph{lists}.  Revised$^4$ 17.
+elements of the first \emph{list} followed by the elements of the
+other \emph{lists}.  \RRRRRS~17.
 
-(\texttt{apply} \emph{procedure} \emph{arg-list}) calls the \emph{procedure} with the
-elements of \emph{arg-list} as the actual arguments.  Revised$^4$ 27.
+(\texttt{apply} \emph{procedure} \emph{arg-list}) calls the
+\emph{procedure} with the elements of \emph{arg-list} as the actual
+arguments.  \RRRRRS~27.
 
-(\texttt{apply} \emph{procedure} \emph{obj} ...\ \emph{arg-list}) calls the
-\emph{procedure} with the list (\texttt{append} (\texttt{list} \emph{obj} ...)\
-\emph{arg-list}) as the actual arguments.  Revised$^4$ 27.
+(\texttt{apply} \emph{procedure} \emph{obj} ...\ \emph{arg-list})
+calls the \emph{procedure} with the list (\texttt{append}
+(\texttt{list} \emph{obj} ...)\ \emph{arg-list}) as the actual
+arguments.  \RRRRRS~27.
 
 (\texttt{asin} \emph{number}) returns the arcsine of its argument.
-Revised$^4$ 23.
+\RRRRRS~23.
 
-(\texttt{assoc} \emph{obj} \emph{alist}) finds the first \emph{pair} in \emph{alist} whose
-\texttt{car} field is \texttt{equal?}\ to \emph{obj}.  If no such \emph{pair} exists, then
-\texttt{\#f} is returned.  Revised$^4$ 17.
+(\texttt{assoc} \emph{obj} \emph{alist}) finds the first \emph{pair}
+in \emph{alist} whose \texttt{car} field is \texttt{equal?}\ to
+\emph{obj}.  If no such \emph{pair} exists, then \texttt{\#f} is
+returned.  \RRRRRS~17.
 
-(\texttt{assq} \emph{obj} \emph{alist}) finds the first \emph{pair} in \emph{alist} whose
-\texttt{car} field is \texttt{eq?}\ to \emph{obj}.  If no such \emph{pair} exists, then
-\texttt{\#f} is returned.  Revised$^4$ 17.
+(\texttt{assq} \emph{obj} \emph{alist}) finds the first \emph{pair} in
+\emph{alist} whose \texttt{car} field is \texttt{eq?}\ to \emph{obj}.
+If no such \emph{pair} exists, then \texttt{\#f} is returned.
+\RRRRRS~17.
 
-(\texttt{assv} \emph{obj} \emph{alist}) finds the first \emph{pair} in \emph{alist} whose
-\texttt{car} field is \texttt{eqv?}\ to \emph{obj}.  If no such \emph{pair} exists, then
-\texttt{\#f} is returned.  Revised$^4$ 17.
+(\texttt{assv} \emph{obj} \emph{alist}) finds the first \emph{pair} in
+\emph{alist} whose \texttt{car} field is \texttt{eqv?}\ to \emph{obj}.
+If no such \emph{pair} exists, then \texttt{\#f} is returned.
+\RRRRRS~17.
 
 (\texttt{atan} \emph{number}) returns the arctangent of its argument.
-Revised$^4$ 23.
+\RRRRRS~23.
 
-(\texttt{atan} \emph{number} \emph{number}) returns the arctangent of its arguments.
-Revised$^4$ 23.
+(\texttt{atan} \emph{number} \emph{number}) returns the arctangent of
+its arguments.  \RRRRRS~23.
 
-(\texttt{backtrace}) displays the call stack where a breakpoint occurred.
+(\texttt{backtrace}) displays the call stack where a breakpoint
+occurred.
 
 \emph{back-quote-template} list or vector structure that may contain
-\texttt{,}\emph{expression} and \texttt{,@}\emph{expression} forms.  Revised$^4$ 11.
+\texttt{,}\emph{expression} and \texttt{,@}\emph{expression} forms.
+\RRRRRS~11.
 
-(\texttt{begin} \emph{expression} ...)\ \emph{syntax} where \emph{expression}'s are
-evaluated left to right and the value of the last \emph{expression} is
-returned. Revised$^4$ 10.
+(\texttt{begin} \emph{expression} ...)\ \emph{syntax} where
+\emph{expression}'s are evaluated left to right and the value of the
+last \emph{expression} is returned. \RRRRRS~10.
 
-\emph{bindings} a \emph{list} whose elements are of the form: (\emph{symbol}
-\emph{expression}), where the \emph{expression} is the initial value to
-place in the location bound to the \emph{symbol}. Revised$^4$ 10.
+\emph{bindings} a \emph{list} whose elements are of the form:
+(\emph{symbol} \emph{expression}), where the \emph{expression} is the
+initial value to place in the location bound to the
+\emph{symbol}. \RRRRRS~10.
 
-(\texttt{bit-and} \emph{number} ...)\ returns an unsigned
-number representing the bitwise and of its 32-bit arguments.
+(\texttt{bit-and} \emph{number} ...)\ returns an unsigned number
+representing the bitwise and of its 32-bit arguments.
 
 (\texttt{bit-lsh} \emph{number} \emph{integer}) returns an unsigned
 number representing the 32-bit value \emph{number} shifted left
@@ -581,111 +619,122 @@ number representing the 32-bit value \emph{number} shifted left
 (\texttt{bit-not} \emph{number} ...)\ returns an unsigned number
 representing the bitwise not of its 32-bit argument.
 
-(\texttt{bit-or} \emph{number} ...)\ returns an unsigned number representing
-the bitwise inclusive or of its 32-bit arguments.
+(\texttt{bit-or} \emph{number} ...)\ returns an unsigned number
+representing the bitwise inclusive or of its 32-bit arguments.
 
 (\texttt{bit-rsh} \emph{number} \emph{integer}) returns an unsigned
 number representing the 32-bit value \emph{number} shifted right
 \emph{integer} bits.
 
-(\texttt{bit-xor} \emph{number} ...)\ returns an unsigned number representing
-the bitwise exclusive or of its 32-bit arguments.
+(\texttt{bit-xor} \emph{number} ...)\ returns an unsigned number
+representing the bitwise exclusive or of its 32-bit arguments.
 
 \emph{body} one or more \emph{expressions} that are be executed in
-sequence. Revised$^4$ 10.
+sequence. \RRRRRS~10.
 
 (\texttt{boolean?}\ \emph{expression}) \emph{predicate} that returns
-\texttt{\#t} if \emph{expression} is \texttt{\#t} or \texttt{\#f}.  Revised$^4$ 13.
+\texttt{\#t} if \emph{expression} is \texttt{\#t} or \texttt{\#f}.
+\RRRRRS~13.
 
-(\texttt{bpt}) \emph{syntax} to return a list of the procedures that have
-been breakpointed.
+(\texttt{bpt}) \emph{syntax} to return a list of the procedures that
+have been breakpointed.
 
 (\texttt{bpt} \emph{symbol}) \emph{syntax} to set a breakpoint on the
-\emph{procedure} that is the value of \emph{symbol}.  Each entry and exit
-of the \emph{procedure} will provide the user with an opportunity to
-examine and alter the current state of the computation.  For
-interactive \texttt{Scheme->C} systems, the computation is continued by
-entering control-D.  The computation may be terminated and a return
-made to the top level of the interpreter by entering \texttt{(top-level)}.
-In embedded \texttt{Scheme->C} systems, \texttt{(proceed)} is used to continue
-the computation, and the computation is abandoned by evaluating
-\texttt{(reset-error)}.See \texttt{*args*}, \texttt{*result*}, \texttt{top-level},
-\texttt{unbpt}.
+\emph{procedure} that is the value of \emph{symbol}.  Each entry and
+exit of the \emph{procedure} will provide the user with an opportunity
+to examine and alter the current state of the computation.  For
+interactive \StoC\ systems, the computation is continued by entering
+control-D.  The computation may be terminated and a return made to the
+top level of the interpreter by entering \texttt{(top-level)}.  In
+embedded \StoC\ systems, \texttt{(proceed)} is used to continue the
+computation, and the computation is abandoned by evaluating
+\texttt{(reset-error)}.See \texttt{*args*}, \texttt{*result*},
+\texttt{top-level}, \texttt{unbpt}.
 
-(\texttt{bpt} \emph{symbol} \emph{procedure}) \emph{syntax} to set a conditional
-breakpoint on the \emph{procedure} that is the value of \emph{symbol}.  A
-breakpoint occurs when (\texttt{apply} \emph{procedure} \emph{arguments})
-returns a true value.
+(\texttt{bpt} \emph{symbol} \emph{procedure}) \emph{syntax} to set a
+conditional breakpoint on the \emph{procedure} that is the value of
+\emph{symbol}.  A breakpoint occurs when (\texttt{apply}
+\emph{procedure} \emph{arguments}) returns a true value.
 
-(\texttt{c-byte-ref} \emph{c-pointer} \emph{integer}) returns the byte at the
-\emph{integer} byte of \emph{c-pointer} as a \emph{number}.
+(\texttt{c-byte-ref} \emph{c-pointer} \emph{integer}) returns the byte
+at the \emph{integer} byte of \emph{c-pointer} as a \emph{number}.
 
-(\texttt{c-byte-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the byte
-at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and returns
-\emph{number} as its value.
+(\texttt{c-byte-set!}\ \emph{c-pointer} \emph{integer} \emph{number})
+sets the byte at the \emph{integer} byte of \emph{c-pointer} to
+\emph{number} and returns \emph{number} as its value.
 
-(\texttt{c-double-ref} \emph{c-pointer} \emph{integer}) returns the double at
-the \emph{integer} byte of \emph{c-pointer} as a \emph{number}.
-
-(\texttt{c-double-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-double at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
-
-(\texttt{c-float-ref} \emph{c-pointer} \emph{integer}) returns the float at
-the \emph{integer} byte of \emph{c-pointer} as a \emph{number}.
-
-(\texttt{c-float-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-float at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
-
-(\texttt{c-int-ref} \emph{c-pointer} \emph{integer}) returns the int at the
-\emph{integer} byte of \emph{c-pointer} as a \emph{number}.
-
-(\texttt{c-int-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-int at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
-
-(\texttt{c-longint-ref} \emph{c-pointer} \emph{integer}) returns the long int at the
-\emph{integer} byte of \emph{c-pointer} as a \emph{number}.
-
-(\texttt{c-longint-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-long int at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
-
-(\texttt{c-longunsigned-ref} \emph{c-pointer} \emph{integer}) returns the
-unsigned long at the \emph{integer} byte of \emph{c-pointer} as a
+(\texttt{c-double-ref} \emph{c-pointer} \emph{integer}) returns the
+double at the \emph{integer} byte of \emph{c-pointer} as a
 \emph{number}.
 
-(\texttt{c-longunsigned-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-unsigned long at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
+(\texttt{c-double-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the double at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
+
+(\texttt{c-float-ref} \emph{c-pointer} \emph{integer}) returns the
+float at the \emph{integer} byte of \emph{c-pointer} as a
+\emph{number}.
+
+(\texttt{c-float-set!}\ \emph{c-pointer} \emph{integer} \emph{number})
+sets the float at the \emph{integer} byte of \emph{c-pointer} to
+\emph{number} and returns \emph{number} as its value.
+
+(\texttt{c-int-ref} \emph{c-pointer} \emph{integer}) returns the int
+at the \emph{integer} byte of \emph{c-pointer} as a \emph{number}.
+
+(\texttt{c-int-set!}\ \emph{c-pointer} \emph{integer} \emph{number})
+sets the int at the \emph{integer} byte of \emph{c-pointer} to
+\emph{number} and returns \emph{number} as its value.
+
+(\texttt{c-longint-ref} \emph{c-pointer} \emph{integer}) returns the
+long int at the \emph{integer} byte of \emph{c-pointer} as a
+\emph{number}.
+
+(\texttt{c-longint-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the long int at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
+
+(\texttt{c-longunsigned-ref} \emph{c-pointer} \emph{integer}) returns
+the unsigned long at the \emph{integer} byte of \emph{c-pointer} as a
+\emph{number}.
+
+(\texttt{c-longunsigned-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the unsigned long at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
 
 \emph{c-pointer} a \emph{number} that is the address of a structure
-outside the Scheme heap, or a \emph{string} that is a C-structure within
-the Scheme heap.
+outside the Scheme heap, or a \emph{string} that is a C-structure
+within the Scheme heap.
 
 (\texttt{c-s2cuint-ref} \emph{c-pointer} \emph{integer}) returns the
 S2CUINT at the \emph{integer} byte of \emph{c-pointer} as a
 \emph{number}.
 
-(\texttt{c-s2cuint-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-S2CUINT at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
+(\texttt{c-s2cuint-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the S2CUINT at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
 
-(\texttt{c-shortint-ref} \emph{c-pointer} \emph{integer}) returns the short int
-at the \emph{integer} byte of \emph{c-pointer} as a \emph{number}.
-
-(\texttt{c-shortint-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-short int at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
-
-(\texttt{c-shortunsigned-ref} \emph{c-pointer} \emph{integer}) returns the
-unsigned short at the \emph{integer} byte of \emph{c-pointer} as a
+(\texttt{c-shortint-ref} \emph{c-pointer} \emph{integer}) returns the
+short int at the \emph{integer} byte of \emph{c-pointer} as a
 \emph{number}.
 
-(\texttt{c-shortunsigned-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets
-the unsigned short at the \emph{integer} byte of \emph{c-pointer} to
-\emph{number} and returns \emph{number} as its value.
+(\texttt{c-shortint-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the short int at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
+
+(\texttt{c-shortunsigned-ref} \emph{c-pointer} \emph{integer}) returns
+the unsigned short at the \emph{integer} byte of \emph{c-pointer} as a
+\emph{number}.
+
+(\texttt{c-shortunsigned-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the unsigned short at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
 
 \texttt{c-sizeof-double} size (in bytes) of the C type double.
 
@@ -695,911 +744,979 @@ the unsigned short at the \emph{integer} byte of \emph{c-pointer} to
 
 \texttt{c-sizeof-long} size (in bytes) of the C type long.
 
-\texttt{c-sizeof-s2cuint} size (in bytes) of the C type S2CUINT
-that is defined by \texttt{Scheme->C} to be an unsigned integer the
-same size as a pointer.
+\texttt{c-sizeof-s2cuint} size (in bytes) of the C type S2CUINT that
+is defined by \StoC\ to be an unsigned integer the same size as a
+pointer.
 
 \texttt{c-sizeof-short} size (in bytes) of the C type short.
 
 \texttt{c-sizeof-tscp} size (in bytes) of the C type TSCP that is
-defined by \texttt{Scheme->C} to represent tagged Scheme pointers.
+defined by \StoC\ to represent tagged Scheme pointers.
 
-(\texttt{c-string->string} \emph{c-pointer}) returns a Scheme \emph{string} that
-is a copy of the null-terminated string \emph{c-pointer}.
+(\texttt{c-string->string} \emph{c-pointer}) returns a Scheme
+\emph{string} that is a copy of the null-terminated string
+\emph{c-pointer}.
 
-(\texttt{c-tscp-ref} \emph{c-pointer} \emph{integer}) returns the
-TSCP at the \emph{integer} byte of \emph{c-pointer}.
+(\texttt{c-tscp-ref} \emph{c-pointer} \emph{integer}) returns the TSCP
+at the \emph{integer} byte of \emph{c-pointer}.
 
-(\texttt{c-tscp-set!}\ \emph{c-pointer} \emph{integer} \emph{expression}) sets the
-TSCP at the \emph{integer} byte of \emph{c-pointer}
-to \emph{expression} and returns \emph{expression} as its value.
+(\texttt{c-tscp-set!}\ \emph{c-pointer} \emph{integer}
+\emph{expression}) sets the TSCP at the \emph{integer} byte of
+\emph{c-pointer} to \emph{expression} and returns \emph{expression} as
+its value.
 
-(\texttt{c-unsigned-ref} \emph{c-pointer} \emph{integer}) returns the unsigned
-at the \emph{integer} byte of \emph{c-pointer} as a \emph{number}.
+(\texttt{c-unsigned-ref} \emph{c-pointer} \emph{integer}) returns the
+unsigned at the \emph{integer} byte of \emph{c-pointer} as a
+\emph{number}.
 
-(\texttt{c-unsigned-set!}\ \emph{c-pointer} \emph{integer} \emph{number}) sets the
-unsigned at the \emph{integer} byte of \emph{c-pointer} to \emph{number} and
-returns \emph{number} as its value.
+(\texttt{c-unsigned-set!}\ \emph{c-pointer} \emph{integer}
+\emph{number}) sets the unsigned at the \emph{integer} byte of
+\emph{c-pointer} to \emph{number} and returns \emph{number} as its
+value.
 
 \emph{c-type} \emph{syntax} for declaring the type of a non-Scheme
 procedure, procedure argument, or global.  The allowed types are:
-\texttt{pointer}, \texttt{array}, \texttt{char}, \texttt{int}, \texttt{shortint}, \texttt{longint},
-\texttt{unsigned}, \texttt{shortunsigned}, \texttt{longunsigned}, \texttt{float},
+\texttt{pointer}, \texttt{array}, \texttt{char}, \texttt{int},
+\texttt{shortint}, \texttt{longint}, \texttt{unsigned},
+\texttt{shortunsigned}, \texttt{longunsigned}, \texttt{float},
 \texttt{double}, \texttt{tscp}, or \texttt{void}.
 
-(\texttt{car} \emph{pair}) returns the contents of the \texttt{car} field of the
-\emph{pair}.  Revised$^4$ 16.
+(\texttt{car} \emph{pair}) returns the contents of the \texttt{car}
+field of the \emph{pair}.  \RRRRRS~16.
 
-(\texttt{caar} \emph{pair}) returns (\texttt{car} (\texttt{car} \emph{pair})).
-Revised$^4$ 16.
+(\texttt{caar} \emph{pair}) returns (\texttt{car} (\texttt{car}
+\emph{pair})).  \RRRRRS~16.
 
-(\texttt{ca...r} \emph{pair}) compositions of \texttt{car} and \texttt{cdr}.
-Revised$^4$ 16.
+(\texttt{ca...r} \emph{pair}) compositions of \texttt{car} and
+\texttt{cdr}.  \RRRRRS~16.
 
-(\texttt{call-with-current-continuation} \emph{procedure}) calls \emph{procedure}
-with the current continuation as its argument.  Revised$^4$ 28.
+(\texttt{call-with-current-continuation} \emph{procedure}) calls
+\emph{procedure} with the current continuation as its argument.
+\RRRRRS~28.
 
-(\texttt{call-with-input-file} \emph{string} \emph{procedure}) calls \emph{procedure}
-with the \emph{port} that is the result of opening the file \emph{string}
-for input.  Revised$^4$ 29.
+(\texttt{call-with-input-file} \emph{string} \emph{procedure}) calls
+\emph{procedure} with the \emph{port} that is the result of opening
+the file \emph{string} for input.  \RRRRRS~29.
 
-(\texttt{call-with-output-file} \emph{string} \emph{procedure}) calls \emph{procedure}
-with the \emph{port} that is the result of opening the file \emph{string}
-for output.  Revised$^4$ 29.
+(\texttt{call-with-output-file} \emph{string} \emph{procedure}) calls
+\emph{procedure} with the \emph{port} that is the result of opening
+the file \emph{string} for output.  \RRRRRS~29.
 
-(\texttt{case} \emph{key} \emph{clause} \emph{clause} ...)\ \emph{syntax} for a
-conditional expression where \emph{key} is any expression, and each
-\emph{clause} is of the form ((\emph{datum} ...)\ \emph{expression}
-\emph{expression} ...).  The last clause may be an ``else clause'' of the
-form (\texttt{else}  \emph{expression} \emph{expression} ...).  Revised$^4$ 9.
+(\texttt{case} \emph{key} \emph{clause} \emph{clause}
+...)\ \emph{syntax} for a conditional expression where \emph{key} is
+any expression, and each \emph{clause} is of the form ((\emph{datum}
+...)\ \emph{expression} \emph{expression} ...).  The last clause may
+be an ``else clause'' of the form (\texttt{else} \emph{expression}
+\emph{expression} ...).  \RRRRRS~9.
 
 (\texttt{catch-error} \emph{procedure}) calls \emph{procedure} with no
-arguments.  If an error occurs while executing \emph{procedure}, return
-a string containing the error message.  Otherwise return a \emph{pair} whose
-\texttt{car} contains the procedure's value.
+arguments.  If an error occurs while executing \emph{procedure},
+return a string containing the error message.  Otherwise return a
+\emph{pair} whose \texttt{car} contains the procedure's value.
 
-(\texttt{cdr} \emph{pair}) returns the contents of the \texttt{cdr} field of the
-\emph{pair}.  Revised$^4$ 16.
+(\texttt{cdr} \emph{pair}) returns the contents of the \texttt{cdr}
+field of the \emph{pair}.  \RRRRRS~16.
 
-(\texttt{cd...r} \emph{pair}) compositions of \texttt{car} and \texttt{cdr}.
-Revised$^4$ 16.
+(\texttt{cd...r} \emph{pair}) compositions of \texttt{car} and
+\texttt{cdr}.  \RRRRRS~16.
 
-(\texttt{cddddr} \emph{pair}) returns (\texttt{cdr} (\texttt{cdr} (\texttt{cdr} (\texttt{cdr} \emph{pair})))).
-Revised$^4$ 16.
+(\texttt{cddddr} \emph{pair}) returns (\texttt{cdr} (\texttt{cdr}
+(\texttt{cdr} (\texttt{cdr} \emph{pair})))).  \RRRRRS~16.
 
-(\texttt{ceiling} \emph{number}) returns the smallest integer that is not
-smaller than its arguments.  Revised$^4$ 22.
+(\texttt{ceiling} \emph{number}) returns the smallest integer that is
+not smaller than its arguments.  \RRRRRS~22.
 
-\texttt{char} \emph{syntax} for declaring a non-Scheme procedure, procedure
-argument, or global variable as the C type \texttt{char}.  When a \texttt{char}
-value must be supplied, an expression of type \emph{character} must be
-supplied.  When a \texttt{char} value is returned, a value of type
-\emph{character} will be returned.
+\texttt{char} \emph{syntax} for declaring a non-Scheme procedure,
+procedure argument, or global variable as the C type \texttt{char}.
+When a \texttt{char} value must be supplied, an expression of type
+\emph{character} must be supplied.  When a \texttt{char} value is
+returned, a value of type \emph{character} will be returned.
 
-(\texttt{char->integer} \emph{character}) returns an \emph{integer} whose value
-is the ASCII character code of \emph{character}.  Revised$^4$ 25.
+(\texttt{char->integer} \emph{character}) returns an \emph{integer}
+whose value is the ASCII character code of \emph{character}.
+\RRRRRS~25.
 
 (\texttt{char-alphabetic?}\ \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when \emph{character} is alphabetic.  Revised$^4$ 25.
+returns \texttt{\#t} when \emph{character} is alphabetic.  \RRRRRS~25.
 
-(\texttt{char-ci<=?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is less than or equal to
-the second \emph{character}.  Upper case and lower case letters are
-treated as though they were the same character.  Revised$^4$ 25.
+(\texttt{char-ci<=?}\ \emph{character} \emph{character})
+\emph{predicate} that returns \texttt{\#t} when the first
+\emph{character} is less than or equal to the second \emph{character}.
+Upper case and lower case letters are treated as though they were the
+same character.  \RRRRRS~25.
 
-(\texttt{char-ci<?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is less than the second
-\emph{character}.  Upper case and lower case letters are treated
-as though they were the same character. Revised$^4$ 25.
+(\texttt{char-ci<?}\ \emph{character} \emph{character})
+\emph{predicate} that returns \texttt{\#t} when the first
+\emph{character} is less than the second \emph{character}.  Upper case
+and lower case letters are treated as though they were the same
+character. \RRRRRS~25.
 
-(\texttt{char-ci=?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is equal to the
-second \emph{character}. Upper case and lower case letters are
-treated as though they were the same character.  Revised$^4$ 25.
+(\texttt{char-ci=?}\ \emph{character} \emph{character})
+\emph{predicate} that returns \texttt{\#t} when the first
+\emph{character} is equal to the second \emph{character}. Upper case
+and lower case letters are treated as though they were the same
+character.  \RRRRRS~25.
 
-(\texttt{char-ci>=?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is greater than or equal
-to the second \emph{character}. Upper case and lower case letters are
-treated as though they were the same character. Revised$^4$ 25.
+(\texttt{char-ci>=?}\ \emph{character} \emph{character})
+\emph{predicate} that returns \texttt{\#t} when the first
+\emph{character} is greater than or equal to the second
+\emph{character}. Upper case and lower case letters are treated as
+though they were the same character. \RRRRRS~25.
 
-(\texttt{char-ci>?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is greater than the
-second \emph{character}. Upper case and lower case letters are treated
-as though they were the same character. Revised$^4$ 25.
+(\texttt{char-ci>?}\ \emph{character} \emph{character})
+\emph{predicate} that returns \texttt{\#t} when the first
+\emph{character} is greater than the second \emph{character}. Upper
+case and lower case letters are treated as though they were the same
+character. \RRRRRS~25.
 
-(\texttt{char-downcase} \emph{character}) returns the lower case value of
-\emph{character}.  Revised$^4$ 25.
+(\texttt{char-downcase} \emph{character}) returns the lower case value
+of \emph{character}.  \RRRRRS~25.
 
-(\texttt{char-lower-case?}\ \emph{letter}) \emph{predicate} that returns
-\texttt{\#t} when \emph{letter} is lower-case.  Revised$^4$ 25.
+(\texttt{char-lower-case?}\ \emph{letter}) \emph{predicate} that
+returns \texttt{\#t} when \emph{letter} is lower-case.  \RRRRRS~25.
 
-(\texttt{char-numeric?}\ \emph{character}) \emph{predicate} that returns
-\texttt{\#t} when \emph{character} is numeric.  Revised$^4$ 25.
+(\texttt{char-numeric?}\ \emph{character}) \emph{predicate} that
+returns \texttt{\#t} when \emph{character} is numeric.  \RRRRRS~25.
 
-(\texttt{char-ready?}\ \emph{optional-input-port}) \emph{predicate} that returns
-\texttt{\#t} when a character is ready on the \emph{optional-input-port}.
-Revised$^4$ 30.
+(\texttt{char-ready?}\ \emph{optional-input-port}) \emph{predicate}
+that returns \texttt{\#t} when a character is ready on the
+\emph{optional-input-port}.  \RRRRRS~30.
 
-(\texttt{char-upcase} \emph{character}) returns the upper case value of the
-\emph{character}.  Revised$^4$ 25.
+(\texttt{char-upcase} \emph{character}) returns the upper case value
+of the \emph{character}.  \RRRRRS~25.
 
-(\texttt{char-upper-case?}\ \emph{letter}) \emph{predicate} that returns
-\texttt{\#t} when \emph{letter} is upper-case.  Revised$^4$ 25.
+(\texttt{char-upper-case?}\ \emph{letter}) \emph{predicate} that
+returns \texttt{\#t} when \emph{letter} is upper-case.  \RRRRRS~25.
 
 (\texttt{char-whitespace?}\ \emph{character}) \emph{predicate} that
 returns \texttt{\#t} when \emph{character} is a whitespace character.
-Revised$^4$ 25.
+\RRRRRS~25.
 
-(\texttt{char<=?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is less than or equal to
-the second \emph{character}.  Revised$^4$ 24.
+(\texttt{char<=?}\ \emph{character} \emph{character}) \emph{predicate}
+that returns \texttt{\#t} when the first \emph{character} is less than
+or equal to the second \emph{character}.  \RRRRRS~24.
 
-(\texttt{char<?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is less than the second
-\emph{character}.  Revised$^4$ 24.
+(\texttt{char<?}\ \emph{character} \emph{character}) \emph{predicate}
+that returns \texttt{\#t} when the first \emph{character} is less than
+the second \emph{character}.  \RRRRRS~24.
 
-(\texttt{char=?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is equal to the second
-\emph{character}.  Revised$^4$ 24.
+(\texttt{char=?}\ \emph{character} \emph{character}) \emph{predicate}
+that returns \texttt{\#t} when the first \emph{character} is equal to
+the second \emph{character}.  \RRRRRS~24.
 
-(\texttt{char>=?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is greater than or equal
-to the second \emph{character}.  Revised$^4$ 24.
+(\texttt{char>=?}\ \emph{character} \emph{character}) \emph{predicate}
+that returns \texttt{\#t} when the first \emph{character} is greater
+than or equal to the second \emph{character}.  \RRRRRS~24.
 
-(\texttt{char>?}\ \emph{character} \emph{character}) \emph{predicate} that
-returns \texttt{\#t} when the first \emph{character} is greater than the
-second \emph{character}.  Revised$^4$ 24.
+(\texttt{char>?}\ \emph{character} \emph{character}) \emph{predicate}
+that returns \texttt{\#t} when the first \emph{character} is greater
+than the second \emph{character}.  \RRRRRS~24.
 
-(\texttt{char?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t}
-when \emph{expression} is a \emph{character}.  Revised$^4$ 24.
+(\texttt{char?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{character}.
+\RRRRRS~24.
 
-\emph{character} Scheme object that represents printed characters.  See
-\texttt{\#\textbackslash}\emph{character}, \texttt{\#\textbackslash}\emph{character-name}, Revised$^4$ 24.
+\emph{character} Scheme object that represents printed characters.
+See \texttt{\#\textbackslash}\emph{character},
+\texttt{\#\textbackslash}\emph{character-name}, \RRRRRS~24.
 
-(\texttt{close-input-port} \emph{input-port}) closes the file associated with
-\emph{input-port}. Revised$^4$ 30.
+(\texttt{close-input-port} \emph{input-port}) closes the file
+associated with \emph{input-port}. \RRRRRS~30.
 
-(\texttt{close-output-port} \emph{output-port}) closes the file associated
-with \emph{output-port}.  Revised$^4$ 30.
+(\texttt{close-output-port} \emph{output-port}) closes the file
+associated with \emph{output-port}.  \RRRRRS~30.
 
-(\texttt{close-port} \emph{port}) closes the file associated with \emph{port}.
+(\texttt{close-port} \emph{port}) closes the file associated with
+\emph{port}.
 
-(\texttt{collect}) invokes the garbage collector to perform a generational
+(\texttt{collect}) invokes the garbage collector to perform a
+generational collection.  Normally, garbage collection is invoked
+automatically by the Scheme system.
+
+(\texttt{collect-all}) invokes the garbage collector to perform a full
 collection.  Normally, garbage collection is invoked automatically by
 the Scheme system.
 
-(\texttt{collect-all}) invokes the garbage collector to perform a
-full collection.  Normally, garbage collection is invoked
-automatically by the Scheme system.
-
-(\texttt{collect-info}) returns a \emph{list} containing information about
-heap and prcessor usage.  The items in the list (and their position)
-are: number of bytes currently allocated (0), current heap size in
-bytes (1), application processor seconds (2), garbage collection
-processor seconds (3), maximum heap size in bytes (4), full
+(\texttt{collect-info}) returns a \emph{list} containing information
+about heap and prcessor usage.  The items in the list (and their
+position) are: number of bytes currently allocated (0), current heap
+size in bytes (1), application processor seconds (2), garbage
+collection processor seconds (3), maximum heap size in bytes (4), full
 collection limit percent (5).
 
-\emph{complex number} complex numbers are not supported in \texttt{Scheme->C}.
-Revised$^4$ 18.
+\emph{complex number} complex numbers are not supported in \StoC.
+\RRRRRS~18.
 
-(\texttt{complex?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{complex number}.  All \texttt{Scheme->C} \emph{numbers}
-are complex. Revised$^4$ 20.
+(\texttt{complex?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{complex number}.  All
+\StoC\ \emph{numbers} are complex. \RRRRRS~20.
 
-(\texttt{cond} \emph{clause} \emph{clause} ...)\ \emph{syntax} for a conditional
-expression where each \emph{clause} is of the form (\emph{test}
-\emph{expression} ...)\ or (\emph{test} \texttt{=>} \emph{procedure}).  The last
-\emph{clause} may be of the form (\texttt{else} \emph{expression} \emph{expression}
- ...).  Revised$^4$ 9.
+(\texttt{cond} \emph{clause} \emph{clause} ...)\ \emph{syntax} for a
+conditional expression where each \emph{clause} is of the form
+(\emph{test} \emph{expression} ...)\ or (\emph{test} \texttt{=>}
+\emph{procedure}).  The last \emph{clause} may be of the form
+(\texttt{else} \emph{expression} \emph{expression} ...).  \RRRRRS~9.
 
-(\texttt{cons} \emph{expression}$_1$ \emph{expression}$_2$) returns a newly
-allocated \emph{pair} that has \emph{expression}$_1$ as its \texttt{car}, and
-\emph{expression}$_2$ as its \texttt{cdr}. Revised$^4$ 16.
+(\texttt{cons} \emph{expression}$_1$ \emph{expression}$_2$) returns a
+newly allocated \emph{pair} that has \emph{expression}$_1$ as its
+\texttt{car}, and \emph{expression}$_2$ as its
+\texttt{cdr}. \RRRRRS~16.
 
-(\texttt{cons*} \emph{expression} \emph{expression} ...)\ returns an object
-formed by consing the \emph{expressions} together from right to left. If
-only one \emph{expression} is supplied, then that \emph{expression} is
-returned.
+(\texttt{cons*} \emph{expression} \emph{expression} ...)\ returns an
+object formed by consing the \emph{expressions} together from right to
+left. If only one \emph{expression} is supplied, then that
+\emph{expression} is returned.
 
-(\texttt{cos} \emph{number}) returns the cosine of its argument.  Revised$^4$
-23.
+(\texttt{cos} \emph{number}) returns the cosine of its argument.
+\RRRRRS~23.
 
-(\texttt{current-input-port}) returns the current default input \emph{port}.
-Revised$^4$ 30.
+(\texttt{current-input-port}) returns the current default input
+\emph{port}.  \RRRRRS~30.
 
-(\texttt{current-output-port}) returns the current default output \emph{port}.
-Revised$^4$ 30.
+(\texttt{current-output-port}) returns the current default output
+\emph{port}.  \RRRRRS~30.
 
-\texttt{debug-output-port} \emph{port} used for interactive debugging output.
-The default value is the same as \texttt{stderr-port}.
+\texttt{debug-output-port} \emph{port} used for interactive debugging
+output.  The default value is the same as \texttt{stderr-port}.
 
 (\texttt{define} \emph{symbol} \emph{expression}) \emph{syntax} that
 defines the value of \emph{expression} as the value of either a
-top-level symbol or a local variable.  Revised$^4$ 12.
+top-level symbol or a local variable.  \RRRRRS~12.
 
-(\texttt{define} (\emph{symbol} \emph{formals}) \emph{body}) \emph{syntax}
-that defines a \emph{procedure} that is either the value of a
-top-level symbol or a local variable. Revised$^4$ 12.
+(\texttt{define} (\emph{symbol} \emph{formals}) \emph{body})
+\emph{syntax} that defines a \emph{procedure} that is either the value
+of a top-level symbol or a local variable. \RRRRRS~12.
 
-(\texttt{define} (\emph{symbol} \texttt{.}\ \emph{formal}) \emph{body}) \emph{syntax} that
-defines a \emph{procedure} that is either the value of a top-level symbol
-or a local variable. Revised$^4$ 12.
+(\texttt{define} (\emph{symbol} \texttt{.}\ \emph{formal})
+\emph{body}) \emph{syntax} that defines a \emph{procedure} that is
+either the value of a top-level symbol or a local
+variable. \RRRRRS~12.
 
-(\texttt{define-c-external} \emph{symbol} \emph{c-type} \emph{string}) \emph{syntax}
+(\texttt{define-c-external} \emph{symbol} \emph{c-type} \emph{string})
+\emph{syntax} for a compiler declaration that defines \emph{symbol} as
+a non-Scheme global variable with the name \emph{string} and the type
+\emph{c-type}.
+
+(\texttt{define-c-external} (\emph{symbol}
+\emph{c-type}$_1$...)\ \emph{c-type}$_2$ \emph{string}) \emph{syntax}
 for a compiler declaration that defines \emph{symbol} as a non-Scheme
-global variable with the name \emph{string} and the type \emph{c-type}.
-
-(\texttt{define-c-external} (\emph{symbol} \emph{c-type}$_1$...)\
-\emph{c-type}$_2$ \emph{string}) \emph{syntax} for a compiler declaration
-that defines \emph{symbol} as a non-Scheme procedure with arguments of
-the type specified in the list \emph{c-type}$_1$.  The procedure's name
-is \emph{string} and it returns a value of type \emph{c-type}$_2$.
+procedure with arguments of the type specified in the list
+\emph{c-type}$_1$.  The procedure's name is \emph{string} and it
+returns a value of type \emph{c-type}$_2$.
 
 (\texttt{define-c-external} (\emph{symbol} \emph{c-type}$_1$...\ .
-\emph{c-type}$_2$) \emph{c-type}$_3$ \emph{string}) \emph{syntax} for a
-compiler declaration that defines \emph{symbol} as a non-Scheme
-procedure that takes a variable number of arguments.  The types of
-the initial arguments are specified by the  list \emph{c-type}$_1$.
-Any additional arguments must be of the type \emph{c-type}$_2$.  The
+\emph{c-type}$_2$) \emph{c-type}$_3$ \emph{string}) \emph{syntax} for
+a compiler declaration that defines \emph{symbol} as a non-Scheme
+procedure that takes a variable number of arguments.  The types of the
+initial arguments are specified by the list \emph{c-type}$_1$.  Any
+additional arguments must be of the type \emph{c-type}$_2$.  The
 procedure's name is \emph{string} and it returns a value of type
 \emph{c-type}$_3$.
 
-(\texttt{define-constant} \emph{symbol} \emph{expression}) \emph{syntax} that
-defines a macro that replaces all occurences of \emph{symbol} with the
-value of \emph{expression}, evaluated at the time of the definition.
+(\texttt{define-constant} \emph{symbol} \emph{expression})
+\emph{syntax} that defines a macro that replaces all occurences of
+\emph{symbol} with the value of \emph{expression}, evaluated at the
+time of the definition.
 
-(\texttt{define-external} \emph{symbol}$_1$ \emph{symbol}$_2$) \emph{syntax} for
-a compiler declaration that \emph{symbol}$_1$ is defined in \emph{module}
-\emph{symbol}$_2$.
+(\texttt{define-external} \emph{symbol}$_1$ \emph{symbol}$_2$)
+\emph{syntax} for a compiler declaration that \emph{symbol}$_1$ is
+defined in \emph{module} \emph{symbol}$_2$.
 
-(\texttt{define-external} \emph{symbol} \texttt{TOP-LEVEL}) \emph{syntax} for a
-compiler declaration that \emph{symbol} is a top-level symbol.  Its
-value is to be found via the \texttt{*obarray*}.
+(\texttt{define-external} \emph{symbol} \texttt{TOP-LEVEL})
+\emph{syntax} for a compiler declaration that \emph{symbol} is a
+top-level symbol.  Its value is to be found via the
+\texttt{*obarray*}.
 
-(\texttt{define-external} \emph{symbol}$_1$ \texttt{TOP-LEVEL} \emph{symbol}$_2$)
-\emph{syntax} for a compiler declaration that \emph{symbol}$_1$ is a
-top-level symbol that is known to be defined in \emph{module}
-\emph{symbol}$_2$.  Its value is to be found via the \texttt{*obarray*}.
-
-(\texttt{define-external} \emph{symbol} \texttt{""} \emph{string}) \emph{syntax} for a
-compiler declaration that \emph{symbol} has the external name
-\emph{string}.
-
-(\texttt{define-external} \emph{symbol} \emph{string}$_1$ \emph{string}$_2$)
-\emph{syntax} for a compiler declaration that \emph{symbol} is in the
-\emph{module} \emph{string}$_1$ and has the external name
-\emph{string}$_1$\_\emph{string}$_2$.
-
-(\texttt{define-external} (\emph{symbol}$_1$ \emph{formals}) \emph{symbol}$_2$)
-\emph{syntax} for a compiler declaration that \emph{symbol}$_1$ is a
-Scheme \emph{procedure} defined in \emph{module} \emph{symbol}$_2$.
-
-(\texttt{define-external} (\emph{symbol}$_1$ \texttt{.}\ \emph{formal})
+(\texttt{define-external} \emph{symbol}$_1$ \texttt{TOP-LEVEL}
 \emph{symbol}$_2$) \emph{syntax} for a compiler declaration that
-\emph{symbol}$_1$ is a Scheme \emph{procedure} defined in \emph{module}
-\emph{symbol}$_2$.
+\emph{symbol}$_1$ is a top-level symbol that is known to be defined in
+\emph{module} \emph{symbol}$_2$.  Its value is to be found via the
+\texttt{*obarray*}.
 
-(\texttt{define-external} (\emph{symbol} \emph{formals}) \texttt{""} \emph{string})
-\emph{syntax} for a compiler declaration that \emph{symbol} is a
-\emph{procedure} that has the external name \emph{string}.
-
-(\texttt{define-external} (\emph{symbol} \texttt{.}\ \emph{formal}) \texttt{""} \emph{string})
-\emph{syntax} for a compiler declaration that \emph{symbol} is a
-\emph{procedure} that takes a variable number of arguments and has the
+(\texttt{define-external} \emph{symbol} \texttt{""} \emph{string})
+\emph{syntax} for a compiler declaration that \emph{symbol} has the
 external name \emph{string}.
 
-(\texttt{define-external} (\emph{symbol} \emph{formals}) \emph{string}$_1$
+(\texttt{define-external} \emph{symbol} \emph{string}$_1$
 \emph{string}$_2$) \emph{syntax} for a compiler declaration that
-\emph{symbol} is a \emph{procedure} in the \emph{module} \emph{string}$_1$ that
-has the external name \emph{string}$_1$\_\emph{string}$_2$.
+\emph{symbol} is in the \emph{module} \emph{string}$_1$ and has the
+external name \emph{string}$_1$\_\emph{string}$_2$.
 
-(\texttt{define-external} (\emph{symbol} \texttt{.}\ \emph{formal}) \emph{string}$_1$
-\emph{string}$_2$) \emph{syntax} for a compiler declaration that
-\emph{symbol} is a \emph{procedure} in the \emph{module} \emph{string}$_1$ that
-has the external name \emph{string}$_1$\_\emph{string}$_2$.
+(\texttt{define-external} (\emph{symbol}$_1$ \emph{formals})
+\emph{symbol}$_2$) \emph{syntax} for a compiler declaration that
+\emph{symbol}$_1$ is a Scheme \emph{procedure} defined in
+\emph{module} \emph{symbol}$_2$.
 
-(\texttt{define-in-line} (\emph{symbol} \emph{formals}) \emph{body}) \emph{syntax}
-that defines a \emph{procedure} that is to be compiled ``in-line''.
+(\texttt{define-external} (\emph{symbol}$_1$
+\texttt{.}\ \emph{formal}) \emph{symbol}$_2$) \emph{syntax} for a
+compiler declaration that \emph{symbol}$_1$ is a Scheme
+\emph{procedure} defined in \emph{module} \emph{symbol}$_2$.
 
-(\texttt{define-in-line} (\emph{symbol} \texttt{.}\ \emph{formal}) \emph{body})
+(\texttt{define-external} (\emph{symbol} \emph{formals}) \texttt{""}
+\emph{string}) \emph{syntax} for a compiler declaration that
+\emph{symbol} is a \emph{procedure} that has the external name
+\emph{string}.
+
+(\texttt{define-external} (\emph{symbol} \texttt{.}\ \emph{formal})
+\texttt{""} \emph{string}) \emph{syntax} for a compiler declaration
+that \emph{symbol} is a \emph{procedure} that takes a variable number
+of arguments and has the external name \emph{string}.
+
+(\texttt{define-external} (\emph{symbol} \emph{formals})
+\emph{string}$_1$ \emph{string}$_2$) \emph{syntax} for a compiler
+declaration that \emph{symbol} is a \emph{procedure} in the
+\emph{module} \emph{string}$_1$ that has the external name
+\emph{string}$_1$\_\emph{string}$_2$.
+
+(\texttt{define-external} (\emph{symbol} \texttt{.}\ \emph{formal})
+\emph{string}$_1$ \emph{string}$_2$) \emph{syntax} for a compiler
+declaration that \emph{symbol} is a \emph{procedure} in the
+\emph{module} \emph{string}$_1$ that has the external name
+\emph{string}$_1$\_\emph{string}$_2$.
+
+(\texttt{define-in-line} (\emph{symbol} \emph{formals}) \emph{body})
 \emph{syntax} that defines a \emph{procedure} that is to be compiled
 ``in-line''.
 
-(\texttt{define-macro} \emph{symbol} (\texttt{lambda} (\emph{form expander})
-\emph{expression} ...))\ \emph{syntax} that defines a macro expansion
-procedure.  Macro expansion is done using the ideas expressed in
-\emph{Expansion-Passing Style: Beyond Conventional Macros}, 1986 ACM
-Conference on Lisp and Functional Programming, 143-150.
+(\texttt{define-in-line} (\emph{symbol} \texttt{.}\ \emph{formal})
+\emph{body}) \emph{syntax} that defines a \emph{procedure} that is to
+be compiled ``in-line''.
+
+(\texttt{define-macro} \emph{symbol} (\texttt{lambda} (\emph{form
+  expander}) \emph{expression} ...))\ \emph{syntax} that defines a
+macro expansion procedure.  Macro expansion is done using the ideas
+expressed in \emph{Expansion-Passing Style: Beyond Conventional
+  Macros}, 1986 ACM Conference on Lisp and Functional Programming,
+143-150.
 
 (\texttt{define-system-file-task} \emph{file} \emph{idle-task}
 \emph{file-task}) installs the \emph{idle-task} and \emph{file-task}
 \emph{procedures} for system file number \emph{file}.  When a Scheme
-program reads from a port and no characters are internally
-buffered, the \emph{idle-task} for each system file is called.
-Then, the \emph{file-task} for each system file that has input
-pending is called.  As long as no characters are available on
-the Scheme port, the Scheme system will idle, calling the
-\emph{file-task} for each system file as input becomes available.
-A system file task is removed by supplying \texttt{\#f} as the
-\emph{idle-task} and \emph{file-task}.
+program reads from a port and no characters are internally buffered,
+the \emph{idle-task} for each system file is called.  Then, the
+\emph{file-task} for each system file that has input pending is
+called.  As long as no characters are available on the Scheme port,
+the Scheme system will idle, calling the \emph{file-task} for each
+system file as input becomes available.  A system file task is removed
+by supplying \texttt{\#f} as the \emph{idle-task} and
+\emph{file-task}.
 
-(\texttt{delay} \emph{expression}) \emph{syntax} used together with the
-procedure \texttt{force} to implement call by need.  Revised$^4$ 11.
+(\texttt{delay} \emph{expression}) \emph{syntax} used together with
+the procedure \texttt{force} to implement call by need.  \RRRRRS~11.
 
-(\texttt{display} \emph{expression} \emph{optional-output-port}) writes a
-human-readable representation of \emph{expression} to
-\emph{optional-output-port}.  Revised$^4$ 31.
+(\texttt{display} \emph{expression} \emph{optional-output-port})
+writes a human-readable representation of \emph{expression} to
+\emph{optional-output-port}.  \RRRRRS~31.
 
-(\texttt{do} (\emph{var} ...)\ (\emph{test} \emph{expression} ...)\ \emph{command} ...)\
-\emph{syntax} for an iteration construct.  Each \emph{var} defines a local
-variable and is of the form (\emph{symbol} \emph{init} \emph{step}) or
-(\emph{symbol} \emph{init}).  Revised$^4$ 11.
+(\texttt{do} (\emph{var} ...)\ (\emph{test} \emph{expression}
+...)\ \emph{command} ...)\ \emph{syntax} for an iteration construct.
+Each \emph{var} defines a local variable and is of the form
+(\emph{symbol} \emph{init} \emph{step}) or (\emph{symbol}
+\emph{init}).  \RRRRRS~11.
 
-\texttt{double} \emph{syntax} for declaring a non-Scheme procedure, procedure
-argument, or global variable as the C type \texttt{double}. When a
-\texttt{double} value must be supplied, an expression of type \emph{number}
-must be supplied.  When a \texttt{double} value is returned, a value of
-type \emph{number} is returned.
+\texttt{double} \emph{syntax} for declaring a non-Scheme procedure,
+procedure argument, or global variable as the C type
+\texttt{double}. When a \texttt{double} value must be supplied, an
+expression of type \emph{number} must be supplied.  When a
+\texttt{double} value is returned, a value of type \emph{number} is
+returned.
 
 (\texttt{echo} \emph{port}) turns off echoing on \emph{port}.
 
 (\texttt{echo} \emph{port} \emph{output-port}) echos \emph{port} on
-\emph{output-port}.  All characters read from or written to \emph{port}
-are also written to \emph{output-port}.
+\emph{output-port}.  All characters read from or written to
+\emph{port} are also written to \emph{output-port}.
 
-\texttt{else} keyword in last \emph{clause} of \texttt{cond} or \texttt{case} form.
+\texttt{else} keyword in last \emph{clause} of \texttt{cond} or
+\texttt{case} form.
 
-\emph{environment} the set of all variable bindings in effect at
-some point in the program.  Revised$^4$ 6.
+\emph{environment} the set of all variable bindings in effect at some
+point in the program.  \RRRRRS~6.
 
-(\texttt{eof-object?}\ \emph{expression}) \emph{predicate} that returns
-\texttt{\#t} if \emph{expression} is equal to the end of file object.
-Revised$^4$ 30.
+(\texttt{eof-object?}\ \emph{expression}) \emph{predicate} that
+returns \texttt{\#t} if \emph{expression} is equal to the end of file
+object.  \RRRRRS~30.
 
-(\texttt{enable-system-file-tasks} \emph{flag}) enables (\emph{flag} is
-\texttt{\#t}) or disables (\emph{flag} is \texttt{\#f}) system file tasking
-and returns the previous system file tasking state.  When the
+(\texttt{enable-system-file-tasks} \emph{flag}) enables (\emph{flag}
+is \texttt{\#t}) or disables (\emph{flag} is \texttt{\#f}) system file
+tasking and returns the previous system file tasking state.  When the
 value of flag is the symbol \texttt{wait}, system file tasking is
-enabled and the Scheme program is blocked until there are no
-system file tasks.
+enabled and the Scheme program is blocked until there are no system
+file tasks.
 
-(\texttt{eq?}\ \emph{expression}$_1$ \emph{expression}$_2$) \emph{predicate} that is
-the finest test for equivalence between \emph{expression}$_1$ and
-\emph{expression}$_2$.  Revised$^4$ 15.
+(\texttt{eq?}\ \emph{expression}$_1$ \emph{expression}$_2$)
+\emph{predicate} that is the finest test for equivalence between
+\emph{expression}$_1$ and \emph{expression}$_2$.  \RRRRRS~15.
 
-(\texttt{equal?}\ \emph{expression}$_1$ \emph{expression}$_2$) \emph{predicate} that
-is the coarsest test for equivalence between \emph{expression}$_1$ and
-\emph{expression}$_2$.  Revised$^4$ 15.
+(\texttt{equal?}\ \emph{expression}$_1$ \emph{expression}$_2$)
+\emph{predicate} that is the coarsest test for equivalence between
+\emph{expression}$_1$ and \emph{expression}$_2$.  \RRRRRS~15.
 
-(\texttt{eqv?}\ \emph{expression}$_1$ \emph{expression}$_2$) \emph{predicate} that is
-the medium test for equivalence between \emph{expression}$_1$ and
-\emph{expression}$_2$.  Revised$^4$ 13.
+(\texttt{eqv?}\ \emph{expression}$_1$ \emph{expression}$_2$)
+\emph{predicate} that is the medium test for equivalence between
+\emph{expression}$_1$ and \emph{expression}$_2$.  \RRRRRS~13.
 
-(\texttt{error} \emph{symbol} \emph{format-template} \emph{expression} ...)\ reports
-an error.  The procedure name is \emph{symbol} and the error message is
-produced by the \emph{format-template} and optional \emph{expressions}.
-The \emph{procedure} error is equivalent to \texttt{(lambda x (apply
-*error-handler* x))}.  See \texttt{*error-handler*}.
+(\texttt{error} \emph{symbol} \emph{format-template} \emph{expression}
+...)\ reports an error.  The procedure name is \emph{symbol} and the
+error message is produced by the \emph{format-template} and optional
+\emph{expressions}.  The \emph{procedure} error is equivalent to
+\texttt{(lambda x (apply *error-handler* x))}.  See
+\texttt{*error-handler*}.
 
-(\texttt{eval} \emph{expression}) evaluates \emph{expression}.  Any macros in
-\emph{expression} are expanded before evaluation.
+(\texttt{eval} \emph{expression}) evaluates \emph{expression}.  Any
+macros in \emph{expression} are expanded before evaluation.
 
-(\texttt{eval-when} \emph{list} \emph{expression} ...)\ \emph{syntax} to evaluate
-\emph{expressions} when the current situation is in \emph{list}.  When this
-form is evaluated by the Scheme interpreter and \texttt{eval} is a member
-of the situation \emph{list}, then the expressions will be evaluated.
-When this form is evaluated by the Scheme compiler and \texttt{compile} is
-a member of the situation \emph{list}, then the expressions will be
-evaluated within the compiler.  When this form is evaluated by the
-Scheme compiler, and \texttt{load} is a member of the situation \emph{list},
-then the compiler will compile the form (\texttt{begin} \emph{expression} ...)).
+(\texttt{eval-when} \emph{list} \emph{expression} ...)\ \emph{syntax}
+to evaluate \emph{expressions} when the current situation is in
+\emph{list}.  When this form is evaluated by the Scheme interpreter
+and \texttt{eval} is a member of the situation \emph{list}, then the
+expressions will be evaluated.  When this form is evaluated by the
+Scheme compiler and \texttt{compile} is a member of the situation
+\emph{list}, then the expressions will be evaluated within the
+compiler.  When this form is evaluated by the Scheme compiler, and
+\texttt{load} is a member of the situation \emph{list}, then the
+compiler will compile the form (\texttt{begin} \emph{expression}
+...)).
 
-(\texttt{even?}\ \emph{integer}) \emph{predicate} that returns \texttt{\#t} if
-\emph{integer} is even.  Revised$^4$ 21.
+(\texttt{even?}\ \emph{integer}) \emph{predicate} that returns
+\texttt{\#t} if \emph{integer} is even.  \RRRRRS~21.
 
-\emph{exact} \qquad \emph{fixed} numbers are exact, all other numbers are not.
-Revised$^4$ 14.
+\emph{exact} \qquad \emph{fixed} numbers are exact, all other numbers
+are not.  \RRRRRS~14.
 
-(\texttt{exact->inexact} \emph{number}) returns the \emph{inexact} representation
-of \emph{number}. Revised$^4$ 23.
+(\texttt{exact->inexact} \emph{number}) returns the \emph{inexact}
+representation of \emph{number}. \RRRRRS~23.
 
-(\texttt{exact?}\ \emph{number}) \emph{predicate} that returns \texttt{\#t} if
-\emph{number} is \emph{exact}.  Revised$^4$ 21.
+(\texttt{exact?}\ \emph{number}) \emph{predicate} that returns
+\texttt{\#t} if \emph{number} is \emph{exact}.  \RRRRRS~21.
 
-(\texttt{exit}) returns from the current \texttt{read-eval-print} procedure.
+(\texttt{exit}) returns from the current \texttt{read-eval-print}
+procedure.
 
-(\texttt{exp} \emph{number}) returns exponential function of \emph{number}.
-Revised$^4$ 22.
+(\texttt{exp} \emph{number}) returns exponential function of
+\emph{number}.  \RRRRRS~22.
 
-(\texttt{expand} \emph{expression}) returns the value of \emph{expression} after
-all macro expansions.  See \texttt{define-macro}.
+(\texttt{expand} \emph{expression}) returns the value of
+\emph{expression} after all macro expansions.  See
+\texttt{define-macro}.
 
-(\texttt{expand-once} \emph{expression}) returns the value of \emph{expression}
-after one macro expansion.  See \texttt{define-macro}.
+(\texttt{expand-once} \emph{expression}) returns the value of
+\emph{expression} after one macro expansion.  See
+\texttt{define-macro}.
 
-\emph{expression} a Scheme construct that returns a value.  Revised$^4$ 7.
+\emph{expression} a Scheme construct that returns a value.  \RRRRRS~7.
 
-(\texttt{expt} \emph{number}$_1$ \emph{number}$_2$) returns  \emph{number}$_1$
-raised to the power \emph{number}$_2$.  Revised$^4$ 23.
+(\texttt{expt} \emph{number}$_1$ \emph{number}$_2$) returns
+\emph{number}$_1$ raised to the power \emph{number}$_2$.  \RRRRRS~23.
 
-\texttt{fix} \emph{format descriptor} for compatibility with Revised$^3$.
+\texttt{fix} \emph{format descriptor} for compatibility with \RRRRS.
 
-\emph{fixed} \texttt{Scheme->C} internal representation for small \emph{integer}s.  A
-\emph{fixed} value is represented in a ``pointer size'' word with two bits
-used by the tag.  With 32-bit pointers, this yields a maximum value
-of 536,870,911 and a minimum value of -536,870,912. 
+\emph{fixed} \StoC\ internal representation for small \emph{integer}s.
+A \emph{fixed} value is represented in a ``pointer size'' word with
+two bits used by the tag.  With 32-bit pointers, this yields a maximum
+value of $2^{29}-1$ or 536,870,911 and a minimum value of $-2^{29}$ or
+$-$536,870,912.  With 64-bit pointers, this yields a maximum value of
+$2^{61}-1$ or 2,305,843,009,213,693,951 and a minimum value of
+$-2^{61}$ or $-$2,305,843,009,213,693,952.
 
-(\texttt{fixed->float} \emph{fixed}) returns the \emph{float} representation of
-\emph{fixed}.
+(\texttt{fixed->float} \emph{fixed}) returns the \emph{float}
+representation of \emph{fixed}.
 
-(\texttt{fixed?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{fixed}.
+(\texttt{fixed?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{fixed}.
 
-\texttt{float} \emph{syntax} for declaring a non-Scheme procedure, procedure
-argument, or global variable as the C type \texttt{float}. When a
-\texttt{float} value must be supplied, an expression of type \emph{number}
-must be supplied.  When a \texttt{float} value is returned, a value of
-type \emph{number} is returned.
-
-\emph{float} \texttt{Scheme->C} internal floating point representation.  This is
-typically 64-bits.
-
-(\texttt{float->fixed} \emph{float}) returns the \emph{fixed} \emph{number}
-that best represents the value of \emph{float}.
-
-(\texttt{float?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t}
-if \emph{expression} is a \emph{float} value.
-
-(\texttt{floor} \emph{number}) returns the largest \emph{integer} not larger than
-\emph{number}.  Revised$^4$ 22.
-
-(\texttt{flush-buffer} \emph{optional-output-port}) forces output of all
-characters buffered in \emph{optional-output-port}.
-
-(\texttt{for-each} \emph{procedure} \emph{list} \emph{list} ...)\ applies
-\emph{procedure} to each element of the \emph{lists} in order.
-Revised$^4$ 28.
-
-(\texttt{force} \emph{promise}) returns the forced value of a promise.
-Revised$^4$ 28.
-
-\emph{formals} a \emph{symbol} or a \emph{list} of \emph{symbols} that are the
-arguments.  Revised$^4$ 8.
-
-(\texttt{format} \texttt{\#f} \emph{format-template} \emph{expression} ...)\ returns a
-string that is the result of outputting the \emph{expressions}
-according to the \emph{format-template}.
-
-(\texttt{format} \emph{format-template} \emph{expression} ...)\ returns a string
-that is the result of outputting the \emph{expressions} according to
-the \emph{format-template}.
-
-(\texttt{format} \emph{output-port} \emph{format-template} \emph{expression} ...)\
-output the \emph{expressions} to \emph{output-port} according to the
-\emph{format-template}.
-
-(\texttt{format} \texttt{\#t} \emph{format-template} \emph{expression} ...)\ output the
-\emph{expressions} to the current output port according to the
-\emph{format-template}.
-
-\emph{format descriptor} a \emph{list} that describes the type of output
-conversion to be done by \texttt{number->string}.  The supported forms are
-(\texttt{int}), (\texttt{fix} \emph{integer}), and (\texttt{sci} \emph{integer}).
-Revised$^4$ 21.
-
-\emph{format-template} a \emph{string} consisting of format descriptors and
-literal characters.  A format descriptor is \texttt{\texttildelow} followed by some
-other character.  When one is encountered, it is interpreted.  Literal
-characters are output as is.  See \texttt{\texttildelow{}a}, \texttt{\texttildelow{}A}, \texttt{\texttildelow{}c}, \texttt{\texttildelow{}C},
-\texttt{\texttildelow{}s}, \texttt{\texttildelow{}S}, \texttt{\texttildelow\%}, \texttt{\texttildelow\texttildelow}.
-
-(\texttt{gcd} \emph{number} ...)\ returns the greatest common divisor of its
-arguments.  Revised$^4$ 22.
-
-(\texttt{get-output-string} \emph{string-output-port}) returns the \emph{string}
-associated with \emph{string-output-port}.  The \emph{string} associated
-with the \emph{string-output-port} is initially set to \texttt{""}.
-
-(\texttt{getprop} \emph{symbol} \emph{expression}) returns the value that has
-the key \texttt{eq?}\ to \emph{expression} from \emph{symbol's} property list.  If
-there is no value associated with \emph{expression}, then \texttt{\#f} is
+\texttt{float} \emph{syntax} for declaring a non-Scheme procedure,
+procedure argument, or global variable as the C type
+\texttt{float}. When a \texttt{float} value must be supplied, an
+expression of type \emph{number} must be supplied.  When a
+\texttt{float} value is returned, a value of type \emph{number} is
 returned.
 
-(\texttt{getprop-all} \emph{symbol}) returns the \emph{symbol's} property list.
+\emph{float} \StoC\ internal floating point representation.  This is
+typically 64-bits.
+
+(\texttt{float->fixed} \emph{float}) returns the \emph{fixed}
+\emph{number} that best represents the value of \emph{float}.
+
+(\texttt{float?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} if \emph{expression} is a \emph{float} value.
+
+(\texttt{floor} \emph{number}) returns the largest \emph{integer} not
+larger than \emph{number}.  \RRRRRS~22.
+
+(\texttt{flush-buffer} \emph{optional-output-port}) forces output of
+all characters buffered in \emph{optional-output-port}.
+
+(\texttt{for-each} \emph{procedure} \emph{list} \emph{list}
+...)\ applies \emph{procedure} to each element of the \emph{lists} in
+order.  \RRRRRS~28.
+
+(\texttt{force} \emph{promise}) returns the forced value of a promise.
+\RRRRRS~28.
+
+\emph{formals} a \emph{symbol} or a \emph{list} of \emph{symbols} that
+are the arguments.  \RRRRRS~8.
+
+(\texttt{format} \texttt{\#f} \emph{format-template} \emph{expression}
+...)\ returns a string that is the result of outputting the
+\emph{expressions} according to the \emph{format-template}.
+
+(\texttt{format} \emph{format-template} \emph{expression}
+...)\ returns a string that is the result of outputting the
+\emph{expressions} according to the \emph{format-template}.
+
+(\texttt{format} \emph{output-port} \emph{format-template}
+\emph{expression} ...)\ output the \emph{expressions} to
+\emph{output-port} according to the \emph{format-template}.
+
+(\texttt{format} \texttt{\#t} \emph{format-template} \emph{expression}
+...)\ output the \emph{expressions} to the current output port
+according to the \emph{format-template}.
+
+\emph{format descriptor} a \emph{list} that describes the type of
+output conversion to be done by \texttt{number->string}.  The
+supported forms are (\texttt{int}), (\texttt{fix} \emph{integer}), and
+(\texttt{sci} \emph{integer}).  \RRRRRS~21.
+
+\emph{format-template} a \emph{string} consisting of format
+descriptors and literal characters.  A format descriptor is
+\texttt{\texttildelow} followed by some other character.  When one is
+encountered, it is interpreted.  Literal characters are output as is.
+See \texttt{\texttildelow{}a}, \texttt{\texttildelow{}A},
+\texttt{\texttildelow{}c}, \texttt{\texttildelow{}C},
+\texttt{\texttildelow{}s}, \texttt{\texttildelow{}S},
+\texttt{\texttildelow\%}, \texttt{\texttildelow\texttildelow}.
+
+(\texttt{gcd} \emph{number} ...)\ returns the greatest common divisor
+of its arguments.  \RRRRRS~22.
+
+(\texttt{get-output-string} \emph{string-output-port}) returns the
+\emph{string} associated with \emph{string-output-port}.  The
+\emph{string} associated with the \emph{string-output-port} is
+initially set to \texttt{""}.
+
+(\texttt{getprop} \emph{symbol} \emph{expression}) returns the value
+that has the key \texttt{eq?}\ to \emph{expression} from
+\emph{symbol's} property list.  If there is no value associated with
+\emph{expression}, then \texttt{\#f} is returned.
+
+(\texttt{getprop-all} \emph{symbol}) returns the \emph{symbol's}
+property list.
 
 (\texttt{implementation-information}) returns a list of string or
 \texttt{\#f} values containing information about the Scheme
-implementation.  The list is of the form
-(\emph{implementation-name} \emph{version} \emph{machine} \emph{processor}
-\emph{operating-system} \emph{filesystem} \emph{features} ...).
+implementation.  The list is of the form (\emph{implementation-name}
+\emph{version} \emph{machine} \emph{processor} \emph{operating-system}
+\emph{filesystem} \emph{features} ...).
 
-(\texttt{if} \emph{expression}$_1$ \emph{expression}$_2$) \emph{syntax} for a
-conditional expression.  Revised$^4$ 8.
+(\texttt{if} \emph{expression}$_1$ \emph{expression}$_2$)
+\emph{syntax} for a conditional expression.  \RRRRRS~8.
 
-(\texttt{if} \emph{expression}$_1$ \emph{expression}$_2$ \emph{expression}$_3$)
-\emph{syntax} for a conditional expression.  Revised$^4$ 8.
+(\texttt{if} \emph{expression}$_1$ \emph{expression}$_2$
+\emph{expression}$_3$) \emph{syntax} for a conditional expression.
+\RRRRRS~8.
 
-(\texttt{include} \emph{string}) \emph{syntax} to include the contents of the
-file \emph{string} at this point in the Scheme compilation.
+(\texttt{include} \emph{string}) \emph{syntax} to include the contents
+of the file \emph{string} at this point in the Scheme compilation.
 Search directories may be specified by the \texttt{-I} command flag.
 
-\emph{inexact} \qquad \emph{float} numbers are inexact.  Revised$^4$ 14.
+\emph{inexact} \qquad \emph{float} numbers are inexact.  \RRRRRS~14.
 
 (\texttt{inexact->exact} \emph{number}) returns the \emph{exact}
-representation of \emph{number}.  Revised$^4$ 23.
+representation of \emph{number}.  \RRRRRS~23.
 
-(\texttt{inexact?}\ \emph{number}) \emph{predicate} that returns \texttt{\#t} when
-\emph{number} is \emph{inexact}.  Revised$^4$ 21.
+(\texttt{inexact?}\ \emph{number}) \emph{predicate} that returns
+\texttt{\#t} when \emph{number} is \emph{inexact}.  \RRRRRS~21.
 
-\emph{input-port} Scheme object that can deliver characters on command.
-Revised$^4$ 29.
+\emph{input-port} Scheme object that can deliver characters on
+command.  \RRRRRS~29.
 
-(\texttt{input-port?}\ \emph{expression}) \emph{predicate} when returns \texttt{\#t}
-when \emph{expression} is an \emph{input-port}.  Revised$^4$ 29.
+(\texttt{input-port?}\ \emph{expression}) \emph{predicate} when
+returns \texttt{\#t} when \emph{expression} is an \emph{input-port}.
+\RRRRRS~29.
 
-\texttt{int} \emph{syntax} for declaring a non-Scheme procedure, procedure
-argument, or global variable as the C type \texttt{int}.  When a \texttt{int}
-value must be supplied, an expression of type \emph{number} must be
-supplied.  When a \texttt{int} value is returned, a value of type
-\emph{number} is returned.
+\texttt{int} \emph{syntax} for declaring a non-Scheme procedure,
+procedure argument, or global variable as the C type \texttt{int}.
+When a \texttt{int} value must be supplied, an expression of type
+\emph{number} must be supplied.  When a \texttt{int} value is
+returned, a value of type \emph{number} is returned.
 
-\texttt{int} \emph{format descriptor} for compatibility with Revised$^3$.
+\texttt{int} \emph{format descriptor} for compatibility with \RRRRS.
 
-\emph{integer} integers are represented by both \emph{fixed} and \emph{float} values.
-Revised$^4$ 18.
+\emph{integer} integers are represented by both \emph{fixed} and
+\emph{float} values.  \RRRRRS~18.
 
-(\texttt{integer->char} \emph{integer}) returns the \emph{character} whose ASCII
-code is equal to \emph{integer}.  Revised$^4$ 25.
+(\texttt{integer->char} \emph{integer}) returns the \emph{character}
+whose ASCII code is equal to \emph{integer}.  \RRRRRS~25.
 
-(\texttt{integer?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is an \emph{integer}.  Revised$^4$ 20.
+(\texttt{integer?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is an \emph{integer}.  \RRRRRS~20.
 
-\emph{interned} \qquad \emph{symbols} that are contained in \texttt{*obarray*} are
-interned.
+\emph{interned} \qquad \emph{symbols} that are contained in
+\texttt{*obarray*} are interned.
 
-(\texttt{lambda} \emph{formals} \emph{body}) the ultimate imperative, the
-ultimate declarative.  Revised$^4$ 8.
+(\texttt{lambda} \emph{formals} \emph{body}) the ultimate imperative,
+the ultimate declarative.  \RRRRRS~8.
 
-(\texttt{last-pair} \emph{list}) returns the last \emph{pair} of \emph{list}.
+(\texttt{last-pair} \emph{list}) returns the last \emph{pair} of
+\emph{list}.
 
-(\texttt{lcm} \emph{number} ...)\ returns the least common multiple of its
-arguments.  Revised$^4$ 22.
+(\texttt{lcm} \emph{number} ...)\ returns the least common multiple of
+its arguments.  \RRRRRS~22.
 
-(\texttt{length} \emph{list}) returns the length of \emph{list}.  Revised$^4$
-17.
+(\texttt{length} \emph{list}) returns the length of \emph{list}.
+\RRRRRS~17.
 
-(\texttt{let} \emph{bindings} \emph{body}) \emph{syntax} for a binding construct
-that computes initial values before any bindings are done.
-Revised$^4$ 10.
+(\texttt{let} \emph{bindings} \emph{body}) \emph{syntax} for a binding
+construct that computes initial values before any bindings are done.
+\RRRRRS~10.
 
-(\texttt{let} \emph{symbol} \emph{bindings} \emph{body}) \emph{syntax} for a general
-looping construct. Revised$^4$ 11.
+(\texttt{let} \emph{symbol} \emph{bindings} \emph{body}) \emph{syntax}
+for a general looping construct. \RRRRRS~11.
 
-(\texttt{let*} \emph{bindings} \emph{body}) \emph{syntax} for a binding construct
-that computes initial values and performs bindings sequentially.
-Revised$^4$ 10.
+(\texttt{let*} \emph{bindings} \emph{body}) \emph{syntax} for a
+binding construct that computes initial values and performs bindings
+sequentially.  \RRRRRS~10.
 
-(\texttt{letrec} \emph{bindings} \emph{body}) \emph{syntax} for a binding construct
-that binds the variables before the initial values are computed.
-Revised$^4$ 10.
+(\texttt{letrec} \emph{bindings} \emph{body}) \emph{syntax} for a
+binding construct that binds the variables before the initial values
+are computed.  \RRRRRS~10.
 
-\emph{letter} an alphabetic \emph{character}.  Revised$^4$ 25.
+\emph{letter} an alphabetic \emph{character}.  \RRRRRS~25.
 
-\emph{list} the empty list, or a \emph{pair} whose \texttt{cdr} is a \emph{list}.
-Revised$^4$ 16.
+\emph{list} the empty list, or a \emph{pair} whose \texttt{cdr} is a
+\emph{list}.  \RRRRRS~16.
 
-(\texttt{list} \emph{expression} ...)\ returns a \emph{list} of its arguments.
-Revised$^4$ 17.
+(\texttt{list} \emph{expression} ...)\ returns a \emph{list} of its
+arguments.  \RRRRRS~17.
 
-(\texttt{list?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t}
-when \emph{expression} is a \emph{list}.  Revised$^4$ 16.
+(\texttt{list?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{list}.  \RRRRRS~16.
 
 (\texttt{list->string} \emph{list}) returns the string formed from the
-\emph{characters} in \emph{list}.  Revised$^4$ 26.
+\emph{characters} in \emph{list}.  \RRRRRS~26.
 
-(\texttt{list->vector} \emph{list}) returns a \emph{vector} whose elements are the
-members of \emph{list}.  Revised$^4$ 27.
+(\texttt{list->vector} \emph{list}) returns a \emph{vector} whose
+elements are the members of \emph{list}.  \RRRRRS~27.
 
-(\texttt{list-ref} \emph{list} \emph{integer}) returns the \emph{integer} element
-of \emph{list}.  Elements are numbered starting at 0.  Revised$^4$ 17.
+(\texttt{list-ref} \emph{list} \emph{integer}) returns the
+\emph{integer} element of \emph{list}.  Elements are numbered starting
+at 0.  \RRRRRS~17.
 
-(\texttt{list-tail} \emph{list} \emph{integer}) returns the sublist of \emph{list}
-obtained by omitting the first \emph{integer} elements.  Revised$^4$ 17.
+(\texttt{list-tail} \emph{list} \emph{integer}) returns the sublist of
+\emph{list} obtained by omitting the first \emph{integer} elements.
+\RRRRRS~17.
 
-(\texttt{load} \emph{string}) loads the expressions in the file \emph{string}
-into the Scheme interpreter.  The results of the expressions are
-printed on the current output port.  Revised$^4$ 31.
+(\texttt{load} \emph{string}) loads the expressions in the file
+\emph{string} into the Scheme interpreter.  The results of the
+expressions are printed on the current output port.  \RRRRRS~31.
 
 (\texttt{loade} \emph{string}) loads the expressions in the file
-\emph{string} into the Scheme interpreter.  The contents of the
-file and the results of the expressions are printed on the
-current output port.
+\emph{string} into the Scheme interpreter.  The contents of the file
+and the results of the expressions are printed on the current output
+port.
 
-(\texttt{loadq} \emph{string}) loads the expressions in the file \emph{string}
-into the Scheme interpreter.  The results of the expressions are not
-printed.
+(\texttt{loadq} \emph{string}) loads the expressions in the file
+\emph{string} into the Scheme interpreter.  The results of the
+expressions are not printed.
 
-(\texttt{log} \emph{number}) returns the natural logarithm of \emph{number}.
-Revised$^4$ 22.
+(\texttt{log} \emph{number}) returns the natural logarithm of
+\emph{number}.  \RRRRRS~22.
 
 \texttt{longint} \emph{syntax} for declaring a non-Scheme procedure,
-procedure argument, or global variable as the C type \texttt{long int}.
-When a \texttt{long int} value must be supplied, an expression of type
-\emph{number} must be supplied.  When a \texttt{long int} value is returned,
-a value of type \emph{number} is returned.
-
-\texttt{longunsigned} \emph{syntax} for declaring a non-Scheme procedure,
 procedure argument, or global variable as the C type \texttt{long
-unsigned}. When a \texttt{long unsigned} value must be supplied, an
-expression of type \emph{number} must be supplied.  When a \texttt{long
-unsigned} value is returned, a value of type \emph{number} is returned.
+  int}.  When a \texttt{long int} value must be supplied, an
+expression of type \emph{number} must be supplied.  When a
+\texttt{long int} value is returned, a value of type \emph{number} is
+returned.
 
-(\texttt{make-string} \emph{integer}) returns a string of length \emph{integer}
-with unknown elements.  Revised$^4$ 25.
+\texttt{longunsigned} \emph{syntax} for declaring a non-Scheme
+procedure, procedure argument, or global variable as the C type
+\texttt{long unsigned}. When a \texttt{long unsigned} value must be
+supplied, an expression of type \emph{number} must be supplied.  When
+a \texttt{long unsigned} value is returned, a value of type
+\emph{number} is returned.
 
-(\texttt{make-string} \emph{integer} \emph{char}) returns a string of length
-\emph{integer} with all elements initialized to \emph{char}.  Revised$^4$
-25.
+(\texttt{make-string} \emph{integer}) returns a string of length
+\emph{integer} with unknown elements.  \RRRRRS~25.
 
-(\texttt{make-vector} \emph{integer}) returns a vector of length \emph{integer}
-with unknown elements.  Revised$^4$ 26.
+(\texttt{make-string} \emph{integer} \emph{char}) returns a string of
+length \emph{integer} with all elements initialized to \emph{char}.
+\RRRRRS~25.
 
-(\texttt{make-vector} \emph{integer} \emph{expression}) returns a vector of
-length \emph{integer} with all elements set to \emph{expression}.
-Revised$^4$ 26.
+(\texttt{make-vector} \emph{integer}) returns a vector of length
+\emph{integer} with unknown elements.  \RRRRRS~26.
 
-(\texttt{map} \emph{procedure} \emph{list} \emph{list} ...)\ returns a \emph{list}
-constructed by applying \emph{procedure} to each element of the
-\emph{lists}.  The order of application is not defined.  Revised$^4$
-27.
+(\texttt{make-vector} \emph{integer} \emph{expression}) returns a
+vector of length \emph{integer} with all elements set to
+\emph{expression}.  \RRRRRS~26.
 
-(\texttt{max} \emph{number} \emph{number} ...)\ returns the maximum of its
-arguments.  Revised$^4$ 21.
+(\texttt{map} \emph{procedure} \emph{list} \emph{list} ...)\ returns a
+\emph{list} constructed by applying \emph{procedure} to each element
+of the \emph{lists}.  The order of application is not defined.
+\RRRRRS~27.
 
-(\texttt{member} \emph{expression} \emph{list}) returns the first \emph{sublist} of
-\emph{list} such that (\texttt{equal?}\ \emph{expression} (\texttt{car}
-\emph{sublist})) is true. If no match occurs, then \texttt{\#f} is returned.
-Revised$^4$ 17.
+(\texttt{max} \emph{number} \emph{number} ...)\ returns the maximum of
+its arguments.  \RRRRRS~21.
 
-(\texttt{memq} \emph{expression} \emph{list}) returns the first \emph{sublist} of
-\emph{list} such that (\texttt{eq?}\ \emph{expression} (\texttt{car} \emph{sublist})) is
-true. If no match occurs, then \texttt{\#f} is returned.  Revised$^4$ 17.
+(\texttt{member} \emph{expression} \emph{list}) returns the first
+\emph{sublist} of \emph{list} such that
+(\texttt{equal?}\ \emph{expression} (\texttt{car} \emph{sublist})) is
+true. If no match occurs, then \texttt{\#f} is returned.  \RRRRRS~17.
 
-(\texttt{memv} \emph{expression} \emph{list}) returns the first \emph{sublist} of
-\emph{list} such that (\texttt{eqv?}\ \emph{expression} (\texttt{car} \emph{sublist})) is
-true. If no match occurs, then \texttt{\#f} is returned.  Revised$^4$ 17.
+(\texttt{memq} \emph{expression} \emph{list}) returns the first
+\emph{sublist} of \emph{list} such that
+(\texttt{eq?}\ \emph{expression} (\texttt{car} \emph{sublist})) is
+true. If no match occurs, then \texttt{\#f} is returned.  \RRRRRS~17.
 
-(\texttt{min} \emph{number} \emph{number} ...)\ returns the minimum of its
-arguments.  Revised$^4$ 21.
+(\texttt{memv} \emph{expression} \emph{list}) returns the first
+\emph{sublist} of \emph{list} such that
+(\texttt{eqv?}\ \emph{expression} (\texttt{car} \emph{sublist})) is
+true. If no match occurs, then \texttt{\#f} is returned.  \RRRRRS~17.
 
-(\texttt{module} \emph{symbol} \emph{clause} ...)\ \emph{syntax} to declare module
-information for the \texttt{Scheme->C} compiler.  The \emph{module} form must
-be the first item in the source file.  The module name is a
+(\texttt{min} \emph{number} \emph{number} ...)\ returns the minimum of
+its arguments.  \RRRRRS~21.
+
+(\texttt{module} \emph{symbol} \emph{clause} ...)\ \emph{syntax} to
+declare module information for the \StoC\ compiler.  The \emph{module}
+form must be the first item in the source file.  The module name is a
 \emph{symbol} that must be a legal C identifier.  Using this
 information, the compiler is able to construct an object module that
 is similar in structure to a Modula 2 module. Following the module
 name come optional \emph{clauses}. If the module is to provide the
-``main'' program, then a \emph{clause} of the form (\texttt{main} \emph{symbol})
-is provided that indicates that \emph{symbol} is the initial
-\emph{procedure}.  It will be invoked with one argument that is a
-\emph{list} of \emph{strings} that are the arguments that the program was
-invoked with.  A minimum (and default) heap size can be specified by
-the \emph{clause} (\texttt{HEAP} \emph{integer}), where the size is specified in
-megabytes.  The user may control that top-level \emph{symbols} in this
-module are visible as top-level \emph{symbols} by including a \emph{clause}
-of the form (\texttt{top-level} \emph{symbol} ...). If this clause occurs,
-then only those \emph{symbols} specified will be made top-level. All
-other top-level \emph{symbols} in the module will appear at the
-top-level with names of the form: \emph{module}\_\emph{symbol}.  If a
-\texttt{top-level} clause is not provided, then all top-level \emph{symbols}
-in the module will be made top-level. The final clause, (\texttt{with}
-\emph{symbol} ...)\ indicates that this module will be linked with other
-modules.  Normally the intermodule linkages are automatically infered
-by including all \emph{modules} that have external references. However,
-this mechanism is not sufficient to pick up those objects that are
-only referenced at runtime.
+``main'' program, then a \emph{clause} of the form (\texttt{main}
+\emph{symbol}) is provided that indicates that \emph{symbol} is the
+initial \emph{procedure}.  It will be invoked with one argument that
+is a \emph{list} of \emph{strings} that are the arguments that the
+program was invoked with.  A minimum (and default) heap size can be
+specified by the \emph{clause} (\texttt{HEAP} \emph{integer}), where
+the size is specified in megabytes.  The user may control that
+top-level \emph{symbols} in this module are visible as top-level
+\emph{symbols} by including a \emph{clause} of the form
+(\texttt{top-level} \emph{symbol} ...). If this clause occurs, then
+only those \emph{symbols} specified will be made top-level. All other
+top-level \emph{symbols} in the module will appear at the top-level
+with names of the form: \emph{module}\_\emph{symbol}.  If a
+\texttt{top-level} clause is not provided, then all top-level
+\emph{symbols} in the module will be made top-level. The final clause,
+(\texttt{with} \emph{symbol} ...)\ indicates that this module will be
+linked with other modules.  Normally the intermodule linkages are
+automatically infered by including all \emph{modules} that have
+external references. However, this mechanism is not sufficient to pick
+up those objects that are only referenced at runtime.
 
-(\texttt{modulo} \emph{integer}$_1$ \emph{integer}$_2$) returns the modulo of its
-arguments.  The sign of the result is the sign of the divisor.
-Revised$^4$ 22.
+(\texttt{modulo} \emph{integer}$_1$ \emph{integer}$_2$) returns the
+modulo of its arguments.  The sign of the result is the sign of the
+divisor.  \RRRRRS~22.
 
-(\texttt{negative?}\ \emph{number}) \emph{predicate} that returns \texttt{\#t} when
-\emph{number} is negative.  Revised$^4$ 21.
+(\texttt{negative?}\ \emph{number}) \emph{predicate} that returns
+\texttt{\#t} when \emph{number} is negative.  \RRRRRS~21.
 
-(\texttt{newline} \emph{optional-output-port}) outputs a newline character on
-the \emph{optional-output-port}.  Revised$^4$ 31.
+(\texttt{newline} \emph{optional-output-port}) outputs a newline
+character on the \emph{optional-output-port}.  \RRRRRS~31.
 
-(\texttt{not} \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is \texttt{\#f} or \texttt{()}.  Revised$^4$ 13.
+(\texttt{not} \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is \texttt{\#f} or \texttt{()}.
+\RRRRRS~13.
 
-(\texttt{null?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is \texttt{()}.  Revised$^4$ 16.
+(\texttt{null?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is \texttt{()}.  \RRRRRS~16.
 
-\emph{number} \texttt{Scheme->C} has two internal representations for numbers:
-\emph{fixed} and \emph{float}.  When an arithmetic operation is to
-be performed with a \emph{float} argument, all arguments will be
+\emph{number} \StoC\ has two internal representations for numbers:
+\emph{fixed} and \emph{float}.  When an arithmetic operation is to be
+performed with a \emph{float} argument, all arguments will be
 converted to \emph{float} as needed, and then the operation will be
 performed.  Automatic conversion back to \emph{fixed} is never done.
-Revised$^4$ 18. 
+\RRRRRS~18.
 
-(\texttt{number->string} \emph{number} \emph{format descriptor}) returns a
-\emph{string} that is the printed representation of \emph{number} as
-specified by \emph{format descriptor}.  For compatibility with
-Revised$^3$.
+(\texttt{number->string} \emph{number} \emph{format descriptor})
+returns a \emph{string} that is the printed representation of
+\emph{number} as specified by \emph{format descriptor}.  For
+compatibility with \RRRRS.
 
-(\texttt{number->string} \emph{number}) returns a string with the printed
-representation of the number.  Revised$^4$ 23.
+(\texttt{number->string} \emph{number}) returns a string with the
+printed representation of the number.  \RRRRRS~23.
 
-(\texttt{number->string} \emph{number} \emph{radix}) returns a string with the
-printed representation of the number in the given radix.  Radix must
-be 2, 8, 10, or 16.  Revised$^4$ 23.
+(\texttt{number->string} \emph{number} \emph{radix}) returns a string
+with the printed representation of the number in the given radix.
+Radix must be 2, 8, 10, or 16.  \RRRRRS~23.
 
-(\texttt{number?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{number}.  Revised$^4$ 20.
+(\texttt{number?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{number}.  \RRRRRS~20.
 
-(\texttt{odd?}\ \emph{integer}) \emph{predicate} that returns \texttt{\#t} when
-\emph{integer} is odd.  Revised$^4$ 21.
+(\texttt{odd?}\ \emph{integer}) \emph{predicate} that returns
+\texttt{\#t} when \emph{integer} is odd.  \RRRRRS~21.
 
-(\texttt{open-file} \emph{string}$_1$ \emph{string}$_2$) returns a \emph{port}
-for file \emph{string}$_1$ that is opened using the operating
-system's \emph{fopen} option  \emph{string}$_2$.
+(\texttt{open-file} \emph{string}$_1$ \emph{string}$_2$) returns a
+\emph{port} for file \emph{string}$_1$ that is opened using the
+operating system's \emph{fopen} option \emph{string}$_2$.
 
-(\texttt{open-input-file} \emph{string}) returns an \emph{input port} capable of
-delivering characters from the file \emph{string}.  Revised$^4$ 30.
+(\texttt{open-input-file} \emph{string}) returns an \emph{input port}
+capable of delivering characters from the file \emph{string}.
+\RRRRRS~30.
 
-(\texttt{open-input-string} \emph{string})  returns an \emph{input port} capable
-of delivering characters from the \emph{string}.
+(\texttt{open-input-string} \emph{string}) returns an \emph{input
+  port} capable of delivering characters from the \emph{string}.
 
-(\texttt{open-output-file} \emph{string}) returns an \emph{output port} capable
-of delivering characters to the file \emph{string}.  Revised$^4$ 30.
+(\texttt{open-output-file} \emph{string}) returns an \emph{output
+  port} capable of delivering characters to the file \emph{string}.
+\RRRRRS~30.
 
 (\texttt{open-output-string}) returns an \emph{output port} capable of
-delivering characters to a \emph{string}.  See \texttt{get-output-string}.
+delivering characters to a \emph{string}.  See
+\texttt{get-output-string}.
 
-(\texttt{optimize-eval} \emph{option...})\ controls the optimization done on
-interpreted programs.  When no \emph{option} is supplied, minimal optimization
-is done.  When \texttt{call} is specified, calls to top-level procedures that
-are not interpreted are optimized.  When \texttt{rewrite} is
-specified, calls to top-level procedures that take variable
-number of arguments are rewritten.  This option may cause some
-breakpoints to be missed.  Both \texttt{call} and \texttt{rewrite} may
-be specified.
+(\texttt{optimize-eval} \emph{option...})\ controls the optimization
+done on interpreted programs.  When no \emph{option} is supplied,
+minimal optimization is done.  When \texttt{call} is specified, calls
+to top-level procedures that are not interpreted are optimized.  When
+\texttt{rewrite} is specified, calls to top-level procedures that take
+variable number of arguments are rewritten.  This option may cause
+some breakpoints to be missed.  Both \texttt{call} and
+\texttt{rewrite} may be specified.
 
-\emph{optional-input-port} if present, it must be an \emph{input-port}.  If
-not present, then it is the value returned by \texttt{current-input-port}.
+\emph{optional-input-port} if present, it must be an
+\emph{input-port}.  If not present, then it is the value returned by
+\texttt{current-input-port}.
 
-\emph{optional-output-port} if present, it must be an \emph{output-port}.  If
-not present, then it is the value returned by \texttt{current-output-port}.
+\emph{optional-output-port} if present, it must be an
+\emph{output-port}.  If not present, then it is the value returned by
+\texttt{current-output-port}.
 
-(\texttt{or} \emph{expression} ...)\ \emph{syntax} for a conditional expression.
-Revised$^4$ 9.
+(\texttt{or} \emph{expression} ...)\ \emph{syntax} for a conditional
+expression.  \RRRRRS~9.
 
-\emph{pair} record structure with two fields: car and cdr.  Revised$^4$
-15.
+\emph{pair} record structure with two fields: car and cdr.
+\RRRRRS~15.
 
-(\texttt{pair?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{pair}.  Revised$^4$ 16.
+(\texttt{pair?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{pair}.  \RRRRRS~16.
 
-(\texttt{peek-char} \emph{optional-input-port}) returns a copy of the next
-character available on  \emph{optional-input-port}.  Revised$^4$ 30.
+(\texttt{peek-char} \emph{optional-input-port}) returns a copy of the
+next character available on \emph{optional-input-port}.  \RRRRRS~30.
 
 \texttt{pointer} \emph{syntax} for declaring a non-Scheme procedure,
-procedure argument, or global varible as being some type of C
-pointer.  When a value must be supplied, an expression of the type
-\emph{string}, \emph{procedure}, or \emph{number} is supplied.  This will
-result in either the address of the first character of the
+procedure argument, or global varible as being some type of C pointer.
+When a value must be supplied, an expression of the type
+\emph{string}, \emph{procedure}, or \emph{number} is supplied.  This
+will result in either the address of the first character of the
 \emph{string}, the address of the code associated with the
-\emph{procedure}, or the value of the number being used.  A \emph{pointer}
-value is returned as an non-negative \emph{number}.
+\emph{procedure}, or the value of the number being used.  A
+\emph{pointer} value is returned as an non-negative \emph{number}.
 
 \emph{port} Scheme object that is capable of delivering or accepting
-characters on demand.  Revised$^4$ 29.
+characters on demand.  \RRRRRS~29.
 
 (\texttt{port->stdio-file} \emph{port}) returns the standard I/O FILE
-pointer for \emph{port}, or \texttt{\#f} if the \emph{port} does not use
-standard I/O.
+pointer for \emph{port}, or \texttt{\#f} if the \emph{port} does not
+use standard I/O.
 
-(\texttt{positive?}\ \emph{number}) \emph{predicate} that returns \texttt{\#t} when
-\emph{number} is positive.  Revised$^4$ 21.
+(\texttt{positive?}\ \emph{number}) \emph{predicate} that returns
+\texttt{\#t} when \emph{number} is positive.  \RRRRRS~21.
 
-(\texttt{pp} \emph{expression} \emph{optional-output-port}) pretty-prints
-\emph{expression} on \emph{optional-output-port}.
+(\texttt{pp} \emph{expression} \emph{optional-output-port})
+pretty-prints \emph{expression} on \emph{optional-output-port}.
 
-(\texttt{pp} \emph{expression} \emph{string}) pretty-prints \emph{expression} to
-the file \emph{string}.
+(\texttt{pp} \emph{expression} \emph{string}) pretty-prints
+\emph{expression} to the file \emph{string}.
 
 \emph{predicate} function that returns \texttt{\#t} when the condition
-is true, and \texttt{\#f} when the condition is false.  Revised$^4$ 13.
+is true, and \texttt{\#f} when the condition is false.  \RRRRRS~13.
 
-(\texttt{procedure?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t}
-when \emph{expression} is a \emph{procedure}.  Revised$^4$ 27.
+(\texttt{procedure?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{procedure}.
+\RRRRRS~27.
 
-(\texttt{proceed}) return from the innermost \texttt{read-eval-print} loop with
-an unspecified value.
+(\texttt{proceed}) return from the innermost \texttt{read-eval-print}
+loop with an unspecified value.
 
-(\texttt{proceed}) resume the computation that previously timed out in an
-embedded \texttt{Scheme->C} system, or was stopped at a breakpoint.
+(\texttt{proceed}) resume the computation that previously timed out in
+an embedded \StoC\ system, or was stopped at a breakpoint.
 
-(\texttt{proceed} \emph{expression})  return from the innermost
-\texttt{read-eval-print} loop with \emph{expression} as the value.  At the
-outermost level, \emph{expression} must be an \emph{integer} as it will be
-used as the argument for a call to the C library procedure
+(\texttt{proceed} \emph{expression}) return from the innermost
+\texttt{read-eval-print} loop with \emph{expression} as the value.  At
+the outermost level, \emph{expression} must be an \emph{integer} as it
+will be used as the argument for a call to the C library procedure
 \emph{exit}.
 
-(\texttt{proceed} \emph{expression})  return \emph{expression} as the value of a
-procedure that stopped at a breakpoint.
+(\texttt{proceed} \emph{expression}) return \emph{expression} as the
+value of a procedure that stopped at a breakpoint.
 
-(\texttt{proceed?}) force a breakpoint while resuming the computation that
-previously timed out in an embedded \texttt{Scheme->C} system.
+(\texttt{proceed?}) force a breakpoint while resuming the computation
+that previously timed out in an embedded \StoC\ system.
 
-(\texttt{putprop} \emph{symbol} \emph{expression}$_1$ \emph{expression}$_2$)
-stores \emph{expression}$_2$ using key \emph{expression}$_1$ on
-\emph{symbol's} property list.  See \texttt{getprop}.
+(\texttt{putprop} \emph{symbol} \emph{expression}$_1$
+\emph{expression}$_2$) stores \emph{expression}$_2$ using key
+\emph{expression}$_1$ on \emph{symbol's} property list.  See
+\texttt{getprop}.
 
-(\texttt{quasiquote} \emph{back-quote-template}) \emph{syntax} for a \emph{vector}
-or \emph{list} constructor.  Revised$^4$ 11.
+(\texttt{quasiquote} \emph{back-quote-template}) \emph{syntax} for a
+\emph{vector} or \emph{list} constructor.  \RRRRRS~11.
 
-(\texttt{quote} \emph{expression}) \emph{syntax} whose result is \emph{expression}.
-Revised$^4$ 7.
+(\texttt{quote} \emph{expression}) \emph{syntax} whose result is
+\emph{expression}.  \RRRRRS~7.
 
-(\texttt{quotient} \emph{integer}$_1$ \emph{integer}$_2$) returns the quotient
-of its arguments.  The sign is the sign of the product of its
-arguments. Revised$^4$ 22.
+(\texttt{quotient} \emph{integer}$_1$ \emph{integer}$_2$) returns the
+quotient of its arguments.  The sign is the sign of the product of its
+arguments. \RRRRRS~22.
 
-(\texttt{rational?}\ \emph{number}) predicate that returns \texttt{\#t} when
-its argument is a rational \emph{number}.  This is true for any
-number in \texttt{Scheme->C}.  Revised$^4$ 20.
+(\texttt{rational?}\ \emph{number}) predicate that returns
+\texttt{\#t} when its argument is a rational \emph{number}.  This is
+true for any number in \StoC.  \RRRRRS~20.
 
-(\texttt{read} \emph{optional-input-port}) returns the next readable object
-from \emph{optional-input-port}.  Revived$^3$ 30.
+(\texttt{read} \emph{optional-input-port}) returns the next readable
+object from \emph{optional-input-port}.  Revived$^3$~30.
 
-(\texttt{read-char} \emph{optional-input-port}) returns the next character
-from \emph{optional-input-port}, updating the \emph{port} to point to the
-next \emph{character}.  Revived$^3$ 30.
+(\texttt{read-char} \emph{optional-input-port}) returns the next
+character from \emph{optional-input-port}, updating the \emph{port} to
+point to the next \emph{character}.  Revived$^3$~30.
 
-(\texttt{read-eval-print} \emph{expression} ...)\ starts  a new
+(\texttt{read-eval-print} \emph{expression} ...)\ starts a new
 read-eval-print loop.  The optional \emph{expressions} allow one to
-specify the prompt or the header:  \texttt{PROMPT} \emph{string} \texttt{HEADER}
-\emph{string}.  Typing control-D at the prompt will terminate the
-procedure.  See \texttt{reset}, \texttt{exit}, \texttt{eval}, \texttt{proceed}.
+specify the prompt or the header: \texttt{PROMPT} \emph{string}
+\texttt{HEADER} \emph{string}.  Typing control-D at the prompt will
+terminate the procedure.  See \texttt{reset}, \texttt{exit},
+\texttt{eval}, \texttt{proceed}.
 
-(\texttt{real?}\ \emph{number}) predicate that returns \texttt{\#t} when its
-argument is a real \emph{number}.  This is true in \texttt{Scheme->C} for any
-\emph{number}. Revised$^4$ 20.
+(\texttt{real?}\ \emph{number}) predicate that returns \texttt{\#t}
+when its argument is a real \emph{number}.  This is true in \StoC\ for
+any \emph{number}. \RRRRRS~20.
 
 \emph{record} a heterogenous mutable structure whose elements are
-indexed by \emph{integers}.  The valid indexes of a record are
-the exact non-negative integers less than the length of the
-record. A \emph{record} differs from a \emph{vector} in that a \emph{record} may
-have method \emph{procedures} that control how it's output,
-compared, and evaluated.
+indexed by \emph{integers}.  The valid indexes of a record are the
+exact non-negative integers less than the length of the record. A
+\emph{record} differs from a \emph{vector} in that a \emph{record} may
+have method \emph{procedures} that control how it's output, compared,
+and evaluated.
 
 (\texttt{remainder} \emph{integer}$_1$ \emph{integer}$_2$) returns the
 remainder of its arguments.  The sign is the sign of
-\emph{integer}$_1$. Revised$^4$ 22.
+\emph{integer}$_1$. \RRRRRS~22.
 
-(\texttt{remove} \emph{expression} \emph{list}) returns a new \emph{list} that is a
-copy of \emph{list} with all items \texttt{equal?}\ to \emph{expression} removed
-from it.
+(\texttt{remove} \emph{expression} \emph{list}) returns a new
+\emph{list} that is a copy of \emph{list} with all items
+\texttt{equal?}\ to \emph{expression} removed from it.
 
-(\texttt{remove!}\ \emph{expression} \emph{list}) returns \emph{list} having deleted
-all items \texttt{equal?}\ to \emph{expression} from it.
+(\texttt{remove!}\ \emph{expression} \emph{list}) returns \emph{list}
+having deleted all items \texttt{equal?}\ to \emph{expression} from
+it.
 
-(\texttt{remove-file} \emph{string}) removes the file named \emph{string}.
+(\texttt{remove-file} \emph{string}) removes the file named
+\emph{string}.
 
-(\texttt{remq} \emph{expression} \emph{list}) returns a new \emph{list} that is a
-copy of \emph{list} with all items \texttt{eq?}\ to \emph{expression} removed
-from it.
+(\texttt{remq} \emph{expression} \emph{list}) returns a new
+\emph{list} that is a copy of \emph{list} with all items
+\texttt{eq?}\ to \emph{expression} removed from it.
 
-(\texttt{remq!}\ \emph{expression} \emph{list}) returns \emph{list} having deleted
-all items \texttt{eq?}\ to \emph{expression} from it.
+(\texttt{remq!}\ \emph{expression} \emph{list}) returns \emph{list}
+having deleted all items \texttt{eq?}\ to \emph{expression} from it.
 
-(\texttt{remv} \emph{expression} \emph{list}) returns a new \emph{list} that is a
-copy of \emph{list} with all items \texttt{eqv?}\ to \emph{expression} removed
-from it.
+(\texttt{remv} \emph{expression} \emph{list}) returns a new
+\emph{list} that is a copy of \emph{list} with all items
+\texttt{eqv?}\ to \emph{expression} removed from it.
 
-(\texttt{remv!}\ \emph{expression} \emph{list}) returns \emph{list} having deleted
-all items \texttt{eqv?}\ to \emph{expression} from it.
+(\texttt{remv!}\ \emph{expression} \emph{list}) returns \emph{list}
+having deleted all items \texttt{eqv?}\ to \emph{expression} from it.
 
 (\texttt{rename-file} \emph{string}$_1$ \emph{string}$_2$) changes the
 name of the file named \emph{string}$_1$ to \emph{string}$_2$.
@@ -1608,175 +1725,190 @@ name of the file named \emph{string}$_1$ to \emph{string}$_2$.
 
 (\texttt{reset-bpt}) indicates that the caller wishes to cancel the
 resumption of computation at the point where a breakpoint occurred in
-an embedded \texttt{Scheme->C} system.
+an embedded \StoC\ system.
 
-(\texttt{reset-error}) indicates that the caller is finished examining the
-last retained error state in an embedded \texttt{Scheme->C} system.
+(\texttt{reset-error}) indicates that the caller is finished examining
+the last retained error state in an embedded \StoC\ system.
 
-(\texttt{reverse} \emph{list}) returns a new \emph{list} with the elements of
-\emph{list} in reverse order.  Revised$^4$ 17.
+(\texttt{reverse} \emph{list}) returns a new \emph{list} with the
+elements of \emph{list} in reverse order.  \RRRRRS~17.
 
-(\texttt{round} \emph{number}) returns \emph{number} rounded to the closest
-integer.  Revised$^4$ 22.
+(\texttt{round} \emph{number}) returns \emph{number} rounded to the
+closest integer.  \RRRRRS~22.
 
-\texttt{S2CUINT} C type defined by \texttt{Scheme->C} to be an unsigned
-integer that is the same size as a pointer.
+\texttt{S2CUINT} C type defined by \StoC\ to be an unsigned integer
+that is the same size as a pointer.
 
 \emph{sc-pointer} a Scheme object that is represented by a tagged
 pointer to one or more words of memory.
 
-\texttt{sc...}\ all modules that compose the \texttt{Scheme->C} runtime system
-have module names begining with the letters \texttt{sc}.  All procedures
-and external variables in these modules have names that begin with
-\texttt{sc...\_}.
+\texttt{sc...}\ all modules that compose the \StoC\ runtime system
+have module names begining with the letters \texttt{sc}.  All
+procedures and external variables in these modules have names that
+begin with \texttt{sc...\_}.
 
-\texttt{scc} shell command to invoke the \texttt{Scheme->C} Scheme compiler.  See the
-\texttt{man} page.
+\texttt{scc} shell command to invoke the \StoC\ Scheme compiler.  See
+the \texttt{man} page.
 
 \texttt{SCGCINFO} environment variable that when set to 1 will log
-garbage collection information on stderr.  This variable is
-overridden by the \texttt{-scgc} command line flag.
+garbage collection information on stderr.  This variable is overridden
+by the \texttt{-scgc} command line flag.
 
-\texttt{SCHEAP} environment variable that controls the initial heap size.
-It is set to the desired size in megabytes.  If not set, then the
-default in the main program will be used.  If a default size is not
-supplied, then the implementation default is used.  This variable is
-overridden by the \texttt{-sch} command line flag.
+\texttt{SCHEAP} environment variable that controls the initial heap
+size.  It is set to the desired size in megabytes.  If not set, then
+the default in the main program will be used.  If a default size is
+not supplied, then the implementation default is used.  This variable
+is overridden by the \texttt{-sch} command line flag.
 
 \texttt{SCLIMIT} environment variable that controls the amount of heap
 retained after a generational garbage collection that will force a
 full collection.  It is expressed as a percent of the heap.  The
-default value is 40.  This variable is overridden by the
-\texttt{-scl} command line flag.
+default value is 40.  This variable is overridden by the \texttt{-scl}
+command line flag.
 
 \texttt{SCMAXHEAP} environment variable that controls the maximum heap
-size.  It is set to the desired size in megabytes.  If not set and
-the \texttt{-scmh} command line flag is not supplied, the maximum heap
+size.  It is set to the desired size in megabytes.  If not set and the
+\texttt{-scmh} command line flag is not supplied, the maximum heap
 size is five times the initial heap size. This variable is overridden
 by the \texttt{-scmh} command line flag.
 
-(\texttt{scheme-byte-ref} \emph{sc-pointer} \emph{integer}) returns the byte at
-the \emph{integer} byte of \emph{sc-pointer} as a \emph{number}.
+(\texttt{scheme-byte-ref} \emph{sc-pointer} \emph{integer}) returns
+the byte at the \emph{integer} byte of \emph{sc-pointer} as a
+\emph{number}.
 
-(\texttt{scheme-byte-set!}\ \emph{sc-pointer} \emph{integer} \emph{number}) sets the
-byte at the \emph{integer} byte of \emph{sc-pointer} to \emph{number}.  The
-procedure returns \emph{number} as its value.
+(\texttt{scheme-byte-set!}\ \emph{sc-pointer} \emph{integer}
+\emph{number}) sets the byte at the \emph{integer} byte of
+\emph{sc-pointer} to \emph{number}.  The procedure returns
+\emph{number} as its value.
 
-(\texttt{scheme-int-ref} \emph{sc-pointer} \emph{integer}) return the int at the
-\emph{integer} byte of \emph{sc-pointer} as a \emph{number}.
+(\texttt{scheme-int-ref} \emph{sc-pointer} \emph{integer}) return the
+int at the \emph{integer} byte of \emph{sc-pointer} as a
+\emph{number}.
 
-(\texttt{scheme-int-set!}\ \emph{sc-pointer} \emph{integer} \emph{number}) sets the
-int at the \emph{integer} byte of \emph{sc-pointer} to \emph{number}.  The
-procedure returns \emph{number} as its value.
+(\texttt{scheme-int-set!}\ \emph{sc-pointer} \emph{integer}
+\emph{number}) sets the int at the \emph{integer} byte of
+\emph{sc-pointer} to \emph{number}.  The procedure returns
+\emph{number} as its value.
 
-(\texttt{scheme-s2cuint-ref} \emph{sc-pointer} \emph{integer}) returns the S2CUINT at
-the \emph{integer} byte of \emph{sc-pointer}.
+(\texttt{scheme-s2cuint-ref} \emph{sc-pointer} \emph{integer}) returns
+the S2CUINT at the \emph{integer} byte of \emph{sc-pointer}.
 
-(\texttt{scheme-s2cuint-set!}\ \emph{sc-pointer} \emph{integer} \emph{expression}) sets
-the S2CUINT at the \emph{integer} byte of \emph{sc-pointer} to \emph{expression}.
-The procedure returns \emph{expression} as its value.
+(\texttt{scheme-s2cuint-set!}\ \emph{sc-pointer} \emph{integer}
+\emph{expression}) sets the S2CUINT at the \emph{integer} byte of
+\emph{sc-pointer} to \emph{expression}.  The procedure returns
+\emph{expression} as its value.
 
-(\texttt{scheme-tscp-ref} \emph{sc-pointer} \emph{integer}) returns the TSCP at
-the \emph{integer} byte of \emph{sc-pointer}.
+(\texttt{scheme-tscp-ref} \emph{sc-pointer} \emph{integer}) returns
+the TSCP at the \emph{integer} byte of \emph{sc-pointer}.
 
-(\texttt{scheme-tscp-set!}\ \emph{sc-pointer} \emph{integer} \emph{expression}) sets
-the TSCP at the \emph{integer} byte of \emph{sc-pointer} to \emph{expression}.
-The procedure returns \emph{expression} as its value.
+(\texttt{scheme-tscp-set!}\ \emph{sc-pointer} \emph{integer}
+\emph{expression}) sets the TSCP at the \emph{integer} byte of
+\emph{sc-pointer} to \emph{expression}.  The procedure returns
+\emph{expression} as its value.
 
-\texttt{sci} shell command to invoke the \texttt{Scheme->C} Scheme interpreter.  See the
-\texttt{man} page.
+\texttt{sci} shell command to invoke the \StoC\ Scheme interpreter.
+See the \texttt{man} page.
 
-\texttt{sci} \emph{format descriptor} for compatibility with Revised$^3$.
+\texttt{sci} \emph{format descriptor} for compatibility with \RRRRS.
 
-(\texttt{set!}\ \emph{symbol} \emph{expression}) \emph{syntax} to set the location
-bound to \emph{symbol} to the value of \emph{expression}.  Revised$^4$ 9.
+(\texttt{set!}\ \emph{symbol} \emph{expression}) \emph{syntax} to set
+the location bound to \emph{symbol} to the value of \emph{expression}.
+\RRRRRS~9.
 
-(\texttt{set-car!}\ \emph{pair} \emph{expression}) sets the car field of
-\emph{pair} to \emph{expression}.  Revised$^4$ 16.
+(\texttt{set-car!}\ \emph{pair} \emph{expression}) sets the car field
+of \emph{pair} to \emph{expression}.  \RRRRRS~16.
 
-(\texttt{set-cdr!}\ \emph{pair} \emph{expression}) sets the cdr field of
-\emph{pair} to \emph{expression}.  Revised$^4$ 16.
+(\texttt{set-cdr!}\ \emph{pair} \emph{expression}) sets the cdr field
+of \emph{pair} to \emph{expression}.  \RRRRRS~16.
 
-(\texttt{set-gcinfo!}\ \emph{integer}) sets the flag controlling the printing of
-garbage collection statistics to \emph{integer}.  See \texttt{-scgc}.
+(\texttt{set-gcinfo!}\ \emph{integer}) sets the flag controlling the
+printing of garbage collection statistics to \emph{integer}.  See
+\texttt{-scgc}.
 
-(\texttt{set-generation-limit!}\ \emph{integer}) sets the full collection
-limit to \emph{integer}.  See \texttt{-scl}.
+(\texttt{set-generation-limit!}\ \emph{integer}) sets the full
+collection limit to \emph{integer}.  See \texttt{-scl}.
 
-(\texttt{set-maximum-heap!}\ \emph{integer}) sets the maximum heap size to
-\emph{integer} megabytes.  See \texttt{-scmh}.
+(\texttt{set-maximum-heap!}\ \emph{integer}) sets the maximum heap
+size to \emph{integer} megabytes.  See \texttt{-scmh}.
 
-(\texttt{set-stack-size!}\ \emph{expression}) sets the size of the stack used
-by \texttt{Scheme->C} to \emph{expression} bytes.  This value is ignored if the
-system does not do explicit stack overflow checking.
+(\texttt{set-stack-size!}\ \emph{expression}) sets the size of the
+stack used by \StoC\ to \emph{expression} bytes.  This value is
+ignored if the system does not do explicit stack overflow checking.
 
-(\texttt{set-time-slice!}\ \emph{expression}) sets the time slice used by the
-\texttt{Scheme->C} to \emph{expression} ticks. This value is decremented each
-time a Scheme procedure is called, and the time slice expires when it
-becomes zero.  This value is ignored if the system does not do
+(\texttt{set-time-slice!}\ \emph{expression}) sets the time slice used
+by the \StoC\ to \emph{expression} ticks. This value is decremented
+each time a Scheme procedure is called, and the time slice expires
+when it becomes zero.  This value is ignored if the system does not do
 explicit time slicing.
 
-(\texttt{set-top-level-value!}\ \emph{symbol} \emph{expression}) sets the
-top-level location bound to \emph{symbol} to value.
+(\texttt{set-top-level-value!}\ \emph{symbol} \emph{expression}) sets
+the top-level location bound to \emph{symbol} to value.
 
-(\texttt{set-write-circle!}\ \emph{boolean} \emph{optional-output-port})
-controls circular object detection on output to
-\emph{optional-output-port}. If \emph{boolean} is \texttt{\#t}, then
-circular objects are printed as ``...''.  If \emph{boolean} is
-\texttt{\#f}, circular object detection is disabled.
+(\texttt{set-write-circle!}\ \emph{boolean}
+\emph{optional-output-port}) controls circular object detection on
+output to \emph{optional-output-port}. If \emph{boolean} is
+\texttt{\#t}, then circular objects are printed as ``...''.  If
+\emph{boolean} is \texttt{\#f}, circular object detection is disabled.
 
-(\texttt{set-write-length!}\ \emph{integer} \emph{optional-output-port})
-sets the list and vector length limits of \emph{optional-output-port} to
-\emph{integer}.  Vectors and lists longer than \emph{integer} have their
-remaining elements printed as ``...''.
+(\texttt{set-write-length!}\ \emph{integer}
+\emph{optional-output-port}) sets the list and vector length limits of
+\emph{optional-output-port} to \emph{integer}.  Vectors and lists
+longer than \emph{integer} have their remaining elements printed as
+``...''.
 
-(\texttt{set-write-length!}\ \texttt{\#f} \emph{optional-output-port}) allows
-arbitrary length list and vector printing on \emph{optional-output-port}.
+(\texttt{set-write-length!}\ \texttt{\#f} \emph{optional-output-port})
+allows arbitrary length list and vector printing on
+\emph{optional-output-port}.
 
-(\texttt{set-write-level!}\ \emph{integer} \emph{optional-output-port})
-sets the number of levels that nested vectors and lists are
-printed on \emph{optional-output-port} to \emph{integer}.  Vectors
-and lists nesting deeper than this level are printed as ``\#''.
+(\texttt{set-write-level!}\ \emph{integer}
+\emph{optional-output-port}) sets the number of levels that nested
+vectors and lists are printed on \emph{optional-output-port} to
+\emph{integer}.  Vectors and lists nesting deeper than this level are
+printed as ``\#''.
 
-(\texttt{set-write-level!}\ \texttt{\#f} \emph{optional-output-port}) allows
-arbitrarily deep nested list and vector printing on \emph{optional-output-port}.
+(\texttt{set-write-level!}\ \texttt{\#f} \emph{optional-output-port})
+allows arbitrarily deep nested list and vector printing on
+\emph{optional-output-port}.
 
-(\texttt{set-write-pretty!}\ \emph{boolean} \emph{optional-output-port})
-controls ``pretty-printing'' on \emph{optional-output-port}.  If
-\emph{boolean} is \texttt{\#t}, then output is printed in a more readable form in
-\texttt{write-width} wide lines.  A value of \texttt{\#f} enables normal
-output.
+(\texttt{set-write-pretty!}\ \emph{boolean}
+\emph{optional-output-port}) controls ``pretty-printing'' on
+\emph{optional-output-port}.  If \emph{boolean} is \texttt{\#t}, then
+output is printed in a more readable form in \texttt{write-width} wide
+lines.  A value of \texttt{\#f} enables normal output.
 
-(\texttt{set-write-width!}\ \emph{integer} \emph{optional-output-port}) sets the
-width of \emph{optional-output-port} to \emph{integer}.
+(\texttt{set-write-width!}\ \emph{integer}
+\emph{optional-output-port}) sets the width of
+\emph{optional-output-port} to \emph{integer}.
 
 \texttt{shortint} \emph{syntax} for declaring a non-Scheme procedure,
-procedure argument, or global variable as the C type \texttt{short int}.
-When a \texttt{short int} value must be supplied, an expression of type
-\emph{number} must be supplied.  When a \texttt{short int} value is returned,
-a value of type \emph{number} is returned.
-
-\texttt{shortunsigned} \emph{syntax} for declaring a non-Scheme procedure,
 procedure argument, or global variable as the C type \texttt{short
-unsigned}. When a \texttt{unsigned short} value must be supplied, an
-expression of type \emph{number} must be supplied.  When a \texttt{short
-unsigned} value is returned, a value of type \emph{number} is returned.
+  int}.  When a \texttt{short int} value must be supplied, an
+expression of type \emph{number} must be supplied.  When a
+\texttt{short int} value is returned, a value of type \emph{number} is
+returned.
 
-(\texttt{sin} \emph{number}) returns the sine of its argument.  Revised$^4$
-23.
+\texttt{shortunsigned} \emph{syntax} for declaring a non-Scheme
+procedure, procedure argument, or global variable as the C type
+\texttt{short unsigned}. When a \texttt{unsigned short} value must be
+supplied, an expression of type \emph{number} must be supplied.  When
+a \texttt{short unsigned} value is returned, a value of type
+\emph{number} is returned.
 
-(\texttt{signal} \emph{number} \emph{expression}) provides a signal handler for
-the operating system dependent signal \emph{number}.  The \emph{expression} is the
-signal handler and is either a \emph{procedure} or a \emph{number}.  When a
-procedure is supplied, it is called with the signal number when the
-signal is present.  Numeric handler values are interpreted by the
-underlying operating system.  The previous value of the signal
-handler is returned.
+(\texttt{sin} \emph{number}) returns the sine of its argument.
+\RRRRRS~23.
+
+(\texttt{signal} \emph{number} \emph{expression}) provides a signal
+handler for the operating system dependent signal \emph{number}.  The
+\emph{expression} is the signal handler and is either a
+\emph{procedure} or a \emph{number}.  When a procedure is supplied, it
+is called with the signal number when the signal is present.  Numeric
+handler values are interpreted by the underlying operating system.
+The previous value of the signal handler is returned.
 
 (\texttt{sqrt} \emph{number}) returns the square root of its argument.
-Revised$^4$ 23.  
+\RRRRRS~23.
 
-(\texttt{stack-size}) returns the size in bytes of \texttt{Scheme->C}'s stack.
+(\texttt{stack-size}) returns the size in bytes of \StoC's stack.
 
 \texttt{stderr-port} \emph{port} to output characters to stderr.
 
@@ -1785,307 +1917,326 @@ Revised$^4$ 23.
 \texttt{stdout-port} \emph{port} to output characters to stdout.
 
 \emph{string} sequence of \emph{characters}.  The valid indexes of a
-\emph{string} are exact non-negative integers less than the
-length of the string.Revised$^4$ 25.
+\emph{string} are exact non-negative integers less than the length of
+the string.\RRRRRS~25.
 
 (\texttt{string} \emph{char} ...)\ returns a newly allocated
-\emph{string} whose elements contain the given arguments.  Revised$^4$ 25.
+\emph{string} whose elements contain the given arguments.  \RRRRRS~25.
 
-(\texttt{string->list} \emph{string}) returns a newly constructed \emph{list}
-that contains the elements of \emph{string}.  Revised$^4$ 25.
+(\texttt{string->list} \emph{string}) returns a newly constructed
+\emph{list} that contains the elements of \emph{string}.  \RRRRRS~25.
 
 (\texttt{string->number} \emph{string}) returns a number expressed by
-\emph{string}.  If \emph{string} is not a syntactically valid notation for
-a number then it returns \texttt{\#f}.  Revised$^4$ 24.
+\emph{string}.  If \emph{string} is not a syntactically valid notation
+for a number then it returns \texttt{\#f}.  \RRRRRS~24.
 
-(\texttt{string->number} \emph{string} \emph{number}) returns a number expressed
-by \emph{string} with \emph{number} the default radix.  Radix must be 2, 8,
-10, or 16. If \emph{string} is not a syntactically valid notation for a
-number then it returns \texttt{\#f}.  Revised$^4$ 24.
+(\texttt{string->number} \emph{string} \emph{number}) returns a number
+expressed by \emph{string} with \emph{number} the default radix.
+Radix must be 2, 8, 10, or 16. If \emph{string} is not a syntactically
+valid notation for a number then it returns \texttt{\#f}.  \RRRRRS~24.
 
-(\texttt{string->symbol} \emph{string}) returns the interned \emph{symbol} whose
-name is \emph{string}.  Revised$^4$ 18.
+(\texttt{string->symbol} \emph{string}) returns the interned
+\emph{symbol} whose name is \emph{string}.  \RRRRRS~18.
 
-(\texttt{string->uninterned-symbol} \emph{string}) returns an uninterned
-\emph{symbol} whose name is string.
+(\texttt{string->uninterned-symbol} \emph{string}) returns an
+uninterned \emph{symbol} whose name is string.
 
-(\texttt{string-append} \emph{string} \emph{string} ...)\ returns a new
-\emph{string} whose \emph{characters} are the concatenation of the of the
-given \emph{strings}. Upper and lower case letters are treated as though
-they were the same character. Revised$^4$ 26.
+(\texttt{string-append} \emph{string} \emph{string} ...)\ returns a
+new \emph{string} whose \emph{characters} are the concatenation of the
+of the given \emph{strings}. Upper and lower case letters are treated
+as though they were the same character. \RRRRRS~26.
 
-(\texttt{string-ci<=?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate}
-that returns \texttt{\#t} when \emph{string}$_1$ is less than or equal to
-\emph{string}$_2$.  Upper and lower case letters are treated as though
-they were the same character. Revised$^4$ 26.
+(\texttt{string-ci<=?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+less than or equal to \emph{string}$_2$.  Upper and lower case letters
+are treated as though they were the same character. \RRRRRS~26.
 
-(\texttt{string-ci<?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is less than \emph{string}$_2$.
-Upper and lower case letters are treated as though they were the same
-character. Revised$^4$ 26.
+(\texttt{string-ci<?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+less than \emph{string}$_2$.  Upper and lower case letters are treated
+as though they were the same character. \RRRRRS~26.
 
-(\texttt{string-ci=?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is equal to \emph{string}$_2$.
-Upper and lower case letters are treated as though they were the same
-character. Revised$^4$ 26.
+(\texttt{string-ci=?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+equal to \emph{string}$_2$.  Upper and lower case letters are treated
+as though they were the same character. \RRRRRS~26.
 
-(\texttt{string-ci>=?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate}
-that returns \texttt{\#t} when \emph{string}$_1$ is greater than or equal to
-\emph{string}$_2$.  Upper and lower case letters are treated as though
-they were the same character. Revised$^4$ 26.
+(\texttt{string-ci>=?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+greater than or equal to \emph{string}$_2$.  Upper and lower case
+letters are treated as though they were the same
+character. \RRRRRS~26.
 
-(\texttt{string-ci>?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is greater than \emph{string}$_2$.
-Upper and lower case letters are treated as though they were the same
-character. Revised$^4$ 26.
+(\texttt{string-ci>?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+greater than \emph{string}$_2$.  Upper and lower case letters are
+treated as though they were the same character. \RRRRRS~26.
 
 (\texttt{string-copy} \emph{string}) returns a new \emph{string} whose
-\emph{characters} are those of the given \emph{string}.  Revised$^4$ 26.
+\emph{characters} are those of the given \emph{string}.  \RRRRRS~26.
 
-(\texttt{string-fill!}\ \emph{string} \emph{char}) stores \emph{char} in
-every element of \emph{string}.  Revised$^4$ 26.
+(\texttt{string-fill!}\ \emph{string} \emph{char}) stores \emph{char}
+in every element of \emph{string}.  \RRRRRS~26.
 
-(\texttt{string-length} \emph{string}) returns the length of \emph{string}.
-Revised$^4$ 25.
+(\texttt{string-length} \emph{string}) returns the length of
+\emph{string}.  \RRRRRS~25.
 
-(\texttt{string-ref} \emph{string} \emph{integer}) returns \emph{character} that
-is the \emph{integer} element of \emph{string}.  The first element is
-0. Revised$^4$ 25.
+(\texttt{string-ref} \emph{string} \emph{integer}) returns
+\emph{character} that is the \emph{integer} element of \emph{string}.
+The first element is 0. \RRRRRS~25.
 
-(\texttt{string-set!}\ \emph{string} \emph{integer} \emph{character}) sets the
-\emph{integer} element of \emph{string} to \emph{character}.  The first
-element is 0.  Revised$^4$ 26.
+(\texttt{string-set!}\ \emph{string} \emph{integer} \emph{character})
+sets the \emph{integer} element of \emph{string} to \emph{character}.
+The first element is 0.  \RRRRRS~26.
 
-(\texttt{string<=?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is less than or equal to
-\emph{string}$_2$.  Revised$^4$ 26.
+(\texttt{string<=?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+less than or equal to \emph{string}$_2$.  \RRRRRS~26.
 
-(\texttt{string<?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is less than \emph{string}$_2$.
-Revised$^4$ 26.
+(\texttt{string<?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+less than \emph{string}$_2$.  \RRRRRS~26.
 
-(\texttt{string=?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is equal to \emph{string}$_2$.
-Revised$^4$ 26.
+(\texttt{string=?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+equal to \emph{string}$_2$.  \RRRRRS~26.
 
-(\texttt{string>=?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is greater than or equal to
-\emph{string}$_2$.  Revised$^4$ 26.
+(\texttt{string>=?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+greater than or equal to \emph{string}$_2$.  \RRRRRS~26.
 
-(\texttt{string>?}\ \emph{string}$_1$ \emph{string}$_2$) \emph{predicate} that
-returns \texttt{\#t} when \emph{string}$_1$ is greater than \emph{string}$_2$.
-Revised$^4$ 26.
+(\texttt{string>?}\ \emph{string}$_1$ \emph{string}$_2$)
+\emph{predicate} that returns \texttt{\#t} when \emph{string}$_1$ is
+greater than \emph{string}$_2$.  \RRRRRS~26.
 
-(\texttt{string?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{string}.  Revised$^4$ 25.
+(\texttt{string?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{string}.  \RRRRRS~25.
 
-(\texttt{substring} \emph{string} \emph{integer}$_1$ \emph{integer}$_2$) returns
-a \emph{string} consisting of \emph{integer}$_2$-\emph{integer}$_1$ elements
-of \emph{string} starting at element \emph{integer}$_1$.  Revised$^4$ 26.
+(\texttt{substring} \emph{string} \emph{integer}$_1$
+\emph{integer}$_2$) returns a \emph{string} consisting of
+\emph{integer}$_2$-\emph{integer}$_1$ elements of \emph{string}
+starting at element \emph{integer}$_1$.  \RRRRRS~26.
 
-(\texttt{symbol?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{symbol}.  Revised$^4$ 18.
+(\texttt{symbol?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{symbol}.  \RRRRRS~18.
 
-(\texttt{symbol->string} \emph{symbol}) returns the name of \emph{symbol} as a
-\emph{string}.  Revised$^4$ 18.
+(\texttt{symbol->string} \emph{symbol}) returns the name of
+\emph{symbol} as a \emph{string}.  \RRRRRS~18.
 
 \emph{syntax} indicates a form that is evaluated in a manner that is
-specific to the form.  Revised$^4$ 5.
+specific to the form.  \RRRRRS~5.
 
-(\texttt{system} \emph{string}) issue the shell command contained in \emph{string}
-and return the result.  See the man page for the \texttt{system} procedure for 
-details.
+(\texttt{system} \emph{string}) issue the shell command contained in
+\emph{string} and return the result.  See the man page for the
+\texttt{system} procedure for details.
 
 (\texttt{tan} \emph{number}) returns the tangent of its argument.
-Revised$^4$ 23.
+\RRRRRS~23.
 
 (\texttt{time-of-day}) returns a system dependent \emph{string}
 representing the current time and date.
 
 (\texttt{time-slice}) returns the current time slice value.
 
-(\texttt{top-level}) returns control to the ``top-level'' \texttt{read-eval-print}
-loop.
+(\texttt{top-level}) returns control to the ``top-level''
+\texttt{read-eval-print} loop.
 
-(\texttt{top-level-value} \emph{symbol}) returns the value in the location
-that is the ``top-level'' binding of \emph{symbol}.
+(\texttt{top-level-value} \emph{symbol}) returns the value in the
+location that is the ``top-level'' binding of \emph{symbol}.
 
 (\texttt{trace}) returns a list of the procedures being traced.
 
-(\texttt{trace} \emph{symbol} \emph{symbol} ...)\ enables tracing on the
-\emph{procedures} that are the values of the \emph{symbols}.
+(\texttt{trace} \emph{symbol} \emph{symbol} ...)\ enables tracing on
+the \emph{procedures} that are the values of the \emph{symbols}.
 
-\texttt{trace-output-port} \emph{port} used for trace output. The default
-value is the same as \texttt{stdout-port}.
+\texttt{trace-output-port} \emph{port} used for trace output. The
+default value is the same as \texttt{stdout-port}.
 
-(\texttt{transcript-off}) turns off the transcript.  Revised$^4$ 31.
+(\texttt{transcript-off}) turns off the transcript.  \RRRRRS~31.
 
 (\texttt{transcript-on} \emph{string}) starts a transcript on the file
-\emph{string}.  Revised$^4$ 31.
+\emph{string}.  \RRRRRS~31.
 
-(\texttt{truncate} \emph{number}) returns the truncated value of \emph{number}.
-Revised$^4$ 22.
+(\texttt{truncate} \emph{number}) returns the truncated value of
+\emph{number}.  \RRRRRS~22.
 
-\texttt{tscp} \emph{syntax} for declaring a non-Scheme procedure, procedure
-argument, or global variable as the C type \texttt{TSCP}. The type
-\texttt{TSCP} is a tagged pointer to a Scheme object. When a \texttt{tscp}
-value must be supplied, any expression may be supplied.  When a
-\texttt{tscp} value is returned, any type of value may be returned.
+\texttt{tscp} \emph{syntax} for declaring a non-Scheme procedure,
+procedure argument, or global variable as the C type
+\texttt{TSCP}. The type \texttt{TSCP} is a tagged pointer to a Scheme
+object. When a \texttt{tscp} value must be supplied, any expression
+may be supplied.  When a \texttt{tscp} value is returned, any type of
+value may be returned.
 
 (\texttt{unbpt}) \emph{syntax} to remove all breakpoints.
 
-(\texttt{unbpt} \emph{symbol} \emph{symbol} ...)\ \emph{syntax} to remove
-breakpoints from the named \emph{procedures}.
+(\texttt{unbpt} \emph{symbol} \emph{symbol} ...)\ \emph{syntax} to
+remove breakpoints from the named \emph{procedures}.
 
-(\texttt{uninterned-symbol?}\ \emph{symbol}) \emph{predicate} that returns
-\texttt{\#t} if \emph{symbol} is not \emph{interned}.
+(\texttt{uninterned-symbol?}\ \emph{symbol}) \emph{predicate} that
+returns \texttt{\#t} if \emph{symbol} is not \emph{interned}.
 
-(\texttt{unless} \emph{expression}$_1$ \emph{expression}$_2$ ...)\ \emph{syntax}
-for a conditional form that is equivalent to (\texttt{if} (\texttt{not}
-\emph{expression}$_1$) (\texttt{begin} \emph{expression}$_2$ ...)).
+(\texttt{unless} \emph{expression}$_1$ \emph{expression}$_2$
+...)\ \emph{syntax} for a conditional form that is equivalent to
+(\texttt{if} (\texttt{not} \emph{expression}$_1$) (\texttt{begin}
+\emph{expression}$_2$ ...)).
 
-(\texttt{unquote} \emph{expression}) \emph{syntax} to evaluate the expression
-and replaces it in the \emph{back-quote-template}.  Revised$^4$ 12.
+(\texttt{unquote} \emph{expression}) \emph{syntax} to evaluate the
+expression and replaces it in the \emph{back-quote-template}.
+\RRRRRS~12.
 
-(\texttt{unquote-splicing} \emph{expression}) \emph{syntax} to evaluate the
-expression and splices it into the \emph{back-quote-template}.
-Revised$^4$ 12.
+(\texttt{unquote-splicing} \emph{expression}) \emph{syntax} to
+evaluate the expression and splices it into the
+\emph{back-quote-template}.  \RRRRRS~12.
 
 \texttt{unsigned} \emph{syntax} for declaring a non-Scheme procedure,
-procedure argument, or global variable as the C type \texttt{unsigned}.
-When a \texttt{unsigned} value must be supplied, an expression of type
-\emph{number} must be supplied.  When a \texttt{unsigned} value is returned,
-a value of type \emph{number} is returned.
+procedure argument, or global variable as the C type
+\texttt{unsigned}.  When a \texttt{unsigned} value must be supplied,
+an expression of type \emph{number} must be supplied.  When a
+\texttt{unsigned} value is returned, a value of type \emph{number} is
+returned.
 
-(\texttt{untrace}) \emph{syntax} to remove tracing from all \emph{procedures}.
+(\texttt{untrace}) \emph{syntax} to remove tracing from all
+\emph{procedures}.
 
-(\texttt{untrace} \emph{symbol} \emph{symbol} ...)\ \emph{syntax} to remove tracing from the
-named \emph{procedures}.
+(\texttt{untrace} \emph{symbol} \emph{symbol} ...)\ \emph{syntax} to
+remove tracing from the named \emph{procedures}.
 
-\emph{variable} Revised$^4$ 6.
+\emph{variable} \RRRRRS~6.
 
 \emph{vector} a heterogenous mutable structure whose elements are
-indexed by \emph{integers}.  The valid indexes of a vector are
-the exact non-negative integers less than the length of the
-vector. Revised$^4$ 26.
+indexed by \emph{integers}.  The valid indexes of a vector are the
+exact non-negative integers less than the length of the
+vector. \RRRRRS~26.
 
 (\texttt{vector} \emph{expression} ...)\ returns a newly allocated
-\emph{vector} whose elements contain the given arguments.
-Revised$^4$ 27.
+\emph{vector} whose elements contain the given arguments.  \RRRRRS~27.
 
-(\texttt{vector-fill!}\ \emph{vector} \emph{expression}) stores \emph{expression} in
-every element of \emph{vector}.  Revised$^4$ 27.
+(\texttt{vector-fill!}\ \emph{vector} \emph{expression}) stores
+\emph{expression} in every element of \emph{vector}.  \RRRRRS~27.
 
-(\texttt{vector-length} \emph{vector}) returns the number of elements in
-\emph{vector}.  Revised$^4$ 27.
+(\texttt{vector-length} \emph{vector}) returns the number of elements
+in \emph{vector}.  \RRRRRS~27.
 
-(\texttt{vector->list} \emph{vector}) returns a newly created \emph{list} of the
-objects contained in the elements of the \emph{vector}.  Revised$^4$ 27.
+(\texttt{vector->list} \emph{vector}) returns a newly created
+\emph{list} of the objects contained in the elements of the
+\emph{vector}.  \RRRRRS~27.
 
-(\texttt{vector-ref} \emph{vector} \emph{integer}) returns the contents of
-element \emph{integer} of \emph{vector}.  The first element is 0.
-Revised$^4$ 27.
+(\texttt{vector-ref} \emph{vector} \emph{integer}) returns the
+contents of element \emph{integer} of \emph{vector}.  The first
+element is 0.  \RRRRRS~27.
 
-(\texttt{vector-set!}\ \emph{vector} \emph{integer} \emph{expression}) sets element
-\emph{integer} of \emph{vector} to \emph{expression}.  The first element is 0.
-Revised$^4$ 27.
+(\texttt{vector-set!}\ \emph{vector} \emph{integer} \emph{expression})
+sets element \emph{integer} of \emph{vector} to \emph{expression}.
+The first element is 0.  \RRRRRS~27.
 
-(\texttt{vector?}\ \emph{expression}) \emph{predicate} that returns \texttt{\#t} when
-\emph{expression} is a \emph{vector}.  Revised$^4$ 26.
+(\texttt{vector?}\ \emph{expression}) \emph{predicate} that returns
+\texttt{\#t} when \emph{expression} is a \emph{vector}.  \RRRRRS~26.
 
-\texttt{void} \emph{syntax} for declaring a non-Scheme procedure as returning
-the C type \texttt{void}.  The value of such a procedure may not be used.
+\texttt{void} \emph{syntax} for declaring a non-Scheme procedure as
+returning the C type \texttt{void}.  The value of such a procedure may
+not be used.
 
-(\texttt{wait-system-file} \emph{expression}) waits for input on the file
-with the system file number \emph{expression}.  When input is available,
-the procedure returns.  If \emph{expression} is equal to \texttt{\#f}, then
-the procedure will not return until all tasks have been completed.
+(\texttt{wait-system-file} \emph{expression}) waits for input on the
+file with the system file number \emph{expression}.  When input is
+available, the procedure returns.  If \emph{expression} is equal to
+\texttt{\#f}, then the procedure will not return until all tasks have
+been completed.
 
-(\texttt{weak-cons} \emph{expression}$_1$ \emph{expression}$_2$) returns a
-newly allocated \emph{pair} that has \emph{expression}$_1$ as its \texttt{car},
-and \emph{expression}$_2$ as its \texttt{cdr}.  If the garbage collector
-discovers that pointers to an object only exist in the \texttt{car}'s of
-\emph{pair}s created by \texttt{weak-cons}, then it may recover the object
-and set the \texttt{car}'s in those \emph{pair}s to \texttt{\#f}.
+(\texttt{weak-cons} \emph{expression}$_1$ \emph{expression}$_2$)
+returns a newly allocated \emph{pair} that has \emph{expression}$_1$
+as its \texttt{car}, and \emph{expression}$_2$ as its \texttt{cdr}.
+If the garbage collector discovers that pointers to an object only
+exist in the \texttt{car}'s of \emph{pair}s created by
+\texttt{weak-cons}, then it may recover the object and set the
+\texttt{car}'s in those \emph{pair}s to \texttt{\#f}.
 
-(\texttt{when} \emph{expression}$_1$ \emph{expression}$_2$ ...)\ \emph{syntax} for
-a conditional form that is equivalent to (\texttt{if} \emph{expression}$_1$
-(\texttt{begin} \emph{expression}$_2$ ...)).
+(\texttt{when} \emph{expression}$_1$ \emph{expression}$_2$
+...)\ \emph{syntax} for a conditional form that is equivalent to
+(\texttt{if} \emph{expression}$_1$ (\texttt{begin}
+\emph{expression}$_2$ ...)).
 
-(\texttt{when-unreferenced} \emph{expression} \emph{procedure}) applys
-the clean-up procedure \emph{procedure} (with the object
-represented by \emph{expression} as its argument) at some point in
-the future when the object represented by \emph{expression} is no
-longer referenced by the program.  The procedure returns
-either the cleanup procedure supplied by an earlier call to
-\texttt{when-unreferenced}, or \texttt{\#f} when no cleanup procedure was
-defined.
+(\texttt{when-unreferenced} \emph{expression} \emph{procedure})
+applies the clean-up procedure \emph{procedure} (with the object
+represented by \emph{expression} as its argument) at some point in the
+future when the object represented by \emph{expression} is no longer
+referenced by the program.  The procedure returns either the cleanup
+procedure supplied by an earlier call to \texttt{when-unreferenced},
+or \texttt{\#f} when no cleanup procedure was defined.
 
-(\texttt{when-unreferenced} \emph{expression} \texttt{\#f}) returns either the
-cleanup procedure for the object represented by
+(\texttt{when-unreferenced} \emph{expression} \texttt{\#f}) returns
+either the cleanup procedure for the object represented by
 \emph{expression} or \texttt{\#f} when no cleanup procedure was
-defined.  In either case, the Scheme system will take no
-action when the object represented by \emph{expression} is no
-longer referenced by the program.
+defined.  In either case, the Scheme system will take no action when
+the object represented by \emph{expression} is no longer referenced by
+the program.
 
-(\texttt{with-input-from-file} \emph{string} \emph{procedure}) opens the file
-\emph{string}, makes its \emph{port} the default \emph{input-port}, then
-calls \emph{procedure} with no arguments.  Revised$^4$ 30.
+(\texttt{with-input-from-file} \emph{string} \emph{procedure}) opens
+the file \emph{string}, makes its \emph{port} the default
+\emph{input-port}, then calls \emph{procedure} with no arguments.
+\RRRRRS~30.
 
-(\texttt{with-output-to-file}  \emph{string} \emph{procedure}) opens the file
-\emph{string}, makes its \emph{port} the default \emph{output-port}, then
-calls \emph{procedure} with no arguments.  Revised$^4$ 30.
+(\texttt{with-output-to-file} \emph{string} \emph{procedure}) opens
+the file \emph{string}, makes its \emph{port} the default
+\emph{output-port}, then calls \emph{procedure} with no arguments.
+\RRRRRS~30.
 
 (\texttt{write} \emph{expression} \emph{optional-output-port}) outputs
 \emph{expression} to \emph{optional-output-port} in a machine-readable
-form.  Revised$^4$ 31.
+form.  \RRRRRS~31.
 
-(\texttt{write-char} \emph{character} \emph{optional-output-port}) outputs
-\emph{character} to \emph{optional-output-port}.  Revised$^4$ 31.
+(\texttt{write-char} \emph{character} \emph{optional-output-port})
+outputs \emph{character} to \emph{optional-output-port}.  \RRRRRS~31.
 
 (\texttt{write-circle} \emph{optional-output-port}) returns a
-\emph{boolean} indicating whether circular objects are detected
-when output to \emph{optional-output-port}.
+\emph{boolean} indicating whether circular objects are detected when
+output to \emph{optional-output-port}.
 
-(\texttt{write-count} \emph{optional-output-port}) returns the number of
-characters on the current line in \emph{optional-output-port}.
+(\texttt{write-count} \emph{optional-output-port}) returns the number
+of characters on the current line in \emph{optional-output-port}.
 
 (\texttt{write-length} \emph{optional-output-port}) returns either an
-\emph{integer} indicating the maximum length vector or list
-printed on \emph{optional-output-port}, or \texttt{\#f} indicating that
-arbitrary length objects are printed on \emph{optional-output-port}.
+\emph{integer} indicating the maximum length vector or list printed on
+\emph{optional-output-port}, or \texttt{\#f} indicating that arbitrary
+length objects are printed on \emph{optional-output-port}.
 
 (\texttt{write-level} \emph{optional-output-port}) returns either an
-\emph{integer} indicating the maximum nesting depth of objects
-that are printed on \emph{optional-output-port}, or \texttt{\#f} indicating
-that arbitrary depth objects are printed on \emph{optional-output-port}.
+\emph{integer} indicating the maximum nesting depth of objects that
+are printed on \emph{optional-output-port}, or \texttt{\#f} indicating
+that arbitrary depth objects are printed on
+\emph{optional-output-port}.
 
 (\texttt{write-pretty} \emph{optional-output-port}) returns a
 \emph{boolean} indicating whether pretty-printing is done on
 \emph{optional-output-port}.
 
-(\texttt{write-width} \emph{optional-output-port}) returns the width of
-\emph{optional-output-port} in \emph{characters}.
+(\texttt{write-width} \emph{optional-output-port}) returns the width
+of \emph{optional-output-port} in \emph{characters}.
 
-(\texttt{zero?}\ \emph{number}) predicate that returns \texttt{\#t} when \emph{number}
-is zero.  Revised$^4$ 21.
+(\texttt{zero?}\ \emph{number}) predicate that returns \texttt{\#t}
+when \emph{number} is zero.  \RRRRRS~21.
 
-\texttt{\texttildelow\%} \emph{format descriptor} to output a newline character.
+\texttt{\texttildelow\%} \emph{format descriptor} to output a newline
+character.
 
-\texttt{\texttildelow\texttildelow} \emph{format descriptor} to output a \texttt{\texttildelow}.
+\texttt{\texttildelow\texttildelow} \emph{format descriptor} to output
+a \texttt{\texttildelow}.
 
-\texttt{\texttildelow{}A} \emph{format descriptor} to output the next \emph{expression} using
-\texttt{display}.
+\texttt{\texttildelow{}A} \emph{format descriptor} to output the next
+\emph{expression} using \texttt{display}.
 
-\texttt{\texttildelow{}a} \emph{format descriptor} identical to \texttt{\texttildelow{}A}.
+\texttt{\texttildelow{}a} \emph{format descriptor} identical to
+\texttt{\texttildelow{}A}.
 
-\texttt{\texttildelow{}C} \emph{format descriptor} to output the next \emph{expression} (that
-must be a \emph{character}) using \texttt{write-char}.
+\texttt{\texttildelow{}C} \emph{format descriptor} to output the next
+\emph{expression} (that must be a \emph{character}) using
+\texttt{write-char}.
 
-\texttt{\texttildelow{}c} \emph{format descriptor} identical to \texttt{\texttildelow{}C}.
+\texttt{\texttildelow{}c} \emph{format descriptor} identical to
+\texttt{\texttildelow{}C}.
 
-\texttt{\texttildelow{}S} \emph{format descriptor} to output the next \emph{expression} using
-\texttt{write}.
+\texttt{\texttildelow{}S} \emph{format descriptor} to output the next
+\emph{expression} using \texttt{write}.
 
-\texttt{\texttildelow{}s} \emph{format descriptor} identical to \texttt{\texttildelow{}S}.
+\texttt{\texttildelow{}s} \emph{format descriptor} identical to
+\texttt{\texttildelow{}S}.
 \end{document}

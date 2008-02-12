@@ -2,64 +2,68 @@
 \usepackage{fullpage}
 \usepackage{parskip}
 \usepackage{newcent}
+\usepackage{s2c}
 
-\title{Embedded \texttt{Scheme->C} --- 1 February 1993}
+\title{Embedded \StoC\ --- 1 February 1993}
 \date{}
+\author{Joel F. Bartlett}
 
 \begin{document}
 
 \maketitle
 
-One of the major goals of \texttt{Scheme->C} was to build a Scheme
-compiler and runtime system that could coexist with other programming
-languages.  While this effort has been quite successful,
-\texttt{Scheme->C} has not offered everything needed by applications that
-wish to embed a Scheme server, feed it arbitrary expressions for
-evaluation, yet remain responsive to additional requests.
+One of the major goals of \StoC\ was to build a Scheme compiler and
+runtime system that could coexist with other programming languages.
+While this effort has been quite successful, \StoC\ has not offered
+everything needed by applications that wish to embed a Scheme server,
+feed it arbitrary expressions for evaluation, yet remain responsive to
+additional requests.
 
 For example, a database server might want to to evaluate arbitrary
 Scheme expressions to verify record update operations, record access
-rights, or provide data that is computed rather than being resident
-in the database.  Or, an event driven application for a PC or a
-Macintosh might like to embed Scheme.  
+rights, or provide data that is computed rather than being resident in
+the database.  Or, an event driven application for a PC or a Macintosh
+might like to embed Scheme.
 
 In order to safely execute in such a variety of environments, the
 Scheme system must allow the application to handle external events on
 a timely basis and place minimum requirements on the available system
 services. In order to solve these problems, the 01feb93 release of
-\texttt{Scheme->C} has been modified in the following areas.
+\StoC\ has been modified in the following areas.
 
-Explicit Time Slicing---in order to return to the caller at regular
-intervals, \texttt{Scheme->C} can be compiled with explicit time slicing.
-On each procedure entry or backwards branch, a counter is
-decremented. When the counter goes to 0, Scheme returns control to
-the application program at the point where it was called.  At a later
-time, the application has the option of continuing the previous
-computation or starting a new computation.
+\begin{description}
+\item[Explicit Time Slicing:] In order to return to the caller at
+  regular intervals, \StoC\ can be compiled with explicit time
+  slicing.  On each procedure entry or backwards branch, a counter is
+  decremented. When the counter goes to 0, Scheme returns control to
+  the application program at the point where it was called.  At a
+  later time, the application has the option of continuing the
+  previous computation or starting a new computation.
 
-Explicit Stack Overflow Checks---\texttt{Scheme->C} may be compiled with
-explicit stack overflow checks.  This is necessary as many
-environments have no other means for detecting a stack overflow which
-could damage the embedding application or crash the personal
-computer.
+\item[Explicit Stack Overflow Checks:] \StoC\ may be compiled with
+  explicit stack overflow checks.  This is necessary as many
+  environments have no other means for detecting a stack overflow
+  which could damage the embedding application or crash the personal
+  computer.
 
-Request-response interaction---when used as an embedded server, all
-interaction with Scheme is via one interface procedure.  Errors and
-breakpoints are handled across this interface like any other type of
-request.
+\item[Request-response interaction:] When used as an embedded server,
+  all interaction with Scheme is via one interface procedure.  Errors
+  and breakpoints are handled across this interface like any other
+  type of request.
 
-Operating System independence---unlike previous releases,
-\texttt{Scheme->C} does not assume the existence of a UNIX-like I/O
-system.  Rather than directly calling the host I/O system, all
-requests are via implementation specific routines in scrt/cio.c.  In
-fact, an embedded \texttt{Scheme->C} server doesn't assume that the client
-even has an I/O system.  Instead the stdout and stderr ports are
-string output ports.
+\item[Operating System independence:] Unlike previous releases,
+  \StoC\ does not assume the existence of a UNIX-like I/O system.
+  Rather than directly calling the host I/O system, all requests are
+  via implementation specific routines in scrt/cio.c.  In fact, an
+  embedded \StoC\ server doesn't assume that the client even has an
+  I/O system.  Instead the stdout and stderr ports are string output
+  ports.
 
-Previous releases of \texttt{Scheme->C} used operating system traps to
-detect division by zero and keyboard interrupts.  Division by zero
-errors are now explicitly tested for, and keyboard interrupt signals
-are not used by embedded \texttt{Scheme->C} systems.
+\item[Traps:] Previous releases of \StoC\ used operating system traps
+  to detect division by zero and keyboard interrupts.  Division by
+  zero errors are now explicitly tested for, and keyboard interrupt
+  signals are not used by embedded \StoC\ systems.
+\end{description}
 
 \subsection*{Application interface}
 
@@ -73,47 +77,51 @@ void  scheme2c( char *expression,
                 char **error )
 \end{verbatim}
 \end{quote}
-where \texttt{expression} is a pointer to a null terminated string of ASCII
-characters that is the Scheme expression to evaluate.  When the procedure
-returns, the result is stored in \texttt{status}, \texttt{result}, and
-\texttt{error}.  The value returned in \texttt{status} is interpreted as
-follows:
+where \texttt{expression} is a pointer to a null terminated string of
+ASCII characters that is the Scheme expression to evaluate.  When the
+procedure returns, the result is stored in \texttt{status},
+\texttt{result}, and \texttt{error}.  The value returned in
+\texttt{status} is interpreted as follows:
 
-\begin{description}
-\item[\texttt{0}:] expression evaluated normally.  The value is saved in
-\texttt{*SCHEME2C-RESULT*} within the Scheme system  and it is also
-written to Scheme's stdout-port.
+\begin{itemize}
+\item[\texttt{0}:] expression evaluated normally.  The value is saved
+  in \texttt{*SCHEME2C-RESULT*} within the Scheme system and it is
+  also written to Scheme's stdout-port.
 
-\item[\texttt{1}:] an error occurred.  The error message is written to Scheme's
-stderr-port.  If no previous error is being examined, the stack trace
-is written to Scheme's stderr-port and the associated environments
-are in the list \texttt{*ERROR-ENV*}.  The client should evaluate
-\texttt{(RESET-ERROR)} when done examining the error state.  Note that if
-additional errors occur before \texttt{(RESET-ERROR)} is evaluated, they
-will not cause a stack dump, nor have the error environment saved.
+\item[\texttt{1}:] an error occurred.  The error message is written to
+  Scheme's stderr-port.  If no previous error is being examined, the
+  stack trace is written to Scheme's stderr-port and the associated
+  environments are in the list \texttt{*ERROR-ENV*}.  The client
+  should evaluate \texttt{(RESET-ERROR)} when done examining the error
+  state.  Note that if additional errors occur before
+  \texttt{(RESET-ERROR)} is evaluated, they will not cause a stack
+  dump, nor have the error environment saved.
 
-\item[\texttt{2}:] an internal error in \texttt{Scheme->C} occurred.  The error
-message is reported via Scheme's stderr-port.  No further execution
-is possible.
+\item[\texttt{2}:] an internal error in \StoC\ occurred.  The error
+  message is reported via Scheme's stderr-port.  No further execution
+  is possible.
 
-\item[\texttt{3}:] the computation timed out.  Evaluate \texttt{(PROCEED)} to continue
-execution.  Evaluate \texttt{(PROCEED?)} to cause a breakpoint  when execution
-resumes.
+\item[\texttt{3}:] the computation timed out.  Evaluate
+  \texttt{(PROCEED)} to continue execution.  Evaluate
+  \texttt{(PROCEED?)} to cause a breakpoint when execution resumes.
 
-\item[\texttt{4}:] a procedure entry breakpoint occurred.  The call arguments are
-written to Scheme's stderr-port and the associated environments are
-in the list \texttt{*BPT-ENV*}. The procedure stack trace can be viewed by
-evaluating \texttt{(BACKTRACE)}.   The procedure arguments are in
-\texttt{*ARGS*}. Evaluate \texttt{(PROCEED)} to continue execution, or
-\texttt{(RESET-BPT)} to abort.
+\item[\texttt{4}:] a procedure entry breakpoint occurred.  The call
+  arguments are written to Scheme's stderr-port and the associated
+  environments are in the list \texttt{*BPT-ENV*}. The procedure stack
+  trace can be viewed by evaluating \texttt{(BACKTRACE)}.  The
+  procedure arguments are in \texttt{*ARGS*}. Evaluate
+  \texttt{(PROCEED)} to continue execution, or \texttt{(RESET-BPT)} to
+  abort.
 
-\item[\texttt{5}:] a procedure exit breakpoint occurred.  The result is written
-to Scheme's stderr-port and saved in \texttt{*RESULT*}.  The environments
-are in the list \texttt{*BPT-ENV*}.  Evaluate \texttt{(PROCEED)} to continue
-execution, \texttt{(PROCEED \textnormal{\emph{expression}})} to continue returning a
-new value, or \texttt{(RESET-BPT)} to abort.  Note that additional
-breakpoints will not occur while examining the state of a breakpoint.
-\end{description}
+\item[\texttt{5}:] a procedure exit breakpoint occurred.  The result
+  is written to Scheme's stderr-port and saved in \texttt{*RESULT*}.
+  The environments are in the list \texttt{*BPT-ENV*}.  Evaluate
+  \texttt{(PROCEED)} to continue execution, \texttt{(PROCEED
+    \textnormal{\emph{expression}})} to continue returning a new
+  value, or \texttt{(RESET-BPT)} to abort.  Note that additional
+  breakpoints will not occur while examining the state of a
+  breakpoint.
+\end{itemize}
 
 The value returned in \texttt{result} is pointer to a null terminated
 string of ASCII characters that is the contents of Scheme's
@@ -132,17 +140,18 @@ the stack correctly by evaluating an expression that forces a stack
 overflow error and then verifying that the Scheme stack has not
 overflowed into the application.
 
-The Scheme time slice is set by evaluating \texttt{(set-time-slice!\
-\textnormal{\emph{expression}})}, where \emph{expression} is the number of Scheme
-procedure calls that should be made in a time slice.  Experiment to
-find the right value for your application. The current time slice
-value is obtained by evaluating \texttt{(time-slice)}.
+The Scheme time slice is set by evaluating
+\texttt{(set-time-slice!\ \textnormal{\emph{expression}})}, where
+\emph{expression} is the number of Scheme procedure calls that should
+be made in a time slice.  Experiment to find the right value for your
+application. The current time slice value is obtained by evaluating
+\texttt{(time-slice)}.
 
 \subsection*{Sample embedded application}
 
-A sample embedded Scheme application, \texttt{embedded}, is found in the
-directory \texttt{server}.  A typescript of its execution shows how an
-application should interact with an embedded Scheme system.
+A sample embedded Scheme application, \texttt{embedded}, is found in
+the directory \texttt{server}.  A typescript of its execution shows
+how an application should interact with an embedded Scheme system.
 \begin{quote}
 \begin{verbatim}
 csh 990 >embedded
@@ -153,9 +162,9 @@ Embedded Scheme->C Test Bed
 \end{verbatim}
 \end{quote}
 The program prompts the user for a Scheme expression which is then
-evaluated using \texttt{scheme2c}.  The \texttt{result} and \texttt{error} messages
-are then printed, followed by a prompt (incorporating the value of
-\texttt{status}) for the next expression.
+evaluated using \texttt{scheme2c}.  The \texttt{result} and
+\texttt{error} messages are then printed, followed by a prompt
+(incorporating the value of \texttt{status}) for the next expression.
 \begin{quote}
 \begin{verbatim}
 0- (time-slice)
@@ -176,8 +185,8 @@ are then printed, followed by a prompt (incorporating the value of
 \end{quote}
 After obtaining the current time slice and stack size values, a
 looping expression was entered.  Twice it timed out and was continued
-by evaluating the expression \texttt{(proceed)}.  The third time it timed
-out, \texttt{(proceed?)} was entered to force a breakpoint.
+by evaluating the expression \texttt{(proceed)}.  The third time it
+timed out, \texttt{(proceed?)} was entered to force a breakpoint.
 \begin{quote}
 \begin{verbatim}
 4- (list-ref *bpt-env* 0)
@@ -195,11 +204,11 @@ out, \texttt{(proceed?)} was entered to force a breakpoint.
 0-
 \end{verbatim}
 \end{quote}
-The environment at the time of the breakpoint was examined to find
-the value of \texttt{i} by looking at element 0, corresponding to
-\texttt{env-0}, of the list \texttt{*bpt-env*}.  The program was then contined
-by \texttt{(proceed)} and then \texttt{i} was examined at the end of the next
-time slice to find out how much work was done.
+The environment at the time of the breakpoint was examined to find the
+value of \texttt{i} by looking at element 0, corresponding to
+\texttt{env-0}, of the list \texttt{*bpt-env*}.  The program was then
+contined by \texttt{(proceed)} and then \texttt{i} was examined at the
+end of the next time slice to find out how much work was done.
 \begin{quote}
 \begin{verbatim}
 0- (let ((x 1) (y 2)) (+ x y z))
@@ -246,15 +255,14 @@ F
 The final example shows the use of procedure breakpoints.  One thing
 to note, is that breakpoints do not nest.
 
-\subsection*{Adding Your Code to an Embedded \texttt{Scheme->C} System}
+\subsection*{Adding Your Code to an Embedded \StoC\ System}
 
-There are two ways to do this.  The easiest is to replace the
-module scrtuser (in the files scrtuser.sc and scrtuser.c) and
-then rebuild the embedded Scheme system.  An alternative is to
-separately compile your modules, link them into your
-application, and then explicitly initialize your modules after
-Scheme has been initialized.  This is done by calling \texttt{scheme2c}
-with an expression like \texttt{"\#t"} and then calling your module
-initialization procedures which have the form
-\emph{module-name}\texttt{\_\_init}.
+There are two ways to do this.  The easiest is to replace the module
+scrtuser (in the files scrtuser.sc and scrtuser.c) and then rebuild
+the embedded Scheme system.  An alternative is to separately compile
+your modules, link them into your application, and then explicitly
+initialize your modules after Scheme has been initialized.  This is
+done by calling \texttt{scheme2c} with an expression like
+\texttt{"\#t"} and then calling your module initialization procedures
+which have the form \emph{module-name}\texttt{\_\_init}.
 \end{document}
