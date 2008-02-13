@@ -1,0 +1,3083 @@
+% Initial environment
+
+%\vfill\eject
+\chapter{Standard procedures}
+\label{initialenv}
+\label{builtinchapter}
+
+\mainindex{initial environment}
+\mainindex{top level environment}
+
+This chapter describes Scheme's built-in procedures.  The initial (or
+``top level'') Scheme environment starts out with a number of variables
+bound to locations containing useful values, most of which are primitive
+procedures that manipulate data.  For example, the variable \ide{abs} is
+bound to (a location initially containing) a procedure of one argument
+that computes the absolute value of a number, and the variable \ide{+}
+is bound to a procedure that computes sums.
+
+
+\section{Booleans}
+\label{booleansection}
+
+The standard boolean objects for true and false are written as
+\schtrue{} and \schfalse.\sharpindex{t}\sharpindex{f}  What really
+matters, though, are the objects that the Scheme conditional expressions
+(\ide{if}, \ide{cond}, \ide{and}, \ide{or}, \ide{do}) treat as
+true\index{true} or false\index{false}.  The phrase ``a true value''\index{true}
+(or sometimes just ``true'') means any object treated as true by the
+conditional expressions, and the phrase ``a false value''\index{false} (or
+``false'') means any object treated as false by the conditional expressions.
+
+\vest Of all the standard Scheme values, only \schfalse{}
+% is guaranteed to count
+counts as false in conditional expressions.
+%  It is not
+% specified whether the empty list\index{empty list} counts as false
+% or as true in conditional expressions.
+Except for \schfalse{},
+% and possibly the empty list,
+all standard Scheme values, including \schtrue,
+pairs, the empty list, symbols, numbers, strings, vectors, and procedures,
+count as true.
+
+\begin{note}
+In some implementations the empty list counts as false, contrary
+to the above.
+Nonetheless a few examples in this report assume that the
+empty list counts as true, as in \cite{IEEEScheme}.
+\end{note}
+
+% \begin{rationale}
+% For historical reasons some implementations regard \schfalse{} and the
+% empty list as the same object.  These implementations therefore cannot
+% make the empty list count as true in conditional expressions.
+% \end{rationale}
+
+\begin{note}
+Programmers accustomed to other dialects of Lisp should be aware that
+Scheme distinguishes both \schfalse{} and the empty list from the symbol
+\ide{nil}.
+\end{note}
+
+\vest Boolean constants evaluate to themselves, so they don't need to be quoted
+in programs.
+
+\begin{scheme}
+\schtrue         \ev  \schtrue
+\schfalse        \ev  \schfalse
+'\schfalse       \ev  \schfalse%
+\end{scheme}
+
+
+\begin{entry}{%
+\proto{not}{ obj}{essential procedure}}
+
+\ide{Not} returns \schtrue{} if \var{obj} is false, and returns
+\schfalse{} otherwise.
+
+\begin{scheme}
+(not \schtrue)   \ev  \schfalse
+(not 3)          \ev  \schfalse
+(not (list 3))   \ev  \schfalse
+(not \schfalse)  \ev  \schtrue
+(not '())        \ev  \schfalse
+(not (list))     \ev  \schfalse
+(not 'nil)       \ev  \schfalse%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{boolean?}{ obj}{essential procedure}}
+
+\ide{Boolean?} returns \schtrue{} if \var{obj} is either \schtrue{} or
+\schfalse{} and returns \schfalse{} otherwise.
+
+\begin{scheme}
+(boolean? \schfalse)  \ev  \schtrue
+(boolean? 0)          \ev  \schfalse
+(boolean? '())        \ev  \schfalse%
+\end{scheme}
+
+\end{entry}
+
+ 
+\section{Equivalence predicates}
+\label{equivalencesection}
+
+A \defining{predicate} is a procedure that always returns a boolean
+value (\schtrue{} or \schfalse).  An \defining{equivalence predicate} is
+the computational analogue of a mathematical equivalence relation (it is
+symmetric, reflexive, and transitive).  Of the equivalence predicates
+described in this section, \ide{eq?}\ is the finest or most
+discriminating, and \ide{equal?}\ is the coarsest.  \ide{Eqv?}\ is
+slightly less discriminating than \ide{eq?}.  \todo{Pitman doesn't like
+this paragraph.  Lift the discussion from the Maclisp manual.  Explain
+why there's more than one predicate.}
+
+
+\begin{entry}{%
+\proto{eqv?}{ \vari{obj} \varii{obj}}{essential procedure}}
+
+The \ide{eqv?} procedure defines a useful equivalence relation on objects.
+Briefly, it returns \schtrue{} if \vari{obj} and \varii{obj} should
+normally be regarded as the same object.  This relation is left slightly
+open to interpretation, but the following partial specification of
+\ide{eqv?} holds for all implementations of Scheme.
+
+The \ide{eqv?} procedure returns \schtrue{} if:
+
+\begin{itemize}
+\item \vari{obj} and \varii{obj} are both \schtrue{} or both \schfalse.
+
+\item \vari{obj} and \varii{obj} are both symbols and
+
+\begin{scheme}
+(string=? (symbol->string obj1)
+          (symbol->string obj2))
+    \ev  \schtrue%
+\end{scheme}
+
+\begin{note} 
+This assumes that neither \vari{obj} nor \varii{obj} is an ``uninterned
+symbol'' as alluded to in section~\ref{symbolsection}.  This report does
+not presume to specify the behavior of \ide{eqv?} on implementation-dependent
+extensions.
+\end{note}
+
+\item \vari{obj} and \varii{obj} are both numbers, are numerically
+equal (see \ide{=}, section~\ref{numbersection}), and are either both
+exact\index{exact} or both inexact\index{inexact}.
+
+\item \vari{obj} and \varii{obj} are both characters and are the same
+character according to the \ide{char=?} procedure
+(section~\ref{charactersection}).
+
+\item both \vari{obj} and \varii{obj} are the empty list.
+
+\item \vari{obj} and \varii{obj} are pairs, vectors, or strings that denote the
+same locations in the store (section~\ref{storagemodel}).
+
+\item \vari{obj} and \varii{obj} are procedures whose location tags are
+equal (section~\ref{lambda}).
+\end{itemize}
+
+The \ide{eqv?} procedure returns \schfalse{} if:
+
+\begin{itemize}
+\item \vari{obj} and \varii{obj} are of different types
+(section~\ref{disjointness}).
+
+\item one of \vari{obj} and \varii{obj} is \schtrue{} but the other is
+\schfalse{}.
+
+\item \vari{obj} and \varii{obj} are symbols but
+
+\begin{scheme}
+(string=? (symbol->string \vari{obj})
+          (symbol->string \varii{obj}))
+    \ev  \schfalse%
+\end{scheme}
+
+\item one of \vari{obj} and \varii{obj} is an exact number but the other
+is an inexact number.
+
+\item \vari{obj} and \varii{obj} are numbers for which the \ide{=}
+procedure returns \schfalse{}.
+
+\item \vari{obj} and \varii{obj} are characters for which the \ide{char=?}
+procedure returns \schfalse{}.
+
+\item one of \vari{obj} and \varii{obj} is the empty list but the other
+is not.
+
+\item \vari{obj} and \varii{obj} are pairs, vectors, or strings that denote
+distinct locations.
+
+\item \vari{obj} and \varii{obj} are procedures that would behave differently
+(return a different value or have different side effects) for some arguments.
+
+\end{itemize}
+
+\begin{scheme}
+(eqv? 'a 'a)                     \ev  \schtrue
+(eqv? 'a 'b)                     \ev  \schfalse
+(eqv? 2 2)                       \ev  \schtrue
+(eqv? '() '())                   \ev  \schtrue
+(eqv? 100000000 100000000)       \ev  \schtrue
+(eqv? (cons 1 2) (cons 1 2))     \ev  \schfalse
+(eqv? (lambda () 1)
+      (lambda () 2))             \ev  \schfalse
+(eqv? \#f 'nil)                  \ev  \schfalse
+(let ((p (lambda (x) x)))
+  (eqv? p p))		         \ev  \schtrue%
+\end{scheme}
+
+The following examples illustrate cases in which the above rules do
+not fully specify the behavior of \ide{eqv?}.  All that can be said
+about such cases is that the value returned by \ide{eqv?} must be a
+boolean.
+
+\begin{scheme}
+(eqv? "" "")             \ev  \unspecified
+(eqv? '\#() '\#())         \ev  \unspecified
+(eqv? (lambda (x) x)
+      (lambda (x) x))    \ev  \unspecified
+(eqv? (lambda (x) x)
+      (lambda (y) y))    \ev  \unspecified%
+\end{scheme}
+
+The next set of examples shows the use of \ide{eqv?}\ with procedures
+that have local state.  \ide{Gen-counter} must return a distinct
+procedure every time, since each procedure has its own internal counter.
+\ide{Gen-loser}, however, returns equivalent procedures each time, since
+the local state does not affect the value or side effects of the
+procedures.
+
+\begin{scheme}
+(define gen-counter
+  (lambda ()
+    (let ((n 0))
+      (lambda () (set! n (+ n 1)) n))))
+(let ((g (gen-counter)))
+  (eqv? g g))           \ev  \schtrue
+(eqv? (gen-counter) (gen-counter))
+                        \ev  \schfalse
+(define gen-loser
+  (lambda ()
+    (let ((n 0))
+      (lambda () (set! n (+ n 1)) 27))))
+(let ((g (gen-loser)))
+  (eqv? g g))           \ev  \schtrue
+(eqv? (gen-loser) (gen-loser))
+                        \ev  \unspecified
+
+(letrec ((f (lambda () (if (eqv? f g) 'both 'f)))
+         (g (lambda () (if (eqv? f g) 'both 'g)))
+  (eqv? f g))
+                        \ev  \unspecified
+
+(letrec ((f (lambda () (if (eqv? f g) 'f 'both)))
+         (g (lambda () (if (eqv? f g) 'g 'both)))
+  (eqv? f g))
+                        \ev  \schfalse%
+\end{scheme}
+
+% Objects of distinct types must never be regarded as the same object,
+% except that \schfalse{} and the empty list\index{empty list} are permitted to
+% be identical.
+%
+% \begin{scheme}
+% (eqv? '() \schfalse)    \ev  \unspecified%
+% \end{scheme}
+
+Since it is an error to modify constant objects (those returned by
+literal expressions), implementations are permitted, though not
+required, to share structure between constants where appropriate.  Thus
+the value of \ide{eqv?} on constants is sometimes
+implementation-dependent.
+
+\begin{scheme}
+(eqv? '(a) '(a))                 \ev  \unspecified
+(eqv? "a" "a")                   \ev  \unspecified
+(eqv? '(b) (cdr '(a b)))	 \ev  \unspecified
+(let ((x '(a)))
+  (eqv? x x))                    \ev  \schtrue%
+\end{scheme}
+
+\begin{rationale} 
+The above definition of \ide{eqv?} allows implementations latitude in
+their treatment of procedures and literals:  implementations are free
+either to detect or to fail to detect that two procedures or two literals
+are equivalent to each other, and can decide whether or not to
+merge representations of equivalent objects by using the same pointer or
+bit pattern to represent both.
+\end{rationale}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{eq?}{ \vari{obj} \varii{obj}}{essential procedure}}
+
+\ide{Eq?}\ is similar to \ide{eqv?}\ except that in some cases it is
+capable of discerning distinctions finer than those detectable by
+\ide{eqv?}.
+
+\vest \ide{Eq?}\ and \ide{eqv?}\ are guaranteed to have the same
+behavior on symbols, booleans, the empty list, pairs, and non-empty
+strings and vectors.  \ide{Eq?}'s behavior on numbers and characters is
+implementation-dependent, but it will always return either true or
+false, and will return true only when \ide{eqv?}\ would also return
+true.  \ide{Eq?} may also behave differently from \ide{eqv?} on empty
+vectors and empty strings.
+
+\begin{scheme}
+(eq? 'a 'a)                     \ev  \schtrue
+(eq? '(a) '(a))                 \ev  \unspecified
+(eq? (list 'a) (list 'a))       \ev  \schfalse
+(eq? "a" "a")                   \ev  \unspecified
+(eq? "" "")                     \ev  \unspecified
+(eq? '() '())                   \ev  \schtrue
+(eq? 2 2)                       \ev  \unspecified
+(eq? \#\backwhack{}A \#\backwhack{}A) \ev  \unspecified
+(eq? car car)                   \ev  \schtrue
+(let ((n (+ 2 3)))
+  (eq? n n))      \ev  \unspecified
+(let ((x '(a)))
+  (eq? x x))      \ev  \schtrue
+(let ((x '\#()))
+  (eq? x x))      \ev  \schtrue
+(let ((p (lambda (x) x)))
+  (eq? p p))      \ev  \schtrue%
+\end{scheme}
+
+\todo{Needs to be explained better above.  How can this be made to be
+not confusing?  A table maybe?}
+
+\begin{rationale} It will usually be possible to implement \ide{eq?}\ much
+more efficiently than \ide{eqv?}, for example, as a simple pointer
+comparison instead of as some more complicated operation.  One reason is
+that it may not be possible to compute \ide{eqv?}\ of two numbers in
+constant time, whereas \ide{eq?}\ implemented as pointer comparison will
+always finish in constant time.  \ide{Eq?}\ may be used like \ide{eqv?}\
+in applications using procedures to implement objects with state since
+it obeys the same constraints as \ide{eqv?}.
+\end{rationale}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{equal?}{ \vari{obj} \varii{obj}}{essential procedure}}
+
+\ide{Equal?} recursively compares the contents of pairs, vectors, and
+strings, applying \ide{eqv?} on other objects such as numbers and symbols.
+A rule of thumb is that objects are generally \ide{equal?} if they print
+the same.  \ide{Equal?}\ may fail to terminate if its arguments are
+circular data structures.
+
+\begin{scheme}
+(equal? 'a 'a)                  \ev  \schtrue
+(equal? '(a) '(a))              \ev  \schtrue
+(equal? '(a (b) c)
+        '(a (b) c))             \ev  \schtrue
+(equal? "abc" "abc")            \ev  \schtrue
+(equal? 2 2)                    \ev  \schtrue
+(equal? (make-vector 5 'a)
+        (make-vector 5 'a))     \ev  \schtrue
+(equal? (lambda (x) x)
+        (lambda (y) y))  \ev  \unspecified%
+\end{scheme}
+
+\end{entry}
+
+
+\section{Pairs and lists}
+\label{listsection}
+
+A \defining{pair} (sometimes called a \defining{dotted pair}) is a
+record structure with two fields called the car and cdr fields (for
+historical reasons).  Pairs are created by the procedure \ide{cons}.
+The car and cdr fields are accessed by the procedures \ide{car} and
+\ide{cdr}.  The car and cdr fields are assigned by the procedures
+\ide{set-car!}\ and \ide{set-cdr!}.
+
+Pairs are used primarily to represent lists.  A list can
+be defined recursively as either the empty list\index{empty list} or a pair whose
+cdr is a list.  More precisely, the set of lists is defined as the smallest
+set \var{X} such that
+
+\begin{itemize}
+\item The empty list is in \var{X}.
+\item If \var{list} is in \var{X}, then any pair whose cdr field contains
+      \var{list} is also in \var{X}.
+\end{itemize}
+
+The objects in the car fields of successive pairs of a list are the
+elements of the list.  For example, a two-element list is a pair whose car
+is the first element and whose cdr is a pair whose car is the second element
+and whose cdr is the empty list.  The length of a list is the number of
+elements, which is the same as the number of pairs.
+
+The empty list\mainindex{empty list} is a special object of its own type
+(it is not a pair); it has no elements and its length is zero.
+
+\begin{note}
+The above definitions imply that all lists have finite length and are
+terminated by the empty list.
+\end{note}
+
+The most general notation (external representation) for Scheme pairs is
+the ``dotted'' notation \hbox{\cf (\vari{c} .\ \varii{c})} where
+\vari{c} is the value of the car field and \varii{c} is the value of the
+cdr field.  For example {\cf (4 .\ 5)} is a pair whose car is 4 and whose
+cdr is 5.  Note that {\cf (4 .\ 5)} is the external representation of a
+pair, not an expression that evaluates to a pair.
+
+A more streamlined notation can be used for lists: the elements of the
+list are simply enclosed in parentheses and separated by spaces.  The
+empty list\index{empty list} is written {\tt()} .  For example,
+
+\begin{scheme}
+(a b c d e)%
+\end{scheme}
+
+and
+
+\begin{scheme}
+(a . (b . (c . (d . (e . ())))))%
+\end{scheme}
+
+are equivalent notations for a list of symbols.
+
+A chain of pairs not ending in the empty list is called an
+\defining{improper list}.  Note that an improper list is not a list.
+The list and dotted notations can be combined to represent
+improper lists:
+
+\begin{scheme}
+(a b c . d)%
+\end{scheme}
+
+is equivalent to
+
+\begin{scheme}
+(a . (b . (c . d)))%
+\end{scheme}
+
+Whether a given pair is a list depends upon what is stored in the cdr
+field.  When the \ide{set-cdr!} procedure is used, an object can be a
+list one moment and not the next:
+
+\begin{scheme}
+(define x (list 'a 'b 'c))
+(define y x)
+y                       \ev  (a b c)
+(list? y)               \ev  \schtrue
+(set-cdr! x 4)          \ev  \unspecified
+x                       \ev  (a . 4)
+(eqv? x y)              \ev  \schtrue
+y                       \ev  (a . 4)
+(list? y)               \ev  \schfalse
+(set-cdr! x x)          \ev  \unspecified
+(list? x)               \ev  \schfalse%
+\end{scheme}
+
+%It is often convenient to speak of a homogeneous list of objects
+%of some particular data type, as for example \hbox{\cf (1 2 3)} is a list of
+%integers.  To be more precise, suppose \var{D} is some data type.  (Any
+%predicate defines a data type consisting of those objects of which the
+%predicate is true.)  Then
+%
+%\begin{itemize}
+%\item The empty list is a list of \var{D}.
+%\item If \var{list} is a list of \var{D}, then any pair whose cdr is
+%      \var{list} and whose car is an element of the data type \var{D} is also a
+%      list of \var{D}.
+%\item There are no other lists of \var{D}.
+%\end{itemize}
+
+Within literal expressions and representations of objects read by the
+\ide{read} procedure, the forms \singlequote\hyper{datum}\schindex{'},
+\backquote\hyper{datum}, {\tt,}\hyper{datum}\schindex{,}, and
+{\tt,@}\hyper{datum} denote two-ele\-ment lists whose first elements are
+the symbols \ide{quote}, \ide{quasiquote}, \hbox{\ide{unquote}}, and
+\ide{unquote-splicing}, respectively.  The second element in each case
+is \hyper{datum}.  This convention is supported so that arbitrary Scheme
+programs may be represented as lists.  \todo{Can or need this be stated
+more carefully?} That is, according to Scheme's grammar, every
+\meta{expression} is also a \meta{datum} (see section~\ref{datum}).
+Among other things, this permits the use of the \ide{read} procedure to
+parse Scheme programs.  See section~\ref{externalreps}. 
+ 
+
+\begin{entry}{%
+\proto{pair?}{ obj}{essential procedure}}
+
+\ide{Pair?} returns \schtrue{} if \var{obj} is a pair, and otherwise
+returns \schfalse.
+
+\begin{scheme}
+(pair? '(a . b))        \ev  \schtrue
+(pair? '(a b c))        \ev  \schtrue
+(pair? '())             \ev  \schfalse
+(pair? '\#(a b))         \ev  \schfalse%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{cons}{ \vari{obj} \varii{obj}}{essential procedure}}
+
+Returns a newly allocated pair whose car is \vari{obj} and whose cdr is
+\varii{obj}.  The pair is guaranteed to be different (in the sense of
+\ide{eqv?}) from every existing object.
+
+\begin{scheme}
+(cons 'a '())           \ev  (a)
+(cons '(a) '(b c d))    \ev  ((a) b c d)
+(cons "a" '(b c))       \ev  ("a" b c)
+(cons 'a 3)             \ev  (a . 3)
+(cons '(a b) 'c)        \ev  ((a b) . c)%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{car}{ pair}{essential procedure}}
+
+\nodomain{\var{Pair} must be a pair.}
+Returns the contents of the car field of \var{pair}.  Note that it is an
+error to take the car of the empty list\index{empty list}.
+
+\begin{scheme}
+(car '(a b c))          \ev  a
+(car '((a) b c d))      \ev  (a)
+(car '(1 . 2))          \ev  1
+(car '())               \ev  \scherror%
+\end{scheme}
+ 
+\end{entry}
+
+
+\begin{entry}{%
+\proto{cdr}{ pair}{essential procedure}}
+
+\nodomain{\var{Pair} must be a pair.}
+Returns the contents of the cdr field of \var{pair}.
+Note that it is an error to take the cdr of the empty list.
+
+\begin{scheme}
+(cdr '((a) b c d))      \ev  (b c d)
+(cdr '(1 . 2))          \ev  2
+(cdr '())               \ev  \scherror%
+\end{scheme}
+ 
+\end{entry}
+
+
+\begin{entry}{%
+\proto{set-car!}{ pair obj}{essential procedure}}
+
+\nodomain{\var{Pair} must be a pair.}  
+Stores \var{obj} in the car field of \var{pair}.
+The value returned by \ide{set-car!}\ is unspecified.  % <!>
+%This procedure can be very confusing if used indiscriminately.
+
+\begin{scheme}
+(define (f) (list 'not-a-constant-list))
+(define (g) '(constant-list))
+(set-car! (f) 3)             \ev  \unspecified
+(set-car! (g) 3)             \ev  \scherror%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{set-cdr!}{ pair obj}{essential procedure}}
+
+\nodomain{\var{Pair} must be a pair.}
+Stores \var{obj} in the cdr field of \var{pair}.
+The value returned by \ide{set-cdr!}\ is unspecified.  % <!>
+%This procedure can be very confusing if used indiscriminately.
+
+\end{entry}
+
+\setbox0\hbox{\tt(cadr \var{pair})}
+\setbox1\hbox{essential procedure}
+
+
+\begin{entry}{%
+\proto{caar}{ pair}{essential procedure}
+\proto{cadr}{ pair}{essential procedure}
+\pproto{\hbox to 1\wd0 {\hfil$\vdots$\hfil}}{\hbox to 1\wd1 {\hfil$\vdots$\hfil}}
+\proto{cdddar}{ pair}{essential procedure}
+\proto{cddddr}{ pair}{essential procedure}}
+
+These procedures are compositions of \ide{car} and \ide{cdr}, where
+for example \ide{caddr} could be defined by
+
+\begin{scheme}
+(define caddr (lambda (x) (car (cdr (cdr x))))){\rm.}%
+\end{scheme}
+
+Arbitrary compositions, up to four deep, are provided.  There are
+twenty-eight of these procedures in all.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{null?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is the empty list\index{empty list},
+otherwise returns \schfalse.
+
+% \begin{note}
+% In implementations in which the empty
+% list is the same as \schfalse{}, \ide{null?} will return \schtrue{}
+% if \var{obj} is \schfalse{}.
+% \end{note}
+ 
+\end{entry}
+
+\begin{entry}{%
+\proto{list?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is a list, otherwise returns \schfalse{}.
+By definition, all lists have finite length and are terminated by
+the empty list.
+
+\begin{scheme}
+        (list? '(a b c))     \ev  \schtrue
+        (list? '())          \ev  \schtrue
+        (list? '(a . b))     \ev  \schfalse
+        (let ((x (list 'a)))
+          (set-cdr! x x)
+          (list? x))         \ev  \schfalse%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{list}{ \var{obj} \dotsfoo}{essential procedure}}
+
+Returns a newly allocated list of its arguments.
+
+\begin{scheme}
+(list 'a (+ 3 4) 'c)            \ev  (a 7 c)
+(list)                          \ev  ()%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{length}{ list}{essential procedure}}
+
+\nodomain{\var{List} must be a list.}
+Returns the length of \var{list}.
+
+\begin{scheme}
+(length '(a b c))               \ev  3
+(length '(a (b) (c d e)))       \ev  3
+(length '())                    \ev  0%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{append}{ list \dotsfoo}{essential procedure}}
+
+\nodomain{All \var{list}s should be lists.}
+Returns a list consisting of the elements of the first \var{list}
+followed by the elements of the other \var{list}s.
+
+\begin{scheme}
+(append '(x) '(y))              \ev  (x y)
+(append '(a) '(b c d))          \ev  (a b c d)
+(append '(a (b)) '((c)))        \ev  (a (b) (c))%
+\end{scheme}
+
+The resulting list is always newly allocated, except that it shares
+structure with the last \var{list} argument.  The last argument may
+actually be any object; an improper list results if the last argument is not a
+proper list.  \todo{This is pretty awkward.  I should get Bartley to fix this.}
+
+\begin{scheme}
+(append '(a b) '(c . d))        \ev  (a b c . d)
+(append '() 'a)                 \ev  a%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{reverse}{ list}{essential procedure}}
+
+\nodomain{\var{List} must be a list.}
+Returns a newly allocated list consisting of the elements of \var{list}
+in reverse order.
+
+\begin{scheme}
+(reverse '(a b c))              \ev  (c b a)
+(reverse '(a (b c) d (e (f))))  \lev  ((e (f)) d (b c) a)%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{list-tail}{ list \vr{k}}{procedure}}
+
+Returns the sublist of \var{list} obtained by omitting the first \vr{k}
+elements.
+\ide{List-tail} could be defined by
+
+\begin{scheme}
+(define list-tail
+  (lambda (x k)
+    (if (zero? k)
+        x
+        (list-tail (cdr x) (- k 1)))))%
+\end{scheme} 
+\end{entry}
+
+
+\begin{entry}{%
+\proto{list-ref}{ list \vr{k}}{essential procedure}}
+
+Returns the \vr{k}th element of \var{list}.  (This is the same
+as the car of {\tt(list-tail \var{list} \vr{k})}.)
+
+\begin{scheme}
+(list-ref '(a b c d) 2)                 \ev  c
+(list-ref '(a b c d)
+          (inexact->exact (round 1.8))) \lev  c%
+\end{scheme}
+\end{entry}
+
+
+%\begin{entry}{%
+%\proto{last-pair}{ list}{procedure}}
+%
+%Returns the last pair in the nonempty, possibly improper, list \var{list}.
+%\ide{Last-pair} could be defined by
+%
+%\begin{scheme}
+%(define last-pair
+%  (lambda (x)
+%    (if (pair? (cdr x))
+%        (last-pair (cdr x))
+%        x)))%
+%\end{scheme} 
+% 
+%\end{entry}
+
+
+\begin{entry}{%
+\proto{memq}{ obj list}{essential procedure}
+\proto{memv}{ obj list}{essential procedure}
+\proto{member}{ obj list}{essential procedure}}
+
+These procedures return the first sublist of \var{list} whose car is
+\var{obj}, where the sublists of \var{list} are the non-empty lists
+returned by {\tt (list-tail \var{list} \var{k})} for \var{k} less
+than the length of \var{list}.  If
+\var{obj} does not occur in \var{list}, then \schfalse{} (not the empty list) is
+returned.  \ide{Memq} uses \ide{eq?}\ to compare \var{obj} with the elements of
+\var{list}, while \ide{memv} uses \ide{eqv?}\ and \ide{member} uses \ide{equal?}.
+
+\begin{scheme}
+(memq 'a '(a b c))              \ev  (a b c)
+(memq 'b '(a b c))              \ev  (b c)
+(memq 'a '(b c d))              \ev  \schfalse
+(memq (list 'a) '(b (a) c))     \ev  \schfalse
+(member (list 'a)
+        '(b (a) c))             \ev  ((a) c)
+(memq 101 '(100 101 102))       \ev  \unspecified
+(memv 101 '(100 101 102))       \ev  (101 102)%
+\end{scheme} 
+ 
+\end{entry}
+
+
+\begin{entry}{%
+\proto{assq}{ obj alist}{essential procedure}
+\proto{assv}{ obj alist}{essential procedure}
+\proto{assoc}{ obj alist}{essential procedure}}
+
+\domain{\var{Alist} (for ``association list'') must be a list of
+pairs.}  These procedures find the first pair in \var{alist} whose car field is \var{obj},
+and returns that pair.  If no pair in \var{alist} has \var{obj} as its
+car, then \schfalse{} (not the empty list) is returned.  \ide{Assq} uses
+\ide{eq?}\ to compare \var{obj} with the car fields of the pairs in \var{alist},
+while \ide{assv} uses \ide{eqv?}\ and \ide{assoc} uses \ide{equal?}.
+
+\begin{scheme}
+(define e '((a 1) (b 2) (c 3)))
+(assq 'a e)     \ev  (a 1)
+(assq 'b e)     \ev  (b 2)
+(assq 'd e)     \ev  \schfalse
+(assq (list 'a) '(((a)) ((b)) ((c))))
+                \ev  \schfalse
+(assoc (list 'a) '(((a)) ((b)) ((c))))   
+                           \ev  ((a))
+(assq 5 '((2 3) (5 7) (11 13)))    
+                           \ev  \unspecified
+(assv 5 '((2 3) (5 7) (11 13)))    
+                           \ev  (5 7)%
+\end{scheme}
+
+
+\begin{rationale}
+Although they are ordinarily used as predicates,
+\ide{memq}, \ide{memv}, \ide{member}, \ide{assq}, \ide{assv}, and \ide{assoc} do not
+have question marks in their names because they return useful values rather
+than just \schtrue{} or \schfalse{}.
+\end{rationale}
+\end{entry}
+
+
+\section{Symbols}
+\label{symbolsection}
+
+Symbols are objects whose usefulness rests on the fact that two
+symbols are identical (in the sense of \ide{eqv?}) if and only if their
+names are spelled the same way.  This is exactly the property needed to
+represent identifiers\index{identifier} in programs, and so most
+implementations of Scheme use them internally for that purpose.  Symbols
+are useful for many other applications; for instance, they may be used
+the way enumerated values are used in Pascal.
+
+\vest The rules for writing a symbol are exactly the same as the rules for
+writing an identifier; see sections~\ref{syntaxsection}
+and~\ref{identifiersyntax}.
+
+\vest It is guaranteed that any symbol that has been returned as part of
+a literal expression, or read using the \ide{read} procedure, and
+subsequently written out using the \ide{write} procedure, will read back
+in as the identical symbol (in the sense of \ide{eqv?}).  The
+\ide{string\coerce{}symbol} procedure, however, can create symbols for
+which this write/read invariance may not hold because their names
+contain special characters or letters in the non-standard case.
+
+\begin{note}
+Some implementations of Scheme have a feature known as ``slashification''
+in order to guarantee write/read invariance for all symbols, but
+historically the most important use of this feature has been to
+compensate for the lack of a string data type.
+
+\vest Some implementations also have ``uninterned symbols'', which
+defeat write/read invariance even in implementations with slashification,
+and also generate exceptions to the rule that two symbols are the same
+if and only if their names are spelled the same.
+\end{note}
+
+
+\begin{entry}{%
+\proto{symbol?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is a symbol, otherwise returns \schfalse.
+
+\begin{scheme}
+(symbol? 'foo)          \ev  \schtrue
+(symbol? (car '(a b)))  \ev  \schtrue
+(symbol? "bar")         \ev  \schfalse
+(symbol? 'nil)          \ev  \schtrue
+(symbol? '())           \ev  \schfalse
+(symbol? \schfalse)     \ev  \schfalse%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{symbol->string}{ symbol}{essential procedure}}
+
+Returns the name of \var{symbol} as a string.  If the symbol was part of
+an object returned as the value of a literal expression
+(section~\ref{literalsection}) or by a call to the \ide{read} procedure,
+and its name contains alphabetic characters, then the string returned
+will contain characters in the implementation's preferred standard
+case---some implementations will prefer upper case, others lower case.
+If the symbol was returned by \ide{string\coerce{}symbol}, the case of
+characters in the string returned will be the same as the case in the
+string that was passed to \ide{string\coerce{}symbol}.  It is an error
+to apply mutation procedures like \ide{string-set!} to strings returned
+by this procedure.
+
+The following examples assume that the implementation's standard case is
+lower case:
+
+\begin{scheme}
+(symbol->string 'flying-fish)     
+                                  \ev  "flying-fish"
+(symbol->string 'Martin)          \ev  "martin"
+(symbol->string
+   (string->symbol "Malvina"))     
+                                  \ev  "Malvina"%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string->symbol}{ string}{essential procedure}}
+
+Returns the symbol whose name is \var{string}.  This procedure can
+create symbols with names containing special characters or letters in
+the non-standard case, but it is usually a bad idea to create such
+symbols because in some implementations of Scheme they cannot be read as
+themselves.  See \ide{symbol\coerce{}string}.
+
+The following examples assume that the implementation's standard case is
+lower case:
+
+\begin{scheme}
+(eq? 'mISSISSIppi 'mississippi)  \lev  \schtrue
+(string->symbol "mISSISSIppi")  \lev%
+  {\rm{}the symbol with name} "mISSISSIppi"
+(eq? 'bitBlt (string->symbol "bitBlt"))     \lev  \schfalse
+(eq? 'JollyWog
+     (string->symbol
+       (symbol->string 'JollyWog)))  \lev  \schtrue
+(string=? "K. Harper, M.D."
+          (symbol->string
+            (string->symbol "K. Harper, M.D.")))  \lev  \schtrue%
+\end{scheme}
+
+\end{entry}
+
+
+\section{Numbers}
+\label{numbersection}
+\index{number}
+
+%%R4%% The excessive use of the code font in this section was
+% confusing, somewhat obnoxious, and inconsistent with the rest
+% of the report and with parts of the section itself.  I added
+% a \tupe no-op, and changed most old uses of \type to \tupe,
+% to make it easier to change the fonts back if people object
+% to the change.
+
+\newcommand{\type}[1]{{\it#1}}
+\newcommand{\tupe}[1]{{#1}}
+
+Numerical computation has traditionally been neglected by the Lisp
+community.  Until Common Lisp there was no carefully thought out
+strategy for organizing numerical computation, and with the exception of
+the MacLisp system \cite{Pitman83} little effort was made to
+execute numerical code efficiently.  This report recognizes the excellent work
+of the Common Lisp committee and accepts many of their recommendations.
+In some ways this report simplifies and generalizes their proposals in a manner
+consistent with the purposes of Scheme.
+
+It is important to distinguish between the mathematical numbers, the
+Scheme numbers that attempt to model them, the machine representations
+used to implement the Scheme numbers, and notations used to write numbers.
+This report uses the types \type{number}, \type{complex}, \type{real},
+\type{rational}, and \type{integer} to refer to both mathematical numbers
+and Scheme numbers.  Machine representations such as fixed point and
+floating point are referred to by names such as \type{fixnum} and
+\type{flonum}.
+
+%%R4%% I did some reorganizing here to move the discussion of mathematical
+% numbers before the discussion of the Scheme numbers, hoping that this
+% would help to motivate the discussion of representation independence.
+
+\subsection{Numerical types}
+\label{numericaltypes}
+\index{numerical types}
+
+%%R4%% A Scheme system provides data of type \type{number}, which is the most
+%general numerical type supported by that system.
+%\type{Number} is
+%likely to be a complicated union type implemented in terms of
+%\type{fixnum}s, \type{bignum}s, \type{flonum}s, and so forth, but this
+%should not be apparent to a naive user.  What the user should see is
+%that the usual operations on numbers produce the mathematically
+%expected results, within the limits of the implementation.
+
+%%R4%%  I rewrote the following paragraph to make the various levels of
+% the tower into subsets of each other, instead of relating them by
+% injections.  I think the injections tended to put people in the frame
+% of mind of thinking about coercions between non-overlapping numeric
+% types in mainstream programming languages.
+
+\vest Mathematically, numbers may be arranged into a tower of subtypes
+%%R4%% with injections relating adjacent levels of the tower:
+in which each level is a subset of the level above it:
+$$\begin{tabular}{l}
+\tupe{number} \\
+\tupe{complex} \\
+\tupe{real} \\
+\tupe{rational} \\
+\tupe{integer} 
+\end{tabular} $$
+
+For example, 3 is an integer.  Therefore 3 is also a rational,
+a real, and a complex.  The same is true of the Scheme numbers
+that model 3.  For Scheme numbers, these types are defined by the
+predicates \ide{number?}, \ide{complex?}, \ide{real?}, \ide{rational?},
+and \ide{integer?}.
+
+There is no simple relationship between a number's type and its
+representation inside a computer.  Although most implementations of
+Scheme will offer at least two different representations of 3, these
+different representations denote the same integer.
+
+%%R4%% I moved "Implementations of Scheme are not required to implement
+% the whole tower..." to the subsection on implementation restrictions.
+
+Scheme's numerical operations treat numbers as abstract data, as
+independent of their representation as possible.  Although an implementation
+of Scheme may use fixnum, flonum, and perhaps other representations for
+numbers, this should not be apparent to a casual programmer writing
+simple programs.
+
+It is necessary, however, to distinguish between numbers that are
+represented exactly and those that may not be.  For example, indexes
+into data structures must be known exactly, as must some polynomial
+coefficients in a symbolic algebra system.  On the other hand, the
+results of measurements are inherently inexact, and irrational numbers
+may be approximated by rational and therefore inexact approximations.
+In order to catch uses of inexact numbers where exact numbers are
+required, Scheme explicitly distinguishes exact from inexact numbers.
+This distinction is orthogonal to the dimension of type.
+
+\subsection{Exactness}
+
+%%R4%% I tried to direct the following paragraph away from philosophizing
+% about the exactness of mathematical numbers, and toward philosophizing
+% about the exactness of Scheme numbers.
+
+\mainindex{exactness} \label{exactly}
+Scheme numbers are either \type{exact} or \type{inexact}.  A number is
+\tupe{exact} if it was written as an exact constant or was derived from
+\tupe{exact} numbers using only \tupe{exact} operations.  A number is
+\tupe{inexact} if it was written as an inexact constant,
+%%R4%% models a quantity (e.g., a measurement) known only approximately,
+if it was
+derived using \tupe{inexact} ingredients, or if it was derived using
+\tupe{inexact} operations. Thus \tupe{inexact}ness is a contagious
+property of a number.
+%%R4%% The rest of this paragraph (from R3RS) has been dropped.
+
+\vest If two implementations produce \tupe{exact} results for a
+computation that did not involve \tupe{inexact} intermediate results,
+the two ultimate results will be mathematically equivalent.  This is
+generally not true of computations involving \tupe{inexact} numbers
+since approximate methods such as floating point arithmetic may be used,
+but it is the duty of each implementation to make the result as close as
+practical to the mathematically ideal result.
+
+\vest Rational operations such as \ide{+} should always produce
+\tupe{exact} results when given \tupe{exact} arguments.
+%%R4%%If an implementation is
+%unable to represent an \tupe{exact} result (for example, if it does not
+%support infinite precision integers and rationals)
+If the operation is unable to produce an \tupe{exact} result,
+then it may either report the violation of an implementation restriction
+or it may silently coerce its
+result to an \tupe{inexact} value.
+%%R4%%Such a coercion may cause an error later.
+See section~\ref{restrictions}.
+
+\vest With the exception of \ide{inexact->exact}, the operations described in
+this section must generally return inexact results when given any inexact
+arguments.  An operation may, however, return an \tupe{exact} result if it can
+prove that the value of the result is unaffected by the inexactness of its
+arguments.  For example, multiplication of any number by an \tupe{exact} zero
+may produce an \tupe{exact} zero result, even if the other argument is
+\tupe{inexact}.
+
+\subsection{Implementation restrictions}
+
+\index{implementation restriction}\label{restrictions}
+
+\vest Implementations of Scheme are not required to implement the whole
+tower of subtypes given in section~\ref{numericaltypes},
+but they must implement a coherent subset consistent with both the
+purposes of the implementation and the spirit of the Scheme language.
+For example, an implementation in which all numbers are \tupe{real}
+may still be quite useful.
+
+\vest Implementations may also support only a limited range of numbers of
+any type, subject to the requirements of this section.  The supported
+range for \tupe{exact} numbers of any type may be different from the
+supported range for \tupe{inexact} numbers of that type.  For example,
+an implementation that uses flonums to represent all its
+\tupe{inexact} \tupe{real} numbers may
+support a practically unbounded range of \tupe{exact} \tupe{integer}s
+and \tupe{rational}s
+while limiting the range of \tupe{inexact} \tupe{real}s (and therefore
+the range of \tupe{inexact} \tupe{integer}s and \tupe{rational}s)
+to the dynamic range of the flonum format.
+Furthermore
+the gaps between the representable \tupe{inexact} \tupe{integer}s and
+\tupe{rational}s are
+likely to be very large in such an implementation as the limits of this
+range are approached.
+
+\vest An implementation of Scheme must support exact integers
+throughout the range of numbers that may be used for indexes of
+lists, vectors, and strings or that may result from computing the length of a
+list, vector, or string.  The \ide{length}, \ide{vector-length},
+and \ide{string-length} procedures must return an exact
+integer, and it is an error to use anything but an exact integer as an
+index.  Furthermore any integer constant within the index range, if
+expressed by an exact integer syntax, will indeed be read as an exact
+integer, regardless of any implementation restrictions that may apply
+outside this range.  Finally, the procedures listed below will always
+return an exact integer result provided all their arguments are exact integers
+and the mathematically expected result is representable as an exact integer
+within the implementation:
+
+\begin{scheme}
++            -             *
+quotient     remainder     modulo
+max          min           abs
+numerator    denominator   gcd
+lcm          floor         ceiling
+truncate     round         rationalize
+expt%
+\end{scheme}
+
+\vest Implementations are encouraged, but not required, to support
+\tupe{exact} \tupe{integer}s and \tupe{exact} \tupe{rational}s of
+practically unlimited size and precision, and to implement the
+above procedures and the \ide{/} procedure in
+such a way that they always return \tupe{exact} results when given \tupe{exact}
+arguments.  If one of these procedures is unable to deliver an \tupe{exact}
+result when given \tupe{exact} arguments, then it may either report a
+violation of an
+implementation restriction or it may silently coerce its result to an
+\tupe{inexact} number.  Such a coercion may cause an error later.
+
+%%R4%% I moved this stuff here.
+% It seems to me that the only thing that this requires is that
+% implementations that support inexact numbers have to have both
+% exact and inexact representations for the integers 0 through 15.
+% If that's what it's saying, I'd rather say it that way.
+% On the other hand, letting the limit be as small as 15 sounds a
+% tad silly, though I think I understand how that number was arrived at.
+% (Or is 35 the number?)
+%
+%Implementations are encouraged, but not required, to support \tupe{inexact}
+%numbers.  For any implementation that supports \tupe{inexact} numbers,
+%there is a subset of the integers for which there are both \tupe{exact} and
+%\tupe{inexact} representations.  This subset must include all non-negative
+%integers up to some limit specified by the implementation.  This limit
+%must be 16 or greater.  The
+%\ide{exact\coerce{}inexact} and \ide{inexact\coerce{}exact}
+%procedures implement the natural one-to-one correspondence between
+%the \tupe{inexact} and \tupe{exact} integers within this range.
+
+\vest An implementation may use floating point and other approximate 
+representation strategies for \tupe{inexact} numbers.
+%%R4%% The following sentence seemed a bit condescending as well as
+% awkward.  It didn't seem to be very enforceable, so I flushed it.
+%
+%This is not to
+%say that implementors need not use the best known algorithms for
+%\tupe{inexact} computations---only that approximate methods of high
+%quality are allowed.
+%
+This report recommends, but does not require, that the IEEE 32-bit
+and 64-bit floating point standards be followed by implementations that use
+flonum representations, and that implementations using
+other representations should match or exceed the precision achievable
+using these floating point standards~\cite{IEEE}.
+
+\vest In particular, implementations that use flonum representations
+must follow these rules: A \tupe{flonum} result
+must be represented with at least as much precision as is used to express any of
+the inexact arguments to that operation.  It is desirable (but not required) for
+potentially inexact operations such as \ide{sqrt}, when applied to \tupe{exact}
+arguments, to produce \tupe{exact} answers whenever possible (for example the
+square root of an \tupe{exact} 4 ought to be an \tupe{exact} 2).
+If, however, an
+\tupe{exact} number is operated upon so as to produce an \tupe{inexact} result
+(as by \ide{sqrt}), and if the result is represented as a \tupe{flonum}, then
+the most precise \tupe{flonum} format available must be used; but if the result
+is represented in some other way then the representation must have at least as
+much precision as the most precise \tupe{flonum} format available.
+
+Although Scheme allows a variety of written
+%%R4%% representations of 
+notations for
+numbers, any particular implementation may support only some of them.
+%%R4%%
+For example, an implementation in which all numbers are \tupe{real}
+need not support the rectangular and polar notations for complex
+numbers.  If an implementation encounters an \tupe{exact} numerical constant that
+it cannot represent as an \tupe{exact} number, then it may either report a
+violation of an implementation restriction or it may silently represent the
+constant by an \tupe{inexact} number.
+
+
+\subsection{Syntax of numerical constants}
+\label{numbernotations}
+
+%@@@@LOSE@@@@
+
+%%R4%%  I removed the following paragraph in an attempt to tighten up
+% this subsection.  Except for its first sentence, which I moved to
+% the subsection on implementation restrictions, I think its content
+% is implied by the rest of the section.
+%
+%Although Scheme allows a variety of written representations of numbers,
+%any particular implementation may support only some of them.
+%These syntaxes are intended to be purely notational; any kind of number
+%may be written in any form that the user deems convenient.  Of course,
+%writing 1/7 as a limited-precision decimal fraction will not express the
+%number exactly, but this approximate form of expression may be just what
+%the user wants to see.
+
+The syntax of the written representations for numbers is described formally in
+section~\ref{numbersyntax}.
+%%R4%%  See section~\ref{numberformats} for many examples.
+
+A number may be written in binary, octal, decimal, or
+hexadecimal by the use of a radix prefix.  The radix prefixes are {\cf
+\#b}\sharpindex{b} (binary), {\cf \#o}\sharpindex{o} (octal), {\cf
+\#d}\sharpindex{d} (decimal), and {\cf \#x}\sharpindex{x} (hexadecimal).  With
+no radix prefix, a number is assumed to be expressed in decimal.
+
+A
+%%R4%%
+% simple
+numerical constant may be specified to be either \tupe{exact} or
+\tupe{inexact} by a prefix.  The prefixes are {\cf \#e}\sharpindex{e}
+for \tupe{exact}, and {\cf \#i}\sharpindex{i} for \tupe{inexact}.  An exactness
+prefix may appear before or after any radix prefix that is used.  If
+the written representation of a number has no exactness prefix, the
+constant may be either \tupe{inexact} or \tupe{exact}.  It is
+\tupe{inexact} if it contains a decimal point, an
+exponent, or a ``\sharpsign'' character in the place of a digit,
+otherwise it is \tupe{exact}.
+%%R4%%  With our new syntax, the following sentence is redundant:
+%
+%The written representation of a
+%compound number, such as a ratio or a complex, is exact if and only if
+%all of its constituents are exact.
+
+In systems with \tupe{inexact} numbers
+of varying precisions it may be useful to specify
+the precision of a constant.  For this purpose, numerical constants
+may be written with an exponent marker that indicates the
+desired precision of the \tupe{inexact}
+representation.  The letters \ide{s}, \ide{f},
+\ide{d}, and \ide{l} specify the use of \var{short}, \var{single},
+\var{double}, and \var{long} precision, respectively.  (When fewer
+than four internal
+%%R4%%\tupe{flonum}
+\tupe{inexact}
+representations exist, the four size
+specifications are mapped onto those available.  For example, an
+implementation with two internal representations may map short and
+single together and long and double together.)  In addition, the
+exponent marker \ide{e} specifies the default precision for the
+implementation.  The default precision has at least as much precision
+as \var{double}, but
+implementations may wish to allow this default to be set by the user.
+
+\begin{scheme}
+3.14159265358979F0
+       {\rm Round to single ---} 3.141593
+0.6L0
+       {\rm Extend to long ---} .600000000000000%
+\end{scheme}
+
+
+\subsection{Numerical operations}
+
+The reader is referred to section~\ref{typeconventions} for a summary
+of the naming conventions used to specify restrictions on the types of
+arguments to numerical routines.
+%%R4%% The following sentence has already been said twice, and the
+% term "exactness-preserving" is no longer defined by the Report.
+%
+%  Remember that
+%an exactness-preserving operation may coerce its result to inexact if the
+%implementation is unable to represent it exactly.
+The examples used in this section assume that any numerical constant written
+using an \tupe{exact} notation is indeed represented as an \tupe{exact}
+number.  Some examples also assume that certain numerical constants written
+using an \tupe{inexact} notation can be represented without loss of
+accuracy; the \tupe{inexact} constants were chosen so that this is
+likely to be true in implementations that use flonums to represent
+inexact numbers.
+
+\todo{Scheme provides the usual set of operations for manipulating
+numbers, etc.}
+
+\begin{entry}{%
+\proto{number?}{ obj}{essential procedure}
+\proto{complex?}{ obj}{essential procedure}
+\proto{real?}{ obj}{essential procedure}
+\proto{rational?}{ obj}{essential procedure}
+\proto{integer?}{ obj}{essential procedure}}
+
+These numerical type predicates can be applied to any kind of
+argument, including non-numbers.  They return \schtrue{} if the object is
+of the named type, and otherwise they return \schfalse{}.
+In general, if a type predicate is true of a number then all higher
+type predicates are also true of that number.  Consequently, if a type
+predicate is false of a number, then all lower type predicates are
+also false of that number.
+%%R4%% The new section on implementation restrictions subsumes: 
+% Not every system
+%supports all of these types; for example, it is entirely possible to have a
+%Scheme system that has only \tupe{integer}s.  Nonetheless every implementation
+%of Scheme must have all of these predicates.
+
+If \vr{z} is an inexact complex number, then {\cf (real? \vr{z})} is true if
+and only if {\cf (zero? (imag-part \vr{z}))} is true.  If \vr{x} is an inexact
+real number, then {\cf (integer? \vr{x})} is true if and only if
+{\cf (= \vr{x} (round \vr{x}))}.
+
+\begin{scheme}
+(complex? 3+4i)         \ev  \schtrue
+(complex? 3)            \ev  \schtrue
+(real? 3)               \ev  \schtrue
+(real? -2.5+0.0i)       \ev  \schtrue
+(real? \#e1e10)          \ev  \schtrue
+(rational? 6/10)        \ev  \schtrue
+(rational? 6/3)         \ev  \schtrue
+(integer? 3+0i)         \ev  \schtrue
+(integer? 3.0)          \ev  \schtrue
+(integer? 8/4)          \ev  \schtrue%
+\end{scheme}
+
+\begin{note}
+The behavior of these type predicates on \tupe{inexact} numbers
+is unreliable, since any inaccuracy may affect the result.
+\end{note}
+
+\begin{note}
+In many implementations the \ide{rational?} procedure will be the same
+as \ide{real?}, and the \ide{complex?} procedure will be the same as
+\ide{number?}, but unusual implementations may be able to represent
+some irrational numbers exactly or may extend the number system to
+support some kind of non-complex numbers.
+\end{note}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{exact?}{ \vr{z}}{essential procedure}
+\proto{inexact?}{ \vr{z}}{essential procedure}}
+
+These numerical predicates provide tests for the exactness of a
+quantity.  For any Scheme number, precisely one of these predicates
+is true.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{=}{ \vri{z} \vrii{z} \vriii{z} \dotsfoo}{essential procedure}
+\proto{<}{ \vri{x} \vrii{x} \vriii{x} \dotsfoo}{essential procedure}
+\proto{>}{ \vri{x} \vrii{x} \vriii{x} \dotsfoo}{essential procedure}
+\proto{<=}{ \vri{x} \vrii{x} \vriii{x} \dotsfoo}{essential procedure}
+\proto{>=}{ \vri{x} \vrii{x} \vriii{x} \dotsfoo}{essential procedure}}
+
+%- Some implementations allow these procedures to take many arguments, to 
+%- facilitate range checks.  
+These procedures return \schtrue{} if their arguments are (respectively):
+equal, monotonically increasing, monotonically decreasing,
+monotonically nondecreasing, or monotonically nonincreasing.
+
+These predicates are required to be transitive.
+
+\begin{note}
+The traditional implementations of these predicates in Lisp-like
+languages are not transitive.
+\end{note}
+
+\begin{note}
+While it is not an error to compare \tupe{inexact} numbers using these
+predicates, the results may be unreliable because a small inaccuracy
+may affect the result; this is especially true of \ide{=} and \ide{zero?}.
+When in doubt, consult a numerical analyst.
+\end{note}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{zero?}{ \vr{z}}{essential procedure}
+\proto{positive?}{ \vr{x}}{essential procedure}
+\proto{negative?}{ \vr{x}}{essential procedure}
+\proto{odd?}{ \vr{n}}{essential procedure}
+\proto{even?}{ \vr{n}}{essential procedure}}
+
+These numerical predicates test a number for a particular property,
+returning \schtrue{} or \schfalse.  See note above.
+
+\end{entry}
+
+\begin{entry}{%
+\proto{max}{ \vri{x} \vrii{x} \dotsfoo}{essential procedure}
+\proto{min}{ \vri{x} \vrii{x} \dotsfoo}{essential procedure}}
+
+These procedures return the maximum or minimum of their arguments.
+
+\begin{scheme}
+(max 3 4)              \ev  4    ; exact
+(max 3.9 4)            \ev  4.0  ; inexact%
+\end{scheme}
+
+\begin{note}
+If any argument is inexact, then the result will also be inexact (unless
+the procedure can prove that the inaccuracy is not large enough to affect the
+result, which is possible only in unusual implementations).  If \ide{min} or
+\ide{max} is used to compare numbers of mixed exactness, and the numerical
+value of the result cannot be represented as an inexact number without loss of
+accuracy, then the procedure may report a violation of an implementation
+restriction.
+\end{note}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{+}{ \vri{z} \dotsfoo}{essential procedure}
+\proto{*}{ \vri{z} \dotsfoo}{essential procedure}}
+
+These procedures return the sum or product of their arguments.
+%- These procedures are exactness preserving.
+
+\begin{scheme}
+(+ 3 4)                 \ev  7
+(+ 3)                   \ev  3
+(+)                     \ev  0
+(* 4)                   \ev  4
+(*)                     \ev  1%
+\end{scheme} 
+ 
+\end{entry}
+
+
+\begin{entry}{%
+\proto{-}{ \vri{z} \vrii{z}}{essential procedure}
+\proto{-}{ \vr{z}}{essential procedure}
+\proto{-}{ \vri{z} \vrii{z} \dotsfoo}{procedure}
+\proto{/}{ \vri{z} \vrii{z}}{essential procedure}
+\proto{/}{ \vr{z}}{essential procedure}
+\proto{/}{ \vri{z} \vrii{z} \dotsfoo}{procedure}}
+
+With two or more arguments, these procedures return the difference or
+quotient of their arguments, associating to the left.  With one argument,
+however, they return the additive or multiplicative inverse of their argument.
+%- These procedures are exactness preserving, except that division may
+%- coerce its result to inexact in implementations that do not support
+%- \tupe{ratnum}s. 
+
+\begin{scheme}
+(- 3 4)                 \ev  -1
+(- 3 4 5)               \ev  -6
+(- 3)                   \ev  -3
+(/ 3 4 5)               \ev  3/20
+(/ 3)                   \ev  1/3%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{abs}{ x}{essential procedure}}
+
+\ide{Abs} returns the magnitude of its argument.  
+%- \ide{Abs} is exactness preserving when its argument is real.
+\begin{scheme}
+(abs -7)                \ev  7
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{quotient}{ \vri{n} \vrii{n}}{essential procedure}
+\proto{remainder}{ \vri{n} \vrii{n}}{essential procedure}
+\proto{modulo}{ \vri{n} \vrii{n}}{essential procedure}}
+
+These 
+%- exactness-preserving 
+procedures implement number-theoretic (integer)
+division: For positive integers \vri{n} and \vrii{n}, if \vriii{n} and
+\vriv{n} are integers such that $\vri{n}=\vrii{n}\vriii{n}+\vriv{n}$ and
+$0\leq \vriv{n}<\vrii{n}$, then
+
+\begin{scheme}
+(quotient \vri{n} \vrii{n})        \ev  \vriii{n}
+(remainder \vri{n} \vrii{n})       \ev  \vriv{n}
+(modulo \vri{n} \vrii{n})          \ev  \vriv{n}%
+\end{scheme}
+
+For integers \vri{n} and \vrii{n} with \vrii{n} not equal to 0,
+
+\begin{scheme}
+(= \vri{n} (+ \=(* \vrii{n} (quotient \vri{n} \vrii{n}))
+              \>(remainder \vri{n} \vrii{n})))
+                                   \ev  \schtrue%
+\end{scheme}
+
+provided all numbers involved in that computation are exact.
+
+The value returned by \ide{quotient} always has the sign of the
+product of its arguments.  \ide{Remainder} and \ide{modulo} differ on negative
+arguments---the
+\ide{remainder} is either zero or has the sign of the dividend,
+while the \ide{modulo}
+always has the sign of the divisor:
+
+\begin{scheme}
+(modulo 13 4)           \ev  1
+(remainder 13 4)        \ev  1
+
+(modulo -13 4)          \ev  3
+(remainder -13 4)       \ev  -1
+
+(modulo 13 -4)          \ev  -3
+(remainder 13 -4)       \ev  1
+
+(modulo -13 -4)         \ev  -1
+(remainder -13 -4)      \ev  -1
+
+(remainder -13 -4.0)    \ev  -1.0  ; inexact%
+\end{scheme}
+\end{entry}
+
+\begin{entry}{%
+\proto{gcd}{ \vri{n} \dotsfoo}{essential procedure}
+\proto{lcm}{ \vri{n} \dotsfoo}{essential procedure}}
+
+These procedures return the greatest common divisor or least common
+multiple of their arguments.  The result is always non-negative.
+%- These procedures are exactness preserving.
+
+%%R4%% I added the inexact example.
+\begin{scheme}
+(gcd 32 -36)            \ev  4
+(gcd)                   \ev  0
+(lcm 32 -36)            \ev  288
+(lcm 32.0 -36)          \ev  288.0  ; inexact
+(lcm)                   \ev  1%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{numerator}{ \vr{q}}{procedure}
+\proto{denominator}{ \vr{q}}{procedure}}
+
+These procedures return the numerator or denominator of their
+argument; the result is computed as if the argument was represented as
+a fraction in lowest terms.  The denominator is always positive.  The
+denominator of 0 is defined to be 1.
+%- The remarks about denominators are new.
+%- Clearly, they are exactness-preserving procedures.
+\todo{More description and examples needed.}
+\begin{scheme}
+(numerator (/ 6 4))  \ev  3
+(denominator (/ 6 4))  \ev  2
+(denominator
+  (exact->inexact (/ 6 4))) \ev 2.0%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{floor}{ x}{essential procedure}
+\proto{ceiling}{ x}{essential procedure}
+\proto{truncate}{ x}{essential procedure}
+\proto{round}{ x}{essential procedure}
+}
+
+These procedures return integers.
+\vest \ide{Floor} returns the largest integer not larger than \vr{x}.
+\ide{Ceiling} returns the smallest integer not smaller than~\vr{x}.
+\ide{Truncate} returns the integer closest to \vr{x} whose absolute
+value is not larger than the absolute value of \vr{x}.  \ide{Round} returns the
+closest integer to \vr{x}, rounding to even when \vr{x} is halfway between two
+integers.
+
+\begin{rationale}
+\ide{Round} rounds to even for consistency with the default rounding
+mode specified by the IEEE floating point standard.
+\end{rationale}
+
+\begin{note}
+If the argument to one of these procedures is inexact, then the result
+will also be inexact.  If an exact value is needed, the
+result should be passed to the \ide{inexact->exact} procedure.
+\end{note}
+
+\begin{scheme}
+(floor -4.3)          \ev  -5.0
+(ceiling -4.3)        \ev  -4.0
+(truncate -4.3)       \ev  -4.0
+(round -4.3)          \ev  -4.0
+
+(floor 3.5)           \ev  3.0
+(ceiling 3.5)         \ev  4.0
+(truncate 3.5)        \ev  3.0
+(round 3.5)           \ev  4.0  ; inexact
+
+(round 7/2)           \ev  4    ; exact
+(round 7)             \ev  7%
+\end{scheme}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{rationalize}{ x y}{procedure}
+%- \proto{rationalize}{ x}{procedure}
+}
+
+\ide{Rationalize} returns the {\em simplest} rational number
+differing from \vr{x} by no more than \vr{y}.  A rational number $r_1$ is
+{\em simpler} \mainindex{simplest rational} than another rational number
+$r_2$ if $r_1 = p_1/q_1$ and $r_2 = p_2/q_2$ (in lowest terms) and $|p_1|
+\leq |p_2|$ and $|q_1| \leq |q_2|$.  Thus $3/5$ is simpler than $4/7$.
+Although not all rationals are comparable in this ordering (consider $2/7$
+and $3/5$) any interval contains a rational number that is simpler than
+every other rational number in that interval (the simpler $2/5$ lies
+between $2/7$ and $3/5$).  Note that $0 = 0/1$ is the simplest rational of
+all.
+
+\begin{scheme}
+(rationalize
+  (inexact->exact .3) 1/10)  \ev 1/3    ; exact
+(rationalize .3 1/10)        \ev \#i1/3  ; inexact%
+\end{scheme}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{exp}{ \vr{z}}{procedure}
+\proto{log}{ \vr{z}}{procedure}
+\proto{sin}{ \vr{z}}{procedure}
+\proto{cos}{ \vr{z}}{procedure}
+\proto{tan}{ \vr{z}}{procedure}
+\proto{asin}{ \vr{z}}{procedure}
+\proto{acos}{ \vr{z}}{procedure}
+\proto{atan}{ \vr{z}}{procedure}
+\proto{atan}{ \vr{y} \vr{x}}{procedure}}
+
+These procedures are part of every implementation that supports
+%%R4%%
+general
+real numbers; they compute the usual transcendental functions.  \ide{Log}
+computes the natural logarithm of \vr{z} (not the base ten logarithm).
+\ide{Asin}, \ide{acos}, and \ide{atan} compute arcsine ($\sin^{-1}$),
+arccosine ($\cos^{-1}$), and arctangent ($\tan^{-1}$), respectively.
+The two-argument variant of \ide{atan} computes {\tt (angle
+(make-rectangular \vr{x} \vr{y}))} (see below), even in implementations
+that don't support general complex numbers.
+
+In general, the mathematical functions log, arcsine, arccosine, and
+arctangent are multiply defined.
+For nonzero real $x$, the value of $\log x$ is defined to be
+the one whose imaginary part lies in the range $-\pi$ (exclusive) to
+$\pi$ (inclusive).  $\log 0$ is undefined.  The value of $\log z$ when
+\vr{z} is complex is defined according to the formula
+$$\log z = \log {\rm magnitude}(z) + i \: {\rm angle} (z)$$
+With $\log$ defined this way, the values of $\sin^{-1} z$, $\cos^{-1} z$,
+and $\tan^{-1} z$ are according to the following formul\ae:
+$$\sin^{-1} z = -i \log (i z + \sqrt{1 - z^2})$$
+$$\cos^{-1} z = \pi / 2 - \sin^{-1} z$$
+$$\tan^{-1} z = (\log (1 + i z) - \log (1 - i z)) / (2 i)$$
+
+The above specification follows~\cite{CLtL}, which in turn
+cites~\cite{Penfield81}; refer to these sources for more detailed
+discussion of branch cuts, boundary conditions, and implementation of
+these functions.  When it is possible these procedures produce a real
+result from a real argument.
+
+%%R4%%
+\todo{The cited references are likely to change their branch cuts
+soon to allow for the possibility of distinct positive and negative
+zeroes, as in IEEE floating point.  We may not want to follow those
+changes, since we may want a complex number with zero imaginary part
+(whether positive or negative zero) to be treated as a real.  I don't
+think there are any better standards for complex arithmetic than the
+ones cited, so we're really on our own here.}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{sqrt}{ \vr{z}}{procedure}}
+
+Returns the principal square root of \vr{z}.  The result will have
+either positive real part, or zero real part and non-negative imaginary
+part.
+\end{entry}
+
+
+\begin{entry}{%
+\proto{expt}{ \vri{z} \vrii{z}}{procedure}}
+
+Returns \vri{z} raised to the power \vrii{z}:
+$${z_1}^{z_2} = e^{z_2 \log {z_1}}$$
+$0^0$ is defined to be equal to 1.
+\end{entry}
+
+%- \begin{entry}{%- 
+%- \proto{approximate}{ z x}{procedure}}
+%- 
+%- Returns an approximation to \vr{z} in a representation whose precision is
+%- the same as that 
+%- of the representation of \vr{x}, which must be an inexact number.  The
+%- result is always inexact.
+%- 
+%- \begin{scheme}
+%- (approximate 3.1415926535 1F10)
+%-         \ev  3.14159F0
+%- (approximate 3.1415926535 \#I65535)
+%-         \ev \#I3
+%- (approximate 3.14F0 1L8)
+%-         \ev  3.14L0
+%- (approximate 3.1415926535F0 1L8)
+%-         \ev  3.14159L0
+%- \end{scheme}
+%- \end{entry}
+
+
+
+\begin{entry}{%
+\proto{make-rectangular}{ \vri{x} \vrii{x}}{procedure}
+\proto{make-polar}{ \vriii{x} \vriv{x}}{procedure}
+\proto{real-part}{ \vr{z}}{procedure}
+\proto{imag-part}{ \vr{z}}{procedure}
+\proto{magnitude}{ \vr{z}}{procedure}
+\proto{angle}{ \vr{z}}{procedure}}
+
+These procedures are part of every implementation that supports
+%%R4%%
+general
+complex numbers.  Suppose \vri{x}, \vrii{x}, \vriii{x}, and \vriv{x} are
+real numbers and \vr{z} is a complex number such that
+ $$ \vr{z} = \vri{x} + \vrii{x}\hbox{$i$}
+ = \vriii{x} \cdot e^{{\displaystyle{\hbox{$i$}} \vriv{x}}}$$
+Then \ide{make-rectangular} and \ide{make-polar} return \vr{z},
+\ide{real-part} returns \vri{x}, \ide{imag-part} returns \vrii{x},
+\ide{magnitude} returns \vriii{x}, and \ide{angle} returns \vriv{x}.
+In the case of \ide{angle}, whose value is not uniquely determined by
+the preceding rule, the value returned will be the one in the range
+$-\pi$ (exclusive) to $\pi$ (inclusive).
+
+\begin{rationale}
+\ide{Magnitude} is the same as \ide{abs} for a real argument,
+but \ide{abs} must be present in all implementations, whereas
+\ide{magnitude} need only be present in implementations that support
+general complex numbers.
+\end{rationale}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{exact->inexact}{ \vr{z}}{procedure}
+\proto{inexact->exact}{ \vr{z}}{procedure}}
+
+\ide{Exact\coerce{}inexact} returns an \tupe{inexact} representation of \vr{z}.
+The value returned is the
+\tupe{inexact} number that is numerically closest to the argument.  
+%%R4%%For
+%\tupe{exact} arguments which have no reasonably close \tupe{inexact} equivalent,
+%it is permissible to signal an error.
+If an \tupe{exact} argument has no reasonably close \tupe{inexact} equivalent,
+then a violation of an implementation restriction may be reported.
+
+\ide{Inexact\coerce{}exact} returns an \tupe{exact} representation of
+\vr{z}.  The value returned is the \tupe{exact} number that is numerically
+closest to the argument.
+%%R4%%  For \tupe{inexact} arguments which have no
+%reasonably close \tupe{exact} equivalent, it is permissible to signal
+%an error.
+If an \tupe{inexact} argument has no reasonably close \tupe{exact} equivalent,
+then a violation of an implementation restriction may be reported.
+
+%%R%% I moved this to the section on implementation restrictions.
+%For any implementation that supports \tupe{inexact} quantities,
+%there is a subset of the integers for which there are both \tupe{exact} and
+%\tupe{inexact} representations.  This subset must include the non-negative
+%integers up to a limit specified by the implementation.  The limit
+%must be big enough to represent all digits in reasonable radices, and
+%may correspond to some natural word size for the implementation.  For
+%such integers, these procedures implement the natural one-to-one
+%correspondence between the representations.
+
+These procedures implement the natural one-to-one correspondence between
+\tupe{exact} and \tupe{inexact} integers throughout an
+implementation-dependent range.  See section~\ref{restrictions}.
+
+\end{entry}
+
+\medskip
+
+\subsection{Numerical input and output}
+
+\begin{entry}{%
+\proto{number->string}{ number}{essential procedure}
+\proto{number->string}{ number radix}{essential procedure}}
+
+\vr{Radix} must be an exact integer, either 2, 8, 10, or 16.  If omitted,
+\vr{radix} defaults to 10.
+The procedure \ide{number\coerce{}string} takes a
+number and a radix and returns as a string an external representation of
+the given number in the given radix such that
+\begin{scheme}
+(let ((number \vr{number})
+      (radix \vr{radix}))
+  (eqv? number
+        (string->number (number->string number
+                                        radix)
+                        radix)))
+\end{scheme}
+is true.  It is an error if no possible result makes this expression true.
+
+If \vr{number} is inexact, the radix is 10, and the above expression
+can be satisfied by a result that contains a decimal point,
+then the result contains a decimal point and is expressed using the
+minimum number of digits (exclusive of exponent and trailing
+zeroes) needed to make the above expression
+true~\cite{howtoprint,howtoread};
+otherwise the format of the result is unspecified.
+
+The result returned by \ide{number\coerce{}string}
+never contains an explicit radix prefix.
+
+\begin{note}
+The error case can occur only when \vr{number} is not a complex number
+or is a complex number with a non-rational real or imaginary part.
+\end{note}
+
+\begin{rationale}
+If \vr{number} is an inexact number represented using flonums, and
+the radix is 10, then the above expression is normally satisfied by
+a result containing a decimal point.  The unspecified case
+allows for infinities, NaNs, and non-flonum representations.
+\end{rationale}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string->number}{ string}{essential procedure}
+\proto{string->number}{ string radix}{essential procedure}}
+
+%%R4%% I didn't include the (string->number string radix exactness)
+% case, since I haven't heard any resolution of the coding to be used
+% for the third argument.
+
+Returns a number of the maximally precise representation expressed by the
+given \vr{string}.  \vr{Radix} must be an exact integer, either 2, 8, 10,
+or 16.  If supplied, \vr{radix} is a default radix that may be overridden
+by an explicit radix prefix in \vr{string} (e.g. {\tt "\#o177"}).  If \vr{radix}
+is not supplied, then the default radix is 10.  If \vr{string} is not
+a syntactically valid notation for a number, then \ide{string->number}
+returns \schfalse{}.
+
+\begin{scheme}
+(string->number "100")        \ev  100
+(string->number "100" 16)     \ev  256
+(string->number "1e2")        \ev  100.0
+(string->number "15\#\#")       \ev  1500.0%
+\end{scheme}
+
+\begin{note}
+Although \ide{string->number} is an essential procedure,
+an implementation may restrict its domain in the
+following ways.  \ide{String->number} is permitted to return
+\schfalse{} whenever \vr{string} contains an explicit radix prefix.
+If all numbers supported by an implementation are real, then
+\ide{string->number} is permitted to return \schfalse{} whenever
+\vr{string} uses the polar or rectangular notations for complex
+numbers.  If all numbers are integers, then
+\ide{string->number} may return \schfalse{} whenever
+the fractional notation is used.  If all numbers are exact, then
+\ide{string->number} may return \schfalse{} whenever
+an exponent marker or explicit exactness prefix is used, or if
+a {\tt \#} appears in place of a digit.  If all inexact
+numbers are integers, then
+\ide{string->number} may return \schfalse{} whenever
+a decimal point is used.
+\end{note}
+
+\end{entry}
+
+\section{Characters}
+\label{charactersection}
+
+Characters are objects that represent printed characters such as
+letters and digits.  
+%There is no requirement that the data type of
+%characters be disjoint from other data types; implementations are
+%encouraged to have a separate character data type, but may choose to
+%represent characters as integers, strings, or some other type.
+Characters are written using the notation \sharpsign\backwhack\hyper{character}
+or \sharpsign\backwhack\hyper{character name}.
+For example:
+
+$$
+\begin{tabular}{ll}
+{\tt \#\backwhack{}a}&; lower case letter\\
+{\tt \#\backwhack{}A}&; upper case letter\\
+{\tt \#\backwhack{}(}&; left parenthesis\\
+{\tt \#\backwhack{} }&; the space character\\
+{\tt \#\backwhack{}space}&; the preferred way to write a space\\
+{\tt \#\backwhack{}newline}&; the newline character\\
+\end{tabular}
+$$
+
+Case is significant in \sharpsign\backwhack\hyper{character}, but not in
+\sharpsign\backwhack\hyper{character name}.  If \hyper{character} in
+\sharpsign\backwhack\hyper{character} is alphabetic, then the character
+following \hyper{character} must be a delimiter character such as a
+space or parenthesis.  This rule resolves the ambiguous case where, for
+example, the sequence of characters ``{\tt\sharpsign\backwhack space}''
+could be taken to be either a representation of the space character or a
+representation of the character ``{\tt\sharpsign\backwhack s}'' followed
+by a representation of the symbol ``{\tt pace}.''
+
+\todo{Fix}
+Characters written in the \sharpsign\backwhack{} notation are self-evaluating.
+That is, they do not have to be quoted in programs.  
+%The \sharpsign\backwhack{}
+%notation is not an essential part of Scheme, however.  Even implementations
+%that support the \sharpsign\backwhack{} notation for input do not have to
+%support it for output.
+
+\vest Some of the procedures that operate on characters ignore the
+difference between upper case and lower case.  The procedures that
+ignore case have \hbox{``{\tt -ci}''} (for ``case
+insensitive'') embedded in their names.
+
+
+\begin{entry}{%
+\proto{char?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is a character, otherwise returns \schfalse.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{char=?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char<?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char>?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char<=?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char>=?}{ \vari{char} \varii{char}}{essential procedure}}
+
+\label{characterequality}
+\nodomain{Both \vari{char} and \varii{char} must be characters.}
+These procedures impose a total ordering on the set of characters.  It
+is guaranteed that under this ordering:
+
+\begin{itemize}
+\item The upper case characters are in order.  For example, {\cf 
+   (char<?\ \#\backwhack{}A \#\backwhack{}B)} returns \schtrue.
+\item The lower case characters are in order.  For example, {\cf 
+   (char<?\ \#\backwhack{}a \#\backwhack{}b)} returns \schtrue.
+\item The digits are in order.  For example, {\cf 
+   (char<?\ \#\backwhack{}0 \#\backwhack{}9)} returns \schtrue.
+\item Either all the digits precede all the upper case letters, or vice versa.
+\item Either all the digits precede all the lower case letters, or vice versa.
+\end{itemize}
+
+Some implementations may generalize these procedures to take more than
+two arguments, as with the corresponding numerical predicates.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{char-ci=?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char-ci<?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char-ci>?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char-ci<=?}{ \vari{char} \varii{char}}{essential procedure}
+\proto{char-ci>=?}{ \vari{char} \varii{char}}{essential procedure}}
+
+\nodomain{Both \vari{char} and \varii{char} must be characters.}
+These procedures are similar to \ide{char=?}\ et cetera, but they treat
+upper case and lower case letters as the same.  For example, {\cf
+(char-ci=?\ \#\backwhack{}A \#\backwhack{}a)} returns \schtrue.  Some
+implementations may generalize these procedures to take more than two
+arguments, as with the corresponding numerical predicates.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{char-alphabetic?}{ char}{essential procedure}
+\proto{char-numeric?}{ char}{essential procedure}
+\proto{char-whitespace?}{ char}{essential procedure}
+\proto{char-upper-case?}{ letter}{essential procedure}
+\proto{char-lower-case?}{ letter}{essential procedure}}
+
+These procedures return \schtrue{} if their arguments are alphabetic,
+numeric, whitespace, upper case, or lower case characters, respectively,
+otherwise they return \schfalse.  The following remarks, which are specific to
+the ASCII character set, are intended only as a guide:  The alphabetic characters
+are the 52 upper and lower case letters.  The numeric characters are the
+ten decimal digits.  The whitespace characters are space, tab, line
+feed, form feed, and carriage return.
+\end{entry}
+
+
+%%R4%%\begin{entry}{%
+%\proto{char-upper-case?}{ letter}{essential procedure}
+%\proto{char-lower-case?}{ letter}{essential procedure}}
+%
+%\domain{\var{Letter} must be an alphabetic character.}
+%These procedures return \schtrue{} if their arguments are upper case or
+%lower case characters, respectively, otherwise they return \schfalse.
+%\end{entry}
+
+
+\begin{entry}{%
+\proto{char->integer}{ char}{essential procedure}
+\proto{integer->char}{ \vr{n}}{essential procedure}}
+
+Given a character, \ide{char\coerce{}integer} returns an exact integer
+representation of the character.  Given an exact integer that is the image of
+a character under \ide{char\coerce{}integer}, \ide{integer\coerce{}char}
+returns that character.  These procedures implement injective order isomorphisms
+between the set of characters under the \ide{char<=?}\ ordering and some
+subset of the integers under the \ide{<=}\ ordering.  That is, if
+
+\begin{scheme}
+(char<=? \vr{a} \vr{b}) \evalsto \schtrue  {\rm{}and}  %
+(<= \vr{x} \vr{y}) \evalsto \schtrue%
+\end{scheme}
+
+\noindent and \vr{x} and \vr{y} are in the domain of
+\ide{integer\coerce{}char}, then
+
+\begin{scheme}
+(<= (char\coerce{}integer \vr{a})
+    (char\coerce{}integer \vr{b}))         \ev  \schtrue
+
+(char<=? (integer\coerce{}char \vr{x})
+         (integer\coerce{}char \vr{y}))     \ev  \schtrue%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{char-upcase}{ char}{essential procedure}
+\proto{char-downcase}{ char}{essential procedure}}
+
+\nodomain{\var{Char} must be a character.}
+These procedures return a character \varii{char} such that {\cf
+(char-ci=? \var{char} \varii{char})}.  In addition, if \var{char} is
+alphabetic, then the result of \ide{char-upcase} is upper case and the
+result of \ide{char-downcase} is lower case.
+
+\end{entry}
+
+
+\section{Strings}
+\label{stringsection}
+
+Strings are sequences of characters.  
+%In some implementations of Scheme
+%they are immutable; other implementations provide destructive procedures
+%such as \ide{string-set!}\ that alter string objects.
+\vest Strings are written as sequences of characters enclosed within doublequotes
+({\cf "}).  A doublequote can be written inside a string only by escaping
+it with a backslash (\backwhack{}), as in
+
+\begin{scheme}
+"The word \backwhack{}"recursion\backwhack{}" has many meanings."%
+\end{scheme}
+
+A backslash can be written inside a string only by escaping it with another
+backslash.  Scheme does not specify the effect of a backslash within a
+string that is not followed by a doublequote or backslash.
+
+\vest A string constant may continue from one line to the next, but
+the exact contents of such a string are unspecified.
+% this is
+%usually a bad idea because 
+%the exact effect may vary from one computer
+%system to another.
+
+\vest The {\em length} of a string is the number of characters that it
+contains.  This number is a non-negative integer that is fixed when the
+string is created.  The \defining{valid indexes} of a string are the
+exact non-negative integers less than the length of the string.  The first
+character of a string has index 0, the second has index 1, and so on.
+
+\vest In phrases such as ``the characters of \var{string} beginning with
+index \var{start} and ending with index \var{end},'' it is understood
+that the index \var{start} is inclusive and the index \var{end} is
+exclusive.  Thus if \var{start} and \var{end} are the same index, a null
+substring is referred to, and if \var{start} is zero and \var{end} is
+the length of \var{string}, then the entire string is referred to.
+
+\vest Some of the procedures that operate on strings ignore the
+difference between upper and lower case.  The versions that ignore case
+have \hbox{``{\cf -ci}''} (for ``case insensitive'') embedded in their
+names.
+
+
+\begin{entry}{%
+\proto{string?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is a string, otherwise returns \schfalse.
+\end{entry}
+
+
+\begin{entry}{%
+\proto{make-string}{ \vr{k}}{essential procedure}
+\proto{make-string}{ \vr{k} char}{essential procedure}}
+
+%\domain{\vr{k} must be a non-negative integer, and \var{char} must be
+%a character.}  
+\ide{Make-string} returns a newly allocated string of
+length \vr{k}.  If \var{char} is given, then all elements of the string
+are initialized to \var{char}, otherwise the contents of the
+\var{string} are unspecified.
+
+\end{entry}
+
+\begin{entry}{%
+\proto{string}{ char \dotsfoo}{essential procedure}}
+
+Returns a newly allocated string composed of the arguments.
+
+\end{entry}
+
+\begin{entry}{%
+\proto{string-length}{ string}{essential procedure}}
+
+Returns the number of characters in the given \var{string}.
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string-ref}{ string \vr{k}}{essential procedure}}
+
+\domain{\vr{k} must be a valid index of \var{string}.}
+\ide{String-ref} returns character \vr{k} of \var{string} using zero-origin indexing.
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string-set!}{ string k char}{essential procedure}}
+
+\domain{%\var{String} must be a string, 
+\vr{k} must be a valid index of \var{string}%, and \var{char} must be a character
+.}
+\ide{String-set!} stores \var{char} in element \vr{k} of \var{string}
+and returns an unspecified value.  % <!>
+
+\begin{scheme}
+(define (f) (make-string 3 \sharpsign\backwhack{}*))
+(define (g) "***")
+(string-set! (f) 0 \sharpsign\backwhack{}?)  \ev  \unspecified
+(string-set! (g) 0 \sharpsign\backwhack{}?)  \ev  \scherror
+(string-set! (symbol->string 'immutable)
+             0
+             \sharpsign\backwhack{}?)  \ev  \scherror%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string=?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string-ci=?}{ \vari{string} \varii{string}}{essential procedure}}
+
+Returns \schtrue{} if the two strings are the same length and contain the same
+characters in the same positions, otherwise returns \schfalse.
+\ide{String-ci=?}\ treats
+upper and lower case letters as though they were the same character, but
+\ide{string=?}\ treats upper and lower case as distinct characters.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string<?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string>?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string<=?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string>=?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string-ci<?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string-ci>?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string-ci<=?}{ \vari{string} \varii{string}}{essential procedure}
+\proto{string-ci>=?}{ \vari{string} \varii{string}}{essential procedure}}
+
+These procedures are the lexicographic extensions to strings of the
+corresponding orderings on characters.  For example, \ide{string<?}\ is
+the lexicographic ordering on strings induced by the ordering
+\ide{char<?}\ on characters.  If two strings differ in length but
+are the same up to the length of the shorter string, the shorter string
+is considered to be lexicographically less than the longer string.
+
+Implementations may generalize these and the \ide{string=?}\ and
+\ide{string-ci=?} procedures to take more than two arguments, as with
+the corresponding numerical predicates.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{substring}{ string start end}{essential procedure}}
+
+\domain{\var{String} must be a string, and \var{start} and \var{end}
+must be exact integers satisfying
+$$0 \leq \var{start} \leq \var{end} \leq \hbox{\tt(string-length \var{string})\rm.}$$}
+\ide{Substring} returns a newly allocated string formed from the characters of
+\var{string} beginning with index \var{start} (inclusive) and ending with index
+\var{end} (exclusive).
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string-append}{ \var{string} \dotsfoo}{essential procedure}}
+
+Returns a newly allocated string whose characters form the concatenation of the
+given strings.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string->list}{ string}{essential procedure}
+\proto{list->string}{ chars}{essential procedure}}
+
+\ide{String\coerce{}list} returns a newly allocated list of the
+characters that make up the given string.  \ide{List\coerce{}string}
+returns a newly allocated string formed from the characters in the list
+\var{chars}. \ide{String\coerce{}list} and \ide{list\coerce{}string} are
+inverses so far as \ide{equal?}\ is concerned.  
+%Implementations that provide
+%destructive operations on strings should ensure that the result of
+%\ide{list\coerce{}string} is newly allocated.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string-copy}{ string}{procedure}}
+
+Returns a newly allocated copy of the given \var{string}.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{string-fill!}{ string char}{procedure}}
+
+Stores \var{char} in every element of the given \var{string} and returns an
+unspecified value.  % <!>
+
+\end{entry}
+
+
+\section{Vectors}
+\label{vectorsection}
+
+Vectors are heterogenous structures whose elements are indexed
+by integers.  A vector typically occupies less space than a list
+of the same length, and the average time required to access a randomly
+chosen element is typically less for the vector than for the list.
+
+\vest The {\em length} of a vector is the number of elements that it
+contains.  This number is a non-negative integer that is fixed when the
+vector is created.  The {\em valid indexes}\index{valid indexes} of a
+vector are the exact non-negative integers less than the length of the
+vector.  The first element in a vector is indexed by zero, and the last
+element is indexed by one less than the length of the vector.
+
+Vectors are written using the notation {\tt\#(\var{obj} \dotsfoo)}.
+For example, a vector of length 3 containing the number zero in element
+0, the list {\cf(2 2 2 2)} in element 1, and the string {\cf "Anna"} in
+element 2 can be written as following:
+
+\begin{scheme}
+\#(0 (2 2 2 2) "Anna")%
+\end{scheme}
+
+Note that this is the external representation of a vector, not an
+expression evaluating to a vector.  Like list constants, vector
+constants must be quoted:
+
+\begin{scheme}
+'\#(0 (2 2 2 2) "Anna")  \lev  \#(0 (2 2 2 2) "Anna")%
+\end{scheme}
+
+\todo{Pitman sez: The visual similarity to lists is bound to be confusing
+to some.  Elaborate on the distinction.}
+
+
+\begin{entry}{%
+\proto{vector?}{ obj}{essential procedure}}
+ 
+Returns \schtrue{} if \var{obj} is a vector, otherwise returns \schfalse.
+\end{entry}
+
+
+\begin{entry}{%
+\proto{make-vector}{ k}{essential procedure}
+\proto{make-vector}{ k fill}{procedure}}
+
+Returns a newly allocated vector of \var{k} elements.  If a second
+argument is given, then each element is initialized to \var{fill}.
+Otherwise the initial contents of each element is unspecified.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{vector}{ obj \dotsfoo}{essential procedure}}
+
+Returns a newly allocated vector whose elements contain the given
+arguments.  Analogous to \ide{list}.
+
+\begin{scheme}
+(vector 'a 'b 'c)               \ev  \#(a b c)%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{vector-length}{ vector}{essential procedure}}
+
+Returns the number of elements in \var{vector}.
+\end{entry}
+
+
+\begin{entry}{%
+\proto{vector-ref}{ vector k}{essential procedure}}
+
+\domain{\vr{k} must be a valid index of \var{vector}.}
+\ide{Vector-ref} returns the contents of element \vr{k} of
+\var{vector}.
+
+\begin{scheme}
+(vector-ref '\#(1 1 2 3 5 8 13 21)
+            5)  \lev  8
+(vector-ref '\#(1 1 2 3 5 8 13 21)
+            (inexact->exact
+              (round (* 2 (acos -1))))) \lev 13%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{vector-set!}{ vector k obj}{essential procedure}}
+
+\domain{\vr{k} must be a valid index of \var{vector}.}
+\ide{Vector-set!} stores \var{obj} in element \vr{k} of \var{vector}.
+The value returned by \ide{vector-set!}\ is unspecified.  % <!>
+
+\begin{scheme}
+(let ((vec (vector 0 '(2 2 2 2) "Anna")))
+  (vector-set! vec 1 '("Sue" "Sue"))
+  vec)      \lev  \#(0 ("Sue" "Sue") "Anna")
+
+(vector-set! '\#(0 1 2) 1 "doe")  \lev  \scherror  ; constant vector%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{vector->list}{ vector}{essential procedure}
+\proto{list->vector}{ list}{essential procedure}}
+
+\ide{Vector->list} returns a newly allocated list of the objects contained
+in the elements of \var{vector}.  \ide{List->vector} returns a newly
+created vector initialized to the elements of the list \var{list}.
+
+\begin{scheme}
+(vector->list '\#(dah dah didah))  \lev  (dah dah didah)
+(list->vector '(dididit dah))   \lev  \#(dididit dah)%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{vector-fill!}{ vector fill}{procedure}}
+
+Stores \var{fill} in every element of \var{vector}.
+The value returned by \ide{vector-fill!}\ is unspecified.  % <!>
+
+\end{entry}
+
+
+\section{Control features}
+\label{proceduresection}
+ 
+% Intro flushed; not very a propos any more.
+% Procedures should be discussed somewhere, however.
+
+This chapter describes various primitive procedures which control the
+flow of program execution in special ways.
+The \ide{procedure?}\ predicate is also described here.
+
+\todo{{\tt Procedure?} doesn't belong in a section with the name
+``control features.''  What to do?}
+
+\begin{entry}{%
+\proto{procedure?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is a procedure, otherwise returns \schfalse.
+
+\begin{scheme}
+(procedure? car)            \ev  \schtrue
+(procedure? 'car)           \ev  \schfalse
+(procedure? (lambda (x) (* x x)))   
+                            \ev  \schtrue
+(procedure? '(lambda (x) (* x x)))  
+                            \ev  \schfalse
+(call-with-current-continuation procedure?)
+                            \ev  \schtrue%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{apply}{ proc args}{essential procedure}
+\proto{apply}{ proc \vari{arg} $\ldots$ args}{procedure}}
+
+\domain{\var{Proc} must be a procedure and \var{args} must be a list.}
+The first (essential) form calls \var{proc} with the elements of
+\var{args} as the actual arguments.  The second form is a generalization
+of the first that calls \var{proc} with the elements of the list
+{\cf(append (list \vari{arg} \dotsfoo) \var{args})} as the actual
+arguments.
+
+\begin{scheme}
+(apply + (list 3 4))              \ev  7
+
+(define compose
+  (lambda (f g)
+    (lambda args
+      (f (apply g args)))))
+
+((compose sqrt *) 12 75)              \ev  30%
+\end{scheme}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{map}{ proc \vari{list} \varii{list} \dotsfoo}{essential procedure}}
+
+\domain{The \var{list}s must be lists, and \var{proc} must be a
+procedure taking as many arguments as there are {\it list}s.  If more
+than one \var{list} is given, then they must all be the same length.}
+\ide{Map} applies \var{proc} element-wise to the elements of the
+\var{list}s and returns a list of the results, in order from left to right.
+The dynamic order in which \var{proc} is applied to the elements of the
+\var{list}s is unspecified.
+
+\begin{scheme}
+(map cadr '((a b) (d e) (g h)))   \lev  (b e h)
+
+(map (lambda (n) (expt n n))
+     '(1 2 3 4 5))                \lev  (1 4 27 256 3125)
+
+(map + '(1 2 3) '(4 5 6))         \ev  (5 7 9)
+
+(let ((count 0))
+  (map (lambda (ignored)
+         (set! count (+ count 1))
+         count)
+       '(a b c)))                 \ev  \unspecified%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{for-each}{ proc \vari{list} \varii{list} \dotsfoo}{essential procedure}}
+
+The arguments to \ide{for-each} are like the arguments to \ide{map}, but
+\ide{for-each} calls \var{proc} for its side effects rather than for its
+values.  Unlike \ide{map}, \ide{for-each} is guaranteed to call \var{proc} on
+the elements of the \var{list}s in order from the first element to the
+last, and the value returned by \ide{for-each} is unspecified.
+
+\begin{scheme}
+(let ((v (make-vector 5)))
+  (for-each (lambda (i)
+              (vector-set! v i (* i i)))
+            '(0 1 2 3 4))
+  v)                                \ev  \#(0 1 4 9 16)%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{force}{ promise}{procedure}}
+
+Forces the value of \var{promise} (see \ide{delay},
+section~\ref{delay}).\index{promise}  If no value has been computed for
+the promise, then a value is computed and returned.  The value of the
+promise is cached (or ``memoized'') so that if it is forced a second
+time, the previously computed value is returned.
+% without any recomputation.
+% [As pointed out by Marc Feeley, the "without any recomputation"
+% isn't necessarily true. --Will]
+
+\begin{scheme}
+(force (delay (+ 1 2)))   \ev  3
+(let ((p (delay (+ 1 2))))
+  (list (force p) (force p)))  
+                               \ev  (3 3)
+
+(define a-stream
+  (letrec ((next
+            (lambda (n)
+              (cons n (delay (next (+ n 1)))))))
+    (next 0)))
+(define head car)
+(define tail
+  (lambda (stream) (force (cdr stream))))
+
+(head (tail (tail a-stream)))  
+                               \ev  2%
+\end{scheme}
+
+\ide{Force} and \ide{delay} are mainly intended for programs written in
+functional style.  The following examples should not be considered to
+illustrate good programming style, but they illustrate the property that
+only one value is computed for a promise, no matter how many times it is
+forced.
+% the value of a promise is computed at most once.
+% [As pointed out by Marc Feeley, it may be computed more than once,
+% but as I observed we can at least insist that only one value be
+% used! -- Will]
+
+\begin{scheme}
+(define count 0)
+(define p
+  (delay (begin (set! count (+ count 1))
+                (if (> count x)
+                    count
+                    (force p)))))
+(define x 5)
+p                     \ev  {\it{}a promise}
+(force p)             \ev  6
+p                     \ev  {\it{}a promise, still}
+(begin (set! x 10)
+       (force p))     \ev  6%
+\end{scheme}
+
+Here is a possible implementation of \ide{delay} and \ide{force}.
+Promises are implemented here as procedures of no arguments,
+and \ide{force} simply calls its argument:
+
+\begin{scheme}
+(define force
+  (lambda (object)
+    (object)))%
+\end{scheme}
+
+We define the expression
+
+\begin{scheme}
+(delay \hyper{expression})%
+\end{scheme}
+
+to have the same meaning as the procedure call
+
+\begin{scheme}
+(make-promise (lambda () \hyper{expression}))\rm,%
+\end{scheme}
+
+where \ide{make-promise} is defined as follows:
+
+% \begin{scheme}
+% (define make-promise
+%   (lambda (proc)
+%     (let ((already-run? \schfalse) (result \schfalse))
+%       (lambda ()
+%         (cond ((not already-run?)
+%                (set! result (proc))
+%                (set! already-run? \schtrue)))
+%         result))))%
+% \end{scheme}
+
+\begin{scheme}
+(define make-promise
+  (lambda (proc)
+    (let ((result-ready? \schfalse)
+          (result \schfalse))
+      (lambda ()
+        (if result-ready?
+            result
+            (let ((x (proc)))
+              (if result-ready?
+                  result
+                  (begin (set! result-ready? \schtrue)
+                         (set! result x)
+                         result))))))))%
+\end{scheme}
+
+\begin{rationale}
+A promise may refer to its own value, as in the last example above.
+Forcing such a promise may cause the promise to be forced a second time
+before the value of the first force has been computed.
+This complicates the definition of \ide{make-promise}.
+\end{rationale}
+
+Various extensions to this semantics of \ide{delay} and \ide{force}
+are supported in some implementations:
+
+\begin{itemize}
+\item Calling \ide{force} on an object that is not a promise may simply
+return the object.
+
+\item It may be the case that there is no means by which a promise can be
+operationally distinguished from its forced value.  That is, expressions
+like the following may evaluate to either \schtrue{} or to \schfalse{},
+depending on the implementation:
+
+\begin{scheme}
+(eqv? (delay 1) 1)          \ev  \unspecified
+(pair? (delay (cons 1 2)))  \ev  \unspecified%
+\end{scheme}
+
+\item Some implementations may implement ``implicit forcing,'' where
+the value of a promise is forced by primitive procedures like \ide{cdr}
+and \ide{+}:
+
+\begin{scheme}
+(+ (delay (* 3 7)) 13)  \ev  34%
+\end{scheme}
+\end{itemize}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{call-with-current-continuation}{ proc}{essential procedure}}
+
+\label{continuations} \domain{\var{Proc} must be a procedure of one
+argument.} The procedure \ide{call-with-current-continuation} packages
+up the current continuation (see the rationale below) as an ``escape
+procedure''\mainindex{escape procedure} and passes it as an argument to
+\var{proc}.  The escape procedure is a Scheme procedure of one
+argument that, if it is later passed a value, will ignore whatever
+continuation is in effect at that later time and will give the value
+instead to the continuation that was in effect when the escape procedure
+was created.
+
+\vest The escape procedure that is passed to \var{proc} has
+unlimited extent just like any other procedure in Scheme.  It may be stored
+in variables or data structures and may be called as many times as desired.
+
+\vest The following examples show only the most common uses of
+\ide{call-with-current-continuation}.  If all real programs were as
+simple as these examples, there would be no need for a procedure with
+the power of \ide{call-with-current-continuation}.
+
+\begin{scheme}
+(call-with-current-continuation
+  (lambda (exit)
+    (for-each (lambda (x)
+                (if (negative? x)
+                    (exit x)))
+              '(54 0 37 -3 245 19))
+    \schtrue))                        \ev  -3
+
+(define list-length
+  (lambda (obj)
+    (call-with-current-continuation
+      (lambda (return)
+        (letrec ((r
+                  (lambda (obj)
+                    (cond ((null? obj) 0)
+                          ((pair? obj)
+                           (+ (r (cdr obj)) 1))
+                          (else (return \schfalse))))))
+          (r obj))))))
+
+(list-length '(1 2 3 4))            \ev  4
+
+(list-length '(a b . c))            \ev  \schfalse%
+\end{scheme}
+
+\begin{rationale}
+
+\vest A common use of \ide{call-with-current-continuation} is for
+structured, non-local exits from loops or procedure bodies, but in fact
+\ide{call-with-current-continuation} is extremely useful for implementing a
+wide variety of advanced control structures.
+
+\vest Whenever a Scheme expression is evaluated there is a
+\defining{continuation} wanting the result of the expression.  The continuation
+represents an entire (default) future for the computation.  If the expression is
+evaluated at top level, for example, then the continuation might take the
+result, print it on the screen, prompt for the next input, evaluate it, and
+so on forever.  Most of the time the continuation includes actions
+specified by user code, as in a continuation that will take the result,
+multiply it by the value stored in a local variable, add seven, and give
+the answer to the top level continuation to be printed.  Normally these
+ubiquitous continuations are hidden behind the scenes and programmers don't
+think much about them.  On rare occasions, however, a programmer may
+need to deal with continuations explicitly.
+\ide{Call-with-current-continuation} allows Scheme programmers to do
+that by creating a procedure that acts just like the current
+continuation.
+
+\vest Most programming languages incorporate one or more special-purpose
+escape constructs with names like {\tt exit}, \hbox{\ide{return}}, or
+even {\tt goto}.  In 1965, however, Peter Landin~\cite{Landin65}
+invented a general purpose escape operator called the J-operator.  John
+Reynolds~\cite{Reynolds72} described a simpler but equally powerful
+construct in 1972.  The \ide{catch} special form described by Sussman
+and Steele in the 1975 report on Scheme is exactly the same as
+Reynolds's construct, though its name came from a less general construct
+in MacLisp.  Several Scheme implementors noticed that the full power of the
+\ide{catch} construct could be provided by a procedure instead of by a
+special syntactic construct, and the name
+\ide{call-with-current-continuation} was coined in 1982.  This name is
+descriptive, but opinions differ on the merits of such a long name, and
+some people use the name \ide{call/cc} instead.
+\end{rationale}
+
+\end{entry}
+
+
+\section{Input and output}
+
+\subsection{Ports}
+\label{portsection}
+
+Ports represent input and output devices.  To Scheme, an input port is a
+Scheme object that can deliver characters upon command, while an output port
+is a Scheme object that can accept characters. \mainindex{port}
+
+\todo{Haase: Mention that there are alternatives to files?}
+
+\begin{entry}{%
+\proto{call-with-input-file}{ string proc}{essential procedure}
+\proto{call-with-output-file}{ string proc}{essential procedure}}
+
+\domain{\var{Proc} should be a procedure of one argument, and
+\var{string} should be a string naming a file.  For
+\ide{call-with-input-file}, the file must already exist; for
+\ide{call-with-output-file}, the effect is unspecified if the file
+already exists.} These procedures call \var{proc} with one argument: the
+port obtained by opening the named file for input or output.  If the
+file cannot be opened, an error is signalled.  If the procedure returns,
+then the port is closed automatically and the value yielded by the
+procedure is returned.  If the procedure does not return, then 
+the port will not be closed automatically unless it is possible to
+prove that the port will never again be used for a read or write
+operation.
+%Scheme
+%will not close the port unless it can prove that the port will never
+%again be used for a read or write operation.
+
+\begin{rationale}
+Because Scheme's escape procedures have unlimited extent, it  is
+possible to escape from the current continuation but later to escape back in. 
+If implementations were permitted to close the port on any escape from the
+current continuation, then it would be impossible to write portable code using
+both \ide{call-with-current-continuation} and \ide{call-with-input-file} or
+\ide{call-with-output-file}.
+\todo{Pitman wants more said here; maybe encourage users to call
+{\tt close-foo-port}; maybe talk about process switches (?).}
+\end{rationale} 
+\end{entry}
+
+
+\begin{entry}{%
+\proto{input-port?}{ obj}{essential procedure}
+\proto{output-port?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is an input port or output port
+respectively, otherwise returns \schfalse.
+
+\todo{Won't necessarily return true after port is closed.}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{current-input-port}{}{essential procedure}
+\proto{current-output-port}{}{essential procedure}}
+ 
+Returns the current default input or output port.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{with-input-from-file}{ string thunk}{procedure}
+\proto{with-output-to-file}{ string thunk}{procedure}}
+
+\domain{\var{Thunk} must be a procedure of no arguments, and
+\var{string} must be a string naming a file.  For
+\ide{with-input-from-file}, the file must already exist; for
+\ide{with-output-to-file}, the effect is unspecified if the file already
+exists.} The file is opened for input or output, an input or output port
+connected to it is made the default value returned by
+\ide{current-input-port} or \ide{current-output-port}, and the
+\var{thunk} is called with no arguments.  When the \var{thunk} returns,
+the port is closed and the previous default is restored.
+\ide{With-input-from-file} and \ide{with-output-to-file} return the
+value yielded by \var{thunk}.
+If an escape procedure
+is used to escape from the continuation of these procedures, their
+behavior is implementation dependent.
+
+\todo{Kelsey sez he'd hate to try to implement this.}
+\todo{OK this with authors??}
+%current continuation changes in such a way
+%as to make it doubtful that the \var{thunk} will ever return.
+
+\todo{Freeman:
+Throughout this section I wanted to see ``the value of {\tt(current-input-port)}''
+instead of ``the value returned by {\tt current-input-port}''.  (Same for
+{\tt current-output-port}.)}
+
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{open-input-file}{ filename}{essential procedure}}
+ 
+Takes a string naming an existing file and returns an input port capable of
+delivering characters from the file.  If the file cannot be opened, an error is
+signalled.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{open-output-file}{ filename}{essential procedure}}
+
+Takes a string naming an output file to be created and returns an output
+port capable of writing characters to a new file by that name.  If the file
+cannot be opened, an error is signalled.  If a file with the given name
+already exists, the effect is unspecified.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{close-input-port}{ port}{essential procedure}
+\proto{close-output-port}{ port}{essential procedure}}
+
+Closes the file associated with \var{port}, rendering the \var{port}
+incapable of delivering or accepting characters.  \todo{But maybe a no-op
+on some ports, e.g. terminals or editor buffers.}
+These routines have no effect if the file has already been closed.
+The value returned is unspecified.
+
+\todo{Ramsdell:  Some note is needed explaining why there are two
+different close procedures.}
+
+\todo{A port isn't necessarily still a port after it has been closed?}
+
+\end{entry}
+
+
+\subsection{Input}
+\label{inputsection}
+
+\noindent \hbox{ }  %???
+\vspace{-5ex}
+\todo{The input routines have some things in common, maybe explain here.}
+
+\begin{entry}{%
+\proto{read}{}{essential procedure}
+\proto{read}{ port}{essential procedure}}
+
+\ide{Read} converts external representations of Scheme objects into the
+objects themselves.  That is, it is a parser for the nonterminal
+\meta{datum} (see sections~\ref{datum} and
+\ref{listsection}).  \ide{Read} returns the next
+object parsable from the given input \var{port}, updating \var{port} to point to
+the first character past the end of the external representation of the object.
+
+\vest If an end of file is encountered in the input before any
+characters are found that can begin an object, then an end of file
+object is returned.  \todo{} The port remains open, and further attempts
+to read will also return an end of file object.  If an end of file is
+encountered after the beginning of an object's external representation,
+but the external representation is incomplete and therefore not parsable,
+an error is signalled.
+
+The \var{port} argument may be omitted, in which case it defaults to the
+value returned by \ide{current-input-port}.  It is an error to read from
+a closed port.
+\end{entry}
+
+\begin{entry}{%
+\proto{read-char}{}{essential procedure}
+\proto{read-char}{ port}{essential procedure}}
+
+Returns the next character available from the input \var{port}, updating
+the \var{port} to point to the following character.  If no more characters
+are available, an end of file object is returned.  \var{Port} may be
+omitted, in which case it defaults to the value returned by \ide{current-input-port}.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{peek-char}{}{essential procedure}
+\proto{peek-char}{ port}{essential procedure}}
+
+Returns the next character available from the input \var{port},
+{\em without} updating
+the \var{port} to point to the following character.  If no more characters
+are available, an end of file object is returned.  \var{Port} may be
+omitted, in which case it defaults to the value returned by \ide{current-input-port}.
+
+\begin{note}
+The value returned by a call to \ide{peek-char} is the same as the
+value that would have been returned by a call to \ide{read-char} with the
+same \var{port}.  The only difference is that the very next call to
+\ide{read-char} or \ide{peek-char} on that \var{port} will return the
+value returned by the preceding call to \ide{peek-char}.  In particular, a call
+to \ide{peek-char} on an interactive port will hang waiting for input
+whenever a call to \ide{read-char} would have hung.
+\end{note}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{eof-object?}{ obj}{essential procedure}}
+
+Returns \schtrue{} if \var{obj} is an end of file object, otherwise returns
+\schfalse.  The precise set of end of file objects will vary among
+implementations, but in any case no end of file object will ever be an object
+that can be read in using \ide{read}.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{char-ready?}{}{procedure}
+\proto{char-ready?}{ port}{procedure}}
+
+Returns \schtrue{} if a character is ready on the input \var{port} and
+returns \schfalse{} otherwise.  If \ide{char-ready} returns \schtrue{} then
+the next \ide{read-char} operation on the given \var{port} is guaranteed
+not to hang.  If the \var{port} is at end of file then \ide{char-ready?}\
+returns \schtrue.  \var{Port} may be omitted, in which case it defaults to
+the value returned by \ide{current-input-port}.
+
+\begin{rationale}
+\ide{Char-ready?}\ exists to make it possible for a program to
+accept characters from interactive ports without getting stuck waiting for
+input.  Any input editors associated with such ports must ensure that
+characters whose existence has been asserted by \ide{char-ready?}\ cannot
+be rubbed out.  If \ide{char-ready?}\ were to return \schfalse{} at end of
+file, a port at end of file would be indistinguishable from an interactive
+port that has no ready characters.
+\end{rationale}
+\end{entry}
+
+
+\subsection{Output}
+\label{outputsection}
+
+% We've got to put something here to fix the indentation!!
+\noindent \hbox{}
+\vspace{-5ex}
+
+\begin{entry}{%
+\proto{write}{ obj}{essential procedure}
+\proto{write}{ obj port}{essential procedure}}
+
+Writes a written representation of \var{obj} to the given \var{port}.  Strings
+that appear in the written representation are enclosed in doublequotes, and
+within those strings backslash and doublequote characters are
+escaped by backslashes.  \ide{Write} returns an unspecified value.  The
+\var{port} argument may be omitted, in which case it defaults to the value
+returned by \ide{current-output-port}.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{display}{ obj}{essential procedure}
+\proto{display}{ obj port}{essential procedure}}
+
+Writes a representation of \var{obj} to the given \var{port}.  Strings
+that appear in the written representation are not enclosed in
+doublequotes, and no characters are escaped within those strings.  Character
+objects appear in the representation as if written by \ide{write-char}
+instead of by \ide{write}.  \ide{Display} returns an unspecified value.
+The \var{port} argument may be omitted, in which case it defaults to the
+value returned by \ide{current-output-port}.
+
+\begin{rationale}
+\ide{Write} is intended
+for producing mach\-ine-readable output and \ide{display} is for producing
+human-readable output.  Implementations that allow ``slashification''
+within symbols will probably want \ide{write} but not \ide{display} to
+slashify funny characters in symbols.
+\end{rationale}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{newline}{}{essential procedure}
+\proto{newline}{ port}{essential procedure}}
+
+Writes an end of line to \var{port}.  Exactly how this is done differs
+from one operating system to another.  Returns an unspecified value.
+The \var{port} argument may be omitted, in which case it defaults to the
+value returned by \ide{current-output-port}.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{write-char}{ char}{essential procedure}
+\proto{write-char}{ char port}{essential procedure}}
+
+Writes the character \var{char} (not an external representation of the
+character) to the given \var{port} and returns an unspecified value.  The
+\var{port} argument may be omitted, in which case it defaults to the value
+returned by \ide{current-output-port}.
+
+\end{entry}
+
+
+\subsection{System interface}
+
+Questions of system interface generally fall outside of the domain of this
+report.  However, the following operations are important enough to
+deserve description here.
+
+
+\begin{entry}{%
+\proto{load}{ filename}{essential procedure}}
+
+\todo{Fix}
+
+\domain{\var{Filename} should be a string naming an existing file
+containing Scheme source code.} The \ide{load} procedure reads
+expressions and definitions from the file and evaluates them
+sequentially.  It is unspecified whether the results of the expressions
+are printed.  The \ide{load} procedure does not affect the values
+returned by \ide{current-input-port} and \ide{current-output-port}.
+\ide{Load} returns an unspecified value.
+
+\begin{rationale}
+For portability, \ide{load} must operate on source files.
+Its operation on other kinds of files necessarily varies among
+implementations.
+\end{rationale}
+\end{entry}
+
+
+\begin{entry}{%
+\proto{transcript-on}{ filename}{procedure}\nopagebreak{}
+\proto{transcript-off}{}{procedure}}
+
+\domain{\var{Filename} must be a string naming an output file to be
+created.} The effect of \ide{transcript-on} is to open the named file
+for output, and to cause a transcript of subsequent interaction between
+the user and the Scheme system to be written to the file.  The
+transcript is ended by a call to \ide{transcript-off}, which closes the
+transcript file.  Only one transcript may be in progress at any time,
+though some implementations may relax this restriction.  The values
+returned by these procedures are unspecified.
+
+%\begin{note}
+%These procedures are redundant in some systems, but
+%systems that need them should provide them.
+%\end{note}
+\end{entry}

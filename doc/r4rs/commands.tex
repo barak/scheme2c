@@ -1,0 +1,203 @@
+% Macros for R^nRS.
+
+\makeatletter
+
+% Chapters, sections, etc.
+
+\newcommand{\extrapart}[1]{
+  \chapter*{#1}
+  \markboth{#1}{#1}
+  \vskip 1ex
+  \addcontentsline{toc}{chapter}{#1}}
+
+\newcommand{\clearchapterstar}[1]{
+  \clearpage
+  \topnewpage[
+    \centerline{\large\bf\uppercase{#1}}
+    \bigskip]}
+
+\newcommand{\clearextrapart}[1]{
+  \clearchapterstar{#1}
+  \markboth{#1}{#1}
+  \addcontentsline{toc}{chapter}{#1}}
+
+
+\newcommand{\vest}{}
+\newcommand{\dotsfoo}{$\ldots\,$}
+
+\newcommand{\sharpfoo}[1]{{\tt\##1}}
+\newcommand{\schfalse}{\sharpfoo{f}}
+\newcommand{\schtrue}{\sharpfoo{t}}
+
+\newcommand{\singlequote}{{\tt'}}  %\char19
+\newcommand{\doublequote}{{\tt"}}
+\newcommand{\backquote}{{\tt\char18}}
+\newcommand{\backwhack}{{\tt\char`\\}}
+\newcommand{\atsign}{{\tt\char`\@}}
+\newcommand{\sharpsign}{{\tt\#}}
+\newcommand{\verticalbar}{{\tt|}}
+
+\newcommand{\coerce}{\discretionary{->}{}{->}}
+
+% Knuth's \in sucks big boulders
+\def\elem{\hbox{\raise.13ex\hbox{$\scriptstyle\in$}}}
+
+\newcommand{\meta}[1]{{\noindent\hbox{\rm$\langle$#1$\rangle$}}}
+\let\hyper=\meta
+\newcommand{\hyperi}[1]{\hyper{#1$_1$}}
+\newcommand{\hyperii}[1]{\hyper{#1$_2$}}
+\newcommand{\hyperj}[1]{\hyper{#1$_i$}}
+\newcommand{\hypern}[1]{\hyper{#1$_n$}}
+\newcommand{\var}[1]{\noindent\hbox{\it{}#1\/}}  % Careful, is \/ always the right thing?
+\newcommand{\vari}[1]{\var{#1$_1$}}
+\newcommand{\varii}[1]{\var{#1$_2$}}
+\newcommand{\variii}[1]{\var{#1$_3$}}
+\newcommand{\variv}[1]{\var{#1$_4$}}
+\newcommand{\varj}[1]{\var{#1$_j$}}
+\newcommand{\varn}[1]{\var{#1$_n$}}
+
+\newcommand{\vr}[1]{{\noindent\hbox{$#1$\/}}}  % Careful, is \/ always the right thing?
+\newcommand{\vri}[1]{\vr{#1_1}}
+\newcommand{\vrii}[1]{\vr{#1_2}}
+\newcommand{\vriii}[1]{\vr{#1_3}}
+\newcommand{\vriv}[1]{\vr{#1_4}}
+\newcommand{\vrj}[1]{\vr{#1_j}}
+\newcommand{\vrn}[1]{\vr{#1_n}}
+
+
+\newcommand{\defining}[1]{\mainindex{#1}{\em #1}}
+\newcommand{\ide}[1]{{\schindex{#1}\frenchspacing\tt#1}}
+
+\newcommand{\lambdaexp}{lambda expression}
+\newcommand{\Lambdaexp}{Lambda expression}
+
+% \reallyindex{SORTKEY}{HEADCS}{TYPE}
+% writes (index-entry "SORTKEY" "HEADCS" TYPE PAGENUMBER)
+% which becomes  \item \HEADCS{SORTKEY} mainpagenumber ; auxpagenumber ...
+
+\global\def\reallyindex#1#2#3{%
+\write\@indexfile{(index-entry "#1" "#2" #3 \thepage)}}
+
+\newcommand{\mainschindex}[1]{\label{#1}\reallyindex{#1}{tt}{main}}
+\newcommand{\mainindex}[1]{\reallyindex{#1}{rm}{main}}
+\newcommand{\schindex}[1]{\reallyindex{#1}{tt}{aux}}
+\newcommand{\sharpindex}[1]{\reallyindex{#1}{sharpfoo}{aux}}
+\renewcommand{\index}[1]{\reallyindex{#1}{rm}{aux}}
+
+\newcommand{\domain}[1]{#1}
+\newcommand{\nodomain}[1]{}
+%\newcommand{\todo}[1]{{\rm$[\![$!!~#1$]\!]$}}
+\newcommand{\todo}[1]{}
+
+% \frobq will make quote and backquote look nicer.
+\def\frobqcats{%\catcode`\'=13
+\catcode`\`=13{}}
+{\frobqcats
+\gdef\frobqdefs{%\def'{\singlequote}
+\def`{\backquote}}}
+\def\frobq{\frobqcats\frobqdefs}
+
+% \cf = code font
+% Unfortunately, \cf \cf won't work at all, so don't even attempt to
+% next constructions which use them...
+\newcommand{\cf}{\frenchspacing\frobq\tt}
+
+% Same as \obeycr, but doesn't do a \@gobblecr.
+{\catcode`\^^M=13 \gdef\myobeycr{\catcode`\^^M=13 \def^^M{\\}}%
+\gdef\restorecr{\catcode`\^^M=5 }}
+
+{\catcode`\^^I=13 \gdef\obeytabs{\catcode`\^^I=13 \def^^I{\hbox{\hskip 4em}}}}
+
+{\obeyspaces\gdef {\hbox{\hskip0.5em}}}
+
+\gdef\gobblecr{\@gobblecr}
+
+\def\setupcode{\@makeother\^}
+
+% Scheme example environment
+% At 11 points, one column, these are about 56 characters wide.
+% That's 32 characters to the left of the => and about 20 to the right.
+
+\newenvironment{schemenoindent}{
+  % Commands for scheme examples
+  \newcommand{\ev}{\>\>\evalsto}
+  \newcommand{\lev}{\\\>\evalsto}
+  \newcommand{\unspecified}{{\em{}unspecified}}
+  \newcommand{\scherror}{{\em{}error}}
+  \setupcode
+  \small \cf \obeytabs \obeyspaces \myobeycr
+  \begin{tabbing}%
+\qquad\=\hspace*{5em}\=\hspace*{9em}\=\kill%   was 16em
+\gobblecr}{\unskip\end{tabbing}}
+
+%\newenvironment{scheme}{\begin{schemenoindent}\+\kill}{\end{schemenoindent}}
+\newenvironment{scheme}{
+  % Commands for scheme examples
+  \newcommand{\ev}{\>\>\evalsto}
+  \newcommand{\lev}{\\\>\evalsto}
+  \newcommand{\unspecified}{{\em{}unspecified}}
+  \newcommand{\scherror}{{\em{}error}}
+  \setupcode
+  \small \cf \obeyspaces \myobeycr
+  \begin{tabbing}%
+\qquad\=\hspace*{5em}\=\hspace*{9em}\=\+\kill%   was 16em
+\gobblecr}{\unskip\end{tabbing}}
+
+
+\newcommand{\evalsto}{$\Longrightarrow$}
+
+% Rationale
+
+\newenvironment{rationale}{%
+\bgroup\small\noindent{\em Rationale:}\space}{%
+\egroup}
+
+% Notes
+
+\newenvironment{note}{%
+\bgroup\small\noindent{\em Note:}\space}{%
+\egroup}
+
+% Manual entries
+
+\newenvironment{entry}[1]{
+  \vspace{3.1ex plus .5ex minus .3ex}\noindent#1%
+\unpenalty\nopagebreak}{\vspace{0ex plus 1ex minus 1ex}}
+
+\newcommand{\exprtype}{syntax}
+
+% Primitive prototype
+\newcommand{\pproto}[2]{\unskip%
+\hbox{\cf\spaceskip=0.5em#1}\hfill\penalty 0%
+\hbox{ }\nobreak\hfill\hbox{\rm #2}\break}
+
+% Parenthesized prototype
+\newcommand{\proto}[3]{\pproto{(\mainschindex{#1}\hbox{#1}{\it#2\/})}{#3}}
+
+% Variable prototype
+\newcommand{\vproto}[2]{\mainschindex{#1}\pproto{#1}{#2}}
+
+% Random prototype
+\newcommand{\rproto}[3]{\proto{#1}{#2}{#3}}
+
+% Grammar environment
+
+\newenvironment{grammar}{
+  \def\:{\goesto{}}
+  \def\|{$\vert$}
+  \cf \myobeycr
+  \begin{tabbing}
+    %\qquad\quad \= 
+    \qquad \= $\vert$ \= \kill
+  }{\unskip\end{tabbing}}
+
+%\newcommand{\unsection}{\unskip}
+\newcommand{\unsection}{{\vskip -2ex}}
+
+% Commands for grammars
+\newcommand{\arbno}[1]{#1\hbox{\rm*}}  
+\newcommand{\atleastone}[1]{#1\hbox{$^+$}}
+
+\newcommand{\goesto}{$\longrightarrow$}
+
+\makeatother

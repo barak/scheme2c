@@ -1,0 +1,769 @@
+%\vfill\eject
+\chapter{Expressions}
+\label{expressionchapter}
+
+\newcommand{\syntax}{{\em Syntax: }}
+\newcommand{\semantics}{{\em Semantics: }}
+
+A Scheme expression is a construct that returns a value, such as a
+variable reference, literal, procedure call, or conditional.
+
+Expression types are categorized as {\em primitive} or {\em derived}.
+Primitive expression types include variables and procedure calls.
+Derived expression types are not semantically primitive, but can instead
+be explained in terms of the primitive constructs as in
+section~\ref{derivedsection}.  They are redundant in the strict sense of
+the word, but they capture common patterns of usage, and are therefore
+provided as convenient abbreviations.
+
+\section{Primitive expression types}
+\label{primitivexps}
+
+\subsection{Variable references}\unsection
+
+\begin{entry}{%
+\pproto{\hyper{variable}}{essential \exprtype}}
+
+An expression consisting of a variable\index{variable}
+(section~\ref{variablesection}) is a variable reference.  The value of
+the variable reference is the value stored in the location to which the
+variable is bound.  It is an error to reference an
+unbound\index{unbound} variable.
+
+\begin{scheme}
+(define x 28)
+x   \ev  28%
+\end{scheme}
+\end{entry}
+
+\subsection{Literal expressions}\unsection
+\label{literalsection}
+
+\begin{entry}{%
+\proto{quote}{ \hyper{datum}}{essential \exprtype}
+\pproto{\singlequote\hyper{datum}}{essential \exprtype}
+\pproto{\hyper{constant}}{essential \exprtype}}
+
+{\cf (quote \hyper{datum})} evaluates to \hyper{datum}.\mainschindex{'}
+\hyper{Datum}
+may be any external representation of a Scheme object (see
+section~\ref{externalreps}).  This notation is used to include literal
+constants in Scheme code. \index{constant}
+
+\begin{scheme}%
+(quote a)                     \ev  a
+(quote \sharpsign(a b c))     \ev  \#(a b c)
+(quote (+ 1 2))               \ev  (+ 1 2)%
+\end{scheme}
+
+{\cf (quote \hyper{datum})} may be abbreviated as
+\singlequote\hyper{datum}.  The two notations are equivalent in all
+respects.
+
+\begin{scheme}
+'a                   \ev  a
+'\#(a b c)           \ev  \#(a b c)
+'()                  \ev  ()
+'(+ 1 2)             \ev  (+ 1 2)
+'(quote a)           \ev  (quote a)
+''a                  \ev  (quote a)%
+\end{scheme}
+
+Numerical constants, string constants, character constants, and boolean
+constants evaluate ``to themselves''; they need not be quoted.
+
+\begin{scheme}
+'"abc"     \ev  "abc"
+"abc"      \ev  "abc"
+'145932    \ev  145932
+145932     \ev  145932
+'\schtrue  \ev  \schtrue
+\schtrue   \ev  \schtrue%
+\end{scheme}
+
+As noted in section~\ref{storagemodel}, it is an error to alter a constant
+(i.e.~the value of a literal expression) using a mutation procedure like
+\ide{set-car!}\ or \ide{string-set!}. \index{constant}
+
+\end{entry}
+
+
+\subsection{Procedure calls}\unsection
+
+\begin{entry}{%
+\pproto{(\hyper{operator} \hyperi{operand} \dotsfoo)}{essential \exprtype}}
+
+A procedure call is written by simply enclosing in parentheses
+expressions for the procedure to be called and the arguments to be
+passed to it.  The operator and operand expressions are evaluated (in an
+unspecified order) and the resulting procedure is passed the resulting
+arguments.\mainindex{call}\mainindex{procedure call}
+\begin{scheme}%
+(+ 3 4)                          \ev  7
+((if \schfalse + *) 3 4)         \ev  12%
+\end{scheme}
+
+A number of procedures are available as the values of variables in the
+initial environment; for example, the addition and multiplication
+procedures in the above examples are the values of the variables \ide{+}
+and \ide{*}.  New procedures are created by evaluating \lambdaexp{}s
+(see section~\ref{lambda}).
+\todo{At Friedman's reuest, flushed mention of other ways.}
+% or definitions (see section~\ref{define}).
+
+Procedure calls are also called {\em combinations}.
+\mainindex{combination}
+
+\begin{note} In contrast to other dialects of Lisp, the order of
+evaluation is unspecified, and the operator expression and the operand
+expressions are always evaluated with the same evaluation rules.
+\end{note}
+
+\begin{note}
+Although the order of evaluation is otherwise unspecified, the effect of
+any concurrent evaluation of the operator and operand expressions is
+constrained to be consistent with some sequential order of evaluation.
+The order of evaluation may be chosen differently for each procedure call.
+\end{note}
+
+\begin{note} In many dialects of Lisp, the empty combination, {\tt
+()}, is a legitimate expression.  In Scheme, combinations must have at
+least one subexpression, so {\tt ()} is not a syntactically valid
+expression.  \todo{Dybvig: ``it should be obvious from the syntax.''}
+\end{note}
+
+\todo{Freeman:
+I think an explanation as to why evaluation order is not specified
+should be included.  It should not include any reference to parallel
+evaluation.  Does any existing compiler generate better code because
+the evaluation order is unspecified?  Clinger: yes: T3, MacScheme v2,
+probably MIT Scheme and Chez Scheme.  But that's not the main reason
+for leaving the order unspecified.}
+
+\end{entry}
+
+
+\subsection{\Lambdaexp{}s}\unsection
+\label{lamba}
+
+\begin{entry}{%
+\proto{lambda}{ \hyper{formals} \hyper{body}}{essential \exprtype}}
+
+\syntax
+\hyper{Formals} should be a formal arguments list as described below,
+and \hyper{body} should be a sequence of one or more expressions.
+
+\semantics
+\vest A \lambdaexp{} evaluates to a procedure.  The environment in
+effect when the \lambdaexp{} was evaluated is remembered as part of the
+procedure.  When the procedure is later called with some actual
+arguments, the environment in which the \lambdaexp{} was evaluated will
+be extended by binding the variables in the formal argument list to
+fresh locations, the corresponding actual argument values will be stored
+in those locations, and the expressions in the body of the \lambdaexp{}
+will be evaluated sequentially in the extended environment.  The result
+of the last expression in the body will be returned as the result of
+the procedure call.
+
+\begin{scheme}
+(lambda (x) (+ x x))      \ev  {\em{}a procedure}
+((lambda (x) (+ x x)) 4)  \ev  8
+
+(define reverse-subtract
+  (lambda (x y) (- y x)))
+(reverse-subtract 7 10)         \ev  3
+
+(define add4
+  (let ((x 4))
+    (lambda (y) (+ x y))))
+(add4 6)                        \ev  10%
+\end{scheme}
+
+\hyper{Formals} should have one of the following forms:
+
+\begin{itemize}
+\item {\tt(\hyperi{variable} \dotsfoo)}:
+The procedure takes a fixed number of arguments; when the procedure is
+called, the arguments will be stored in the bindings of the
+corresponding variables.
+
+\item \hyper{variable}:
+The procedure takes any number of arguments; when the procedure is
+called, the sequence of actual arguments is converted into a newly
+allocated list, and the list is stored in the binding of the
+\hyper{variable}.
+
+\item {\tt(\hyperi{variable} \dotsfoo{} \hyper{variable$_{n-1}$} {\bf.}\ \hypern{variable})}:
+If a space-delimited period precedes the last variable, then
+the value stored in the binding of the last variable will be a
+newly allocated
+list of the actual arguments left over after all the other actual
+arguments have been matched up against the other formal arguments.
+\end{itemize}
+
+It is an error for a \hyper{variable} to appear more than once in
+\hyper{formals}.
+
+\begin{scheme}
+((lambda x x) 3 4 5 6)          \ev  (3 4 5 6)
+((lambda (x y . z) z)
+ 3 4 5 6)                       \ev  (5 6)%
+\end{scheme}
+
+Each procedure created as the result of evaluating a \lambdaexp{} is tagged
+with a storage location, in order to make \ide{eqv?} and
+\ide{eq?} work on procedures (see section~\ref{equivalencesection}).
+
+\end{entry}
+
+
+\subsection{Conditionals}\unsection
+
+\begin{entry}{%
+\proto{if}{ \hyper{test} \hyper{consequent} \hyper{alternate}}{essential \exprtype}
+\proto{if}{ \hyper{test} \hyper{consequent}}{\exprtype}}  %\/ if hyper = italic
+
+\syntax
+\hyper{Test}, \hyper{consequent}, and \hyper{alternate} may be arbitrary
+expressions.
+
+\semantics
+An \ide{if} expression is evaluated as follows: first,
+\hyper{test} is evaluated.  If it yields a true value\index{true} (see
+section~\ref{booleansection}), then \hyper{consequent} is evaluated and
+its value is returned.  Otherwise \hyper{alternate} is evaluated and its
+value is returned.  If \hyper{test} yields a false value and no
+\hyper{alternate} is specified, then the result of the expression is
+unspecified.
+
+\begin{scheme}
+(if (> 3 2) 'yes 'no)           \ev  yes
+(if (> 2 3) 'yes 'no)           \ev  no
+(if (> 3 2)
+    (- 3 2)
+    (+ 3 2))                    \ev  1%
+\end{scheme}
+
+\end{entry}
+
+
+\subsection{Assignments}\unsection
+
+\begin{entry}{%
+\proto{set!}{ \hyper{variable} \hyper{expression}}{essential \exprtype}}
+
+\hyper{Expression} is evaluated, and the resulting value is stored in
+the location to which \hyper{variable} is bound.  \hyper{Variable} must
+be bound either in some region\index{region} enclosing the \ide{set!}\ expression
+or at top level.  The result of the \ide{set!} expression is
+unspecified.
+
+\begin{scheme}
+(define x 2)
+(+ x 1)                 \ev  3
+(set! x 4)              \ev  \unspecified
+(+ x 1)                 \ev  5%
+\end{scheme}
+
+\end{entry}
+
+
+\section{Derived expression types}
+\label{derivedexps}
+
+For reference purposes, section~\ref{derivedsection} gives rewrite rules
+that will convert constructs described in this section into the
+primitive constructs described in the previous section.
+
+
+\subsection{Conditionals}\unsection
+
+\begin{entry}{%
+\proto{cond}{ \hyperi{clause} \hyperii{clause} \dotsfoo}{essential \exprtype}}
+
+\syntax
+Each \hyper{clause} should be of the form
+\begin{scheme}
+(\hyper{test} \hyper{expression} \dotsfoo)%
+\end{scheme}
+where \hyper{test} is any expression.  The last \hyper{clause} may be
+an ``else clause,'' which has the form
+\begin{scheme}
+(else \hyperi{expression} \hyperii{expression} \dotsfoo)\rm.%
+\end{scheme}
+\mainschindex{else}
+\mainschindex{=>}
+
+\semantics
+A \ide{cond} expression is evaluated by evaluating the \hyper{test}
+expressions of successive \hyper{clause}s in order until one of them
+evaluates to a true value\index{true} (see
+section~\ref{booleansection}).  When a \hyper{test} evaluates to a true
+value, then the remaining \hyper{expression}s in its \hyper{clause} are
+evaluated in order, and the result of the last \hyper{expression} in the
+\hyper{clause} is returned as the result of the entire \ide{cond}
+expression.  If the selected \hyper{clause} contains only the
+\hyper{test} and no \hyper{expression}s, then the value of the
+\hyper{test} is returned as the result.  If all \hyper{test}s evaluate
+to false values, and there is no else clause, then the result of
+the conditional expression is unspecified; if there is an else
+clause, then its \hyper{expression}s are evaluated, and the value of
+the last one is returned.
+
+\begin{scheme}
+(cond ((> 3 2) 'greater)
+      ((< 3 2) 'less))         \ev  greater%
+
+(cond ((> 3 3) 'greater)
+      ((< 3 3) 'less)
+      (else 'equal))            \ev  equal%
+\end{scheme}
+
+Some implementations support an alternative \hyper{clause} syntax,
+{\tt(\hyper{test} => \hyper{recipient})}, where \hyper{recipient} is an
+expression.  If \hyper{test} evaluates to a true value, then
+\hyper{recipient} is evaluated.  Its value must be a procedure of one
+argument; this procedure is then invoked on the value of the
+\hyper{test}.
+
+\begin{scheme}
+(cond ((assv 'b '((a 1) (b 2))) => cadr)
+      (else \schfalse{}))         \ev  2%
+\end{scheme}
+
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{case}{ \hyper{key} \hyperi{clause} \hyperii{clause} \dotsfoo}{essential \exprtype}}
+
+\syntax
+\hyper{Key} may be any expression.  Each \hyper{clause} should have
+the form
+\begin{scheme}
+((\hyperi{datum} \dotsfoo) \hyperi{expression} \hyperii{expression} \dotsfoo)\rm,%
+\end{scheme}
+where each \hyper{datum} is an external representation of some object.
+All the \hyper{datum}s must be distinct.
+The last \hyper{clause} may be an ``else clause,'' which has the form
+\begin{scheme}
+(else \hyperi{expression} \hyperii{expression} \dotsfoo)\rm.%
+\end{scheme}
+\schindex{else}
+
+\semantics
+A \ide{case} expression is evaluated as follows.  \hyper{Key} is
+evaluated and its result is compared against each \hyper{datum}.  If the
+result of evaluating \hyper{key} is equivalent (in the sense of
+\ide{eqv?}; see section~\ref{eqv?}) to a \hyper{datum}, then the
+expressions in the corresponding \hyper{clause} are evaluated from left
+to right and the result of the last expression in the \hyper{clause} is
+returned as the result of the \ide{case} expression.  If the result of
+evaluating \hyper{key} is different from every \hyper{datum}, then if
+there is an else clause its expressions are evaluated and the
+result of the last is the result of the \ide{case} expression; otherwise
+the result of the \ide{case} expression is unspecified.
+
+\begin{scheme}
+(case (* 2 3)
+  ((2 3 5 7) 'prime)
+  ((1 4 6 8 9) 'composite))     \ev  composite
+(case (car '(c d))
+  ((a) 'a)
+  ((b) 'b))                     \ev  \unspecified
+(case (car '(c d))
+  ((a e i o u) 'vowel)
+  ((w y) 'semivowel)
+  (else 'consonant))            \ev  consonant%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{and}{ \hyperi{test} \dotsfoo}{essential \exprtype}}
+
+The \hyper{test} expressions are evaluated from left to right, and the
+value of the first expression that evaluates to a false value (see
+section~\ref{booleansection}) is returned.  Any remaining expressions
+are not evaluated.  If all the expressions evaluate to true values, the
+value of the last expression is returned.  If there are no expressions
+then \schtrue{} is returned.
+
+\begin{scheme}
+(and (= 2 2) (> 2 1))           \ev  \schtrue
+(and (= 2 2) (< 2 1))           \ev  \schfalse
+(and 1 2 'c '(f g))             \ev  (f g)
+(and)                           \ev  \schtrue%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{or}{ \hyperi{test} \dotsfoo}{essential \exprtype}}
+
+The \hyper{test} expressions are evaluated from left to right, and the value of the
+first expression that evaluates to a true value (see
+section~\ref{booleansection}) is returned.  Any remaining expressions
+are not evaluated.  If all expressions evaluate to false values, the
+value of the last expression is returned.  If there are no
+expressions then \schfalse{} is returned.
+
+\begin{scheme}
+(or (= 2 2) (> 2 1))            \ev  \schtrue
+(or (= 2 2) (< 2 1))            \ev  \schtrue
+(or \schfalse \schfalse \schfalse) \ev  \schfalse
+(or (memq 'b '(a b c)) 
+    (/ 3 0))                    \ev  (b c)%
+\end{scheme}
+
+\end{entry}
+
+
+\subsection{Binding constructs}
+
+The three binding constructs \ide{let}, \ide{let*}, and \ide{letrec}
+give Scheme a block structure, like Algol 60.  The syntax of the three
+constructs is identical, but they differ in the regions\index{region} they establish
+for their variable bindings.  In a \ide{let} expression, the initial
+values are computed before any of the variables become bound; in a
+\ide{let*} expression, the bindings and evaluations are performed
+sequentially; while in a \ide{letrec} expression, all the bindings are in
+effect while their initial values are being computed, thus allowing
+mutually recursive definitions.
+
+\begin{entry}{%
+\proto{let}{ \hyper{bindings} \hyper{body}}{essential \exprtype}}
+
+\syntax
+\hyper{Bindings} should have the form
+\begin{scheme}
+((\hyperi{variable} \hyperi{init}) \dotsfoo)\rm,%
+\end{scheme}
+where each \hyper{init} is an expression, and \hyper{body} should be a
+sequence of one or more expressions.  It is
+an error for a \hyper{variable} to appear more than once in the list of variables
+being bound.
+
+\semantics
+The \hyper{init}s are evaluated in the current environment (in some
+unspecified order), the \hyper{variable}s are bound to fresh locations
+holding the results, the \hyper{body} is evaluated in the extended
+environment, and the value of the last expression of \hyper{body} is
+returned.  Each binding of a \hyper{variable} has \hyper{body} as its
+region.\index{region}
+
+\begin{scheme}
+(let ((x 2) (y 3))
+  (* x y))                      \ev  6
+
+(let ((x 2) (y 3))
+  (let ((x 7)
+        (z (+ x y)))
+    (* z x)))                   \ev  35%
+\end{scheme}
+
+See also named \ide{let}, section \ref{namedlet}.
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{let*}{ \hyper{bindings} \hyper{body}}{\exprtype}}\nobreak
+
+\nobreak
+\syntax
+\hyper{Bindings} should have the form
+\begin{scheme}
+((\hyperi{variable} \hyperi{init}) \dotsfoo)\rm,%
+\end{scheme}
+and \hyper{body} should be a sequence of
+one or more expressions.
+
+\semantics
+\ide{Let*} is similar to \ide{let}, but the bindings are performed
+sequentially from left to right, and the region\index{region} of a binding indicated
+by {\cf(\hyper{variable} \hyper{init})} is that part of the \ide{let*}
+expression to the right of the binding.  Thus the second binding is done
+in an environment in which the first binding is visible, and so on.
+
+\begin{scheme}
+(let ((x 2) (y 3))
+  (let* ((x 7)
+         (z (+ x y)))
+    (* z x)))             \ev  70%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{letrec}{ \hyper{bindings} \hyper{body}}{essential \exprtype}}
+
+\syntax
+\hyper{Bindings} should have the form
+\begin{scheme}
+((\hyperi{variable} \hyperi{init}) \dotsfoo)\rm,%
+\end{scheme}
+and \hyper{body} should be a sequence of
+one or more expressions. It is an error for a \hyper{variable} to appear more
+than once in the list of variables being bound.
+
+\semantics
+The \hyper{variable}s are bound to fresh locations holding undefined
+values, the \hyper{init}s are evaluated in the resulting environment (in
+some unspecified order), each \hyper{variable} is assigned to the result
+of the corresponding \hyper{init}, the \hyper{body} is evaluated in the
+resulting environment, and the value of the last expression in
+\hyper{body} is returned.  Each binding of a \hyper{variable} has the
+entire \ide{letrec} expression as its region\index{region}, making it possible to
+define mutually recursive procedures.
+
+\begin{scheme}
+%(letrec ((x 2) (y 3))
+%  (letrec ((foo (lambda (z) (+ x y z))) (x 7))
+%    (foo 4)))                   \ev  14
+%
+(letrec ((even?
+          (lambda (n)
+            (if (zero? n)
+                \schtrue
+                (odd? (- n 1)))))
+         (odd?
+          (lambda (n)
+            (if (zero? n)
+                \schfalse
+                (even? (- n 1))))))
+  (even? 88))   
+		\ev  \schtrue%
+\end{scheme}
+
+One restriction on \ide{letrec} is very important: it must be possible
+to evaluate each \hyper{init} without assigning or referring to the value of any
+\hyper{variable}.  If this restriction is violated, then it is an error.  The
+restriction is necessary because Scheme passes arguments by value rather than by
+name.  In the most common uses of \ide{letrec}, all the \hyper{init}s are
+\lambdaexp{}s and the restriction is satisfied automatically.
+
+% \todo{use or uses?  --- Jinx.}
+
+\end{entry}
+
+
+\subsection{Sequencing}\unsection
+
+\begin{entry}{%
+\proto{begin}{ \hyperi{expression} \hyperii{expression} \dotsfoo}{essential \exprtype}}
+
+The \hyper{expression}s are evaluated sequentially from left to right,
+and the value of the last \hyper{expression} is returned.  This
+expression type is used to sequence side effects such as input and
+output.
+
+\begin{scheme}
+(define x 0)
+
+(begin (set! x 5)
+       (+ x 1))                  \ev  6
+
+(begin (display "4 plus 1 equals ")
+       (display (+ 4 1)))      \ev  \unspecified
+ \>{\em and prints}  4 plus 1 equals 5%
+\end{scheme}
+
+\begin{note}
+\cite{SICP} uses the keyword \ide{sequence} instead of \ide{begin}.
+\end{note}
+
+\end{entry}
+
+
+\subsection{Iteration}%\unsection
+
+\noindent%
+\pproto{(do ((\hyperi{variable} \hyperi{init} \hyperi{step})}{\exprtype}
+\mainschindex{do}{\tt\obeyspaces%
+     \dotsfoo)\\
+    (\hyper{test} \hyper{expression} \dotsfoo)\\
+  \hyper{command} \dotsfoo)}
+
+\ide{Do} is an iteration construct.  It specifies a set of variables to
+be bound, how they are to be initialized at the start, and how they are
+to be updated on each iteration.  When a termination condition is met,
+the loop exits with a specified result value.
+
+\ide{Do} expressions are evaluated as follows:
+The \hyper{init} expressions are evaluated (in some unspecified order),
+the \hyper{variable}s are bound to fresh locations, the results of the
+\hyper{init} expressions are stored in the bindings of the
+\hyper{variable}s, and then the iteration phase begins.
+
+\vest Each iteration begins by evaluating \hyper{test}; if the result is
+false (see section~\ref{booleansection}), then the \hyper{command}
+expressions are evaluated in order for effect, the \hyper{step}
+expressions are evaluated in some unspecified order, the
+\hyper{variable}s are bound to fresh locations, the results of the
+\hyper{step}s are stored in the bindings of the
+\hyper{variable}s, and the next iteration begins.
+
+\vest If \hyper{test} evaluates to a true value, then the
+\hyper{expression}s are evaluated from left to right and the value of
+the last \hyper{expression} is returned as the value of the \ide{do}
+expression.  If no \hyper{expression}s are present, then the value of
+the \ide{do} expression is unspecified.
+
+\vest The region\index{region} of the binding of a \hyper{variable}
+consists of the entire \ide{do} expression except for the \hyper{init}s.
+It is an error for a \hyper{variable} to appear more than once in the
+list of \ide{do} variables.
+
+\vest A \hyper{step} may be omitted, in which case the effect is the
+same as if {\cf(\hyper{variable} \hyper{init} \hyper{variable})} had
+been written instead of {\cf(\hyper{variable} \hyper{init})}.
+
+\begin{scheme}
+(do ((vec (make-vector 5))
+     (i 0 (+ i 1)))
+    ((= i 5) vec)
+  (vector-set! vec i i))          \ev  \#(0 1 2 3 4)
+
+(let ((x '(1 3 5 7 9)))
+  (do ((x x (cdr x))
+       (sum 0 (+ sum (car x))))
+      ((null? x) sum)))             \ev  25%
+\end{scheme}
+
+%\end{entry}
+
+
+\begin{entry}{%
+\proto{let}{ \hyper{variable} \hyper{bindings} \hyper{body}}{\exprtype}}
+
+\label{namedlet}
+Some implementations of Scheme permit a variant on the syntax of
+\ide{let} called ``named \ide{let}'' which provides a more general
+looping construct than \ide{do}, and may also be used to express
+recursions.
+
+Named \ide{let} has the same syntax and semantics as ordinary \ide{let}
+except that \hyper{variable} is bound within \hyper{body} to a procedure
+whose formal arguments are the bound variables and whose body is
+\hyper{body}.  Thus the execution of \hyper{body} may be repeated by
+invoking the procedure named by \hyper{variable}.
+
+%                                              |  <-- right margin
+\begin{scheme}
+(let loop ((numbers '(3 -2 1 6 -5))
+           (nonneg '())
+           (neg '()))
+  (cond ((null? numbers) (list nonneg neg))
+        ((>= (car numbers) 0)
+         (loop (cdr numbers)
+               (cons (car numbers) nonneg)
+               neg))
+        ((< (car numbers) 0)
+         (loop (cdr numbers)
+               nonneg
+               (cons (car numbers) neg))))) %
+  \lev  ((6 1 3) (-5 -2))%
+\end{scheme}
+
+\end{entry}
+
+
+\subsection{Delayed evaluation}\unsection
+\label{delay}
+
+\begin{entry}{%
+\proto{delay}{ \hyper{expression}}{\exprtype}}
+
+\todo{Fix.}
+
+The \ide{delay} construct is used together with the procedure \ide{force} to
+implement \defining{lazy evaluation} or \defining{call by need}.
+{\tt(delay \hyper{expression})} returns an object called a
+\defining{promise} which at some point in the future may be asked (by
+the \ide{force} procedure) \todo{Bartley's white lie; OK?} to evaluate
+\hyper{expression} and deliver the resulting value.
+
+See the description of \ide{force} (section~\ref{force}) for a
+more complete description of \ide{delay}.
+
+\end{entry}
+
+
+\subsection{Quasiquotation}\unsection
+\label{quasiquotesection}
+
+\begin{entry}{%
+\proto{quasiquote}{ \hyper{template}}{essential \exprtype} \nopagebreak
+\pproto{\backquote\hyper{template}}{essential \exprtype}}
+
+``Backquote'' or ``quasiquote''\index{backquote} expressions are useful
+for constructing a list or vector structure when most but not all of the
+desired structure is known in advance.  If no
+commas\index{comma} appear within the \hyper{template}, the result of evaluating
+\backquote\hyper{template} is equivalent to the result of evaluating
+\singlequote\hyper{template}.  If a comma\mainschindex{,} appears within the
+\hyper{template}, however, the expression following the comma is
+evaluated (``unquoted'') and its result is inserted into the structure
+instead of the comma and the expression.  If a comma appears followed
+immediately by an at-sign (\atsign),\index{at-sign} then the following
+expression must evaluate to a list; the opening and closing parentheses
+of the list are then ``stripped away'' and the elements of the list are
+inserted in place of the comma at-sign expression sequence.
+
+% struck: "(in the sense of \ide{equal?})" after "equivalent"
+
+\begin{scheme}
+`(list ,(+ 1 2) 4)  \ev  (list 3 4)
+(let ((name 'a)) `(list ,name ',name)) %
+          \lev  (list a (quote a))
+`(a ,(+ 1 2) ,@(map abs '(4 -5 6)) b) %
+          \lev  (a 3 4 5 6 b)
+`((\ide{foo} ,(- 10 3)) ,@(cdr '(c)) . ,(car '(cons))) %
+          \lev  ((foo 7) . cons)
+`\#(10 5 ,(sqrt 4) ,@(map sqrt '(16 9)) 8) %
+          \lev  \#(10 5 2 4 3 8)%
+\end{scheme}
+
+Quasiquote forms may be nested.  Substitutions are made only for
+unquoted components appearing at the same nesting level
+as the outermost backquote.  The nesting level increases by one inside
+each successive quasiquotation, and decreases by one inside each
+unquotation.
+
+\begin{scheme}
+`(a `(b ,(+ 1 2) ,(foo ,(+ 1 3) d) e) f) %
+          \lev  (a `(b ,(+ 1 2) ,(foo 4 d) e) f)
+(let ((name1 'x)
+      (name2 'y))
+  `(a `(b ,,name1 ,',name2 d) e)) %
+          \lev  (a `(b ,x ,'y d) e)%
+\end{scheme}
+
+The notations
+ \backquote\hyper{template} and {\tt (quasiquote \hyper{template})}
+ are identical in all respects.
+ {\cf,\hyper{expression}} is identical to {\cf (unquote \hyper{expression})},
+ and
+ {\cf,@\hyper{expression}} is identical to {\cf (unquote-splicing \hyper{expression})}.
+The external syntax generated by \ide{write} for two-element lists whose
+car is one of these symbols may vary between implementations.
+\mainschindex{`}
+
+\begin{scheme}
+(quasiquote (list (unquote (+ 1 2)) 4)) %
+          \lev  (list 3 4)
+'(quasiquote (list (unquote (+ 1 2)) 4)) %
+          \lev  `(list ,(+ 1 2) 4)
+     {\em{}i.e.,} (quasiquote (list (unquote (+ 1 2)) 4))%
+\end{scheme}
+
+Unpredictable behavior can result if any of the symbols
+\ide{quasiquote}, \ide{unquote}, or \ide{unquote-splicing} appear in
+positions within a \hyper{template} otherwise than as described above.
+
+\end{entry}

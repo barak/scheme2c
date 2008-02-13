@@ -1,0 +1,174 @@
+% Lexical structure
+
+%%\vfill\eject
+\chapter{Lexical conventions}
+
+This section gives an informal account of some of the lexical
+conventions used in writing Scheme programs.  For a formal syntax of
+Scheme, see section~\ref{BNF}.
+
+\vest Upper and lower case forms of a letter are never distinguished
+except within character and string constants.  For example, \ide{Foo} is
+the same identifier as \ide{FOO}, and {\tt\#x1AB} is the same number as
+{\tt\#X1ab}.
+
+\section{Identifiers}
+\label{syntaxsection}
+
+Most identifiers\mainindex{identifier} allowed by other programming
+languages are also acceptable to Scheme.  The precise rules for forming
+identifiers vary among implementations of Scheme, but in all
+implementations a sequence of letters, digits, and ``extended alphabetic
+characters'' that begins with a character that cannot begin a number is
+an identifier.  In addition, \ide{+}, \ide{-}, and \ide{...} are identifiers. 
+Here are some examples of identifiers:
+
+\begin{scheme}
+lambda                   q
+list->vector             soup
+{+}                        V17a
+<=?                      a34kTMNs
+the-word-recursion-has-many-meanings%
+\end{scheme}
+
+%  _ = 5F   & = 26   ~ = 7E   ^ = 5E
+
+Extended alphabetic characters may be used within identifiers as if
+they were letters.  The following are extended alphabetic characters:
+
+\begin{scheme}
++ - . * / < = > !\ ?\ :\ \$ \% \char"5F{} \char"26{} \char"7E{} \char"5E %
+\end{scheme}
+
+See section~\ref{extendedalphas} for a formal syntax of identifiers.
+
+\vest Identifiers have several uses within Scheme programs:
+\begin{itemize}
+\item Certain identifiers are reserved for use as syntactic keywords
+(see below).\index{syntactic keyword}\index{keyword}
+%  (This does not preclude their use as identifiers
+%as well, although in certain situations ambiguities can result if this is done.)
+
+\item Any identifier that is not a syntactic keyword may be used as a
+variable\index{variable} (see section~\ref{variablesection}).
+
+\item When an identifier appears as a literal or within a literal
+(see section~\ref{quote}), it is being used to denote a {\em symbol}
+(see section~\ref{symbolsection}).
+
+\end{itemize}
+
+\label{keywordsection}
+The following identifiers are syntactic keywords, and should not be used
+as variables:
+
+\begin{scheme}
+=>           do            or
+and          else          quasiquote
+begin        if            quote
+case         lambda        set!
+cond         let           unquote
+define       let*          unquote-splicing
+delay        letrec%
+\end{scheme}
+
+Some implementations allow all identifiers, including syntactic
+keywords, to be used as variables.  This is a compatible extension to
+the language, but ambiguities in the language result when the
+restriction is relaxed, and the ways in which these ambiguities are
+resolved vary between implementations.
+
+
+
+\section{Whitespace and comments}
+
+\defining{Whitespace} characters are spaces and newlines.
+(Implementations typically provide additional whitespace characters such
+as tab or page break.)  Whitespace is used for improved readability and
+as necessary to separate tokens from each other, a token being an
+indivisible lexical unit such as an identifier or number, but is
+otherwise insignificant.  Whitespace may occur between any two tokens,
+but not within a token.  Whitespace may also occur inside a string,
+where it is significant.
+
+A semicolon ({\tt;}) indicates the start of a
+comment.\mainindex{comment}\mainschindex{;}  The comment continues to the
+end of the line on which the semicolon appears.  Comments are invisible
+to Scheme, but the end of the line is visible as whitespace.  This
+prevents a comment from appearing in the middle of an identifier or
+number.
+
+\begin{scheme}
+;;; The FACT procedure computes the factorial
+;;; of a non-negative integer.
+(define fact
+  (lambda (n)
+    (if (= n 0)
+        1        ;Base case: return 1
+        (* n (fact (- n 1))))))%
+\end{scheme}
+
+
+\section{Other notations}
+
+\todo{Rewrite?}
+
+For a description of the notations used for numbers, see
+section~\ref{numbersection}.
+
+\begin{description}{}{}
+
+\item[{\tt.\ + -}]
+These are used in numbers, and may also occur anywhere in an identifier
+except as the first character.  A delimited plus or minus sign by itself
+is also an identifier.
+A delimited period (not occurring within a number or identifier) is used
+in the notation for pairs (section~\ref{listsection}), and to indicate a
+rest-parameter in a  formal parameter list (section~\ref{lambda}).
+A delimited sequence of three successive periods is also an identifier.
+
+\item[\tt( )]
+Parentheses are used for grouping and to notate lists
+(section~\ref{listsection}).
+
+\item[\singlequote]
+The single quote character is used to indicate literal data (section~\ref{quote}).
+
+\item[\backquote]
+The backquote character is used to indicate almost-constant
+data (section~\ref{quasiquote}).
+
+\item[\tt, ,@]
+The character comma and the sequence comma at-sign are used in conjunction
+with backquote (section~\ref{quasiquote}).
+
+\item[\tt"]
+The double quote character is used to delimit strings (section~\ref{stringsection}).
+
+\item[\backwhack]
+Backslash is used in the syntax for character constants
+(section~\ref{charactersection}) and as an escape character within string
+constants (section~\ref{stringsection}).
+
+\setbox0\hbox{\tt \char"5B{} \char"5D{} \char"7B{} \char"7D}
+\item[\copy0]
+Left and right square brackets and curly braces
+are reserved for possible future extensions to the language.
+
+\item[\sharpsign] Sharp sign is used for a variety of purposes depending on
+the character that immediately follows it:
+
+\item[\schtrue{} \schfalse{}]
+These are the boolean constants (section~\ref{booleansection}).
+
+\item[\sharpsign\backwhack]
+This introduces a character constant (section~\ref{charactersection}).
+
+\item[\sharpsign\tt(]
+This introduces a vector constant (section~\ref{vectorsection}).  Vector constants
+are terminated by~{\tt)}~.
+
+\item[{\tt\#e \#i \#b \#o \#d \#x}]
+These are used in the notation for numbers (section~\ref{numbernotations}).
+
+\end{description}

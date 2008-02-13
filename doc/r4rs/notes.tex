@@ -1,0 +1,173 @@
+\extrapart{Notes}
+
+
+\todo{Perhaps this section should be made to disappear.
+Can these remarks be moved somewhere else?}
+
+\subsection*{Language changes}
+\label{differences}
+
+This section enumerates the changes that have been made to Scheme since
+the ``Revised$^3$ report''~\cite{R3RS} was published.
+
+
+\begin{itemize}
+\item Although implementations may extend Scheme, they must offer
+a syntactic mode that adds no reserved words and preempts no lexical conventions
+of Scheme.
+
+\item Implementations may report violations of
+implementation restrictions.
+
+\item It is no longer specified whether the empty list counts as true
+or as false in conditional expressions.  It should be noted that the
+IEEE standard for Scheme requires the empty list to count as true
+\cite{IEEEScheme}.
+
+\item The sets defined by \ide{boolean?}, \ide{pair?}, \ide{symbol?},
+\ide{number?}, \ide{char?}, \ide{string?}, \ide{vector?}, and \ide{procedure?}
+are required to be disjoint.
+
+\item The variables bound by a \ide{lambda}, \ide{let}, \ide{letrec},
+and \ide{do} must not contain duplicates.
+
+\item Nested \ide{begin} expressions containing definitions are treated
+as a sequence of definitions.
+
+\item The \ide{eqv?} procedure is no longer required to be true of any
+two empty strings or two empty vectors.
+
+\item The syntax of numerical constants has been changed, and the exactness
+implied by each syntax has been specified.
+
+\item The semantics of many numerical procedures have been clarified.
+
+\item \ide{Rationalize} has been restricted to two arguments and its
+specification clarified.
+
+\item The \ide{number->string} and \ide{string->number} procedures
+have been changed.
+
+\item \ide{Integer->char} now requires an exact integer argument.
+
+\item The specification of the \ide{force} procedure has been
+weakened.  The previous specification was unimplementable.
+
+\item Variables removed: \ide{t}, \ide{nil}.
+
+\item Procedures removed: \ide{approximate}, \ide{last-pair}.
+
+\item Procedures added: \ide{list?}, \ide{peek-char}.
+
+\item Syntaxes made essential: \ide{case}, \ide{and}, \ide{or},
+\ide{quasiquote}.
+
+\item Procedures made essential:
+\end{itemize}                     % so the next block isn't indented
+
+\begin{scheme}
+reverse        char-ci=?        make-string
+max            char-ci<?        string-set!
+min            char-ci>?        string-ci=?
+modulo         char-ci<=?       string-ci<?
+gcd            char-ci>=?       string-ci>?
+lcm            char-alphabetic? string-ci<=?
+floor          char-numeric?    string-ci>=?
+ceiling        char-whitespace? string-append
+truncate       char-lower-case? open-input-file
+round          char-upper-case? open-output-file
+number->string char-upcase      close-input-port
+string->number char-downcase    close-output-port
+\end{scheme}
+
+\begin{itemize}                   % continue with the last item
+\item Procedures required to accept more general numbers of arguments:
+\ide{append}, \ide{+}, \ide{*}, \ide{-} (one argument), \ide{/} (one
+argument), \ide{=}, \ide{<}, \ide{>}, \ide{<=}, \ide{>=}, \ide{map},
+\ide{for-each}.
+
+\item A macro facility has been added as an appendix to this report.
+
+\todo{
+\item {\tt Call-with-input-file} and {\tt call-with-output-file} renamed
+to \ide{call-with-input-port} and \ide{call-with-output-port}
+}
+
+\end{itemize}
+
+
+\todo{
+\subsection*{Comparison with the dialect used in~\cite{SICP}}
+Compare with S\&ICP: simple renamings like {\tt print}; easily
+implemented things like {\tt cons-stream}; more grave and controversial
+omissions like {\tt eval} and {\tt make-envi\-ron\-ment}.}
+
+% I think the comparison with S&ICP is no longer so important.
+% A comparison with IEEE Scheme might now be in order, though.
+% -- Will, 1991.
+
+%%R4%%
+%\subsection*{Keywords as variable names}
+%
+%Some implementations allow arbitrary syntactic
+%keywords \index{keyword}\index{syntactic keyword}to be used as variable
+%names, instead of reserving them, as this report would have
+%it.\index{variable} But this creates ambiguities in the interpretation
+%of expressions: for example, in the following, it's not clear whether
+%the expression {\tt (if 1 2 3)} should be treated as a procedure call or
+%as a conditional.
+%
+%\begin{scheme}
+%(define if list)
+%(if 1 2 3)    \ev  2 {\em{}or} (1 2 3)%
+%\end{scheme}
+%
+%These ambiguities are usually resolved in some consistent way within any
+%given implementation, but no particular treatment stands out as being
+%clearly superior to any other, so these situations were excluded for the
+%purposes of this report.
+
+%%R4%%
+%\subsection*{Macros}
+%
+%Scheme does not have any standard facility for defining new kinds of
+%expressions.\index{macros}
+%
+%\vest The ability to alter the syntax of the language creates
+%numerous problems.  All current implementations of Scheme have macro
+%facilities that solve those problems to one degree or another, but the
+%solutions are quite different and it isn't clear at this time which
+%solution is best, or indeed whether any of the solutions are truly
+%adequate.  Rather than standardize, we are encouraging implementations
+%to continue to experiment with different solutions.
+%
+%\vest The main problems with traditional macros are: They must be
+%defined to the system before any code using them is loaded; this is a
+%common source of obscure bugs.  They are usually global; macros can be
+%made to follow lexical scope rules \todo{flushed: ``as in Common
+%Lisp's {\tt macrolet}''; OK?}, but many people find the resulting scope rules
+%confusing.  Unless they are written very carefully, macros are
+%vulnerable to inadvertant capture of free variables; to get around this,
+%for example, macros may have to generate code in which procedure values
+%appear as quoted constants.  There is a similar problem with syntactic
+%keywords if the keywords of special forms are not reserved.  If keywords
+%are reserved, then either macros introduce new reserved words,
+%invalidating old code, or else special forms defined by the programmer
+%do not have the same status as special forms defined by the system.
+%
+%\todo{Refer to Pitman's special forms paper.}
+%\todo{Pitman sez: Discuss importance of having a small number of special forms
+%so that programs can inspect each other.}
+
+\todo{Move cwcc history back here? --- Andy Cromarty is concerned about
+confusion over who the audience is.}
+
+\todo{Cromarty:
+23. NOTES, p.35ff.: This material should stay somehow.  We need to
+    make it clear that R$^3$ Scheme is not being touted as Yet Another
+    Ultimate Solution To The Programming Language Problem, but rather
+    as a snapshot of a *process* of good design, for which not all
+    answers have yet been found.  We also ought to use the opportunity
+    for publicity afforded us by SIGPLAN to advertise some of the thorny
+    unsolved problems that need further research, and encourage
+    language designers to work on them.}

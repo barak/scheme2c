@@ -1,0 +1,43 @@
+\documentstyle[twoside]{algol60}
+
+\pagestyle{headings}
+\showboxdepth=0
+\makeindex
+\input{commands}
+\def\theevenhead{Revised$^{4}$ Scheme}
+
+\begin{document}
+
+\hfil {\bf 2 November 1991}%\today{} ***}
+
+\input{first}   \par
+\input{intro}   \par
+\vskip 2ex
+\clearchapterstar{Description of the language} %\unskip\vskip -2ex
+% \chapter*{Description of the language}\unskip\vskip -2ex
+\input{struct}  \par
+\input{lex}	\par
+\input{basic}	\par
+\input{expr}	\par
+\input{prog}	\par
+\input{procs}	\par  \vfill\eject
+\input{syn}	\par
+\input{sem}	\par
+\input{derive}	\par  \vfill%%R4%%\eject
+\input{notes}	\par  \vfill\eject
+\input{example}	\par  \vfill\eject
+\input{macros} \par \vfill\eject
+\input{bib}	\par
+
+\newpage
+\begin{theindex}
+
+The principal entry for each term, procedure, or keyword is listed
+first, separated from the other entries by a semicolon.
+
+\bigskip
+
+\input{index}
+\end{theindex}
+
+\end{document}

@@ -1,0 +1,181 @@
+\section{Derived expression types}
+\label{derivedsection}
+
+This section gives rewrite rules for the derived expression types.  By
+the application of these rules, any expression can be reduced to a
+semantically equivalent expression in which only the primitive
+expression types (literal, variable, call, \ide{lambda}, \ide{if},
+\ide{set!}) occur.
+
+% \todo{Expressions such as {\tt (cond)} aren't legal, but they make the
+% rewrite rules work.}
+
+\newcommand{\iet}{\hbox to 2em{\hfil $\equiv$}}  % is equivalent to
+
+\begin{schemenoindent}
+(cond (\hyper{test} \hyper{sequence})
+      \hyperii{clause} \dotsfoo)
+\iet  (if \hyper{test}
+          (begin \hyper{sequence})
+          (cond \hyperii{clause} \dotsfoo))
+
+(cond (\hyper{test})
+      \hyperii{clause} \dotsfoo)
+\iet  (or \hyper{test} (cond \hyperii{clause} \dotsfoo))
+
+(cond (\hyper{test} => \hyper{recipient})
+      \hyperii{clause} \dotsfoo)
+\iet  (let ((test-result \hyper{test})
+            (thunk2 (lambda () \hyper{recipient}))
+            (thunk3 (lambda () (cond \hyperii{clause} \dotsfoo))))
+        (if test-result
+            ((thunk2) test-result)
+            (thunk3)))
+
+(cond (else \hyper{sequence}))
+\iet  (begin \hyper{sequence})
+
+(cond)
+\iet  \hyper{some expression returning an unspecified value}
+
+(case \hyper{key} 
+  ((d1 \dotsfoo) \hyper{sequence})
+  \dotsfoo)
+\iet  (let ((key \hyper{key})
+            (thunk1 (lambda () \hyper{sequence}))
+            \dotsfoo)
+        (cond ((\hyper{memv} key '(d1 \dotsfoo)) (thunk1))
+               \dotsfoo))
+
+(case \hyper{key} 
+  ((d1 \dotsfoo) \hyper{sequence})
+  \dotsfoo
+  (else f1 f2 \dotsfoo))
+\iet  (let ((key \hyper{key})
+            (thunk1 (lambda () \hyper{sequence}))
+            \dotsfoo
+            (elsethunk (lambda () f1 f2 \dotsfoo)))
+        (cond ((\hyper{memv} key '(d1 \dotsfoo)) (thunk1))
+               \dotsfoo
+              (else (elsethunk))))%
+\end{schemenoindent}
+where \hyper{memv} is an expression evaluating to the \ide{memv} procedure.
+
+\begin{schemenoindent}
+(and)         \=\iet  \schtrue
+(and \hyper{test})\>\iet  \hyper{test}
+(and \hyperi{test} \hyperii{test} \dotsfoo)
+\iet  (let ((x \hyperi{test})
+            (thunk (lambda () (and \hyperii{test} \dotsfoo))))
+        (if x (thunk) x))
+
+(or)          \>\iet  \schfalse
+(or \hyper{test})\>\iet  \hyper{test}
+(or \hyperi{test} \hyperii{test} \dotsfoo)
+\iet  (let ((x \hyperi{test})
+            (thunk (lambda () (or \hyperii{test} \dotsfoo))))
+        (if x x (thunk)))
+
+(let ((\hyperi{variable} \hyperi{init}) \dotsfoo)
+  \hyper{body})
+\iet  ((lambda (\hyperi{variable} \dotsfoo) \hyper{body}) \hyperi{init} \dotsfoo)
+
+(let* () \hyper{body})
+\iet  ((lambda () \hyper{body}))
+(let* ((\hyperi{variable} \hyperi{init})
+       (\hyperii{variable} \hyperii{init})
+       \dotsfoo)
+  \hyper{body})
+\iet  (let ((\hyperi{variable} \hyperi{init})) 
+        (let* ((\hyperii{variable} \hyperii{init})
+               \dotsfoo)
+          \hyper{body}))
+
+(letrec ((\hyperi{variable} \hyperi{init})
+         \dotsfoo)
+  \hyper{body})
+\iet  (let ((\hyperi{variable} \hyper{undefined})
+            \dotsfoo)
+         (let ((\hyperi{temp} \hyperi{init})
+               \dotsfoo)
+           (set! \hyperi{variable} \hyperi{temp})
+           \dotsfoo)
+         \hyper{body})%
+\end{schemenoindent}
+where \hyperi{temp}, \hyperii{temp}, \dotsfoo{} are variables, distinct
+from \hyperi{variable}, \dotsfoo{}, that do not free occur in the
+original \hyper{init} expressions, and \hyper{undefined} is an expression
+which returns something that when stored in a location makes it an
+error to try to obtain the value stored in the location.  (No such
+expression is defined, but one is assumed to exist for the purposes of this
+rewrite rule.)  The second \ide{let} expression in the expansion is not
+strictly necessary, but it serves to preserve the property that the
+\hyper{init} expressions are evaluated in an arbitrary order.
+
+
+\begin{schemenoindent}
+
+(begin \hyper{sequence})
+\iet  ((lambda () \hyper{sequence}))%
+\end{schemenoindent}
+The following alternative expansion for \ide{begin} does not make use of
+the ability to write more than one expression in the body of a lambda
+expression.  In any case, note that these rules apply only if
+\hyper{sequence} contains no definitions.
+\begin{schemenoindent}
+(begin \hyper{expression})\iet  \hyper{expression}
+(begin \hyper{command} \hyper{sequence})
+\iet  ((lambda (ignore thunk) (thunk))
+       \hyper{command}
+       (lambda () (begin \hyper{sequence})))%
+\end{schemenoindent}
+
+The following expansion for \ide{do} is simplified by the assumption
+that no \hyper{step} is omitted.  Any \ide{do} expression in which a
+\hyper{step} is omitted can be replaced by an equivalent \ide{do}
+expression in which the corresponding \hyper{variable} appears as
+the \hyper{step}. 
+
+\begin{schemenoindent}
+(do ((\hyperi{variable} \hyperi{init} \hyperi{step}) 
+     \dotsfoo)
+    (\hyper{test} \hyper{sequence})
+  \hyperi{command} \dotsfoo)
+\iet  (letrec ((\hyper{loop}
+                (lambda (\hyperi{variable} \dotsfoo)
+                  (if \hyper{test}
+                      (begin \hyper{sequence})
+                      (begin \hyperi{command}
+                             \dotsfoo
+                             (\hyper{loop} \hyperi{step} \dotsfoo))))))
+        (\hyper{loop} \hyperi{init} \dotsfoo))%
+\end{schemenoindent}
+where \hyper{loop} is any variable which is distinct from
+\hyperi{variable},~\dotsfoo, and which does not occur free in the \ide{do}
+expression.
+
+\begin{schemenoindent}
+(let \hyper{variable$_0$} ((\hyperi{variable} \hyperi{init}) \dotsfoo)
+  \hyper{body})
+\iet  ((letrec ((\hyper{variable$_0$} (lambda (\hyperi{variable} \dotsfoo)
+                             \hyper{body})))
+          \hyper{variable$_0$})
+       \hyperi{init} \dotsfoo)
+
+(delay \hyper{expression})
+\iet  (\hyper{make-promise} (lambda () \hyper{expression}))%
+\end{schemenoindent}
+where \hyper{make-promise} is an expression evaluating to some procedure
+which behaves appropriately with respect to the \ide{force} procedure;
+see section~\ref{force}.
+
+% `a                =  Q_1[a]
+% `(a b c ... . z)  =  `(a . (b c ...))
+% `(a . b)          =  (append Q*_0[a] `b)
+% `(a)              =  Q*_0[a]
+% Q*_0[a]           =  (list 'a)
+% Q*_0[,a]          =  (list a)
+% Q*_0[,@a]         =  a
+% Q*_0[`a]          =  (list 'quasiquote Q*_1[a])
+% `#(a b ...)       =  (list->vector `(a b ...))
+%  ugh.

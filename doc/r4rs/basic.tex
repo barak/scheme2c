@@ -1,0 +1,181 @@
+%\vfill\eject
+\chapter{Basic concepts}
+\label{basicchapter}
+
+\section{Variables and regions}
+\label{specialformsection}
+\label{variablesection}
+
+Any identifier that is not a syntactic keyword\index{keyword} (see
+section~\ref{keywordsection}) may be used as a variable.\index{syntactic
+keyword}\index{identifier}\mainindex{variable}  A variable may name a
+location where a value can be stored.  A variable that does so is said
+to be {\em bound} to the location.  The set of all visible
+bindings\mainindex{binding} in effect at some point in a program is
+known as the {\em environment} in effect at that point.  The value
+stored in the location to which a variable is bound is called the
+variable's value.  By abuse of terminology, the variable is sometimes
+said to name the value or to be bound to the value.  This is not quite
+accurate, but confusion rarely results from this practice.
+
+\todo{Define ``assigned'' and ``unassigned'' perhaps?}
+
+\todo{In programs without side effects, one can safely pretend that the
+variables are bound directly to the arguments.  Or:
+In programs without \ide{set!}, one can safely pretend that the
+variable is bound directly to the value. }
+
+\vest Certain expression types are used to create new locations and to
+bind variables to those locations.  The most fundamental of these {\em
+binding constructs}\mainindex{binding construct} is the
+\lambdaexp{}\index{\lambdaexp{}}, because all other binding constructs
+can be explained in terms of \lambdaexp{}s.  The other binding
+constructs are \ide{let}, \ide{let*}, \ide{letrec}, and \ide{do}
+expressions (see sections~\ref{lambda}, \ref{letrec}, and \ref{do}).
+
+%Note: internal definitions not mentioned here.
+
+\vest Like Algol and Pascal, and unlike most other dialects of Lisp
+except for Common Lisp, Scheme is a statically scoped language with
+block structure.  To each place where a variable is bound in a program
+there corresponds a \defining{region} of the program text within which
+the binding is effective.  The region is determined by the particular
+binding construct that establishes the binding; if the binding is
+established by a \lambdaexp{}, for example, then its region
+is the entire \lambdaexp{}.  Every reference to or assignment of a
+variable refers to the binding of the variable that established the
+innermost of the regions containing the use.  If there is no binding of
+the variable whose region contains the use, then the use refers to the
+binding for the variable in the top level environment, if any
+(section~\ref{initialenv}); if there is no binding for the identifier,
+it is said to be \defining{unbound}.\mainindex{bound}\index{top level
+environment}
+
+\todo{Mention that some implementations have multiple top level environments?}
+
+\todo{Pitman sez: needs elaboration in case of {\tt(let ...)}}
+
+\todo{Pitman asks: say something about vars created after scheme starts?
+{\tt (define x 3) (define (f) x) (define (g) y) (define y 4)}
+Clinger replies: The language was explicitly
+designed to permit a view in which no variables are created after
+Scheme starts.  In files, you can scan out the definitions beforehand.
+I think we're agreed on the principle that interactive use should
+approximate that behavior as closely as possible, though we don't yet
+agree on which programming environment provides the best approximation.}
+
+
+\section{True and false}
+
+Any Scheme value can be used as a boolean value for the purpose of a
+conditional test.  As explained in section~\ref{booleansection}, all
+values count as true in such a test except for \schfalse{}.
+% and possibly the empty list.
+% The only value that is guaranteed to count as
+% false is \schfalse{}.  It is explicitly unspecified whether the empty list
+% counts as true or as false.
+This report uses the word ``true'' to refer to any
+Scheme value that counts as true, and the word ``false'' to refer to
+\schfalse{}. \mainindex{true} \mainindex{false}
+
+\begin{note}
+In some implementations the empty list also counts as false instead
+of true.
+\end{note}
+
+\todo{Bartley: tighten this up.}
+
+
+\section{External representations}
+\label{externalreps}
+
+An important concept in Scheme (and Lisp) is that of the {\em external
+representation} of an object as a sequence of characters.  For example,
+an external representation of the integer 28 is the sequence of
+characters ``{\tt 28}'', and an external representation of a list consisting
+of the integers 8 and 13 is the sequence of characters ``{\tt(8 13)}''.
+
+The external representation of an object is not necessarily unique.  The
+integer 28 also has representations ``{\tt \#e28.000}'' and ``{\tt\#x1c}'', and the
+list in the previous paragraph also has the representations ``{\tt( 08 13
+)}'' and ``{\tt(8 .\ (13 .\ ()))}'' (see section~\ref{listsection}).
+
+Many objects have standard external representations, but some, such as
+procedures, do not have standard representations (although particular
+implementations may define representations for them).
+
+An external representation may be written in a program to obtain the
+corresponding object (see \ide{quote}, section~\ref{quote}).
+
+External representations can also be used for input and output.  The
+procedure \ide{read} (section~\ref{read}) parses external
+representations, and the procedure \ide{write} (section~\ref{write})
+generates them.  Together, they provide an elegant and powerful
+input/output facility.
+
+Note that the sequence of characters ``{\tt(+ 2 6)}'' is {\em not} an
+external representation of the integer 8, even though it {\em is} an
+expression evaluating to the integer 8; rather, it is an external
+representation of a three-element list, the elements of which are the symbol
+{\tt +} and the integers 2 and 6.  Scheme's syntax has the property that
+any sequence of characters that is an expression is also the external
+representation of some object.  This can lead to confusion, since it may
+not be obvious out of context whether a given sequence of characters is
+intended to denote data or program, but it is also a source of power,
+since it facilitates writing programs such as interpreters and
+compilers that treat programs as data (or vice versa).
+
+The syntax of external representations of various kinds of objects
+accompanies the description of the primitives for manipulating the
+objects in the appropriate sections of chapter~\ref{initialenv}.
+
+
+\section{Disjointness of types}
+\label{disjointness}
+
+No object satisfies more than one of the following predicates:
+
+\begin{scheme}
+boolean?          pair?
+symbol?           number?
+char?             string?
+vector?           procedure?%
+\end{scheme}
+
+These predicates define the types {\em boolean}, {\em pair}, {\em
+symbol}, {\em number}, {\em char} (or {\em character}), {\em string}, {\em
+vector}, and {\em procedure}.\mainindex{type}
+
+
+\section{Storage model}
+\label{storagemodel}
+
+Variables and objects such as pairs, vectors, and strings implicitly
+denote locations\mainindex{location} or sequences of locations.  A string, for
+example, denotes as many locations as there are characters in the string. 
+(These locations need not correspond to a full machine word.) A new value may be
+stored into one of these locations using the {\tt string-set!} procedure, but
+the string continues to denote the same locations as before.
+
+An object fetched from a location, by a variable reference or by
+a procedure such as \ide{car}, \ide{vector-ref}, or \ide{string-ref}, is
+equivalent in the sense of \ide{eqv?} (section~\ref{equivalencesection})
+to the object last stored in the location before the fetch.
+
+Every location is marked to show whether it is in use.
+No variable or object ever refers to a location that is not in use.
+Whenever this report speaks of storage being allocated for a variable
+or object, what is meant is that an appropriate number of locations are
+chosen from the set of locations that are not in use, and the chosen
+locations are marked to indicate that they are now in use before the variable
+or object is made to denote them.
+
+In many systems it is desirable for constants\index{constant} (i.e. the values of
+literal expressions) to reside in read-only-memory.  To express this, it is
+convenient to imagine that every object that denotes locations is associated
+with a flag telling whether that object is mutable\index{mutable} or
+immutable\index{immutable}.  The constants and the strings returned by
+\ide{symbol->string} are then the immutable objects, while all objects created by
+the other procedures listed in this report are mutable.  It is an error to
+attempt to store a new value into a location that is denoted by an immutable
+object.

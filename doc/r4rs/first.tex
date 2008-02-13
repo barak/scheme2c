@@ -1,0 +1,94 @@
+% First page
+
+\thispagestyle{empty}
+
+% \todo{"another" report?}
+
+\topnewpage[{
+\begin{center}   {\huge\bf
+	Revised$^{\bf 4}$ Report on the Algorithmic Language \\
+			      \vskip 3pt
+				Scheme}
+\vskip 1ex
+$$
+\begin{tabular}{l@{\extracolsep{.5in}}lll}
+\multicolumn{4}{c}{W{\sc ILLIAM} C{\sc LINGER AND} J{\sc ONATHAN} R{\sc EES}
+ ({\it Editors\/})} \\
+H. A{\sc BELSON}     &
+R. K. D{\sc YBVIG}   &
+C. T. H{\sc AYNES}   &
+G. J. R{\sc OZAS}    \\
+N. I. A{\sc DAMS IV} &
+D. P. F{\sc RIEDMAN} &
+E. K{\sc OHLBECKER}  &
+G. L. S{\sc TEELE} J{\sc R}. \\
+D. H. B{\sc ARTLEY}  &
+R. H{\sc ALSTEAD}    &
+D. O{\sc XLEY}	     &
+G. J. S{\sc USSMAN}  \\
+G. B{\sc ROOKS}	     &
+C. H{\sc ANSON}	     &
+K. M. P{\sc ITMAN}   &
+M. W{\sc AND}	     \\
+\end{tabular}
+$$
+\vskip 2ex
+{\it Dedicated to the Memory of ALGOL 60}
+\vskip 2.6ex
+\end{center}
+}]
+
+\chapter*{Summary}
+
+The report gives a defining description of the programming language
+Scheme.  Scheme is a statically scoped and properly tail-recursive
+dialect of the Lisp programming language invented by Guy Lewis
+Steele~Jr.\ and Gerald Jay~Sussman.  It was designed to have an
+exceptionally clear and simple semantics and few different ways to
+form expressions.  A wide variety of programming paradigms, including
+imperative, functional, and message passing styles, find convenient
+expression in Scheme.
+
+\vest The introduction offers a brief history of the language and of
+the report.
+
+\vest The first three chapters present the fundamental ideas of the
+language and describe the notational conventions used for describing the
+language and for writing programs in the language.
+
+\vest Chapters~\ref{expressionchapter} and~\ref{programchapter} describe
+the syntax and semantics of expressions, programs, and definitions.
+
+\vest Chapter~\ref{builtinchapter} describes Scheme's built-in
+procedures, which include all of the language's data manipulation and
+input/output primitives.
+
+\vest Chapter~\ref{formalchapter} provides a formal syntax for Scheme
+written in extended BNF, along with a formal denotational semantics.
+An example of the use of the language follows the formal syntax and
+semantics.
+
+\vest The appendix describes a macro facility that may be used to
+extend the syntax of Scheme.
+
+\vest The report concludes with a bibliography and an
+alphabetic index.
+
+\todo{expand the summary so that it fills up the column.}
+
+%\vfill
+%\begin{center}
+%{\large \bf
+%*** DRAFT*** \\
+%August 31, 1989%\today
+%}\end{center}
+
+\vfill
+\eject
+
+{\footnotesize
+\tableofcontents
+}
+
+\vfill
+\eject

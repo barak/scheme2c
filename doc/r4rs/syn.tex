@@ -1,0 +1,293 @@
+\chapter{Formal syntax and semantics}
+\label{formalchapter}
+
+This chapter provides formal descriptions of what has already been
+described informally in previous chapters of this report.
+
+\todo{Allow grammar to say that else clause needn't be last?}
+
+
+\section{Formal syntax}
+\label{BNF}
+
+This section provides a formal syntax for Scheme written in an extended
+BNF.  The syntax for the entire language, including features which are
+not essential, is given here.
+
+All spaces in the grammar are for legibility.  Case is insignificant;
+for example, {\cf \#x1A} and {\cf \#X1a} are equivalent.  \meta{empty}
+stands for the empty string.
+
+The following extensions to BNF are used to make the description more
+concise:  \arbno{\meta{thing}} means zero or more occurrences of
+\meta{thing}; and \atleastone{\meta{thing}} means at least one
+\meta{thing}.
+
+
+\subsection{Lexical structure}
+
+This section describes how individual tokens\index{token} (identifiers,
+numbers, etc.) are formed from sequences of characters.  The following
+sections describe how expressions and programs are formed from sequences
+of tokens.
+
+\meta{Intertoken space} may occur on either side of any token, but not
+within a token.
+
+\vest Tokens which require implicit termination (identifiers, numbers,
+characters, and dot) may be terminated by any \meta{delimiter}, but not
+necessarily by anything else.
+
+\begin{grammar}%
+\meta{token} \: \meta{identifier} \| \meta{boolean} \| \meta{number}\index{identifier}
+\>  \| \meta{character} \| \meta{string}
+\>  \| ( \| ) \| \sharpsign( \| \singlequote{} \| \backquote{} \| , \| ,@ \| {\bf.}
+\meta{delimiter} \: \meta{whitespace} \| ( \| ) \| " \| ;
+\meta{whitespace} \: \meta{space or newline}
+\meta{comment} \: ; \= $\langle$\rm all subsequent characters up to a
+		    \>\ \rm line break$\rangle$\index{comment}
+\meta{atmosphere} \: \meta{whitespace} \| \meta{comment}
+\meta{intertoken space} \: \arbno{\meta{atmosphere}}%
+\end{grammar}
+
+\label{extendedalphas}
+\label{identifiersyntax}
+
+% This is a kludge, but \multicolumn doesn't work in tabbing environments.
+\setbox0\hbox{\cf\meta{variable} \goesto{} $\langle$}
+
+\begin{grammar}%
+\meta{identifier} \: \meta{initial} \arbno{\meta{subsequent}}
+ \>  \| \meta{peculiar identifier}
+\meta{initial} \: \meta{letter} \| \meta{special initial}
+\meta{letter} \: a \| b \| c \| ... \| z
+\meta{special initial} \: ! \| \$ \| \% \| \verb"&" \| * \| / \| : \| < \| =
+ \>  \| > \| ? \| \verb"~" \| \verb"_" \| \verb"^"
+\meta{subsequent} \: \meta{initial} \| \meta{digit}
+ \>  \| \meta{special subsequent}
+\meta{digit} \: 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7 \| 8 \| 9
+\meta{special subsequent} \: .\ \| + \| -
+\meta{peculiar identifier} \: + \| - \| ...
+%\| 1+ \| -1+
+\meta{syntactic keyword} \: \meta{expression keyword}\index{keyword}\index{syntactic keyword}
+ \>  \| else \| => \| define 
+ \>  \| unquote \| unquote-splicing
+\meta{expression keyword} \: quote \| lambda \| if
+ \>  \| set! \| begin \| cond \| and \| or \| case
+ \>  \| let \| let* \| letrec \| do \| delay
+ \>  \| quasiquote
+
+\copy0\rm any \meta{identifier} that isn't\index{variable}
+\hbox to 1\wd0{\hfill}\ \rm also a \meta{syntactic keyword}$\rangle$
+
+\meta{boolean} \: \schtrue{} \| \schfalse{}
+\meta{character} \: \#\backwhack{} \meta{any character}
+ \>  \| \#\backwhack{} \meta{character name}
+\meta{character name} \: space \| newline
+\todo{Explain what happens in the ambiguous case.}
+\meta{string} \: " \arbno{\meta{string element}} "
+\meta{string element} \: \meta{any character other than \doublequote{} or \backwhack}
+ \>  \| \backwhack\doublequote{} \| \backwhack\backwhack %
+\end{grammar}
+
+
+\label{numbersyntax}
+
+\begin{grammar}%
+\meta{number} \: \meta{num $2$}%
+       \| \meta{num $8$}
+   \>  \| \meta{num $10$}%
+       \| \meta{num $16$}
+\end{grammar}
+
+The following rules for \meta{num $R$}, \meta{complex $R$}, \meta{real
+$R$}, \meta{ureal $R$}, \meta{uinteger $R$}, and \meta{prefix $R$}
+should be replicated for \hbox{$R = 2, 8, 10,$}
+and $16$.  There are no rules for \meta{decimal $2$}, \meta{decimal
+$8$}, and \meta{decimal $16$}, which means that numbers containing
+decimal points or exponents must be in decimal radix.
+\todo{Mark Meyer and David Bartley want to fix this.  (What? -- Will)}
+
+\begin{grammar}%
+\meta{num $R$} \: \meta{prefix $R$} \meta{complex $R$}
+\meta{complex $R$} \: %
+         \meta{real $R$} %
+      \| \meta{real $R$} @ \meta{real $R$}
+   \> \| \meta{real $R$} + \meta{ureal $R$} i %
+      \| \meta{real $R$} - \meta{ureal $R$} i
+   \> \| \meta{real $R$} + i %
+      \| \meta{real $R$} - i
+   \> \| + \meta{ureal $R$} i %
+      \| - \meta{ureal $R$} i %
+      \| + i %
+      \| - i
+\meta{real $R$} \: \meta{sign} \meta{ureal $R$}
+\meta{ureal $R$} \: %
+         \meta{uinteger $R$}
+   \> \| \meta{uinteger $R$} / \meta{uinteger $R$}
+   \> \| \meta{decimal $R$}
+\meta{decimal $10$} \: %
+         \meta{uinteger $10$} \meta{suffix}
+   \> \| . \atleastone{\meta{digit $10$}} \arbno{\#} \meta{suffix}
+   \> \| \atleastone{\meta{digit $10$}} . \arbno{\meta{digit $10$}} \arbno{\#} \meta{suffix}
+   \> \| \atleastone{\meta{digit $10$}} \atleastone{\#} . \arbno{\#} \meta{suffix}
+\meta{uinteger $R$} \: \atleastone{\meta{digit $R$}} \arbno{\#}
+\meta{prefix $R$} \: %
+         \meta{radix $R$} \meta{exactness}
+   \> \| \meta{exactness} \meta{radix $R$}
+\end{grammar}
+
+\begin{grammar}%
+\meta{suffix} \: \meta{empty} 
+   \> \| \meta{exponent marker} \meta{sign} \atleastone{\meta{digit $10$}}
+\meta{exponent marker} \: e \| s \| f \| d \| l
+\meta{sign} \: \meta{empty}  \| + \|  -
+\meta{exactness} \: \meta{empty} \| \#i\sharpindex{i} \| \#e\sharpindex{e}
+\meta{radix 2} \: \#b\sharpindex{b}
+\meta{radix 8} \: \#o\sharpindex{o}
+\meta{radix 10} \: \meta{empty} \| \#d
+\meta{radix 16} \: \#x\sharpindex{x}
+\meta{digit 2} \: 0 \| 1
+\meta{digit 8} \: 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6 \| 7
+\meta{digit 10} \: \meta{digit}
+\meta{digit 16} \: \meta{digit $10$} \| a \| b \| c \| d \| e \| f %
+\end{grammar}
+
+\todo{Mark Meyer of TI sez, shouldn't we allow {\tt 1e3/2}?}
+
+
+\subsection{External representations}
+\label{datumsyntax}
+
+\meta{Datum} is what the \ide{read} procedure (section~\ref{read})
+successfully parses.  Note that any string that parses as an
+\meta{ex\-pres\-sion} will also parse as a \meta{datum}.  \label{datum}
+
+\begin{grammar}%
+\meta{datum} \: \meta{simple datum} \| \meta{compound datum}
+\meta{simple datum} \: \meta{boolean} \| \meta{number}
+\>  \| \meta{character} \| \meta{string} \|  \meta{symbol}
+\meta{symbol} \: \meta{identifier}
+\meta{compound datum} \: \meta{list} \| \meta{vector}
+\meta{list} \: (\arbno{\meta{datum}}) \| (\atleastone{\meta{datum}} .\ \meta{datum})
+\>    \| \meta{abbreviation}
+\meta{abbreviation} \: \meta{abbrev prefix} \meta{datum}
+\meta{abbrev prefix} \: ' \| ` \| , \| ,@
+\meta{vector} \: \#(\arbno{\meta{datum}}) %
+\end{grammar}
+
+
+\subsection{Expressions}
+
+\begin{grammar}%
+\meta{expression} \: \meta{variable}
+\>  \| \meta{literal}
+\>  \| \meta{procedure call}
+\>  \| \meta{lambda expression}
+\>  \| \meta{conditional}
+\>  \| \meta{assignment}
+\>  \| \meta{derived expression}
+
+\meta{literal} \: \meta{quotation} \| \meta{self-evaluating}
+\meta{self-evaluating} \: \meta{boolean} \| \meta{number}
+\>  \| \meta{character} \| \meta{string}
+\meta{quotation} \: '\meta{datum} \| (quote \meta{datum})
+\meta{procedure call} \: (\meta{operator} \arbno{\meta{operand}})
+\meta{operator} \: \meta{expression}
+\meta{operand} \: \meta{expression}
+
+\meta{lambda expression} \: (lambda \meta{formals} \meta{body})
+\meta{formals} \: (\arbno{\meta{variable}}) \| \meta{variable}
+\>  \| (\atleastone{\meta{variable}} .\ \meta{variable})
+\meta{body} \: \arbno{\meta{definition}} \meta{sequence}
+\meta{sequence} \: \arbno{\meta{command}} \meta{expression}
+\meta{command} \: \meta{expression}
+
+\meta{conditional} \: (if \meta{test} \meta{consequent} \meta{alternate})
+\meta{test} \: \meta{expression}
+\meta{consequent} \: \meta{expression}
+\meta{alternate} \: \meta{expression} \| \meta{empty}
+
+\meta{assignment} \: (set! \meta{variable} \meta{expression})
+
+\meta{derived expression} \:
+\>  \> (cond \atleastone{\meta{cond clause}})
+\>  \| (cond \arbno{\meta{cond clause}} (else \meta{sequence}))
+\>  \| (c\=ase \meta{expression}
+\>       \>\atleastone{\meta{case clause}})
+\>  \| (c\=ase \meta{expression}
+\>       \>\arbno{\meta{case clause}}
+\>       \>(else \meta{sequence}))
+\>  \| (and \arbno{\meta{test}})
+\>  \| (or \arbno{\meta{test}})
+\>  \| (let (\arbno{\meta{binding spec}}) \meta{body})
+\>  \| (let \meta{variable} (\arbno{\meta{binding spec}}) \meta{body})
+\>  \| (let* (\arbno{\meta{binding spec}}) \meta{body})
+\>  \| (letrec (\arbno{\meta{binding spec}}) \meta{body})
+\>  \| (begin \meta{sequence})
+\>  \| (d\=o \=(\arbno{\meta{iteration spec}})
+\>       \>  \>(\meta{test} \meta{sequence})
+\>       \>\arbno{\meta{command}})
+\>  \| (delay \meta{expression})
+\>  \| \meta{quasiquotation}
+
+\meta{cond clause} \: (\meta{test} \meta{sequence})
+\>   \| (\meta{test})
+\>   \| (\meta{test} => \meta{recipient})
+\meta{recipient} \: \meta{expression}
+\meta{case clause} \: ((\arbno{\meta{datum}}) \meta{sequence})
+
+\meta{binding spec} \: (\meta{variable} \meta{expression})
+\meta{iteration spec} \: (\meta{variable} \meta{init} \meta{step})
+\> \| (\meta{variable} \meta{init})
+\meta{init} \: \meta{expression}
+\meta{step} \: \meta{expression} %
+\end{grammar}
+
+\subsection{Quasiquotations}
+
+The following grammar for quasiquote expressions is not context-free.
+It is presented as a recipe for generating an infinite number of
+production rules.  Imagine a copy of the following rules for $D = 1, 2,
+3, \ldots$.  $D$ keeps track of the nesting depth.
+
+\begin{grammar}%
+\meta{quasiquotation} \: \meta{quasiquotation 1}
+\meta{template 0} \: \meta{expression}
+\meta{quasiquotation $D$} \: `\meta{template $D$}
+\>    \| (quasiquote \meta{template $D$})
+\meta{template $D$} \: \meta{simple datum}
+\>    \| \meta{list template $D$}
+\>    \| \meta{vector template $D$}
+\>    \| \meta{unquotation $D$}
+\meta{list template $D$} \: (\arbno{\meta{template or splice $D$}})
+\>    \| (\atleastone{\meta{template or splice $D$}} .\ \meta{template $D$})
+\>    \| '\meta{template $D$}
+\>    \| \meta{quasiquotation $D+1$}
+\meta{vector template $D$} \: \#(\arbno{\meta{template or splice $D$}})
+\meta{unquotation $D$} \: ,\meta{template $D-1$}
+\>    \| (unquote \meta{template $D-1$})
+\meta{template or splice $D$} \: \meta{template $D$}
+\>    \| \meta{splicing unquotation $D$}
+\meta{splicing unquotation $D$} \: ,@\meta{template $D-1$}
+\>    \| (unquote-splicing \meta{template $D-1$}) %
+\end{grammar}
+
+In \meta{quasiquotation}s, a \meta{list template $D$} can sometimes
+be confused with either an \meta{un\-quota\-tion $D$} or a \meta{splicing
+un\-quo\-ta\-tion $D$}.  The interpretation as an
+\meta{un\-quo\-ta\-tion} or \meta{splicing
+un\-quo\-ta\-tion $D$} takes precedence.
+
+
+\subsection{Programs and definitions}
+
+\begin{grammar}%
+\meta{program} \: \arbno{\meta{command or definition}}
+\meta{command or definition} \: \meta{command} \| \meta{definition}
+\meta{definition} \: (define \meta{variable} \meta{expression})
+\>   \| (define (\meta{variable} \meta{def formals}) \meta{body})
+\>   \| (begin \arbno{\meta{definition}})
+\meta{def formals} \: \arbno{\meta{variable}}
+\>   \| \atleastone{\meta{variable}} .\ \meta{variable} %
+\end{grammar}

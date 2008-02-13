@@ -1,0 +1,5 @@
+Contents obtained via:
+
+  wget --mirror --no-parent http://www2.lifl.fr/~routier/debScheme/docs/r4rs/r4rs.tex/.
+  rm *.html* *.LOG
+  dos2unix -o -p *

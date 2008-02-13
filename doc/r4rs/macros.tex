@@ -1,0 +1,938 @@
+\extrapart{Appendix: Macros}
+
+This appendix describes an extension to Scheme that allows programs
+to define and use new derived expression types.
+A derived expression type that has been defined using this extension
+is called a {\em macro}.\mainindex{macro}
+
+Derived expression types introduced using this extension have
+the syntax
+\begin{scheme}
+(\hyper{keyword} \arbno{\hyper{datum}})%
+\end{scheme}%
+where \hyper{keyword} is an identifier that uniquely determines the
+expression type.  This identifier is called the {\em syntactic
+keyword}\index{syntactic keyword}, or simply {\em
+keyword}\index{keyword}, of the macro\index{macro keyword}.  The
+number of the \hyper{datum}s, and their syntax, depends on the
+expression type.
+
+Each instance of a macro is called a {\em use}\index{macro use}
+of the macro.
+The set of rules, or more generally the procedure, that specifies
+how a use of a macro is transcribed into a more primitive expression
+is called the {\em transformer}\index{macro transformer}
+of the macro.
+
+The extension described here consists of three parts:
+
+\begin{itemize}
+
+\item A set of expressions used to establish that certain identifiers
+are macro keywords, associate them with macro transformers, and control
+the scope within which a macro is defined,
+
+\item a convenient pattern language that makes it easy to write
+transformers for most macros, and
+
+\item a compatible low-level macro facility for writing macro
+transformers that cannot be expressed by the pattern language.
+
+\end{itemize}
+
+With this extension, there are no reserved identifiers.  The syntactic
+keyword of a macro may shadow variable bindings, and local variable
+bindings may shadow keyword bindings.  \index{keyword} All macros
+defined using the pattern language are ``hygienic'' and
+``referentially transparent'':\mainindex{hygienic}
+\mainindex{referentially transparent}
+
+\begin{itemize}
+
+\item If a macro transformer inserts a binding for an identifier
+(variable or keyword), the identifier will in effect be renamed
+throughout its scope to avoid conflicts with other identifiers.
+
+\item If a macro transformer inserts a free reference to an
+identifier, the reference refers to the binding that was visible
+where the transformer was specified, regardless of any local
+bindings that may surround the use of the macro.
+
+\end{itemize}
+
+%The low-level facility permits non-hygienic macros to be written,
+%and may be used to implement the high-level pattern language.
+
+This appendix is divided into three major sections.  The first
+section describes the expressions and definitions used to
+introduce macros, i.e.~to bind identifiers to macro
+transformers.
+
+The second section describes the pattern language.  This pattern
+language is sufficient to specify most macro transformers, including
+those for all the derived expression types from
+section~\ref{derivedexps}.  The primary limitation of the pattern
+language is that it is thoroughly hygienic, and thus cannot express
+macros that bind identifiers implicitly.
+
+The third section describes a low-level macro facility that could be
+used to implement the pattern language described in the second
+section.  This low-level facility is also capable of expressing
+non-hygienic macros and other macros whose transformers cannot be
+described by the pattern language, and is important as an example of a
+more powerful facility that can co-exist with the high-level pattern
+language.
+
+The particular low-level facility described in the third
+section is but one of several low-level facilities that have been
+designed and implemented to complement the pattern language described
+in the second section.  The design of such low-level macro facilities
+remains an active area of research, and descriptions of alternative
+low-level facilities will be published in subsequent documents.
+
+% The fourth section describes some features that would make the
+% low-level macro facility easier to use directly.
+
+\subsection*{Binding syntactic keywords}
+\label{bindsyntax}
+
+{\cf Define-syntax}, {\cf let-syntax}, and {\cf letrec-syntax} are
+analogous to {\cf define}, {\cf let}, and {\cf letrec}, but they bind
+syntactic keywords to macro transformers instead of binding variables
+to locations that contain values.  Furthermore, there is no {\cf
+define-syntax} analogue of the internal definitions described in
+section~\ref{internaldefines}.
+
+\begin{rationale}
+As discussed below, the syntax and scope rules for definitions
+give rise to syntactic ambiguities when syntactic keywords are
+not reserved.
+Further ambiguities would arise if {\cf define-syntax}
+were permitted at the beginning of a \meta{body}, with scope
+rules analogous to those for internal definitions.
+\end{rationale}
+
+These new expression types and the pattern language described in
+section~\ref{patternlanguage} are added to Scheme by augmenting the
+BNF in section~\ref{BNF} with the following new productions.  Note
+that the identifier {\cf ...} used in some of these productions is not
+a metasymbol.
+
+\begin{grammar}%
+\meta{expression} \: \meta{macro use}
+\>  \| \meta{macro block}
+
+\meta{macro use} \: (\meta{keyword} \arbno{\meta{datum}})
+\meta{keyword} \: \meta{identifier}
+
+\meta{macro block} \:
+\>  \> (let-syntax (\arbno{\meta{syntax spec}}) \meta{body})
+\>  \| (letrec-syntax (\arbno{\meta{syntax spec}}) \meta{body})
+\meta{syntax spec} \: (\meta{keyword} \meta{transformer spec})
+\meta{transformer spec} \:
+\>  \> (syntax-rules (\arbno{\meta{identifier}}) \arbno{\meta{syntax rule}})
+\meta{syntax rule} \: (\meta{pattern} \meta{template})
+\meta{pattern} \: \meta{pattern identifier}
+\>  \| (\arbno{\meta{pattern}})
+\>  \| (\atleastone{\meta{pattern}} . \meta{pattern})
+\>  \| (\arbno{\meta{pattern}} \meta{pattern} \meta{ellipsis})
+\>  \| \meta{pattern datum}
+\meta{pattern datum} \: \meta{vector}
+\>  \| \meta{string}
+\>  \| \meta{character}
+\>  \| \meta{boolean}
+\>  \| \meta{number}
+\meta{template} \: \meta{pattern identifier}
+\>  \| (\arbno{\meta{template element}})
+\>  \| (\atleastone{\meta{template element}} . \meta{template})
+\>  \| \meta{template datum}
+\meta{template element} \: \meta{template}
+\>  \| \meta{template} \meta{ellipsis}
+\meta{template datum} \: \meta{pattern datum}
+\meta{pattern identifier} \: \meta{any identifier except {\cf ...}}
+\meta{ellipsis} \: \meta{the identifier {\cf ...}}
+
+\meta{command or definition} \: \meta{syntax definition}
+\meta{syntax definition} \:
+\>  \> (define-syntax \meta{keyword} \meta{transformer spec})
+\>  \| (begin \arbno{\meta{syntax definition}})%
+\end{grammar}
+
+% It is an error for a program to contain more than one top-level
+% \meta{definition} or \meta{syntax definition} of any identifier.
+%
+% [I flushed this because it isn't an error for a program to
+% contain more than one top-level definition of an identifier,
+% and I didn't want to introduce any gratuitous incompatibilities
+% with the existing Scheme language. -- Will]
+
+Although macros may expand into definitions in any context that permits
+definitions, it is an error for a definition to shadow a syntactic
+keyword whose meaning is needed to determine whether some definition in
+the group of top-level or internal definitions that contains the
+shadowing definition is in fact a definition, or is needed to determine
+the boundary between the group and the expressions that follow the
+group.  For example, the following are errors:
+
+\begin{scheme}
+(define define 3)
+
+(begin (define begin list))
+
+(let-syntax
+  ((foo (syntax-rules ()
+          ((foo (proc args ...) body ...)
+           (define proc
+             (lambda (args ...)
+               body ...))))))
+  (let ((x 3))
+    (foo (plus x y) (+ x y))
+    (define foo x)
+    (plus foo x)))
+\end{scheme}
+
+
+\begin{entry}{%
+\proto{let-syntax}{ \hyper{bindings} \hyper{body}}{\exprtype}}
+
+\syntax
+\hyper{Bindings} should have the form
+\begin{scheme}
+((\hyper{keyword} \hyper{transformer spec}) \dotsfoo)%
+\end{scheme}
+%where each \hyper{keyword} is an identifier,
+%each \hyper{transformer spec} is an instance of {\cf syntax-rules}, and
+Each \hyper{keyword} is an identifier,
+each \hyper{transformer spec} is an instance of {\cf syntax-rules}, and
+\hyper{body} should be a sequence of one or more expressions.  It is an error
+for a \hyper{keyword} to appear more than once in the list of keywords
+being bound.
+
+\semantics
+The \hyper{body} is expanded in the syntactic environment
+obtained by extending the syntactic environment of the
+{\cf let-syntax} expression with macros whose keywords are
+the \hyper{keyword}s, bound to the specified transformers.
+Each binding of a \hyper{keyword} has \hyper{body} as its region.
+
+\begin{scheme}
+(let-syntax ((when (syntax-rules ()
+                     ((when test stmt1 stmt2 ...)
+                      (if test
+                          (begin stmt1
+                                 stmt2 ...))))))
+  (let ((if \schtrue))
+    (when if (set! if 'now))
+    if))                           \ev  now
+
+(let ((x 'outer))
+  (let-syntax ((m (syntax-rules () ((m) x))))
+    (let ((x 'inner))
+      (m))))                       \ev  outer%
+\end{scheme}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{letrec-syntax}{ \hyper{bindings} \hyper{body}}{\exprtype}}
+
+\syntax
+Same as for {\cf let-syntax}.
+
+\semantics
+ The \hyper{body} is expanded in the syntactic environment obtained by
+extending the syntactic environment of the {\cf letrec-syntax}
+expression with macros whose keywords are the
+\hyper{keyword}s, bound to the specified transformers.
+Each binding of a \hyper{keyword} has the \hyper{bindings}
+as well as the \hyper{body} within its region,
+so the transformers can
+transcribe expressions into uses of the macros
+introduced by the {\cf letrec-syntax} expression.
+
+\begin{scheme}
+(letrec-syntax
+  ((or (syntax-rules ()
+         ((or) \schfalse)
+         ((or e) e)
+         ((or e1 e2 ...)
+          (let ((temp e1))
+            (if temp
+                temp
+                (or e2 ...)))))))
+  (let ((x \schfalse)
+        (y 7)
+        (temp 8)
+        (let odd?)
+        (if even?))
+    (or x
+        (let temp)
+        (if y)
+        y)))        \ev  7%
+\end{scheme}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{define-syntax}{ \hyper{keyword} \hyper{transformer spec}}{}}
+
+\syntax
+The \hyper{keyword} is an identifier, and the \hyper{transformer
+spec} should be an instance of {\cf syntax-rules}.
+
+\semantics
+The top-level syntactic environment is extended by binding the
+\hyper{keyword} to the specified transformer.
+
+\begin{scheme}
+(define-syntax let*
+  (syntax-rules ()
+    ((let* () body1 body2 ...)
+     (let () body1 body2 ...))
+    ((let* ((name1 val1) (name2 val2) ...)
+       body1 body2 ...)
+     (let ((name1 val1))
+       (let* ((name2 val2) ...)
+         body1 body2 ...)))))
+\end{scheme}
+
+\end{entry}
+
+\subsection*{Pattern language}
+\label{patternlanguage}
+
+\begin{entry}{%
+\proto{syntax-rules}{ \hyper{literals} \hyper{syntax rule} \dotsfoo}{}}
+
+\syntax
+\hyper{Literals} is a list of identifiers, and each \hyper{syntax rule}
+should be of the form
+\begin{scheme}
+(\hyper{pattern} \hyper{template})%
+\end{scheme}
+where the \hyper{pattern} and \hyper{template} are as in the grammar
+above.
+
+\semantics An instance of {\cf syntax-rules} produces a new macro
+transformer by specifying a sequence of hygienic rewrite rules.  A use
+of a macro whose keyword is associated with a transformer specified by
+{\cf syntax-rules} is matched against the patterns contained in the
+\hyper{syntax rule}s, beginning with the leftmost \hyper{syntax rule}.
+When a match is found, the macro use is transcribed hygienically
+according to the template.
+
+Each pattern begins with the keyword for the macro.  This keyword
+is not involved in the matching and is not considered a pattern
+variable or literal identifier.
+
+\begin{rationale}
+The scope of the keyword is determined by the expression or syntax
+definition that binds it to the associated macro transformer.
+If the keyword were a pattern variable or literal identifier, then
+the template that follows the pattern would be within its scope
+regardless of whether the keyword were bound by {\cf let-syntax}
+or by {\cf letrec-syntax}.
+\end{rationale}
+
+An identifier that appears in the pattern of a \hyper{syntax rule} is
+a pattern variable, unless it is the keyword that begins the pattern,
+is listed in \hyper{literals}, or is the identifier ``{\cf ...}''.
+Pattern variables match arbitrary input elements and
+are used to refer to elements of the input in the template.  It is an
+error for the same pattern variable to appear more than once in a
+\hyper{pattern}.
+
+Identifiers that appear in \hyper{literals} are interpreted as literal
+identifiers to be matched against corresponding subforms of the input.
+A subform
+in the input matches a literal identifier if and only if it is an
+identifier
+and either both its occurrence in the macro expression and its
+occurrence in the macro definition have the same lexical binding, or
+the two identifiers are equal and both have no lexical binding.
+
+% [Bill Rozas suggested the term "noise word" for these literal
+% identifiers, but in their most interesting uses, such as a setf
+% macro, they aren't noise words at all. -- Will]
+
+A subpattern followed by {\cf ...} can match zero or more elements of the
+input.  It is an error for {\cf ...} to appear in \hyper{literals}.
+Within a pattern the identifier {\cf ...} must follow the last element of
+a nonempty sequence of subpatterns.
+
+More formally, an input form $F$ matches a pattern $P$ if and only if:
+
+\begin{itemize}
+\item $P$ is a pattern variable; or
+
+\item $P$ is a literal identifier and $F$ is an identifier with the same
+      binding; or
+
+\item $P$ is a pattern list {\cf ($P_1$ $\dots$ $P_n$)} and $F$ is a
+      list of $n$
+      forms that match $P_1$ through $P_n$, respectively; or
+
+\item $P$ is an improper pattern list
+      {\cf ($P_1$ $P_2$ $\dots$ $P_n$ . $P_{n+1}$)}
+      and $F$ is a list or
+      improper list of $n$ or more forms that match $P_1$ through $P_n$,
+      respectively, and whose $n$th ``cdr'' matches $P_{n+1}$; or
+
+\item $P$ is % a pattern list
+      of the form
+      {\cf ($P_1$ $\dots$ $P_n$ $P_{n+1}$ \meta{ellipsis})}
+      where \meta{ellipsis} is the identifier {\cf ...}
+      and $F$ is
+      a proper list of at least $n$ elements, the first $n$ of which match
+      $P_1$ through $P_n$, respectively, and each remaining element of $F$
+      matches $P_{n+1}$; or
+
+\item $P$ is a pattern datum and $F$ is equal to $P$ in the sense of
+      the {\cf equal?} procedure.
+\end{itemize}
+
+It is an error to use a macro keyword, within the scope of its
+binding, in an expression that does not match any of the patterns.
+
+When a macro use is transcribed according to the template of the
+matching \hyper{syntax rule}, pattern variables that occur in the
+template are replaced by the subforms they match in the input.
+Pattern variables that occur in subpatterns followed by one or more
+instances of the identifier
+{\cf ...} are allowed only in subtemplates that are
+followed by as many instances of {\cf ...}.
+They are replaced in the
+output by all of the subforms they match in the input, distributed as
+indicated.  It is an error if the output cannot be built up as
+specified.
+
+%%% This description of output construction is very vague.  It should
+%%% probably be formalized, but that is not easy...
+
+Identifiers that appear in the template but are not pattern variables
+or the identifier
+{\cf ...} are inserted into the output as literal identifiers.  If a
+literal identifier is inserted as a free identifier then it refers to the
+binding of that identifier within whose scope the instance of
+{\cf syntax-rules} appears.
+If a literal identifier is inserted as a bound identifier then it is
+in effect renamed to prevent inadvertent captures of free identifiers.
+
+\begin{scheme}
+(define-syntax let
+  (syntax-rules ()
+    ((let ((name val) ...) body1 body2 ...)
+     ((lambda (name ...) body1 body2 ...)
+      val ...))
+    ((let tag ((name val) ...) body1 body2 ...)
+     ((letrec ((tag (lambda (name ...)
+                      body1 body2 ...)))
+        tag)
+      val ...))))
+
+(define-syntax cond
+  (syntax-rules (else =>)
+    ((cond (else result1 result2 ...))
+     (begin result1 result2 ...))
+    ((cond (test => result))
+     (let ((temp test))
+       (if temp (result temp))))
+    ((cond (test => result) clause1 clause2 ...)
+     (let ((temp test))
+       (if temp
+           (result temp)
+           (cond clause1 clause2 ...))))
+    ((cond (test)) test)
+    ((cond (test) clause1 clause2 ...)
+     (or test (cond clause1 clause2 ...)))
+    ((cond (test result1 result2 ...))
+     (if test (begin result1 result2 ...)))
+    ((cond (test result1 result2 ...)
+           clause1 clause2 ...)
+     (if test
+         (begin result1 result2 ...)
+         (cond clause1 clause2 ...)))))
+
+(let ((=> \schfalse))
+  (cond (\schtrue => 'ok)))           \ev ok%
+\end{scheme}
+
+The last example is not an error because the local variable {\cf =>}
+is renamed in effect, so that its use is distinct from uses of the top
+level identifier {\cf =>} that the transformer for {\cf cond} looks
+for.  Thus, rather than expanding into
+
+\begin{scheme}
+(let ((=> \schfalse))
+  (let ((temp \schtrue))
+    (if temp ('ok temp))))%
+\end{scheme}
+
+which would result in an invalid procedure call, it expands instead
+into
+
+\begin{scheme}
+(let ((=> \schfalse))
+  (if \schtrue (begin => 'ok)))%
+\end{scheme}
+
+\end{entry}
+
+\subsection*{A compatible low-level macro facility}
+\label{lowlevelmacros}
+
+Although the pattern language provided by {\cf syntax-rules} is the
+preferred way to specify macro transformers, other low-level
+facilities may be provided to specify more complex macro transformers.
+In fact, {\cf syntax-rules} can itself be defined as a macro using the
+low-level facilities described in this section.
+
+The low-level macro facility described here introduces {\cf syntax}
+as a new syntactic keyword analogous to {\cf quote}, and allows a
+\meta{transformer spec} to be any expression.  This is accomplished by
+adding the following two productions to the productions in
+section~\ref{BNF} and in section~\ref{bindsyntax} above.
+
+\begin{grammar}%
+\meta{expression} \: (syntax \hyper{datum})
+\meta{transformer spec} \: \meta{expression}%
+\end{grammar}
+
+The low-level macro system also adds the following procedures:
+
+\begin{scheme}
+unwrap-syntax          identifier->symbol
+identifier?            generate-identifier
+free-identifier=?      construct-identifier
+bound-identifier=?
+\end{scheme}
+
+Evaluation of a program proceeds in two logical steps.  First the
+program is converted into an intermediate language via macro-expansion,
+and then the result of macro expansion is evaluated.  When it is
+necessary to distinguish the second stage of this process from the
+full evaluation process, it is referred to as ``execution.''
+
+Syntax definitions, either lexical or global, cause an identifier to
+be treated as a keyword within the scope of the binding.  The keyword
+is associated with a transformer, which may be created implicitly
+using the pattern language of {\cf syntax-rules} or explicitly using
+the low-level facilities described below.
+
+Since a transformer spec must be fully evaluated during the
+course of expansion, it is necessary to specify the environment in
+which this evaluation takes place.  A transformer spec is
+expanded in the same environment as that in which the program is being
+expanded, but is executed in an environment that is distinct from the
+environment in which the program is executed.  This execution
+environment distinction is important only for the resolution of global
+variable references and assignments.  In what follows, the environment
+in which transformers are executed is called the standard transformer
+environment and is assumed to be a standard Scheme environment.
+
+Since part of the task of hygienic macro expansion is to resolve
+identifier references, the fact that transformers are expanded in the
+same environment as the program means that identifier bindings in the
+program can shadow identifier uses within transformers.  Since
+variable bindings in the program are not available at the time the
+transformer is executed, it is an error for a transformer to reference
+or assign them.  However, since keyword bindings are available during
+expansion, lexically visible keyword bindings from the program may be
+used in macro uses in a transformer.
+
+When a macro use is encountered, the macro transformer associated with
+the macro keyword is applied to a representation of the macro
+expression.  The result returned by the macro transformer replaces the
+original expression and is expanded once again.  Thus macro expansions
+may themselves be or contain macro uses.
+
+The syntactic representation passed to a macro transformer
+encapsulates information about the structure of the represented form
+and the bindings of the identifiers it contains.  These syntax objects
+can be traversed and examined using the procedures described below.
+The output of a transformer may be built up using the usual Scheme
+list constructors, combining pieces of the input with new syntactic
+structures.
+
+\begin{entry}{%
+\proto{syntax}{ \hyper{datum}}{\exprtype}}
+
+\syntax
+The \hyper{datum} may be any external representation of a Scheme
+object.
+
+\semantics
+{\cf Syntax} is the syntactic analogue of {\cf quote}.  It creates a
+syntactic representation of \hyper{datum} that, like an argument to a
+transformer, contains information about the bindings for identifiers
+contained in \hyper{datum}.  The binding for an identifier introduced
+by {\cf syntax} is the closest lexically visible binding.  All
+variables and keywords introduced by transformers must be created by
+{\cf syntax}.  It is an error to insert a symbol in the output of a
+transformation procedure unless it is to be part of a quoted datum.
+
+\begin{scheme}
+(symbol? (syntax x))                               \ev \schfalse%
+
+(let-syntax ((car (lambda (x) (syntax car))))
+  ((car) '(0)))                                    \ev 0%
+
+(let-syntax
+  ((quote-quote
+    (lambda (x) (list (syntax quote) 'quote))))
+  (quote-quote))                                   \ev quote%
+
+(let-syntax
+  ((quote-quote
+    (lambda (x) (list 'quote 'quote))))
+  (quote-quote))                                   \ev \scherror%
+\end{scheme}
+
+The second {\cf quote-quote} example results in an error because two raw
+symbols are being inserted in the output.  The quoted {\cf quote} in the
+first {\cf quote-quote} example does not cause an error because it will
+be a quoted datum.
+
+\begin{scheme}
+(let-syntax ((quote-me
+              (lambda (x)
+                (list (syntax quote) x))))
+  (quote-me please))                              \ev (quote-me please)
+
+(let ((x 0))
+  (let-syntax ((alpha (lambda (e) (syntax x))))
+    (alpha)))                                     \ev 0
+
+(let ((x 0))
+  (let-syntax ((alpha (lambda (x) (syntax x))))
+    (alpha)))                                     \ev \scherror
+
+(let-syntax ((alpha
+              (let-syntax ((beta
+                            (syntax-rules ()
+                              ((beta) 0))))
+                (lambda (x) (syntax (beta))))))
+  (alpha))                                        \ev \scherror%
+\end{scheme}
+
+
+The last two examples are errors because in both cases a lexically
+bound identifier is placed outside of the scope of its binding.
+In the first case, the variable {\cf x} is placed outside its scope.
+In the second case, the keyword {\cf beta} is placed outside its
+scope.
+
+\begin{scheme}
+(let-syntax ((alpha (syntax-rules ()
+                      ((alpha) 0))))
+  (let-syntax ((beta (lambda (x) (alpha))))
+    (beta)))                                      \ev 0
+
+(let ((list 0))
+  (let-syntax ((alpha (lambda (x) (list 0))))
+    (alpha)))                                     \ev \scherror%
+\end{scheme}
+
+The last example is an error because the reference to {\cf list} in the
+transformer is shadowed by the lexical binding for {\cf list}.  Since the
+expansion process is distinct from the execution of the program,
+transformers cannot reference program variables.  On the other hand,
+the previous example is not an error because definitions for keywords
+in the program do exist at expansion time.
+
+\begin{note}
+It has been suggested that {\cf \#'\hyper{datum}} and
+{\cf \#`\hyper{datum}} would be
+felicitous abbreviations for {\cf (syntax \hyper{datum})}
+and {\cf (quasisyntax \hyper{datum})}, respectively,
+where {\cf quasisyntax}, which is not described in this
+appendix, would bear the same relationship to {\cf syntax}
+that {\cf quasiquote} bears to {\cf quote}.
+\end{note}
+
+\end{entry}
+
+\begin{entry}{%
+\proto{identifier?}{ syntax-object}{procedure}}
+
+Returns \schtrue{} if \var{syntax-object} represents an identifier,
+otherwise returns \schfalse{}.
+
+\begin{scheme}
+(identifier? (syntax x))       \ev \schtrue
+(identifier? (quote x))        \ev \schfalse
+(identifier? 3)                \ev \schfalse%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{unwrap-syntax}{ syntax-object}{procedure}}
+
+If \var{syntax-object} is an identifier, then it is returned unchanged.
+Otherwise {\cf unwrap-syntax} converts the outermost structure of
+\var{syntax-object} into a
+data object whose external representation is the same as that of
+\var{syntax-object}.  The result is either an identifier, a pair whose
+car
+and cdr are syntax objects, a vector whose elements are syntax
+objects, an empty list, a string, a boolean, a character, or a number.
+
+\begin{scheme}
+(identifier? (unwrap-syntax (syntax x)))
+              \ev \schtrue
+(identifier? (car (unwrap-syntax (syntax (x)))))
+              \ev \schtrue
+(unwrap-syntax (cdr (unwrap-syntax (syntax (x)))))
+              \ev ()%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{free-identifier=?}{ \vari{id} \varii{id}}{procedure}}
+
+Returns \schtrue{} if the original occurrences of \vari{id}
+and \varii{id} have
+the same binding, otherwise returns \schfalse.
+{\cf free-identifier=?}
+is used to look for a literal identifier in the argument to a
+transformer, such as {\cf else} in a {\cf cond} clause.
+A macro
+definition for {\cf syntax-rules} would use {\cf free-identifier=?}
+to look for literals in the input.
+
+\begin{scheme}
+(free-identifier=? (syntax x) (syntax x))
+          \ev \schtrue
+(free-identifier=? (syntax x) (syntax y))
+          \ev \schfalse
+
+(let ((x (syntax x)))
+  (free-identifier=? x (syntax x)))
+          \ev \schfalse
+
+(let-syntax
+  ((alpha
+    (lambda (x)
+      (free-identifier=? (car (unwrap-syntax x))
+                         (syntax alpha)))))
+  (alpha))                                        \ev \schfalse
+
+(letrec-syntax
+  ((alpha
+    (lambda (x)
+      (free-identifier=? (car (unwrap-syntax x))
+                         (syntax alpha)))))
+  (alpha))                                        \ev \schtrue%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{bound-identifier=?}{ \vari{id} \varii{id}}{procedure}}
+
+Returns \schtrue{} if a binding for one of the two identifiers
+\vari{id} and \varii{id} would shadow free references to the other,
+otherwise returns \schfalse{}.
+Two identifiers can be {\cf free-identifier=?} without being
+{\cf bound-identifier=?}  if they were introduced at different
+stages in the
+expansion process.
+{\cf Bound-identifier=?} can be used, for example, to
+detect duplicate identifiers in bound-variable lists.  A macro
+definition of {\cf syntax-rules} would use {\cf bound-identifier=?}
+to look for
+pattern variables from the input pattern in the output template.
+
+\begin{scheme}
+(bound-identifier=? (syntax x) (syntax x))
+        \ev \schtrue
+
+(letrec-syntax
+  ((alpha
+    (lambda (x)
+      (bound-identifier=? (car (unwrap-syntax x))
+                          (syntax alpha)))))
+  (alpha))                                         \ev \schfalse%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{identifier->symbol}{ \var{id}}{procedure}}
+
+Returns a symbol representing the original name of \var{id}.
+{\cf Identifier->symbol} is used to examine identifiers that appear in
+literal contexts, i.e., identifiers that will appear in quoted
+structures.
+
+\begin{scheme}
+(symbol? (identifier->symbol (syntax x)))
+   \ev \schtrue
+(identifier->symbol (syntax x))          
+   \ev x%
+\end{scheme}
+
+\end{entry}
+
+
+\begin{entry}{%
+\proto{generate-identifier}{}{procedure}
+\proto{generate-identifier}{ \var{symbol}}{procedure}}
+
+Returns a new identifier.
+The optional argument to {\cf generate-identifier} specifies the
+symbolic name of the resulting identifier.  If no argument is
+supplied the name is unspecified.
+
+{\cf Generate-identifier} is used to
+introduce bound identifiers into the output of a transformer.  Since
+introduced bound identifiers are automatically renamed, {\cf
+generate-identifier} is necessary only for distinguishing introduced
+identifiers when an indefinite number of them must be generated by a
+macro.
+
+The optional argument to {\cf generate-identifier} specifies the
+symbolic name of the resulting identifier.  If no argument is
+supplied the name is unspecified.  The procedure {\cf
+identifier->symbol} reveals the symbolic name of an identifier.
+
+
+\begin{scheme}
+(identifier->symbol (generate-identifier 'x))
+  \ev x
+
+(bound-identifier=? (generate-identifier 'x)
+                    (generate-identifier 'x))
+  \ev \schfalse
+
+(define-syntax set*!
+  ; (set*! (<identifier> <expression>) ...)
+  (lambda (x)
+    (letrec
+      ((unwrap-exp
+        (lambda (x)
+          (let ((x (unwrap-syntax x)))
+            (if (pair? x)
+                (cons (car x)
+                      (unwrap-exp (cdr x)))
+                x)))))
+      (let ((sets (map unwrap-exp
+                       (cdr (unwrap-exp x)))))
+        (let ((ids (map car sets))
+              (vals (map cadr sets))
+              (temps (map (lambda (x)
+                            (generate-identifier))
+                          sets)))
+          `(,(syntax let) ,(map list temps vals)
+            ,@(map (lambda (id temp)
+                     `(,(syntax set!) ,id ,temp))
+                   ids
+                   temps)
+            \schfalse))))))
+\end{scheme}
+
+\end{entry}
+
+
+
+\begin{entry}{%
+\proto{construct-identifier}{ \var{id} \var{symbol}}{procedure}}
+
+Creates and returns an identifier named by \var{symbol} that behaves
+as if it had been introduced where the identifier \var{id} was
+introduced.
+
+{\cf Construct-identifier} is used to circumvent hygiene by
+creating an identifier that behaves as though it had been
+implicitly present in some expression.  For example, the
+transformer for a structure
+definition macro might construct the name of a field accessor
+that does not explicitly appear in a use of the macro,
+but can be
+constructed from the names of the structure and the field.
+If a binding for the field accessor were introduced
+by a hygienic transformer, then it would be renamed automatically,
+so that the introduced binding would fail to capture any
+references to the field accessor that were present in the
+input and were intended to be
+within the scope of the introduced binding.
+
+Another example is a macro that implicitly binds {\cf exit}:
+
+\begin{scheme}
+(define-syntax loop-until-exit
+  (lambda (x)
+    (let ((exit (construct-identifier
+                 (car (unwrap-syntax x))
+                 'exit))
+          (body (car (unwrap-syntax
+                      (cdr (unwrap-syntax x))))))
+      `(,(syntax call-with-current-continuation)
+        (,(syntax lambda)
+         (,exit)
+         (,(syntax letrec)
+          ((,(syntax loop)
+            (,(syntax lambda) ()
+               ,body
+               (,(syntax loop)))))
+          (,(syntax loop))))))))
+
+(let ((x 0) (y 1000))
+  (loop-until-exit
+   (if (positive? y)
+       (begin (set! x (+ x 3))
+              (set! y (- y 1)))
+       (exit x)))) \evalsto 3000
+\end{scheme}
+
+\end{entry}
+
+
+\subsection*{Acknowledgements}
+
+The extension described in this appendix is the most
+sophisticated macro facility that has ever been proposed
+for a block-structured programming language.  The main ideas
+come from
+Eugene Kohlbecker's PhD thesis on hygienic macro expansion
+\cite{Kohlbecker86}, written under the direction of Dan
+Friedman \cite{hygienic}, and from the work by Alan Bawden
+and Jonathan Rees on syntactic closures \cite{Bawden88}.
+Pattern-directed macro facilities were popularized by Kent
+Dybvig's non-hygienic implementation of {\cf extend-syntax}
+\cite{Dybvig87}.
+
+At the 1988 meeting of this report's authors at Snowbird,
+a macro committee consisting of Bawden, Rees, Dybvig,
+and Bob Hieb was charged with developing a hygienic macro
+facility akin to {\cf extend-syntax} but based on syntactic closures.
+Chris Hanson implemented a prototype and wrote a paper on his
+experience, pointing out that an implementation based on
+syntactic closures must determine the syntactic roles of some
+identifiers before macro expansion based on textual pattern
+matching can make those roles apparent.  William Clinger
+observed that Kohlbecker's algorithm amounts to a technique
+for delaying this determination, and proposed a more efficient
+version of Kohlbecker's algorithm.  Pavel Curtis spoke up for
+referentially transparent local macros.  Rees merged syntactic
+environments with the modified Kohlbecker's algorithm and
+implemented it all, twice \cite{macrosthatwork}.
+
+Dybvig and Hieb designed and implemented the low-level
+macro facility described above.
+Recently Hanson and Bawden have extended syntactic closures
+to obtain an alternative low-level macro facility.
+The macro committee has not endorsed any particular
+low-level facility, but does endorse the general concept of
+a low-level facility that is compatible with the
+high-level pattern language described in this appendix.
+
+Several other people have contributed by working on macros
+over the years.  Hal Abelson contributed by holding this
+report hostage to the appendix on macros.

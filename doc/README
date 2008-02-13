@@ -9,7 +9,7 @@ index.tex	a LaTeX reference document for the language
 
 intro.tex	a LaTeX document introducing Scheme->C.
 
-r4rs.psf	PostScript for the R4RS scheme standard.
+r4rs/		the R4RS scheme standard in LaTeX.
 
 scc.l		UNIX man page for the Scheme->C compiler.
 
