@@ -235,7 +235,8 @@ static  trace_stack_and_registers()
 }
 #endif
 
-#ifdef AMD64
+#if defined(AMD64) || defined(LINUX) || defined(HP700) \
+  || defined(MIPS) || defined(FREEBSD)
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
    turn can be used to find the address of the top of stack.
@@ -243,9 +244,12 @@ static  trace_stack_and_registers()
 
 S2CINT  *sc_processor_register( S2CINT reg )
 {
-      return( &reg );
+      S2CINT* x = &reg;
+      return( x );
 }
+#endif
 
+#ifdef AMD64
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */
@@ -261,17 +265,6 @@ static  trace_stack_and_registers()
 #endif
 
 #ifdef HP700
-/* The following code is used to read the stack pointer.  The register
-   number is passed in to force an argument to be on the stack, which in
-   turn can be used to find the address of the top of stack.
-*/
-
-int  *sc_processor_register( reg )
-	int  reg;
-{
-	return( &reg );
-}
-
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */
@@ -287,16 +280,6 @@ static  trace_stack_and_registers()
 #endif
 
 #ifdef LINUX
-/* The following code is used to read the stack pointer.  The register
-   number is passed in to force an argument to be on the stack, which in
-   turn can be used to find the address of the top of stack.
-*/
-
-S2CINT  *sc_processor_register( S2CINT reg )
-{
-	return( &reg );
-}
-
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */
@@ -365,16 +348,6 @@ static  trace_stack_and_registers()
 #endif
 
 #ifdef MIPS
-/* The following code is used to read the stack pointer.  The register
-   number is passed in to force an argument to be on the stack, which in
-   turn can be used to find the address of the top of stack.
-*/
-
-S2CINT  *sc_processor_register( S2CINT reg )
-{
-	return( &reg );
-}
-
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */
@@ -416,16 +389,6 @@ static  trace_stack_and_registers()
 #endif
 
 #ifdef FREEBSD
-/* The following code is used to read the stack pointer.  The register
-   number is passed in to force an argument to be on the stack, which in
-   turn can be used to find the address of the top of stack.
-*/
-
-S2CINT  *sc_processor_register( S2CINT reg )
-{
-	return( &reg );
-}
-
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */
