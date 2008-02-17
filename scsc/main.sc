@@ -294,18 +294,20 @@
 	 ;;; 4. Flags processed and all .sc -> .c compiles done.   Invoke the
 	 ;;; C compiler to do the rest.
 
-	 (unless (eq? 0
-		      (system (apply string-append
-			             `(,cc " -I" ,c-include-dir
-			               ,@(map (lambda (x)
-						      (string-append " " x))
-			                      (append (reverse c-flags)
-						      (if (member "-pg"
-								  c-flags)
-							  `(,sc-library_p
-							    "-lm")
-							  `(,sc-library
-							    "-lm"))))))))
+	 (unless 
+	  (eq? 0
+	       (system 
+		(apply string-append
+		       `(,cc " -I" ,c-include-dir
+			     ,@(map (lambda (x)
+				      (string-append " " x))
+				    (if (member "-c" c-flags)
+					(reverse c-flags)
+					(append (reverse c-flags)
+						(if (member "-pg" c-flags)
+						    `(,sc-library_p)
+						    `(,sc-library))
+						'("-lm" "-lsigsegv"))))))))
 		 (reset))
 	 (catch-error
 	     (lambda ()
