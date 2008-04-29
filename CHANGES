@@ -184,3 +184,5 @@ Xlib changes since the 01nov91jfb release:
 3.  Do not assume that long int's and int's are the same size.
 
 4.  Remove assumptions about base C type sizes from xwss.sc.
+
+4/28/2008: Changed to MIT license and HP Copyright.

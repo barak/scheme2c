@@ -1,34 +1,50 @@
 /* SCHEME->C */
 
-/* Copyright (c) 1989-1993 Hewlett-Packard Development Company, L.P.
- *		All Rights Reserved
-
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
+/*           Copyright 1989-1993 Digital Equipment Corporation
+ *                         All Rights Reserved
+ *
+ * Permission to use, copy, and modify this software and its documentation is
+ * hereby granted only under the following terms and conditions.  Both the
+ * above copyright notice and this permission notice must appear in all copies
+ * of the software, derivative works or modified versions, and any portions
+ * thereof, and both notices must appear in supporting documentation.
+ *
+ * Users of this software agree to the terms and conditions set forth herein,
+ * and hereby grant back to Digital a non-exclusive, unrestricted, royalty-free
+ * right and license under any changes, enhancements or extensions made to the
+ * core functions of the software, including but not limited to those affording
+ * compatibility with other hardware or software environments, but excluding
+ * applications which incorporate this software.  Users further agree to use
+ * their best efforts to return to Digital any such changes, enhancements or
+ * extensions that they make and inform Digital of noteworthy uses of this
+ * software.  Correspondence should be provided to Digital at:
  * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ *                       Director of Licensing
+ *                       Western Research Laboratory
+ *                       Digital Equipment Corporation
+ *                       250 University Avenue
+ *                       Palo Alto, California  94301  
  * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- */
-
+ * This software may be distributed (but not offered for sale or transferred
+ * for compensation) to third parties, provided such third parties agree to
+ * abide by the terms and conditions of this notice.  
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS" AND DIGITAL EQUIPMENT CORP. DISCLAIMS ALL
+ * WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS.   IN NO EVENT SHALL DIGITAL EQUIPMENT
+ * CORPORATION BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL
+ * DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
+ * PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+ * ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS
+ * SOFTWARE.
+*/
 
 /* This file defines compilation options for a specific implementation */
 
-#define CHECKSTACK	0	/* 0 = don't check stack height */
+#define CHECKSTACK	1	/* 0 = don't check stack height */
 				/* 1 = check stack height */
 
-#define TIMESLICE	0	/* 0 = don't time slice execution */
+#define TIMESLICE	1	/* 0 = don't time slice execution */
 				/* 1 = time slice execution */
 
 #define COMPACTPUSHTRACE 0	/* 0 = inline procedure entry checks.
@@ -41,10 +57,10 @@
 				       cleanup.
 				*/
 
-#define S2CSIGNALS	1	/* 0 = Scheme->C doesn't handle signals */
+#define S2CSIGNALS	0	/* 0 = Scheme->C doesn't handle signals */
 				/* 1 = Scheme->C does handle signals */
 
-#define	MATHTRAPS	1	/* 0 = don't detect fixed point overflow */
+#define	MATHTRAPS	0	/* 0 = don't detect fixed point overflow */
 				/* 1 = recover on fixed point overflow */
 
 /* Define only one of the supported processor types:
@@ -55,16 +71,10 @@
 	MC680X0		HP 9000/300, Sun 3, Next
 	MIPS		DECstation, SGI, Sony News
 	VAX		Vax ULTRIX
- 	FREEBSD		x86 FreeBSD
+	WIN16		Microsoft Windows 3.1
 */
 
-#define AOSF 1
-#define HP700 1
-#define MAC 1
-#define MC680X0 1
-#define MIPS 1
-#define VAX 1
-#define FREEBSD 1
+#define WIN16 1
 
 /* Attributes of the selected architecture:
 
@@ -79,6 +89,10 @@
    Big endian vs. little endian:
 
 	BIGENDIAN		defined to 1 to denote bigendian systems
+
+   C compiler:
+
+	OLD_FASHIONED_C		defined to 1 for pre-ANSI compilers
 
    Alignment:
 
@@ -173,39 +187,17 @@ typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define IMPLEMENTATION_OS	"HP-UX"
 #undef  IMPLEMENTATION_FS
 
+#ifdef __STDC__
+#undef OLD_FASHIONED_C
+#else
+#define OLD_FASHIONED_C 1
+#endif
+
 #include <setjmp.h>
 typedef jmp_buf sc_jmp_buf;
 
 #define SYSV 1
 #define POSIX 1
-
-#endif
-
-/***************/
-/*   FREEBSD   */
-/***************/
-
-#ifdef FREEBSD
-#define IMPLEMENTATION_MACHINE	"Generic PC"
-#define IMPLEMENTATION_CPU	"Intelx86"
-#define IMPLEMENTATION_OS	"FreeBSD"
-#undef  IMPLEMENTATION_FS
-
-typedef int S2CINT;		/* Signed pointer size integer */
-typedef unsigned S2CUINT;	/* Unsigned pointer size interger */
-
-typedef int PAGELINK;		/* 32-bit sc_pagelink values */
-#define MAXS2CINT  0x7fffffff	/* Maximum value of an S2CINT */
-#define MSBS2CUINT 0x80000000	/* S2CUINT with 1 in the MSB */
-
-#define STACKPTR( x ) x = sc_processor_register( 0 )
-
-#include <setjmp.h>
-typedef jmp_buf sc_jmp_buf;
-
-/* Horrid kludge.  See callcc.c for the full story: */
-#define LAZY_STACK_POP 1
-#define LAZY_STACK_INCREMENT 4
 
 #endif
 
@@ -350,6 +342,8 @@ typedef jmp_buf sc_jmp_buf;
 #define IMPLEMENTATION_OS	"ULTRIX"
 #undef  IMPLEMENTATION_FS
 
+#define OLD_FASHIONED_C 1
+
 typedef int S2CINT;			/* Signed pointer size integer */
 typedef unsigned S2CUINT;		/* Unsigned pointer size interger */
 
@@ -371,3 +365,33 @@ typedef int sc_jmp_buf[ 16 ];	/* The buffer contains the following items:
 #define STACKPTR( x ) x = sc_processor_register( 14 )
 #endif
 
+/***************/
+/*    WIN16    */
+/***************/
+
+#ifdef WIN16
+#define IMPLEMENTATION_MACHINE	"Generic PC"
+#define IMPLEMENTATION_CPU	"Intelx86"
+#define IMPLEMENTATION_OS	"Microsoft Windows 3.1"
+#undef  IMPLEMENTATION_FS
+
+typedef long int S2CINT;		/* Signed pointer size integer */
+typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
+
+typedef short int PAGELINK;		/* 16-bit sc_pagelink values */
+#define MAXS2CINT  0x7fffffffL		/* Maximum value of an S2CINT */
+#define MSBS2CUINT 0x80000000L		/* S2CUINT with 1 in the MSB */
+
+#include <windows.h>
+#undef TRUE
+#undef FALSE
+typedef CATCHBUF sc_jmp_buf;
+
+#define STACKPTR( x ) x = sc_processor_register( 0 )
+
+#define MAXSTRINGSIZE	       ((S2CINT)65532)
+#define MAXVECTORSIZE	       ((S2CINT)16383)
+
+#define SCHEAP 2
+#define SCMAXHEAP 15
+#endif
