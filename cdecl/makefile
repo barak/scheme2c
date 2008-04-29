@@ -34,7 +34,3 @@ srclinks:
 	for x in ${SCSRC} ${MISC}; \
 	   do ln -s ${SRCDIR}/$$x $$x; \
 	done
-
-tarfiles:
-	@echo " cdecl/*.sc cdecl/sizeof.c cdecl/README cdecl/document cdecl/makefile "
-

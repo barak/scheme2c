@@ -152,6 +152,3 @@ srclinks:
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
 	rm options.h
-
-tarfiles:
-	@echo " scrt/*.sc scrt/*.h scrt/*.c scrt/README scrt/makefile "

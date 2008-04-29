@@ -141,6 +141,3 @@ srclinks:
 	for x in ${XD} ${XDP} ${XMISC}; \
 	  do ln -s ${SRCDIR}/$$x $$x; \
 	done
-
-tarfiles:
-	@echo " xlib/README xlib/makefile xlib/*.cdecl xlib/*.sc xlib/*.txt "

@@ -110,7 +110,3 @@ srclinks:
 	echo `pwd`'/Xsccomp -scl ${SCL} -scmh ${SCMH} \
 	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$argv' >> Xscc
 	chmod +x Xscc
-
-tarfiles:
-	@echo " scsc/*.sc scsc/*.c scsc/*.sch scsc/README scsc/makefile "
-

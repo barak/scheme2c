@@ -44,6 +44,3 @@ noprogs:
 all:
 	$(MAKE) -C scrt all
 	$(MAKE) -C scsc all
-
-tarfiles:
-	@echo " ports/makefile ports/*/README ports/*/[S-z]* "

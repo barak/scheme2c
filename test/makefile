@@ -99,8 +99,3 @@ srclinks:
 	for x in ${source}; \
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
-
-tarfiles:
-	@echo " test/*.sc test/README test/makefile test/test54c.c "
-
-

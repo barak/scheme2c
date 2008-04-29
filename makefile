@@ -163,31 +163,3 @@ noprogs:
 	$(MAKE) -C test  noprogs
 	$(MAKE) -C cdecl clean-sc-to-c
 	$(MAKE) -C xlib  clean-sc-to-c
-
-# Write the tar tape for distribution.
-
-TARFILES = CHANGES README makefile \
-	   `make -C doc      tarfiles` \
-	   `make -C ports    tarfiles` \
-	   `make -C scrt     tarfiles` \
-	   `make -C scsc     tarfiles` \
-	   `make -C test     tarfiles` \
-	   `make -C cdecl    tarfiles` \
-	   `make -C xlib     tarfiles`
-
-TARFLAGS = -cl
-
-tartape:
-	tar ${TARFLAGS} ${TARFILES}
-
-tarlog:
-	tar tvf ${TARTAPE} > ${TARLOG}
-
-tarZ:
-	$(MAKE) "TARFLAGS=-clf tartape-${DATE}" tartape
-	$(MAKE) "TARTAPE=tartape-${DATE}" "TARLOG=tartapelog-${DATE}" tarlog
-	cp tartape-${DATE} tt-${DATE}
-	compress tt-${DATE}
-
-tgz:
-	tar zcf scheme2c-${DATE}.tgz ${TARFILES}
