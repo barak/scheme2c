@@ -112,8 +112,8 @@
 				 (format "~a -- ~a -- ~a ~a"
 					 (car (implementation-information))
 					 (cadr (implementation-information))
-					 "Copyright 1989-1993 Digital"
-					 "Equipment Corporation")))))
+					 "Copyright 1989-1993 Hewlett-Packard"
+					 "Development Company")))))
 	     (env (let ((x (member 'env flags)))
 		       (if x (cadr x) '())))
 	     (load (memq 'load flags))
