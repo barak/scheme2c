@@ -18,7 +18,7 @@ struct {char dummy; double x; char dummy2;} d1;
 struct {char dummy; char* x; char dummy2;} cp1;
 struct {char dummy; pp x; char dummy2;} pp1;
 
-main()
+int main()
 {
 	char  *toref, *toset;
 
@@ -64,5 +64,5 @@ main()
 	}
 	printf( "(sizeof procedure %i %li %s %s)\n",
 		sizeof( pp ), ((long)&pp1.x)-((long)&pp1), toref, toset );
-	exit( 0 );
+	return 0;
 }
