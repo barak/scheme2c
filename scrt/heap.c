@@ -237,7 +237,7 @@ S2CINT  *sc_processor_register( S2CINT reg )
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
       S2CINT  i386regs[13], *pp;
 
@@ -252,7 +252,7 @@ static  trace_stack_and_registers()
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
         S2CINT  r1tor18[18], *pp;
 
@@ -267,7 +267,7 @@ static  trace_stack_and_registers()
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
 	S2CINT  i386regs[6], *pp;
 
@@ -292,7 +292,7 @@ S2CINT  *sc_getsp()
    registers.
 */
 
-static	trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
 	S2CINT  *pp;
 
@@ -320,7 +320,7 @@ int  *sc_processor_register( reg )
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
 	S2CINT  a2to5d2to7[10], *pp;
 
@@ -335,7 +335,7 @@ static  trace_stack_and_registers()
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
 	S2CINT  s0tos8[9], *pp;
 
@@ -361,7 +361,7 @@ S2CINT  *sc_processor_register( reg )
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
 	S2CINT  r2tor11[10], *pp;
 
@@ -376,7 +376,7 @@ static  trace_stack_and_registers()
    following procedure.
 */
 
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
 	S2CINT  i386regs[6], *pp;
 
@@ -391,7 +391,7 @@ static  trace_stack_and_registers()
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */
-static  trace_stack_and_registers()
+static void trace_stack_and_registers()
 {
       S2CINT  *pp;
       sc_jmp_buf tmp;
@@ -693,7 +693,7 @@ static TSCP  resolveptr( TSCP obj )
    and replace it with #F.
 */
 
-static  save_weakconsl()
+static void save_weakconsl()
 {
 	TSCP  wl, weakcons;
 	SCP  pp;
@@ -716,7 +716,7 @@ static  save_weakconsl()
 
 /* Rebuild the weak cons list. */
 
-static  rebuild_weakconsl()
+static void rebuild_weakconsl()
 {
 	TSCP  wl, oldcons, newcons, oldcar, newcar, weak;
 
@@ -754,7 +754,7 @@ static  rebuild_weakconsl()
    SC_WHENFREED.
 */
 
-static  check_unreferenced()
+static void check_unreferenced()
 {
 	TSCP  objects, object_procedure, object;
 
@@ -781,7 +781,7 @@ static  check_unreferenced()
    newly allocated pages until there is nothing left to move.
 */
 
-static  move_the_heap()
+static void move_the_heap()
 {
 	S2CINT  progress, count, weaktodo, unreferenced, page;
 	SCP  myconsp, myextobjp, newp;
@@ -848,7 +848,7 @@ static  move_the_heap()
    generations are moved in the following routine.
 */
 
-static  move_the_generations()
+static void move_the_generations()
 {
 	S2CINT  page = sc_genlist, count, pageaddr;
 	SCP  myconsp;
@@ -900,7 +900,7 @@ static TSCP  correct( TSCP tobj )
    follow it on that page will be corrected.
 */
 
-static  correct_object( SCP pp )
+static void correct_object( SCP pp )
 {
 	S2CINT  page, size, cnt;
 	PATSCP  obj;
@@ -989,7 +989,7 @@ static  correct_object( SCP pp )
    is set to linkvalue.
 */
 
-static  correct_pointers( S2CINT page, S2CINT linkvalue )
+static void correct_pointers( S2CINT page, S2CINT linkvalue )
 {
 	S2CINT  count, i;
 	PATSCP  ptr;
@@ -1033,7 +1033,7 @@ static  correct_pointers( S2CINT page, S2CINT linkvalue )
    next collection.
 */
 
-static  copyback_locked_pages( S2CINT locklist )
+static void copyback_locked_pages( S2CINT locklist )
 {
 	S2CINT  page, count, vpage;
 	SCP  obj, fobj, sobj;
@@ -1402,7 +1402,7 @@ TSCP  sc_collect_v;
 TSCP  sc_collect()
 {
 	S2CINT  i, wasallocated, savemutex;
-	TSCP  constl, fl;
+	TSCP  fl;
 	double  thisgctime;
 
 	if  (sc_collecting)  {
@@ -1931,7 +1931,8 @@ struct SEEN*  seenp;
 
 /* Put a breakpoint on this procedure to catch verification problems */
 
-static  verifyfail()
+static void verifyfail() __attribute__((noreturn));
+static void verifyfail() 
 {
 	sc_abort();
 }
@@ -2027,6 +2028,8 @@ TSCP  sc_verifyobject( TSCP any )
 	      sc_verifyobject( PAIR_CDR( any ) );
 	      seenp = seen.prev;
 	      return( any );
+ 	   default:
+	     verifyfail();
 	}
 }
 	      

@@ -46,7 +46,7 @@
 /* Definitions for objects elsewhere in the Scheme system */
 
 extern  TSCP  scrt1_reverse( XAL1( TSCP ) );
-extern  TSCP  scdebug_error( XAL3( TSCP, TSCP, TSCP ) );
+extern  TSCP  scdebug_error( XAL3( TSCP, TSCP, TSCP ) ) __attribute__((noreturn));
 extern  TSCP  screp__init();
 extern	TSCP  screp_scheme2c( XAL1( TSCP ) );
 

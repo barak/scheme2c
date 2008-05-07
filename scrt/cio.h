@@ -58,7 +58,7 @@ extern TSCP  sc_readnumber( XAL2( TSCP, TSCP ) );
 
 extern char*  sc_getenv( XAL1( char* ) );
 
-extern void  sc_abort();
+extern void  sc_abort() __attribute__((noreturn));
 
 extern void  sc_osexit( XAL1( TSCP ) );
 

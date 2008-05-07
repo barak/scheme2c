@@ -44,7 +44,7 @@ extern  S2CINT   sc_expandhead();
 
 extern  void  sc__init();
 
-extern  sc_error( XAL3( char*, char*, TSCP ) );
+extern  sc_error( XAL3( char*, char*, TSCP ) ) __attribute__((noreturn));
 
 extern  TSCP  sc_implementation_v;
 

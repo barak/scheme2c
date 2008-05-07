@@ -669,6 +669,9 @@ TSCP  sc_scheme_2dmode()
 		return( CSTRING_SYMBOL( "EMBEDDED" ) );
 	   case  INTERACTIVESCHEME:
 		return( CSTRING_SYMBOL( "INTERACTIVE" ) );
+	   default:
+	         sc_error( "SCHEME_MODE", "selected mode unknown", EMPTYLIST );
+	        
 	}
 }
 
