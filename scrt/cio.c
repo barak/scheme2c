@@ -495,23 +495,23 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	switch  FIXED_C( type )  {
 
 	   case 0:	/* [-]dddddddd		*/
-	      sprintf( buffer, "%.0lf", TSCP_DOUBLE( number ) );
+ 	      snprintf( buffer, sizeof(buffer), "%.0lf", TSCP_DOUBLE( number ) );
 	      break;
 
 	   case 1:	/* [-]dddddddd.dddd	*/
-	      sprintf( format, "%%.%lilf", (long)TSCP_S2CINT( length ) );
-	      sprintf( buffer, format, TSCP_DOUBLE( number ) );
+	      snprintf( format, sizeof(format), "%%.%lilf", (long)TSCP_S2CINT( length ) );
+	      snprintf( buffer, sizeof(buffer), format, TSCP_DOUBLE( number ) );
 	      break;
 
 	   case 2:	/* [-]d.ddde+dd		*/
-	      sprintf( format, "%%.%lile", (long)TSCP_S2CINT( length )-1 );
-	      sprintf( buffer, format, TSCP_DOUBLE( number ) );
+	      snprintf( format, sizeof(format), "%%.%lile", (long)TSCP_S2CINT( length )-1 );
+	      snprintf( buffer, sizeof(buffer), format, TSCP_DOUBLE( number ) );
 	      break;
 
 	   case 3:
 #if defined(MAC) || defined(LINUX) || defined(FREEBSD)
-	      sprintf( format, "%%.%lilg", (long)TSCP_S2CINT( length ) );
-	      sprintf( buffer, format, TSCP_DOUBLE( number ) );
+ 	      snprintf( format, sizeof(format), "%%.%lilg", (long)TSCP_S2CINT( length ) );
+	      snprintf( buffer, sizeof(buffer), format, TSCP_DOUBLE( number ) );
 #else
 	      gcvt( TSCP_DOUBLE( number ), TSCP_S2CINT( length ), buffer );
 #endif
@@ -613,7 +613,7 @@ void  sc_log_dec( S2CINT d )
 {
 	char  buffer[30];
 
-	sprintf( buffer, "%ld", (long)d );
+	snprintf( buffer, sizeof(buffer), "%ld", (long)d );
 	sc_log_string( buffer );
 }
 
@@ -623,7 +623,7 @@ void  sc_log_hex( S2CUINT d )
 {
 	char  buffer[30];
 
-	sprintf( buffer, "%lx", (long unsigned)d );
+	snprintf( buffer, sizeof(buffer), "%lx", (long unsigned)d );
 	sc_log_string( buffer );
 }
 
