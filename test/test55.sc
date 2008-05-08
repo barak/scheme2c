@@ -23,6 +23,8 @@
 ;* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ;* DEALINGS IN THE SOFTWARE.
 
+(module test55 (main test55))
+
 (define (TEST55)
     
     ;;; Write length and levels.
