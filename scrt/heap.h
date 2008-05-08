@@ -148,7 +148,7 @@
 #define SCMINHEAP 1
 
 #ifndef SCHEAP
-#define	SCHEAP 4
+#define	SCHEAP 8
 #endif
 
 #ifndef SCMAXHEAP

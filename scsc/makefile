@@ -37,8 +37,8 @@ RT = ${RTDIR}/libsc.a
 
 # Defaults for configuring scc and Xscc commands.
 
-SCL = 40
-SCMH = 20
+SCL = 80
+SCMH = 40
 
 scsc = main.sc closeana.sc lambdaexp.sc plist.sc transform.sc expform.sc \
        readtext.sc miscexp.sc macros.sc compile.sc lap.sc gencode.sc \
