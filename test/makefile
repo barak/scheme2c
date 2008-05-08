@@ -77,6 +77,9 @@ test53:	test53.sc
 test54:	test54.c test54.o test54c.o testchk.o
 	${SCC} -o test54 test54.o test54c.o testchk.o
 
+test55: test55.c test55.o testchk.o
+	${SCC} -o test55 test55.o testchk.o
+
 clean:
 	rm -f *.o *.BAK *.CKP core *.S2C
 
@@ -99,3 +102,6 @@ srclinks:
 	for x in ${source}; \
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
+
+autotest: test test50 test54
+	./test && ./test50 && ./test54

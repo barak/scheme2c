@@ -9,6 +9,7 @@
 port:
 	$(MAKE) -C scrt port
 	$(MAKE) -C scsc port
+	$(MAKE)	-C test autotest
 
 # A "private" working copy of the current compiler, libary, and interpreter
 # is installed in a directory by the following command:
