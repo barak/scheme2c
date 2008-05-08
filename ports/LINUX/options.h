@@ -46,7 +46,8 @@
 #define	MATHTRAPS	0	/* 0 = don't detect fixed point overflow */
 				/* 1 = recover on fixed point overflow */
 
-#define STACK_OVERFLOW  1
+#define STACK_OVERFLOW  1       /* If you're going to disable this, 
+				   remove it from makefile-head as well */
 
 /* Define only one of the supported processor types:
 
