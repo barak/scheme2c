@@ -291,7 +291,9 @@
 						(if (member "-pg" c-flags)
 						    `(,sc-library_p)
 						    `(,sc-library))
-						'("-lm" "-lsigsegv"))))))))
+						`("-lm" ,(if (= ((lap () (C_FIXED "STACK_OVERFLOW"))) 1)
+							     "-lsigsegv"
+							     "")))))))))
 		 (reset))
 	 (catch-error
 	     (lambda ()
