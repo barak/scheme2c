@@ -583,6 +583,10 @@ extern S2CINT  sc_maxdisplay;
 #define CHECK_SP
 #endif
 
+#ifndef STACK_OVERFLOW
+#define STACK_OVERFLOW 0
+#endif
+
 /* Time-slicing is implemented by decrementing and checking a counter on each
    procedure entry and backward branch.  The variable TIMESLICE enables it.
    Pending signals are also detected at these points.
