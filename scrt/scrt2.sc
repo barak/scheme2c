@@ -468,7 +468,7 @@
     (if (and (= x 0.0) (= y 0.0))
 	1.0
 	(let ((iresult ((lap (x y) (C_POW x y)) x y)))
-	     (if (and (fixed? x) (fixed? y) (<= (abs iresult) #x1fffffff))
+	     (if (and (fixed? x) (fixed? y) (<= (abs iresult) ((lap () (C_FIXED "MAXS2CINT >> 2")))))
 		 (float->fixed (round iresult))
 		 iresult))))
 
