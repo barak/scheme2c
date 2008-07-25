@@ -79,9 +79,9 @@ install-private:
 	     "OWNER = -o `whoami`" install
 
 install:
-	echo '#! /bin/csh -f' > ${BINDIR}/scc
+	echo '#! /bin/sh' > ${BINDIR}/scc
 	echo '${BINDIR}/sccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ${LIBDIR}/schemetoc $$argv' >> ${BINDIR}/scc
+	     -cc ${CC} -LIBDIR ${LIBDIR}/schemetoc $$*' >> ${BINDIR}/scc
 	chmod +x ${BINDIR}/scc
 	cp sccomp ${BINDIR}
 
@@ -102,11 +102,11 @@ srclinks:
 	for x in ${scsc} ${scc} ${scsch}; \
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
-	echo '#! /bin/csh -f' > scc
+	echo '#! /bin/sh' > scc
 	echo `pwd`'/sccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$argv' >> scc
+	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> scc
 	chmod +x scc
-	echo '#! /bin/csh -f' > Xscc
+	echo '#! /bin/sh' > Xscc
 	echo `pwd`'/Xsccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$argv' >> Xscc
+	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> Xscc
 	chmod +x Xscc
