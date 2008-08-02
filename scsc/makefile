@@ -24,6 +24,14 @@
 # DEALINGS IN THE SOFTWARE.
 #
 
+all:
+
+prefix=/usr/local
+LIBDIR=${prefix}/lib
+BINDIR=${prefix}/bin
+## previously value was LIBSUBDIR = schemetoc
+LIBSUBDIR = scheme2c
+
 
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
@@ -74,16 +82,14 @@ Xmv:
 port:
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xsccomp Xmv
 
-install-private:
-	$(MAKE) "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
-	     "OWNER = -o `whoami`" install
-
 install:
-	echo '#! /bin/sh' > ${BINDIR}/scc
+	mkdir -p ${DESTDIR}${BINDIR}/
+	echo '#! /bin/sh' > ${DESTDIR}${BINDIR}/scc
 	echo '${BINDIR}/sccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ${LIBDIR}/schemetoc $$*' >> ${BINDIR}/scc
-	chmod +x ${BINDIR}/scc
-	cp sccomp ${BINDIR}
+	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} $$*' \
+	 >> ${DESTDIR}${BINDIR}/scc
+	chmod +x ${DESTDIR}${BINDIR}/scc
+	cp sccomp ${DESTDIR}${BINDIR}/
 
 clean:
 	rm -f ${sco} *.BAK *.CKP scltext.* *.S2C

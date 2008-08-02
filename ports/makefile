@@ -11,12 +11,11 @@ port:
 	$(MAKE) -C scsc port
 	$(MAKE)	-C test autotest
 
-# A "private" working copy of the current compiler, libary, and interpreter
-# is installed in a directory by the following command:
+# Install in system directories; use prefix=~ for private copy
 
-install-private:
-	$(MAKE) -C scrt "DESTDIR = ${DESTDIR}" install-private
-	$(MAKE) -C scsc "DESTDIR = ${DESTDIR}" install-private
+install:
+	$(MAKE) -C scrt install
+	$(MAKE) -C scsc install
 
 # Clean out working files.
 

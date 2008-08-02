@@ -24,6 +24,15 @@
 #
 #
 
+all:
+
+prefix=/usr/local
+LIBDIR=${prefix}/lib
+BINDIR=${prefix}/bin
+## previously value was LIBSUBDIR = schemetoc
+LIBSUBDIR = scheme2c
+
+
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
 
@@ -112,19 +121,20 @@ libsc_p.a:	libsc.a
 	rmdir saveobj
 
 install-private:
-	$(MAKE) "LIBDIR = ${DESTDIR}" "BINDIR = ${DESTDIR}" \
+	$(MAKE) "DESTDIR=${DESTDIR}" "LIBDIR=/." "BINDIR=/. LIBSUBDIR=." \
 	     "OWNER = -o `whoami`" install
 
 install:
-	-mkdir ${LIBDIR}/schemetoc
-	cp libsc.a ${LIBDIR}/schemetoc/libsc.a
-	${RANLIB} ${LIBDIR}/schemetoc/libsc.a
-	-cp libsc_p.a ${LIBDIR}/schemetoc/libsc_p.a
-	-${RANLIB} ${LIBDIR}/schemetoc/libsc_p.a
-	cp objects.h ${LIBDIR}/schemetoc
-	cp options.h ${LIBDIR}/schemetoc
-	cp predef.sc ${LIBDIR}/schemetoc
-	cp sci ${BINDIR}/sci
+	mkdir --parent ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
+	cp libsc.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libsc.a
+	-cp libsc_p.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	-${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libsc_p.a
+	cp objects.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	cp options.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	cp predef.sc ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	mkdir --parent ${DESTDIR}${BINDIR}/
+	cp sci ${DESTDIR}${BINDIR}/
 
 clean:
 	rm -f ${Sruntime} ${Cruntime} ${Aruntime} sci.o embedded.o \
