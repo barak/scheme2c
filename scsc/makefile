@@ -85,11 +85,12 @@ port:
 install:
 	mkdir -p ${DESTDIR}${BINDIR}/
 	echo '#! /bin/sh' > ${DESTDIR}${BINDIR}/scc
-	echo '${BINDIR}/sccomp -scl ${SCL} -scmh ${SCMH} \
+	echo '${LIBDIR}/${LIBSUBDIR}/sccomp -scl ${SCL} -scmh ${SCMH} \
 	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} $$*' \
 	 >> ${DESTDIR}${BINDIR}/scc
 	chmod +x ${DESTDIR}${BINDIR}/scc
-	cp sccomp ${DESTDIR}${BINDIR}/
+	mkdir -p ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
+	cp sccomp ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 
 clean:
 	rm -f ${sco} *.BAK *.CKP scltext.* *.S2C
