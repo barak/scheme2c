@@ -1,0 +1,19 @@
+Document: r4rs
+Title: The Revised^4 Report on the Algorithmic Language Scheme
+Author: William Clinger and Jonathan Rees (editors), H. Abelson,
+ R. K. Dybvig, C. T. Haynes, G. J. Rozas, N. I. Adams IV,
+ D. P. Friedman, E. Kohlbecker, G. L. Steele Jr., D. H. Bartley,
+ R. Halstead, D. Oxley, G. J. Sussman, G. Brooks, C. Hanson,
+ K. M. Pitman, M. Wand
+Abstract: The report gives a defining description of the programming
+ language Scheme.  Scheme is a statically scoped and properly
+ tail-recursive dialect of the Lisp programming language invented by
+ Guy Lewis Steele Jr. and Gerald Jay Sussman.  It was designed to have
+ an exceptionally clear and simple semantics and few different ways to
+ form expressions.  A wide variety of programming paradigms, including
+ imperative, functional, and message passing styles, find convenient
+ expression in Scheme.
+Section: Programming/Scheme
+
+Format: PDF
+Files: /usr/share/doc/scheme2c-doc/r4rs.pdf

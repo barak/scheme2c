@@ -1,0 +1,24 @@
+Source: scheme2c
+Section: devel
+Priority: extra
+Maintainer: Barak A. Pearlmutter <bap@debian.org>
+Build-Depends: debhelper (>= 7), libsigsegv-dev
+Build-Depends-Indep: texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
+Standards-Version: 3.8.0
+
+Package: scheme2c
+Architecture: i386 amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Joel Bartlett's fabled Scheme->C system
+ The original Scheme->C system, the first of its kind.  It conforms to
+ the R4RS Scheme standard, and compiles Scheme sources to C as an
+ intermediate step, allowing easy intergration with external
+ libraries.  Also included is an interpreter, for development.  Due to
+ a variety of clever technques, the system is quite fast.
+
+Package: scheme2c-doc
+Section: doc
+Architecture: all
+Description: Documentation for the Scheme->C system
+ The documenation that accompanies the Scheme->C system includes a
+ programmer's guide, tutorial, and a copy of the R4RS specification.

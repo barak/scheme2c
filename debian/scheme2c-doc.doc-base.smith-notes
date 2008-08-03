@@ -1,0 +1,10 @@
+Document: scheme2c-smith-notes
+Title: Scheme->C notes for An Introduction to Scheme
+Author: Joel F. Bartlett
+Abstract: Section notes to point out the differences between TI PC
+ Scheme used in the text "An Introduction to Scheme" by Jerry D. Smith
+ and Scheme->C.
+Section: Programming/Scheme
+
+Format: PDF
+Files: /usr/share/doc/scheme2c-doc/smithnotes.pdf

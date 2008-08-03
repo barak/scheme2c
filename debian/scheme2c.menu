@@ -1,0 +1,2 @@
+?package(scheme2c):needs="text" section="Applications/Programming" \
+  title="DEC Scheme->C Interpreter" command="/usr/bin/sci"

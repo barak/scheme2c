@@ -1,0 +1,6 @@
+scheme2c (1993.3.15.2-1) unstable; urgency=low
+
+  * Initial Debian release, based on DEC release 15mar93jfb-1 plus a
+    variety of patches plus a relicense by HP.
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 04 May 2008 11:21:35 +0100

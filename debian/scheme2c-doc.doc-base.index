@@ -1,0 +1,9 @@
+Document: scheme2c-index
+Title: Scheme->C Index to R4RS
+Author: Joel F. Bartlett
+Abstract: This described the idiosyncrasies of the Scheme->C dialect
+ of the Scheme programming language, relative R4RS Scheme.
+Section: Programming/Scheme
+
+Format: PDF
+Files: /usr/share/doc/scheme2c-doc/index.pdf

@@ -1,0 +1,9 @@
+Document: scheme2c-intro
+Title: An Introduction to Scheme->C in 19 Prompts
+Author: Joel F. Bartlett
+Abstract: A brief introduction to the Scheme->C system, in the form of
+ a series of 19 interactions.
+Section: Programming/Scheme
+
+Format: PDF
+Files: /usr/share/doc/scheme2c-doc/intro.pdf

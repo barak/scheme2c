@@ -1,0 +1,81 @@
+This package was debianized by Barak A. Pearlmutter <bap@debian.org> on
+Sun, 04 May 2008 11:21:35 +0100.
+
+It was downloaded from http://scheme2c.alioth.debian.org/, the current
+active upstream site.  Scheme->C was released under a free license by
+HP, the successor-in-interest to Digital Equipment Corporation, which
+supplied the original
+http://www.hpl.hp.com/personal/Hans_Boehm/nscheme2c.tgz
+
+Upstream Authors:
+
+    The original Scheme->C system & documentation was written by
+      Joel Bartlett <joel.bartlett@sbcglobal.net>
+
+    Some porting and modernization patches were written by:
+      Andrei Barbu <andrei@0xab.com>
+      Jeffrey Mark Siskind <qobi@purdue.edu>
+
+    The R4RS manual, included, was written by a committee, with
+    editors William Clinger and Jonathan Reese.
+
+Copyright: 
+
+    Hewlitt-Packard Development Company, L.P.
+
+License:
+
+  ;* Copyright (c) 1989-1993 Hewlett-Packard Development Company, L.P.
+  ;*		All Rights Reserved
+
+  ;* Permission is hereby granted, free of charge, to any person obtaining a
+  ;* copy of this software and associated documentation files (the "Software"),
+  ;* to deal in the Software without restriction, including without limitation
+  ;* the rights to use, copy, modify, merge, publish, distribute, sublicense,
+  ;* and/or sell copies of the Software, and to permit persons to whom the
+  ;* Software is furnished to do so, subject to the following conditions:
+  ;* 
+  ;* The above copyright notice and this permission notice shall be included in
+  ;* all copies or substantial portions of the Software.
+  ;* 
+  ;* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ;* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ;* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ;* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ;* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  ;* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  ;* DEALINGS IN THE SOFTWARE.
+
+  (Copyright was changed 4/28/08.  Note that I did not change the copyright
+  messages included in various examples, in spite of the fact that the copyright
+  holder was changed from DEC to HP. If someone wants to fix the initial
+  prompt in various examples in the documentation, feel free ...  Hans Boehm)
+
+The documentation includes a copy of the R4RS manual, which states:
+
+  We intend this report to belong to the entire Scheme community, and
+  so we grant permission to copy it in whole or in part without fee.
+  In particular, we encourage implementors of Scheme to use this
+  report as a starting point for manuals and other documentation,
+  modifying it as necessary.
+
+  It was written and edited by:
+
+    William Clinger and Jonathan Rees (Editors)
+
+    H. Abelson       R. K. Dybvig     C. T. Haynes    G. J. Rozas
+    N. I. Adams IV   D. P. Friedman   E. Kohlbecker   G. L. Steele Jr.
+    D. H. Bartley    R. Halstead      D. Oxley        G. J. Sussman
+    G. Brooks        C. Hanson        K. M. Pitman    M. Wand
+
+The R4RS sources include a LaTeX style file, algol60.sty, which states
+
+  % Copyright (C) 1985 by Leslie Lamport
+  % Hacked To Death (H) 1986 by Jonathan Rees from Lamport's REPORT and
+  %   REP11 document styles
+
+This style file appears to be covered by the same permissive grant
+that covers the remainder of the R4RS manual LaTeX source.
+
+The Debian packaging is (C) 2008, Barak A. Pearlmutter <bap@debian.org> and
+is licensed under the GPL, see `/usr/share/common-licenses/GPL'.

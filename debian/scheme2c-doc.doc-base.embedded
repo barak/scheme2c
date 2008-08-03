@@ -1,0 +1,13 @@
+Document: scheme2c-embedded
+Title: Embedded Scheme->C
+Author: Joel F. Bartlett
+Abstract: Description of how to use Scheme->C for embedded domains,
+ and how to engage optional facilities in the Scheme->C compiler and
+ runtime system to support embedded domains, including: explicit time
+ slicing, explicit stack overflow checks, request-response
+ interaction, and avoiding reliance on POSIX libraries or system
+ calls.
+Section: Programming/Scheme
+
+Format: PDF
+Files: /usr/share/doc/scheme2c-doc/embedded.pdf
