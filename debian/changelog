@@ -1,3 +1,11 @@
+scheme2c (1993.3.15.2-2) unstable; urgency=low
+
+  * Notice unrecognized architecture in debian/rules
+  * Moronish debian/control build dependencies (closes: #494508)
+  * Fix typos in Descriptions in debian/control (closes: #494586)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 10 Aug 2008 22:48:11 +0100
+
 scheme2c (1993.3.15.2-1) unstable; urgency=low
 
   * Initial Debian release, based on DEC release 15mar93jfb-1 plus a

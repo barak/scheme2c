@@ -17,12 +17,14 @@
 export DH_OPTIONS
 
 
-arch := $(shell dpkg --print-architecture)
+arch := $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 ifeq ($(arch),amd64)
   S2C_ARCH = AMD64
-endif
-ifeq ($(arch),i386)
+else ifeq ($(arch),i386)
   S2C_ARCH = LINUX
+else
+  $(warning Warning: unsupported architecture $(arch))
+  S2C_ARCH = UNSUPPORTED
 endif
 
 
