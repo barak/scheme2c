@@ -34,4 +34,4 @@ install-man:
 	$(INSTALL) sci.l $(DESTDIR)$(MANDIR)/man1/sci.1
 
 clean:
-	-rm -rf *.pdf *.dvi *.aux *.log *.BAK *.CKP
+	-rm -rf *.pdf *.dvi *.aux *.log *.BAK *.CKP *.toc *.idx
