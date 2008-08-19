@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 7), libsigsegv-dev, texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
 Build-Depends-Indep: texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
-Build-Depends-Arch: libsigsegv-dev,
+Build-Depends-Arch: libsigsegv-dev
 Standards-Version: 3.8.0
 
 Package: scheme2c
