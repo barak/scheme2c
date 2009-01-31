@@ -213,4 +213,4 @@ Additional documentation is included in the software distribution.
 .PP
 sci(1)
 .SH QUESTIONS, COMMENTS, AND COMPLAINTS
-bartlett@decwrl.dec.com
+http://alioth.debian.org/projects/scheme2c/
