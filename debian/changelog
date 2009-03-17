@@ -1,3 +1,9 @@
+scheme2c (1993.3.15.2-3) unstable; urgency=low
+
+  * Switch to new section: lisp
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 17 Mar 2009 21:17:38 +0000
+
 scheme2c (1993.3.15.2-2) unstable; urgency=low
 
   * Notice unrecognized architecture in debian/rules

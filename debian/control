@@ -1,5 +1,5 @@
 Source: scheme2c
-Section: devel
+Section: lisp
 Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 7), libsigsegv-dev, texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
