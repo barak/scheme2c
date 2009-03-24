@@ -1,0 +1,9 @@
+build-arch-stamp
+build-indep-stamp
+configure-stamp
+debian/files
+debian/*.log
+debian/*.debhelper
+debian/*.substvars
+debian/scheme2c-doc/
+debian/scheme2c/
