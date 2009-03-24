@@ -7,16 +7,16 @@ Build-Depends-Indep: texlive-latex-base, texlive-latex-extra, texlive-fonts-reco
 Build-Depends-Arch: libsigsegv-dev
 Standards-Version: 3.8.1
 Homepage: http://scheme2c.alioth.debian.org/
-Vcs-Darcs: http://darcs.debian.org/darcs/scheme2c/deb
-Vcs-Browse: http://darcs.alioth.debian.org/cgi-bin/darcsweb.cgi?r=scheme2c/deb
-Vcs-Darcs: http://darcs.debian.org/darcs/scheme2c/scheme2c
-Vcs-Browse: http://darcs.alioth.debian.org/cgi-bin/darcsweb.cgi?r=scheme2c/scheme2c
 Vcs-Git: git://git.debian.org/git/collab-maint/scheme2c.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/scheme2c.git
-Vcs-Git: git://git.debian.org/git/scheme2c/scheme2c.git
-Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
-Vcs-Git: git://github.com/barak/scheme2c.git
-Vcs-Browser: http://github.com/barak/scheme2c.git
+# Vcs-Git: git://git.debian.org/git/scheme2c/scheme2c.git
+# Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
+# Vcs-Git: git://github.com/barak/scheme2c.git
+# Vcs-Browser: http://github.com/barak/scheme2c.git
+# Vcs-Darcs: http://darcs.debian.org/darcs/scheme2c/deb
+# Vcs-Browse: http://darcs.alioth.debian.org/cgi-bin/darcsweb.cgi?r=scheme2c/deb
+# Vcs-Darcs: http://darcs.debian.org/darcs/scheme2c/scheme2c
+# Vcs-Browse: http://darcs.alioth.debian.org/cgi-bin/darcsweb.cgi?r=scheme2c/scheme2c
 
 Package: scheme2c
 Architecture: i386 amd64
@@ -24,9 +24,9 @@ Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Joel Bartlett's fabled Scheme->C system
  The original Scheme->C system, the first of its kind.  It conforms to
  the R4RS Scheme standard, and compiles Scheme sources to C as an
- intermediate step, allowing easy integration with external
- libraries.  Also included is an interpreter, for development.  Due to
- a variety of clever techniques, the system is quite fast.
+ intermediate step, allowing easy integration with external libraries.
+ Also included is an interpreter, for development.  Due to a variety
+ of clever techniques, the system is quite fast.
 
 Package: scheme2c-doc
 Section: doc

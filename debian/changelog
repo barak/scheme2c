@@ -1,9 +1,9 @@
-scheme2c (1993.3.15.2-4rc) unstable; urgency=low
+scheme2c (1993.3.15.2-4) unstable; urgency=low
 
   * rev deb policy
-  * debian/control vcs and homepage fields
+  * debian/control homepage and cvs fields (darcs to git)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Wed, 18 Mar 2009 08:11:50 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 24 Mar 2009 10:36:32 +0000
 
 scheme2c (1993.3.15.2-3) unstable; urgency=low
 
