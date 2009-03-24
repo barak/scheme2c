@@ -5,7 +5,18 @@ Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 7), libsigsegv-dev, texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
 Build-Depends-Indep: texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
 Build-Depends-Arch: libsigsegv-dev
-Standards-Version: 3.8.0
+Standards-Version: 3.8.1
+Homepage: http://scheme2c.alioth.debian.org/
+Vcs-Darcs: http://darcs.debian.org/darcs/scheme2c/deb
+Vcs-Browse: http://darcs.alioth.debian.org/cgi-bin/darcsweb.cgi?r=scheme2c/deb
+Vcs-Darcs: http://darcs.debian.org/darcs/scheme2c/scheme2c
+Vcs-Browse: http://darcs.alioth.debian.org/cgi-bin/darcsweb.cgi?r=scheme2c/scheme2c
+Vcs-Git: git://git.debian.org/git/collab-maint/scheme2c.git
+Vcs-Browser: http://git.debian.org/?p=collab-maint/scheme2c.git
+Vcs-Git: git://git.debian.org/git/scheme2c/scheme2c.git
+Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
+Vcs-Git: git://github.com/barak/scheme2c.git
+Vcs-Browser: http://github.com/barak/scheme2c.git
 
 Package: scheme2c
 Architecture: i386 amd64
