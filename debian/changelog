@@ -1,3 +1,9 @@
+scheme2c (1993.3.15.2-5rc) unstable; urgency=low
+
+  * remove any remaining darcs debris
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 26 Mar 2009 15:07:40 +0000
+
 scheme2c (1993.3.15.2-4) unstable; urgency=low
 
   * rev deb policy
