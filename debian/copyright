@@ -6,6 +6,9 @@ active upstream site.  Scheme->C was released under a free license by
 HP, the successor-in-interest to Digital Equipment Corporation, which
 supplied the original
 http://www.hpl.hp.com/personal/Hans_Boehm/nscheme2c.tgz
+See also http://ftp.cs.indiana.edu/pub/scheme-repository/imp/Scheme-to-C/
+for a collection of patches and old source; all relevant bits are
+supposed to have been merged into the Alioth project above.
 
 Upstream Authors:
 
