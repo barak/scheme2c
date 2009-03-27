@@ -9,8 +9,8 @@ Standards-Version: 3.8.1
 Homepage: http://scheme2c.alioth.debian.org/
 Vcs-Git: git://git.debian.org/git/collab-maint/scheme2c.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/scheme2c.git
-Vcs-Git: git://git.debian.org/git/scheme2c/scheme2c.git
-Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
+#Vcs-Git: git://git.debian.org/git/scheme2c/scheme2c.git
+#Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
 
 Package: scheme2c
 Architecture: i386 amd64
