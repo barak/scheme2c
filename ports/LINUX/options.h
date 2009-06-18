@@ -46,7 +46,7 @@
 #define	MATHTRAPS	0	/* 0 = don't detect fixed point overflow */
 				/* 1 = recover on fixed point overflow */
 
-#define STACK_OVERFLOW  1       /* If you're going to disable this, 
+#define STACK_OVERFLOW  1       /* If you're going to disable this,
 				   remove it from makefile-head as well */
 
 /* Define only one of the supported processor types:
@@ -134,5 +134,6 @@ typedef jmp_buf sc_jmp_buf;
 #define LAZY_STACK_POP 1
 #define LAZY_STACK_INCREMENT 4
 
-#endif
+#define SCMAXHEAP 4000
 
+#endif

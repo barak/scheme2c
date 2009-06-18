@@ -9,10 +9,10 @@
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -35,7 +35,7 @@
 #ifdef SUNOS4
 extern long _sysconf(int);     /* System Private interface to sysconf() */
 #define        CLK_TCK ((clock_t) _sysconf(3)) /* clock ticks per second */
-                             /* 3 is _SC_CLK_TCK */
+			     /* 3 is _SC_CLK_TCK */
 #endif
 
 #ifdef MAC
@@ -76,10 +76,10 @@ int sigsegv_handler(void* address, int emergency)
   printf("***** Now we're going to try to print out a bracktrace, good luck!\n");
 
   char *procname = "SIGSEGV";
-  
+
   if  (sc_stacktrace != NULL)  procname = sc_stacktrace->procname;
   sc_error( procname, "Segfault:", EMPTYLIST );
-  
+
   abort();
 }
 
@@ -245,7 +245,7 @@ static TSCP  SIGINT_handler = C_FIXED( (S2CINT)SIG_DFL );
 main()
 {
 	S2CINT  *sp;
-	
+
 	STACKPTR( sp );
 	SetApplLimit( (char*)sp-S2CSTACK );
 	console_options.nrows = 30;
@@ -341,7 +341,7 @@ TSCP  sc_fgetc( TSCP file )
 	      clearerr( stream );
 	      return( EOFOBJECT );
 	   }
-	   else  
+	   else
 	      return( CSTRING_TSCP( strerror( ferror( stream ) ) ) );
 	}
 	return( C_CHAR( character ) );
@@ -399,7 +399,7 @@ TSCP  sc_inputready( TSCP mask )
 	if  (ioerror == -1)  {
 	   if  (errno == EINTR)  return( C_FIXED( 0 ) );
 	   sc_error( "INPUTREADY", "select error: ~s",
-	             LIST1( CSTRING_TSCP( strerror( errno ) ) ) );
+		     LIST1( CSTRING_TSCP( strerror( errno ) ) ) );
 	}
 	filemask = 0;
 	while (--i >= 0)  {
@@ -410,7 +410,7 @@ TSCP  sc_inputready( TSCP mask )
 	return( S2CUINT_TSCP( filemask ) );
 #endif
 }
-	
+
 
 /* Boolean reporting whether a character is available for reading. */
 
@@ -418,7 +418,7 @@ TSCP  sc_charready( TSCP file )
 {
 #ifdef MAC
 	FILE*  stream;
-	
+
 	stream = (FILE*)TSCP_POINTER( file );
 #ifdef MACSCI
 	if  (stream == stdin)  {
@@ -478,7 +478,7 @@ extern TSCP  sc_rename( TSCP old, TSCP new )
 
 	if  (rename( (char*)&STRING_CHAR( old, 0 ),
 		     (char*)&STRING_CHAR( new, 0 ) ) == 0)
-	   return( FALSEVALUE );	
+	   return( FALSEVALUE );
 	else
 	   return( CSTRING_TSCP( strerror( errno ) ) );
 }
@@ -536,7 +536,7 @@ TSCP  sc_readnumber( TSCP string, TSCP type )
 	      nptr = (char*)&STRING_CHAR( string, 0 );
 	      value = strtod( nptr, &eptr );
 	      if  (nptr == eptr  ||  *eptr != 0)
-	         return( FALSEVALUE );
+		 return( FALSEVALUE );
 	      else
 		 return( FLTV_FLT( value ) );
 	      break;
@@ -583,8 +583,8 @@ double  sc_cputime()
 	struct rusage  ru;
 
 	getrusage( RUSAGE_SELF, &ru );
-        return( ru.ru_utime.tv_sec+(ru.ru_utime.tv_usec/1000000.0)+
-                ru.ru_stime.tv_sec+(ru.ru_stime.tv_usec/1000000.0) );
+	return( ru.ru_utime.tv_sec+(ru.ru_utime.tv_usec/1000000.0)+
+		ru.ru_stime.tv_sec+(ru.ru_stime.tv_usec/1000000.0) );
 #else
 #ifdef HAVE_TIMES
 	struct tms buffer;
@@ -641,9 +641,9 @@ TSCP  sc_error_2ddisplay( TSCP item )
 	      break;
 	   case EXTENDEDTAG:
 	      switch  (TSCP_EXTENDEDTAG( item ))  {
-	         case SYMBOLTAG:
+		 case SYMBOLTAG:
 		    sc_log_string( (char*)&STRING_CHAR( SYMBOL_NAME( item ),
-						        0 ) );
+							0 ) );
 		    break;
 		 case STRINGTAG:
 		    sc_log_string( (char*)&STRING_CHAR( item, 0 ) );
@@ -691,7 +691,7 @@ TSCP  sc__2dhack_21_6518f460( void )
    of memory until the request is satisfied.  When quit is true, the program
    will fail when space cannot be allcoated.  On return from this procedure,
    the structure sc_heapblocks contains information about the blocks of memory
-   allocated. 
+   allocated.
 */
 
 struct HEAPBLOCKS  sc_heapblocks;
@@ -710,40 +710,40 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 #else
 #if defined(LINUX) || defined(AMD64)
       /* changed by Qobi S10Jan99 and again R18Feb99 and again F19Feb99
-          and again R1Jun2000 and again F2Nov2001 */
+	  and again R1Jun2000 and again F2Nov2001 */
        if (!linux_getenv_hack)
       { linux_getenv_hack = (0==0);
-         if (getenv("SCMMAP")!=NULL) linux_mmap_hack = (0==0);}
+	 if (getenv("SCMMAP")!=NULL) linux_mmap_hack = (0==0);}
        if (linux_mmap_hack)
        { for (; bytes>0; bytes -= PAGEBYTES)
-        /* This used to be 0x00000001. With that, under RH7.2 the maximum
-            amount that can be allocated is about 2G. Because allocation
-            starts around 0x40000000 and goes up to about 0xc0000000. If you
-            set this to 0x00001000 then allocation starts at 0x00001000 and
-            goes up to about 0xc0000000 giving about 3G maximum allocation.
-            I have not been able to get any pages allocated above 0xc0000000
-            and thus have not been able to get more than 3G. For some reason,
-            when this is 0x00001000 allocation starts below 0x40000000. But
-            when it is 0x00000000, 0x00000001, or above 0x40000000,
-            allocation starts at 0x40000000 and pages below that never get
-            allocated. */
-        { memp = mmap((void *)0x00001000, (size_t)(bytes+PAGEBYTES-1),
-                      PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0);
-          if ((S2CINT)memp!=-1)
-          { if ((S2CINT)memp&(PAGEBYTES-1))
-            { memp =
-              (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp&(PAGEBYTES-1))));}
-            goto l;}}
-        memp = NULL;
-        l:;}
+	/* This used to be 0x00000001. With that, under RH7.2 the maximum
+	    amount that can be allocated is about 2G. Because allocation
+	    starts around 0x40000000 and goes up to about 0xc0000000. If you
+	    set this to 0x00001000 then allocation starts at 0x00001000 and
+	    goes up to about 0xc0000000 giving about 3G maximum allocation.
+	    I have not been able to get any pages allocated above 0xc0000000
+	    and thus have not been able to get more than 3G. For some reason,
+	    when this is 0x00001000 allocation starts below 0x40000000. But
+	    when it is 0x00000000, 0x00000001, or above 0x40000000,
+	    allocation starts at 0x40000000 and pages below that never get
+	    allocated. */
+	{ memp = mmap((void *)0x00001000, (size_t)(bytes+PAGEBYTES-1),
+		      PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0);
+	  if ((S2CINT)memp!=-1)
+	  { if ((S2CINT)memp&(PAGEBYTES-1))
+	    { memp =
+	      (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp&(PAGEBYTES-1))));}
+	    goto l;}}
+	memp = NULL;
+	l:;}
        else
        {
-#endif  
-        memp = sbrk( 0 );
-        if  ((S2CINT)memp & (PAGEBYTES-1))
-           sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
-        memp = sbrk( bytes );
-	if  ((S2CINT)memp == -1)  memp = NULL; 
+#endif
+	memp = sbrk( 0 );
+	if  ((S2CINT)memp & (PAGEBYTES-1))
+	   sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
+	memp = sbrk( bytes );
+	if  ((S2CINT)memp == -1)  memp = NULL;
 #if defined(LINUX) || defined(AMD64)
        }
 #endif
@@ -776,7 +776,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 /* Memory is allocated for the side tables by calling the following procedure
    with the number of bytes needed.  A pointer to the space is returned.
    Errors occurring during initialization will cause the program to abort.
-   Later errors will return NULL as the procedure's value. 
+   Later errors will return NULL as the procedure's value.
 */
 
 VOIDP  sc_gettable( S2CINT bytes, S2CINT quit )
@@ -840,7 +840,7 @@ void sc_segv__handlers()
 {
 #if STACK_OVERFLOW
 	stackoverflow_install_handler(&stackoverflow_handler,
-				      overflow_stack, 
+				      overflow_stack,
 				      sizeof (overflow_stack));
 
 	sigsegv_install_handler(&sigsegv_handler);
@@ -855,7 +855,7 @@ static VOIDP  ossignal( int sig, VOIDP handler )
 	sigemptyset (& (new_action.sa_mask));
 	(new_action.sa_flags) = 0;
 	sigaction (sig, (&new_action), (&old_action));
-	
+
 	sc_segv__handlers();
 
 	return (old_action.sa_handler);
@@ -961,8 +961,8 @@ void  sc_dispatchpendingsignals()
 	      sc_apply_when_unreferenced();
 	   for  (i = SIGFIRST; i < SIGAFTERGC; i++)  {
 	      if  (mypendingsignals & 1<<i)  {
-	         scrt4_callsignalhandler( C_FIXED( i ) );
-	      }  
+		 scrt4_callsignalhandler( C_FIXED( i ) );
+	      }
 	   }
 	}
 #else
@@ -978,7 +978,7 @@ TSCP  sc_ossignal( TSCP sig, TSCP handler )
 #if  S2CSIGNALS
 #ifdef MACSCI
 	TSCP  prevhandler;
-	
+
 	prevhandler = SIGINT_handler;
 	if  (handler == TRUEVALUE)  {
 	   SIGINT_handler = POINTER_TSCP( (VOIDP)signal_handler );
@@ -987,14 +987,14 @@ TSCP  sc_ossignal( TSCP sig, TSCP handler )
 	}
 	return( prevhandler );
 #endif
-	
+
 	if  (handler == TRUEVALUE)
 #ifdef MAC
 	   return( S2CINT_TSCP( signal( TSCP_S2CINT( sig ),
-				        (__sig_func)signal_handler ) ) );
+					(__sig_func)signal_handler ) ) );
 #else
 	   return( S2CINT_TSCP( ossignal( TSCP_S2CINT( sig ),
-				          (VOIDP)signal_handler ) ) );
+					  (VOIDP)signal_handler ) ) );
 #endif
 	else
 	   return( S2CINT_TSCP( ossignal( TSCP_S2CINT( sig ),
@@ -1004,7 +1004,7 @@ TSCP  sc_ossignal( TSCP sig, TSCP handler )
 #endif
 }
 
-/* The following procedure is called on completion of garbage collection. 
+/* The following procedure is called on completion of garbage collection.
    It coordinates the environment specific clean up of the now unreferenced
    items.
 */
@@ -1041,7 +1041,7 @@ void  sc_stackoverflow()
 
 	if  (sc_stacktrace != NULL)  procname = sc_stacktrace->procname;
 	sc_error( procname, "OVERFLOWED a ~s byte stack",
-	          LIST1( C_FIXED( sc_stackbytes ) ) );
+		  LIST1( C_FIXED( sc_stackbytes ) ) );
 }
 
 /* The following procedure is called on the expiration of the time slice. */
@@ -1067,17 +1067,17 @@ void  sc_timesliced()
 	   }  else  if  (c == BACKSPACE)  {
 	      /* Backspace deletes the last character */
 	      if  (keys.rawcnt)  {
-	         keys.rawcnt--;
-	         INCKEYX( keys.keyinx, -1 );
-	         fputc( c, stdout );
-	         ccleol( stdout );
+		 keys.rawcnt--;
+		 INCKEYX( keys.keyinx, -1 );
+		 fputc( c, stdout );
+		 ccleol( stdout );
 	      }
 	   }  else  if  (c == CONTROL_U)  {
 	      /* Control-u deletes the line */
 	      while  (keys.rawcnt)  {
-	         keys.rawcnt--;
-	         INCKEYX( keys.keyinx, -1 );
-	         fputc( BACKSPACE, stdout );
+		 keys.rawcnt--;
+		 INCKEYX( keys.keyinx, -1 );
+		 fputc( BACKSPACE, stdout );
 	      }
 	      ccleol( stdout );
 	   } else  {
@@ -1088,10 +1088,10 @@ void  sc_timesliced()
 	      fputc( c, stdout );
 	      if  (c == RETURN  ||  c == CONTROL_D) {
 		 /* Make line available to Scheme */
-	         if  (c == RETURN)  fputs( "\n", stdout );
-	         if  (c == CONTROL_D)  fputs( "^D", stdout );
-	         keys.processedcnt = keys.processedcnt+keys.rawcnt;
-	         keys.rawcnt = 0;
+		 if  (c == RETURN)  fputs( "\n", stdout );
+		 if  (c == CONTROL_D)  fputs( "^D", stdout );
+		 keys.processedcnt = keys.processedcnt+keys.rawcnt;
+		 keys.rawcnt = 0;
 	      }
 	   }
 	}
