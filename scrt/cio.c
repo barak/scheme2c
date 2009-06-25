@@ -935,6 +935,14 @@ static  void  signal_handler( int sig )
 #endif
 #endif
 	restore_signal_mask( &oldmask );
+
+	/* Unblock the current signal as this function may not return
+	   and this signal may have been blocked on delivery */
+
+	sigset_t mask;
+	sigaddset(&mask, sig);
+	sigprocmask(SIG_UNBLOCK, &mask, NULL);
+
 	if  (sc_mutex == 0  &&  sc_collecting == 0)
 	   sc_dispatchpendingsignals();
 }
