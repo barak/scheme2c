@@ -9,10 +9,10 @@
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -66,7 +66,7 @@
    generation) to the newspace (pages in the next generation).  Indirect
    pointers to new objects will be placed in the old objects, but pointers
    to new objects are never stored in new objects.
-   
+
    During this phase, the contents of continuations (including the current
    continuation which is in the registers and the stack) get special
    processing.  Each word in them is examined to see if it might be a pointer.
@@ -166,7 +166,7 @@
 #define PAGEPOWER	9		/* 512 bytes/page */
 #define PAGEBYTES	(1<<PAGEPOWER)
 #define PAGEWORDS	(PAGEBYTES/sizeof(S2CINT))	/* bytes/word */
-#define ONEMB		1048576
+#define ONEMB		1048576L
 #define PAGEBIT		PAGEPOWER
 #define PAGEBITLEN	(32-PAGEPOWER)
 
@@ -187,7 +187,7 @@
 #define SEGMENT_PAGE_0( page )	((page & 127) == 0)
 
 /* Each page in the pool has the following flags associated with it:
-   
+
 	PAGEGENERATION	generation number associated with the page.  Even
 			numbered generations are objects that survived a
 			garbage collection.  Odd numbered generations are
@@ -251,7 +251,7 @@ extern S2CINT  sc_initiallink,
 #define S2CPAGE( p ) (p > 0  &&  p <= sc_lastpage  && \
 		      sc_pagegeneration[ p ] != 0)
 #define NOT_S2CPAGE( p ) (p <= 0 ||  p > sc_lastpage  || \
-		          sc_pagegeneration[ p ] == 0)
+			  sc_pagegeneration[ p ] == 0)
 
 extern S2CINT  sc_firstphypagem1,	/* first phypage-1 inScheme's heap */
 	       sc_firstphypage,		/* first phypage in Scheme's heap */
@@ -313,7 +313,7 @@ extern SCP  sc_extobjp;
 #endif
 
 /* A running total of garbage collection resource usage in kept in GCRU.
-   
+
    Garbage collection statistics are printed on stderr following each
    collection when SCGCINFO is true (set by the environment variable SCGCINFO,
    or by the command line flag -scgc, default = 0).
@@ -427,4 +427,3 @@ extern TSCP  sc_verifyobject( XAL1( TSCP ) );
 extern TSCP  sc_weak_2dcons_v;
 
 extern TSCP  sc_weak_2dcons( XAL2( TSCP, TSCP ) );
-                                                                       
