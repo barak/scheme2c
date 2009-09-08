@@ -4,17 +4,17 @@
 
 # Default flags to use when invoking the C compiler.
 
-CFLAGS = -mno-sse2 -mno-sse3 -m64 -O2
+CFLAGS = -O2 -fomit-frame-pointer -ffast-math -finline-functions -fno-math-errno -frename-registers
 LDFLAGS = -lsigsegv
 CC = gcc
 
 # Assembly language object files.
 
-Aruntime = linux.o 
+Aruntime = linux.o
 
 # Profiled library
 
-Plib = 
+Plib =
 
 # Installation tools
 
