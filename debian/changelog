@@ -1,10 +1,11 @@
-scheme2c (1993.3.15.2-5rc) unstable; urgency=low
+scheme2c (1993.3.15.2-5) unstable; urgency=low
 
   * remove any remaining darcs debris
   * merge upstream bug fix (signal handling)
   * merge upstream AMD64 performance enhancement (SSE)
+  * rev deb std
 
- -- Barak A. Pearlmutter <bap@debian.org>  Tue, 08 Sep 2009 14:15:07 -0400
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 08 Sep 2009 14:15:24 -0400
 
 scheme2c (1993.3.15.2-4) unstable; urgency=low
 
