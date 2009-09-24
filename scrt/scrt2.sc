@@ -9,10 +9,10 @@
 ;* the rights to use, copy, modify, merge, publish, distribute, sublicense,
 ;* and/or sell copies of the Software, and to permit persons to whom the
 ;* Software is furnished to do so, subject to the following conditions:
-;* 
+;*
 ;* The above copyright notice and this permission notice shall be included in
 ;* all copies or substantial portions of the Software.
-;* 
+;*
 ;* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 ;* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -137,7 +137,7 @@
 	  ((and (float? x) (float? y))
 	   ((lap (x y) (BOOLEAN (EQ (FLOAT_VALUE x) (FLOAT_VALUE y))))
 	    x y))
-	  (else (error '= "Argument(s) not a NUMBER: ~s ~s" x y))))	  
+	  (else (error '= "Argument(s) not a NUMBER: ~s ~s" x y))))
 
 (define (= x y . z)
     (define (=-LIST x z)
@@ -162,7 +162,7 @@
 	  ((and (float? x) (float? y))
 	   ((lap (x y) (BOOLEAN (LT (FLOAT_VALUE x) (FLOAT_VALUE y))))
 	    x y))
-	  (else (error '< "Argument(s) not a NUMBER: ~s ~s" x y))))	  
+	  (else (error '< "Argument(s) not a NUMBER: ~s ~s" x y))))
 
 (define (< x y . z)
     (define (<-LIST x z)
@@ -187,7 +187,7 @@
 	  ((and (float? x) (float? y))
 	   ((lap (x y) (BOOLEAN (GT (FLOAT_VALUE x) (FLOAT_VALUE y))))
 	    x y))
-	  (else (error '> "Argument(s) not a NUMBER: ~s ~s" x y))))	  
+	  (else (error '> "Argument(s) not a NUMBER: ~s ~s" x y))))
 
 (define (> x y . z)
     (define (>-LIST x z)
@@ -212,7 +212,7 @@
 	  ((and (float? x) (float? y))
 	   ((lap (x y) (BOOLEAN (LTE (FLOAT_VALUE x) (FLOAT_VALUE y))))
 	    x y))
-	  (else (error '<= "Argument(s) not a NUMBER: ~s ~s" x y))))	  
+	  (else (error '<= "Argument(s) not a NUMBER: ~s ~s" x y))))
 
 (define (<= x y . z)
     (define (<=-LIST x z)
@@ -245,7 +245,7 @@
 		  ((>= x (car z)) (>=-list (car z) (cdr z)))
 		  (else #f)))
     (and (>= x y) (>=-list y z)))
-	  
+
 (define (MAX-TWO x y) (if (> x y) x y))
 
 (define (MAX x . y)
@@ -342,8 +342,7 @@
 	(- 0 x)))
 
 (define (/-TWO x y)
-    (cond ((or (eq? y 0) (eqv? y 0.0))
-	   (error '/ "Divisor is equal to 0: ~s" y))
+    (cond ((eq? y 0) (error '/ "Divisor is equal to 0: ~s" y))
     	  ((fixed? x)
 	   (cond ((fixed? y)
 		  (if (eq? ((lap (x y) (_TSCP (REMAINDER (_S2CINT x) (_S2CINT y))))
@@ -393,7 +392,7 @@
 (define (MODULO x y)
     (let ((r (remainder x y)))
 	 (if (zero? r)
-	     r		
+	     r
 	     (if (positive? y)
 		 (if (positive? r) r (+ y r))
 		 (if (negative? r) r (+ y r))))))
@@ -492,7 +491,7 @@
 	  ((and (pair? form) (= (length form) 2) (eq? (car form) 'fix)
 		(fixed? (cadr form)) (>= (cadr form) 0))
 	   ; (fix n)  =>  [-]dddddddd.
-	   (formatnumber number 1 (cadr form)))  
+	   (formatnumber number 1 (cadr form)))
 	  ((and (pair? form) (= (length form) 2) (eq? (car form) 'sci)
 		(fixed? (cadr form)) (>= (cadr form) 0))
 	   ; (sci n)  =>  [-]d.ddde+dd
@@ -562,5 +561,3 @@
 			   (if (and (number? number) (eof-object? eof))
 			       number
 			       #f))))))
-
-		     
