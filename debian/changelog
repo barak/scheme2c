@@ -1,3 +1,11 @@
+scheme2c (1993.3.15.2-6) unstable; urgency=low
+
+  * merge incremental upstream changes: build system tweaks, allow
+    division by zero for floating point numbers, increase maximum non-rest
+    argument count from 50 to 70, fix overflow bug in max heap size limit.
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Fri, 25 Sep 2009 14:33:45 -0400
+
 scheme2c (1993.3.15.2-5) unstable; urgency=low
 
   * remove any remaining darcs debris
