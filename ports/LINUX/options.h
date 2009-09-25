@@ -134,6 +134,6 @@ typedef jmp_buf sc_jmp_buf;
 #define LAZY_STACK_POP 1
 #define LAZY_STACK_INCREMENT 4
 
-#define SCMAXHEAP 4000
+#define SCMAXHEAP 4000U
 
 #endif
