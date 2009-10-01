@@ -4,7 +4,7 @@
 CDECL = ../cdecl/cdecl
 SIZEOF = ../cdecl/sizeof
 SRCDIR = ../../xlib
-SCC = ../scsc/scc 
+SCC = ../scsc/scc
 
 XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \
      Xkeysym.cdecl Xcursorfont.cdecl Xr4.cdecl
@@ -62,7 +62,7 @@ xdpsc = xws2.sc xws3.sc xws4.sc xws5.sc xws6.sc xws7.sc \
 	xws8.sc xws9.sc xws10.sc xwsr4.sc
 
 xdpsch = xws2.sch xws3.sch xws4.sch xws5.sch xws6.sch xws7.sch \
-        xws8.sch xws9.sch xws10.sch xwsr4.sch
+	xws8.sch xws9.sch xws10.sch xwsr4.sch
 
 xdpc = xws2.c xws3.c xws4.c xws5.c xws6.c xws7.c xws8.c xws9.c xws10.c \
        xwsr4.c
@@ -85,7 +85,7 @@ xlibTYPES.sc:	sizeof.cdecl ${XD}
 	${CDECL} xlib -stubs sizeof.cdecl ${XD} ${XDP}
 
 xlibTYPES.c:	xlibTYPES.sc
-	${SCC} -C -Og -sch 12 ${xdsc}
+	${SCC} -C -Og -sch 16 ${xdsc}
 
 xlibTYPES.o:	xlibTYPES.c
 	${SCC} -c ${XLIBCFLAGS} ${xdc}
@@ -104,7 +104,7 @@ ${xwssc}:	xlibTYPES.c
 scixl:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	${SCC} -o scixl -i -m xlib ${xwso} ${xdo} ${XLIB}
 
-scxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}	
+scxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	rm -f scxl.a
 	ar q scxl.a ${xdo} ${xwso}
 	${RANLIB} scxl.a
@@ -115,7 +115,7 @@ clear:
 hello:
 	${SCC} -o hello hello.sc scxl.a ${XLIB}
 
-puzzle: 
+puzzle:
 	${SCC} -o puzzle puzzle.sc scxl.a ${XLIB}
 
 clean:
