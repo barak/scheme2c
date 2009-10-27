@@ -31,3 +31,6 @@ override_dh_auto_install:
 # $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c MANDIR=/usr/share/man install-man
 ## subsumed by debian/scheme2c-doc.docs
 # $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c-doc DOCDIR=/usr/share/doc/scheme2c-doc install-pdf
+
+override_dh_compress:
+	dh_compress --exclude=.pdf
