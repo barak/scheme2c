@@ -1,8 +1,9 @@
 scheme2c (1993.3.15.2-7) unstable; urgency=low
 
   * merge upstream change: increase scc heap while compiling xlib
+  * modernize/shorten debian/rules
 
- -- Barak A. Pearlmutter <bap@debian.org>  Sun, 18 Oct 2009 12:42:04 -0400
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 27 Oct 2009 16:42:18 -0400
 
 scheme2c (1993.3.15.2-6) unstable; urgency=low
 
