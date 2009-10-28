@@ -76,6 +76,11 @@ forAMD64:
 	cp ports/AMD64/linux.s AMD64/server/
 	cp ports/AMD64/options-server.h AMD64/server/options.h
 
+forARM:
+	$(MAKE) "CPU=ARM" forANY
+	cp ports/ARM/arm.s ARM/scrt/
+	cp ports/ARM/options.h ARM/scrt/
+
 forSUNOS5:
 	$(MAKE) "CPU=SUNOS5" forANY
 	cp ports/SUNOS5/sparc.s SUNOS5/scrt/

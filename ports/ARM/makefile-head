@@ -1,0 +1,28 @@
+#
+# This is the header file for constructing make files for LINUX.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer
+LDFLAGS = -lsigsegv
+CC = gcc
+
+# Assembly language object files.
+
+Aruntime = arm.o
+
+# Profiled library
+
+Plib =
+
+# Installation tools
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -lX11
+XLIBCFLAGS =
+
+# End of LINUX header.
