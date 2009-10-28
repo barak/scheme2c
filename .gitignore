@@ -1,5 +1,16 @@
 /AMD64/
+/AOSF/
+/DECMIPS/
+/FREEBSD/
+/HP300/
+/HP700/
 /LINUX/
+/MAC/
+/SGIMIPS/
+/SONYMIPS/
+/SUNOS4/
+/SUNOS5/
+/VAX/
 /doc/*.aux
 /doc/*.dvi
 /doc/*.idx
