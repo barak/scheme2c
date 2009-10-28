@@ -28,11 +28,22 @@ override_dh_auto_install:
 	$(MAKE) -C $(S2C_ARCH)/scrt DESTDIR=`pwd`/debian/scheme2c prefix=/usr install
 	$(MAKE) -C $(S2C_ARCH)/scsc DESTDIR=`pwd`/debian/scheme2c prefix=/usr install
 
-## documentation
-## subsumed by debian/scheme2c-doc.manpages
-# $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c MANDIR=/usr/share/man install-man
-## subsumed by debian/scheme2c-doc.docs
-# $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c-doc DOCDIR=/usr/share/doc/scheme2c-doc install-pdf
+## Documentation Installation
+## Unneeded due to debian/scheme2c.manpages
+# $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c \
+#		 MANDIR=/usr/share/man \
+#
+		install-man
+## Unneeded due to debian/scheme2c-doc.docs
+# $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c-doc \
+#		 DOCDIR=/usr/share/doc/scheme2c-doc \
+#		install-pdf
 
 override_dh_compress:
 	dh_compress --exclude=.pdf
+
+ifneq ($(S2C_ARCH),)
+override_dh_auto_clean:
+	-rm -rf $(S2C_ARCH)
+	dh_auto_clean
+endif
