@@ -5,6 +5,8 @@ ifeq ($(arch),amd64)
   S2C_ARCH = AMD64
 else ifeq ($(arch),i386)
   S2C_ARCH = LINUX
+else ifeq ($(arch),armel)
+  S2C_ARCH = ARM
 else
   $(warning Warning: unsupported architecture $(arch))
   S2C_ARCH = UNSUPPORTED
