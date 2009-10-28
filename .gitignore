@@ -1,11 +1,5 @@
 /AMD64/
 /LINUX/
-/debian/*.debhelper
-/debian/*.log
-/debian/*.substvars
-/debian/files
-/debian/scheme2c-doc/
-/debian/scheme2c/
 /doc/*.aux
 /doc/*.dvi
 /doc/*.idx

@@ -1,0 +1,6 @@
+/*.debhelper
+/*.log
+/*.substvars
+/files
+/scheme2c-doc/
+/scheme2c/
