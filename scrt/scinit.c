@@ -9,10 +9,10 @@
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -46,7 +46,11 @@
 /* Definitions for objects elsewhere in the Scheme system */
 
 extern  TSCP  scrt1_reverse( XAL1( TSCP ) );
+#ifdef __GNUC__
 extern  TSCP  scdebug_error( XAL3( TSCP, TSCP, TSCP ) ) __attribute__((noreturn));
+#else
+extern  TSCP  scdebug_error( XAL3( TSCP, TSCP, TSCP ) );
+#endif
 extern  TSCP  screp__init();
 extern	TSCP  screp_scheme2c( XAL1( TSCP ) );
 
@@ -63,8 +67,8 @@ static S2CINT  expandfailed = 0;	/* Expansion failure flag */
 static S2CINT  module_initialized = 0;
 
 S2CINT  sc_timeslice = MAXS2CINT,	/* Counter for time slicing. */
-        sc_timesliceinit = 10000,	/* Time slice value */
-        sc_stackbytes = 5000;		/* # of bytes of stack */
+	sc_timesliceinit = 10000,	/* Time slice value */
+	sc_stackbytes = 5000;		/* # of bytes of stack */
 
 char *sc_topofstack,			/* Top-of-stack limit. */
      *sc_savetopofstack;		/* Save it here on stack overflow */
@@ -110,7 +114,7 @@ static S2CINT  getinteger( char* cp )
 static void  decodearguments( S2CINT argc, char *argv[] )
 {
 	char  *val;
-	
+
 	val = getargval( argc, argv, "-sch", "SCHEAP" );
 	if  (val != NULL)  {
 	   scheap = getinteger( val );
@@ -125,7 +129,7 @@ static void  decodearguments( S2CINT argc, char *argv[] )
 	   if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
 	}
 	else  scmaxheap = scheap*5;
-        if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
+	if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
 	heapfilename = getargval( argc, argv, "-schf", "SCHEAPFILE" );
 	val = getargval( argc, argv, "-scgc", "SCGCINFO" );
 	if  (val != NULL)  {
@@ -198,7 +202,7 @@ TSCP  sc_set_2dtime_2dslice_21( TSCP ticks )
 {
 	if  (TSCPTAG( ticks ) != FIXNUMTAG  ||  FIXED_C( ticks ) <= 0)
 	   sc_error( "SET-TIME-SLICE!", "Argument is not a POSITIVE INTEGER",
-	             EMPTYLIST );
+		     EMPTYLIST );
 	sc_timesliceinit = FIXED_C( ticks );
 	sc_timeslice = sc_timesliceinit;
 	return( ticks );
@@ -225,7 +229,7 @@ TSCP  sc_set_2dstack_2dsize_21( TSCP bytes )
 	     FIXED_C( bytes ) <= (STACKFUDGE*2))
 	   sc_error( "SET-STACK-SIZE!",
 	   	     "Argument is not a POSITIVE INTEGER >= ~s",
-		     LIST1( C_FIXED( STACKFUDGE*2 ) ) ); 
+		     LIST1( C_FIXED( STACKFUDGE*2 ) ) );
 	sc_stackbytes = FIXED_C( bytes );
 #ifdef STACK_GROWS_POSITIVE
 	ts = ((char*)sc_stackbase)+sc_stackbytes-STACKFUDGE;
@@ -245,7 +249,7 @@ TSCP  sc_set_2dstack_2dsize_21( TSCP bytes )
 static void  allocate_sidetables( S2CINT first,	/* heap pages */
 				  S2CINT last,
 						/* Ptrs to ptrs to tbls */
-				  unsigned char **pagegen,  
+				  unsigned char **pagegen,
 				  unsigned char **type,
 	       			  unsigned char **lock,
 				  PAGELINK  **link )
@@ -253,15 +257,15 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 	S2CINT  bytes;
 	char*  addr;
 
-        typedef unsigned char uchar;
+	typedef unsigned char uchar;
 
-        if  ( (*pagegen = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
+	if  ( (*pagegen = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
 					       ~module_initialized )) != NULL  &&
 	      (*type = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
 					    ~module_initialized )) != NULL  &&
 	      (*lock = (uchar* )sc_gettable( (last-first+2)*sizeof( unsigned char ),
 					     ~module_initialized )) != NULL  &&
-              (*link = (PAGELINK*)sc_gettable( (last-first+2)
+	      (*link = (PAGELINK*)sc_gettable( (last-first+2)
 					       *sizeof( PAGELINK ),
 					       ~module_initialized ))
 	      != NULL )  {
@@ -332,7 +336,7 @@ sc_newheap()
 	sc_conscnt = 0;
 	sc_extobjwords = 0;
 	sc_emptylist = EMPTYLIST;
-	ep = (SCP)((((S2CINT)((char*)&empty[0]))+(sizeof(S2CINT)-1)) & 
+	ep = (SCP)((((S2CINT)((char*)&empty[0]))+(sizeof(S2CINT)-1)) &
 		   ~(((S2CINT)sizeof(S2CINT))-1));
 	ep->vector.length = 0;
 	ep->vector.tag = VECTORTAG;
@@ -385,7 +389,7 @@ sc_newheap()
    procedure.
 */
 
-static void  addrtoheap( )	
+static void  addrtoheap( )
 {
 	S2CINT  first_addr,	/* First phy page of new space */
 	       last_addr,	/* Last phy page of new space */
@@ -409,25 +413,25 @@ static void  addrtoheap( )
 	      page = ADDRESS_PAGE( sc_heapblocks.block[ i ].address );
 	      if  ((j = ((S2CINT)sc_heapblocks.block[ i ].address) &
 		    (PAGEBYTES-1)))  {
-	         page = page+1;
+		 page = page+1;
 	      }
 	      pagecnt = (sc_heapblocks.block[ i ].size-j)/PAGEBYTES;
 	      if  (sc_gcinfo > 1)  {
-	         sc_log_string( "***** To heap " );
-	         sc_log_hex( PAGE_ADDRESS( page ) );
-	         sc_log_string( " " );
-	         sc_log_hex( PAGE_ADDRESS( page )+pagecnt*PAGEBYTES-1 );
-	         sc_log_string( "\n" );
+		 sc_log_string( "***** To heap " );
+		 sc_log_hex( PAGE_ADDRESS( page ) );
+		 sc_log_string( " " );
+		 sc_log_hex( PAGE_ADDRESS( page )+pagecnt*PAGEBYTES-1 );
+		 sc_log_string( "\n" );
 	      }
 	      for  (j = 0; j < pagecnt; j++)  {
-	         if  (sc_pagegeneration[ page+j ])  {
-	            sc_log_string( "***** COLLECT Trying to reallocate page ");
+		 if  (sc_pagegeneration[ page+j ])  {
+		    sc_log_string( "***** COLLECT Trying to reallocate page ");
 		    sc_log_dec( page+j );
 		    sc_log_string( "\n" );
 		    sc_abort();
-	         }
-	         sc_pagegeneration[ page+j ] = 1;
-	         sc_pagelock[ page+j ] = 0;
+		 }
+		 sc_pagegeneration[ page+j ] = 1;
+		 sc_pagelock[ page+j ] = 0;
 	      }
 	      sc_heappages = sc_heappages+pagecnt;
 	   }
@@ -587,8 +591,8 @@ TSCP  sc_implementation()
 	   sc_cons(
 	      CSTRING_TSCP( "Scheme->C" ),
 	      sc_cons(
-	         CSTRING_TSCP( "15mar93jfb" ),
-	         sc_cons(
+		 CSTRING_TSCP( "15mar93jfb" ),
+		 sc_cons(
 #ifdef IMPLEMENTATION_MACHINE
 		    CSTRING_TSCP( IMPLEMENTATION_MACHINE ),
 #else
@@ -613,12 +617,12 @@ TSCP  sc_implementation()
 			  FALSEVALUE,
 #endif
 			      EMPTYLIST
-			         )
+				 )
 			      )
 			   )
-		        )
+			)
 		     )
-	          )
+		  )
 	      );
 }
 
@@ -672,65 +676,65 @@ void  scheme2c( char *input_expression, int *status,
 
 static void  init_procs()
 {
-        INITIALIZEVAR( "COLLECT", 
-                       ADR( sc_collect_v ), 
-                       MAKEPROCEDURE( 0, 
-                                      0, sc_collect, EMPTYLIST ) );
-        INITIALIZEVAR( "COLLECT-ALL", 
-                       ADR( sc_collect_2dall_v ), 
-                       MAKEPROCEDURE( 0, 
-                                      0, sc_collect_2dall, EMPTYLIST ) );
-        INITIALIZEVAR( "CONS", 
-                       ADR( sc_cons_v ), 
-                       MAKEPROCEDURE( 2, 0, sc_cons, EMPTYLIST ) );
-        INITIALIZEVAR( "WEAK-CONS", 
-                       ADR( sc_weak_2dcons_v ), 
-                       MAKEPROCEDURE( 2, 0, sc_weak_2dcons, EMPTYLIST ) );
-        INITIALIZEVAR( "MAKE-STRING",
-                       ADR( sc_make_2dstring_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      1, 
-                                      sc_make_2dstring, EMPTYLIST ) );
-        INITIALIZEVAR( "STRING-COPY", 
-                       ADR( sc_string_2dcopy_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      0, 
-                                      sc_string_2dcopy, EMPTYLIST ) );
-        INITIALIZEVAR( "MAKE-VECTOR", 
-                       ADR( sc_make_2dvector_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      1, 
-                                      sc_make_2dvector, EMPTYLIST ) );
-        INITIALIZEVAR( "MAKE-%RECORD", 
-                       ADR( sc_make_2d_25record_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      1, 
-                                      sc_make_2d_25record, EMPTYLIST ) );
+	INITIALIZEVAR( "COLLECT",
+		       ADR( sc_collect_v ),
+		       MAKEPROCEDURE( 0,
+				      0, sc_collect, EMPTYLIST ) );
+	INITIALIZEVAR( "COLLECT-ALL",
+		       ADR( sc_collect_2dall_v ),
+		       MAKEPROCEDURE( 0,
+				      0, sc_collect_2dall, EMPTYLIST ) );
+	INITIALIZEVAR( "CONS",
+		       ADR( sc_cons_v ),
+		       MAKEPROCEDURE( 2, 0, sc_cons, EMPTYLIST ) );
+	INITIALIZEVAR( "WEAK-CONS",
+		       ADR( sc_weak_2dcons_v ),
+		       MAKEPROCEDURE( 2, 0, sc_weak_2dcons, EMPTYLIST ) );
+	INITIALIZEVAR( "MAKE-STRING",
+		       ADR( sc_make_2dstring_v ),
+		       MAKEPROCEDURE( 1,
+				      1,
+				      sc_make_2dstring, EMPTYLIST ) );
+	INITIALIZEVAR( "STRING-COPY",
+		       ADR( sc_string_2dcopy_v ),
+		       MAKEPROCEDURE( 1,
+				      0,
+				      sc_string_2dcopy, EMPTYLIST ) );
+	INITIALIZEVAR( "MAKE-VECTOR",
+		       ADR( sc_make_2dvector_v ),
+		       MAKEPROCEDURE( 1,
+				      1,
+				      sc_make_2dvector, EMPTYLIST ) );
+	INITIALIZEVAR( "MAKE-%RECORD",
+		       ADR( sc_make_2d_25record_v ),
+		       MAKEPROCEDURE( 1,
+				      1,
+				      sc_make_2d_25record, EMPTYLIST ) );
  	INITIALIZEVAR( "C-STRING->STRING",
 		       ADR( sc_c_2dstring_2d_3estring_v ),
 		       MAKEPROCEDURE( 1,
 				      0,
 				      sc_c_2dstring_2d_3estring, EMPTYLIST ) );
-       INITIALIZEVAR( "STRING->SYMBOL", 
-                       ADR( sc_string_2d_3esymbol_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      0, 
-                                      sc_string_2d_3esymbol, EMPTYLIST ) );
-        INITIALIZEVAR( "STRING->UNINTERNED-SYMBOL", 
-                       ADR( sc_d_2dsymbol_ab4b4447_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      0, 
-                                      sc_d_2dsymbol_ab4b4447, 
-                                      EMPTYLIST ) );
-        INITIALIZEVAR( "UNINTERNED-SYMBOL?", 
-                       ADR( sc_uninterned_2dsymbol_3f_v ), 
-                       MAKEPROCEDURE( 1, 
-                                      0, 
-                                      sc_uninterned_2dsymbol_3f, 
-                                      EMPTYLIST ) );
-        INITIALIZEVAR( "CALL-WITH-CURRENT-CONTINUATION", 
-                       ADR( sc_ntinuation_1af38b9f_v ), 
-                       MAKEPROCEDURE( 1, 0, sc_callcc, EMPTYLIST ) );
+       INITIALIZEVAR( "STRING->SYMBOL",
+		       ADR( sc_string_2d_3esymbol_v ),
+		       MAKEPROCEDURE( 1,
+				      0,
+				      sc_string_2d_3esymbol, EMPTYLIST ) );
+	INITIALIZEVAR( "STRING->UNINTERNED-SYMBOL",
+		       ADR( sc_d_2dsymbol_ab4b4447_v ),
+		       MAKEPROCEDURE( 1,
+				      0,
+				      sc_d_2dsymbol_ab4b4447,
+				      EMPTYLIST ) );
+	INITIALIZEVAR( "UNINTERNED-SYMBOL?",
+		       ADR( sc_uninterned_2dsymbol_3f_v ),
+		       MAKEPROCEDURE( 1,
+				      0,
+				      sc_uninterned_2dsymbol_3f,
+				      EMPTYLIST ) );
+	INITIALIZEVAR( "CALL-WITH-CURRENT-CONTINUATION",
+		       ADR( sc_ntinuation_1af38b9f_v ),
+		       MAKEPROCEDURE( 1, 0, sc_callcc, EMPTYLIST ) );
 	INITIALIZEVAR( "IMPLEMENTATION-INFORMATION",
 		       ADR( sc_implementation_v ),
 		       MAKEPROCEDURE( 0,
@@ -772,6 +776,6 @@ static void  init_procs()
 	INITIALIZEVAR( "TIME-OF-DAY",
 		       ADR( sc_time_2dof_2dday_v ),
 		       MAKEPROCEDURE( 0, 0, sc_time_2dof_2dday, EMPTYLIST ) );
-        MAXDISPLAY( 0 );
-        return;
+	MAXDISPLAY( 0 );
+	return;
 }

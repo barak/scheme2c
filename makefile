@@ -92,7 +92,7 @@ forSUNOS5:
 forSUNOS4:
 	$(MAKE) "CPU=SUNOS4" forANY
 	cp ports/SUNOS4/sparc.s SUNOS4/scrt/
-	cp ports/SUNOS5/sparc-pragma.h SUNOS5/scrt/
+	cp ports/SUNOS4/sparc-pragma.h SUNOS5/scrt/
 	cp ports/SUNOS4/options.h SUNOS4/scrt/
 	cp ports/SUNOS4/sparc.s SUNOS4/server/
 	cp ports/SUNOS4/options-server.h SUNOS4/server/options.h
