@@ -25,6 +25,7 @@ Description: Joel Bartlett's fabled Scheme->C system
 Package: scheme2c-doc
 Section: doc
 Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Documentation for the Scheme->C system
  The documentation that accompanies the Scheme->C system includes a
  programmer's guide, tutorial, and a copy of the R4RS specification.
