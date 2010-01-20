@@ -9,10 +9,10 @@
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -58,7 +58,11 @@ extern TSCP  sc_readnumber( XAL2( TSCP, TSCP ) );
 
 extern char*  sc_getenv( XAL1( char* ) );
 
+#ifdef __GNUC__
 extern void  sc_abort() __attribute__((noreturn));
+#else
+extern void  sc_abort();
+#endif
 
 extern void  sc_osexit( XAL1( TSCP ) );
 

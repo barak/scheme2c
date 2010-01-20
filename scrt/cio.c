@@ -42,7 +42,7 @@ extern long _sysconf(int);     /* System Private interface to sysconf() */
 #include <types.h>
 #else
 #include <sys/types.h>
-#if defined(LINUX) || defined(AMD64)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
 #include <time.h>
 #include <unistd.h>
 #include <sys/mman.h>
@@ -129,7 +129,7 @@ extern double strtod( XAL2(char*, char**) );
 #include <unistd.h>
 #else
 
-#if !defined(LINUX) && !defined(AMD64)
+#if !defined(LINUX) && !defined(AMD64) && !defined(LINUX_ARM)
 extern  char *sbrk();
 #endif
 
@@ -439,7 +439,7 @@ TSCP  sc_charready( TSCP file )
 	struct timeval  timeout;
 
 	stream = (FILE*)TSCP_POINTER( file );
-#if defined(LINUX) || defined(AMD64)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
 	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
 #elif defined(FREEBSD)
  	if  (((stream)->_r) <= 0)  {
@@ -509,7 +509,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	      break;
 
 	   case 3:
-#if defined(MAC) || defined(LINUX) || defined(FREEBSD)
+#if defined(MAC) || defined(LINUX) || defined(FREEBSD) || defined(LINUX_ARM)
  	      snprintf( format, sizeof(format), "%%.%lilg", (long)TSCP_S2CINT( length ) );
 	      snprintf( buffer, sizeof(buffer), format, TSCP_DOUBLE( number ) );
 #else
@@ -590,7 +590,7 @@ double  sc_cputime()
 	struct tms buffer;
 
 	(void) times (&buffer);
-#if defined(AMD64) || defined(LINUX)
+#if defined(AMD64) || defined(LINUX) || defined(LINUX_ARM)
 	return ((buffer.tms_utime) / CLOCKS_PER_SEC);
 #else
 	return ((buffer.tms_utime) / CLK_TCK);
@@ -671,7 +671,7 @@ TSCP  sc_error_2ddisplay( TSCP item )
 /* Memory allocation */
 
 
-#if defined(LINUX) || defined(AMD64)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
 
 /* added by Qobi F2Nov2001 */
 int linux_mmap_hack = (0==1);
@@ -708,7 +708,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 	   memp = (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp &
 						  (PAGEBYTES-1))));
 #else
-#if defined(LINUX) || defined(AMD64)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
       /* changed by Qobi S10Jan99 and again R18Feb99 and again F19Feb99
 	  and again R1Jun2000 and again F2Nov2001 */
        if (!linux_getenv_hack)
@@ -744,7 +744,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 	   sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
 	memp = sbrk( bytes );
 	if  ((S2CINT)memp == -1)  memp = NULL;
-#if defined(LINUX) || defined(AMD64)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
        }
 #endif
 #endif

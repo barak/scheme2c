@@ -219,7 +219,7 @@ static  trace_stack_and_registers()
 #endif
 
 #if defined(AMD64) || defined(LINUX) || defined(HP700) \
-  || defined(MIPS) || defined(FREEBSD)
+  || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM)
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
    turn can be used to find the address of the top of stack.
@@ -400,6 +400,20 @@ static void trace_stack_and_registers()
 }
 #endif
 
+#ifdef LINUX_ARM
+/* All processor registers which might contain pointers are traced by the
+   following procedure.
+*/
+
+static void trace_stack_and_registers()
+{
+      S2CINT  armregs[9], *pp;
+
+      sc_getARMregs( armregs );
+      STACKPTR( pp );
+      while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp++) );
+}
+#endif
 
 /* The size of an extended object in words is returned by the following
    function.
@@ -1931,7 +1945,9 @@ struct SEEN*  seenp;
 
 /* Put a breakpoint on this procedure to catch verification problems */
 
+#ifdef __GNUC__
 static void verifyfail() __attribute__((noreturn));
+#endif
 static void verifyfail() 
 {
 	sc_abort();
@@ -2028,11 +2044,11 @@ TSCP  sc_verifyobject( TSCP any )
 	      sc_verifyobject( PAIR_CDR( any ) );
 	      seenp = seen.prev;
 	      return( any );
- 	   default:
+	   default:
 	     verifyfail();
 	}
 }
-	      
+
 /* The following function forms a weak dotted-pair with any two Scheme
    pointers.  A weak dotted-pair is a pair that has the property that the CAR
    of the pair may be set to #F by the garbage collector if it contains the
@@ -2056,7 +2072,3 @@ TSCP  sc_weak_2dcons( TSCP x, TSCP y )
 	MUTEXOFF;
 	return( cons );
 }
-	
-
-		 
-                              
