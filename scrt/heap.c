@@ -9,10 +9,10 @@
  * the rights to use, copy, modify, merge, publish, distribute, sublicense,
  * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -107,7 +107,7 @@ S2CINT	sc_extobjwords,		/* # of words for ext objs in sc_extobjp */
 SCP	sc_extobjp;		/* pointer to next free extended obj word */
 
 S2CINT	sc_gcinfo,		/* controls logging */
-	sc_collecting;
+        sc_collecting;		
 
 static S2CINT  sc_newlist;	/* list of newly allocated pages */
 
@@ -122,7 +122,7 @@ TSCP	sc_after_2dcollect_v,	/* Collection status callback */
 
 static double  starttime = 0.0;	/* Processor time at start of interval */
 double  sc_usertime = 0.0,	/* Scheme time */
-	sc_idletime = 0.0,	/* Outside Scheme time */
+        sc_idletime = 0.0,	/* Outside Scheme time */
 	sc_gctime = 0.0;	/* Collection time */
 
 /* Application and collection time is kept by the following routine.  When
@@ -219,7 +219,7 @@ static  trace_stack_and_registers()
 #endif
 
 #if defined(AMD64) || defined(LINUX) || defined(HP700) \
-  || defined(MIPS) || defined(FREEBSD)
+  || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM)
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
    turn can be used to find the address of the top of stack.
@@ -254,11 +254,11 @@ static void trace_stack_and_registers()
 
 static void trace_stack_and_registers()
 {
-	S2CINT  r1tor18[18], *pp;
+        S2CINT  r1tor18[18], *pp;
 
-	sc_r1tor18( r1tor18 );
-	STACKPTR( pp );
-	while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp--) );
+        sc_r1tor18( r1tor18 );
+        STACKPTR( pp );
+        while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp--) );
 }
 #endif
 
@@ -400,6 +400,20 @@ static void trace_stack_and_registers()
 }
 #endif
 
+#ifdef LINUX_ARM
+/* All processor registers which might contain pointers are traced by the
+   following procedure.
+*/
+
+static void trace_stack_and_registers()
+{
+      S2CINT  armregs[9], *pp;
+
+      sc_getARMregs( armregs );
+      STACKPTR( pp );
+      while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp++) );
+}
+#endif
 
 /* The size of an extended object in words is returned by the following
    function.
@@ -451,7 +465,7 @@ static S2CINT  extendedsize( SCP obj )
 
 /* Words inside continuations are checked by the following function.  If the
    word looks like a pointer, then the page containing the object will be
-   locked and the object will be moved.
+   locked and the object will be moved.  
 */
 
 static void  move_continuation_ptr( SCP pp )
@@ -459,15 +473,15 @@ static void  move_continuation_ptr( SCP pp )
 	S2CINT  page, tag;
 	SCP  sweep, next;
 
-	if ((S2CUINT)pp >= (S2CUINT)sc_firstheapp  &&
+	if ((S2CUINT)pp >= (S2CUINT)sc_firstheapp  && 
 	    (S2CUINT)pp < (S2CUINT)sc_lastheapp)  {
 	   page = ADDRESS_PAGE( pp );
 	   if  (S2CPAGE( page )  &&
 		sc_current_generation == sc_pagegeneration[ page ])  {
 	      tag = sc_pagetype[ page ];
 	      if  (tag == PAIRTAG)  {
-		 /* Trace just that PAIR */
-		 pp = (SCP)(((S2CINT)pp) & ~(((S2CINT)CONSBYTES)-1));
+	         /* Trace just that PAIR */
+	         pp = (SCP)(((S2CINT)pp) & ~(((S2CINT)CONSBYTES)-1));
 		 if  (sc_pagelock[ page ] == 0)  {
 		    sc_pagelock[ page ] = 1;
 		    sc_pagelink[ page ] = sc_locklist;
@@ -491,9 +505,9 @@ static void  move_continuation_ptr( SCP pp )
 		 sc_pagelock[ page ] = 1;
 		 sc_pagelink[ page ] = sc_locklist;
 		 sc_locklist = page;
-		 if  (sweep->wordalign.tag == WORDALIGNTAG)  {
-		    sweep = (SCP)( ((S2CINT*)sweep)+WORDALIGNSIZE );
-		 }
+	         if  (sweep->wordalign.tag == WORDALIGNTAG)  {
+	            sweep = (SCP)( ((S2CINT*)sweep)+WORDALIGNSIZE );
+	         }
 		 sc_lockcnt = (extendedsize( sweep )+PAGEWORDS-1)/PAGEWORDS+
 		 	      sc_lockcnt;
 	      }
@@ -503,7 +517,7 @@ static void  move_continuation_ptr( SCP pp )
 		 if  ((S2CUINT)pp < (S2CUINT)next)  {
 		    /* sweep points to object to move */
 		    if  (sc_gcinfo == 2  &&
-			 sweep->forward.tag != FORWARDTAG)  {
+		         sweep->forward.tag != FORWARDTAG)  {
 		       sc_log_string( "              move_continuation_ptr " );
 		       sc_log_hex( (S2CUINT)U_TX( sweep ) );
 		       sc_log_string( "\n" );
@@ -561,11 +575,11 @@ static void  move_ptr( TSCP tpp )
 		return;
 
 	   case  IMMEDIATETAG:
-		return;
+	        return;
 
 	   case  PAIRTAG:
 		page = ADDRESS_PAGE( pp );
-		if  (pp->forward.tag == FORWARDTAG  ||
+	        if  (pp->forward.tag == FORWARDTAG  ||
 		     sc_pagegeneration[ page ] != sc_current_generation)
 		   return;
 		if  (sc_pagetype[ page ] != PAIRTAG)  {
@@ -578,7 +592,7 @@ static void  move_ptr( TSCP tpp )
 		pp->forward.length = CONSSIZE;
 		return;
 	}
-}
+}  
 
 /* MOVE_OBJECT is called to move all extended objects in a page starting at
    a starting point.  It will return a pointer to the first object that it
@@ -596,7 +610,7 @@ static SCP  move_object( SCP pp )
 	   moving_object = pp;
 	   switch  ( pp->extendedobj.tag )  {
 	      case  SYMBOLTAG:
-		 move_ptr( pp->symbol.name );
+	         move_ptr( pp->symbol.name );
 		 vpage = ADDRESS_PAGE( pp->symbol.ptrtovalue );
 		 if  (S2CPAGE( vpage ))
 		    pp->symbol.ptrtovalue = &pp->symbol.value;
@@ -610,19 +624,19 @@ static SCP  move_object( SCP pp )
 		 break;
 
 	      case  VECTORTAG:
-		 cnt = pp->vector.length;
+	         cnt = pp->vector.length;
 		 obj = &pp->vector.element0;
 		 while  (cnt--)  move_ptr( *obj++ );
 		 size = VECTORSIZE( pp->vector.length );
-		 break;
+		 break;	         
 
 	      case  PROCEDURETAG:
-		 move_ptr( pp->procedure.closure );
+	         move_ptr( pp->procedure.closure );
 	   	 size = PROCEDURESIZE;
 		 break;
 
 	      case  CLOSURETAG:
-		 move_ptr( pp->closure.closure );
+	         move_ptr( pp->closure.closure );
 		 cnt = pp->closure.length;
 		 obj = &pp->closure.var0;
 		 while  (cnt--)  move_ptr( *obj++ );
@@ -647,19 +661,19 @@ static SCP  move_object( SCP pp )
 		 break;
 
 	      case  RECORDTAG:
-		 move_ptr( pp->record.methods );
-		 cnt = pp->record.length;
+	         move_ptr( pp->record.methods );
+	         cnt = pp->record.length;
 		 obj = &pp->record.element0;
 		 while  (cnt--)  move_ptr( *obj++ );
 		 size = RECORDSIZE( pp->record.length );
-		 break;
+		 break;	
 
 	      case  DOUBLEFLOATTAG:
 	   	 size = DOUBLEFLOATSIZE;
 		 break;
 
 	      case  FORWARDTAG:
-		 size = FORWARDSIZE( pp->forward.length );
+	         size = FORWARDSIZE( pp->forward.length );
 		 break;
 
 	      case  WORDALIGNTAG:
@@ -667,8 +681,8 @@ static SCP  move_object( SCP pp )
 		 break;
 
 	      default:
-		 pointererror( " is not a valid extended object tag\n",
-			       pp->extendedobj.tag );
+	         pointererror( " is not a valid extended object tag\n",
+	         	       pp->extendedobj.tag );
 	   }
 	   pp = (SCP)( ((S2CINT*)pp)+size );
 	   left = left-size;
@@ -703,7 +717,7 @@ static void save_weakconsl()
 	   weakcons = WEAK_CONS( wl );
 	   pp = T_U( PAIR_CAR( weakcons ) );
 	   if  (TSCPTAG( PAIR_CAR( weakcons ) ) & 1  &&
-		pp >= (SCP)sc_firstheapp  &&  pp < (SCP)sc_lastheapp)  {
+	        pp >= (SCP)sc_firstheapp  &&  pp < (SCP)sc_lastheapp)  {
 	      WEAK_CAR( wl ) = PAIR_CAR( weakcons );
 	      PAIR_CAR( weakcons ) = FALSEVALUE;
 	   }
@@ -725,19 +739,19 @@ static void rebuild_weakconsl()
 	while  (wl != EMPTYLIST)  {
 	   newcons = resolveptr( (oldcons = WEAK_CONS( wl )) );
 	   newcar = resolveptr( (oldcar = WEAK_CAR( wl )) );
-	   if  (oldcons == newcons  &&
-		sc_pagegeneration[ ADDRESS_PAGE( oldcons ) ] ==
+	   if  (oldcons == newcons  && 
+		sc_pagegeneration[ ADDRESS_PAGE( oldcons ) ] == 
 		sc_current_generation)  {
 	      /* Cons cell was not retained so drop from list */
 	      wl = resolveptr( WEAK_LINK( wl ) );
-	   }
+	   }  
 	   else  {
 	      if  (oldcar != FALSEVALUE  &&
 		   (oldcar != newcar  ||
 		    sc_pagegeneration[ ADDRESS_PAGE( oldcar ) ] !=
 		    sc_current_generation))  {
-		 /* Object is still in use so restore it's car ptr */
-		 PAIR_CAR( newcons ) = oldcar;
+	         /* Object is still in use so restore it's car ptr */
+	         PAIR_CAR( newcons ) = oldcar;
 	      }
 	      weak = MAKE_WEAK;
 	      WEAK_LINK( weak ) = weakconsl;
@@ -764,7 +778,7 @@ static void check_unreferenced()
 	   object_procedure = resolveptr( PAIR_CAR( objects ) );
 	   object = PAIR_CAR( object_procedure );
 	   if  (object == resolveptr( object )  &&
-		sc_pagegeneration[ ADDRESS_PAGE( object ) ] ==
+		sc_pagegeneration[ ADDRESS_PAGE( object ) ] == 
 		sc_current_generation)  {
 	      /* Object was not forwarded, so it needs to be cleaned up. */
 	      sc_freed = sc_cons( object_procedure, sc_freed );
@@ -798,7 +812,7 @@ static void move_the_heap()
 	      if  (page != -1)  {
 		 sc_pagelink[ page ] = sc_newlist;
 		 sc_newlist = page;
-		 myconsp = (SCP)PAGE_ADDRESS( page );
+	         myconsp = (SCP)PAGE_ADDRESS( page );
 	      }
 	   }
 	   if  (myconsp != NULL  &&
@@ -806,10 +820,10 @@ static void move_the_heap()
 	      count = (PAGEBYTES-ADDRESS_OFFSET( myconsp ))/CONSBYTES;
 	      progress = 1;
 	      while  (count--  &&  (myconsp != sc_consp || sc_conscnt == 0))  {
-		 moving_object = myconsp;
-		 move_ptr( myconsp->pair.car );
-		 move_ptr( myconsp->pair.cdr );
-		 myconsp = (SCP)(((char*)myconsp)+CONSBYTES);
+	         moving_object = myconsp;
+	         move_ptr( myconsp->pair.car );
+	         move_ptr( myconsp->pair.cdr );
+	         myconsp = (SCP)(((char*)myconsp)+CONSBYTES);
 	      }
 	      if  (count == -1)  myconsp = NULL;
 	   }
@@ -820,7 +834,7 @@ static void move_the_heap()
 	      if  (page != -1)  {
 		 sc_pagelink[ page ] = sc_newlist;
 		 sc_newlist = page;
-		 myextobjp = (SCP)PAGE_ADDRESS( page );
+	         myextobjp = (SCP)PAGE_ADDRESS( page );
 	      }
 	   }
 	   if  (myextobjp != NULL)  {
@@ -869,7 +883,7 @@ static void move_the_generations()
 		 break;
 
 	      case  EXTENDEDTAG:
-		 move_object( (SCP)PAGE_ADDRESS( page ) );
+	         move_object( (SCP)PAGE_ADDRESS( page ) );
 		 break;
 	   }
 	   page = sc_pagelink[ ADDRESS_PAGE( pageaddr ) ];
@@ -889,7 +903,7 @@ static TSCP  correct( TSCP tobj )
 	if  (((S2CINT)tobj) & 1)  {
 	   obj = T_U( tobj );
 	   if  ( (obj->forward.tag != FORWARDTAG)  ||
-		 sc_pagelock[ ADDRESS_PAGE( obj ) ] )  return  tobj;
+	         sc_pagelock[ ADDRESS_PAGE( obj ) ] )  return  tobj;
 	   return( obj->forward.forward );
 	}
 	return( tobj );
@@ -911,7 +925,7 @@ static void correct_object( SCP pp )
 		(pp != sc_extobjp  ||  sc_extobjwords == 0))  {
 	   switch  ( pp->extendedobj.tag )  {
 	      case  SYMBOLTAG:
-		 pp->symbol.name = correct( pp->symbol.name );
+	         pp->symbol.name = correct( pp->symbol.name );
 		 *pp->symbol.ptrtovalue = correct( *pp->symbol.ptrtovalue );
 		 pp->symbol.propertylist = correct( pp->symbol.propertylist );
 		 size = SYMBOLSIZE;
@@ -922,22 +936,22 @@ static void correct_object( SCP pp )
 		 break;
 
 	      case  VECTORTAG:
-		 cnt = pp->vector.length;
+	         cnt = pp->vector.length;
 		 obj = &pp->vector.element0;
 		 while  (cnt--)  {
 		    *obj = correct( *obj );
 		    obj++;
 		 }
 		 size = VECTORSIZE( pp->vector.length );
-		 break;
+		 break;	         
 
 	      case  PROCEDURETAG:
-		 pp->procedure.closure = correct( pp->procedure.closure );
+	         pp->procedure.closure = correct( pp->procedure.closure );
 	   	 size = PROCEDURESIZE;
 		 break;
 
 	      case  CLOSURETAG:
-		 pp->closure.closure = correct( pp->closure.closure );
+	         pp->closure.closure = correct( pp->closure.closure );
 		 cnt = pp->closure.length;
 		 obj = &pp->closure.var0;
 		 while  (cnt--)  {
@@ -948,21 +962,21 @@ static void correct_object( SCP pp )
 		 break;
 
 	      case  CONTINUATIONTAG:
-	   	 pp->continuation.continuation =
+	   	 pp->continuation.continuation = 
 		    correct( pp->continuation.continuation );
 		 size = CONTINUATIONSIZE( pp->continuation.length );
 		 break;
 
 	      case  RECORDTAG:
-		 pp->record.methods = correct( pp->record.methods );
-		 cnt = pp->record.length;
+	         pp->record.methods = correct( pp->record.methods );
+	         cnt = pp->record.length;
 		 obj = &pp->record.element0;
 		 while  (cnt--)  {
 		    *obj = correct( *obj );
 		    obj++;
 		 }
 		 size = RECORDSIZE( pp->record.length );
-		 break;
+		 break;	
 
 	      case  DOUBLEFLOATTAG:
 	   	 size = DOUBLEFLOATSIZE;
@@ -973,12 +987,12 @@ static void correct_object( SCP pp )
 		 break;
 
 	      default:
-		 sc_log_string( "***** COLLECT Unknown extended object: " );
+	         sc_log_string( "***** COLLECT Unknown extended object: " );
 		 sc_log_hex( (S2CUINT)pp );
 		 sc_log_string( " " );
 		 sc_log_hex( (S2CUINT)pp->extendedobj.tag );
 		 sc_log_string( "\n" );
-		 sc_abort();
+	         sc_abort();
 	   }
 	   pp = (SCP)( ((S2CINT*)pp)+size );
 	}
@@ -1002,8 +1016,8 @@ static void correct_pointers( S2CINT page, S2CINT linkvalue )
 		 count = PAGEBYTES/(CONSBYTES/2);
 		 while  (count--)  {
 		    if  ((*((S2CINT*)ptr) & 1)  &&
-			 (T_U(*ptr)->forward.tag == FORWARDTAG)  &&
-			 (sc_pagelock[ ADDRESS_PAGE( *ptr ) ] == 0))
+		         (T_U(*ptr)->forward.tag == FORWARDTAG)  &&
+		         (sc_pagelock[ ADDRESS_PAGE( *ptr ) ] == 0))
 		       *ptr = T_U(*ptr)->forward.forward;
 		    ptr++;
 		    }
@@ -1050,7 +1064,7 @@ static void copyback_locked_pages( S2CINT locklist )
 	      /* Move back only the forwarded CONS cells */
 	      count = PAGEBYTES/CONSBYTES;
 	      while  (count--)  {
-		 if  (obj->forward.tag == FORWARDTAG)  {
+	         if  (obj->forward.tag == FORWARDTAG)  {
 		    fobj = T_U( obj->forward.forward );
 		    obj->pair.car = fobj->pair.car;
 		    obj->pair.cdr = fobj->pair.cdr;
@@ -1090,7 +1104,7 @@ static void copyback_locked_pages( S2CINT locklist )
 		    if  (sobj->symbol.tag == SYMBOLTAG)  {
 		       vpage = ADDRESS_PAGE( sobj->symbol.ptrtovalue );
 		       if  (S2CPAGE( vpage ))
-			  sobj->symbol.ptrtovalue = &sobj->symbol.value;
+		          sobj->symbol.ptrtovalue = &sobj->symbol.value;
 		    }
 		 }
 		 else  if  (obj->wordalign.tag == WORDALIGNTAG)  {
@@ -1132,16 +1146,16 @@ void  sc_apply_when_unreferenced()
 	while  (freed != EMPTYLIST)  {
 	   object_procedure = PAIR_CAR( freed );
 	   sc_apply_2dtwo( PAIR_CDR( object_procedure ),
-			  sc_cons( PAIR_CAR( object_procedure ), EMPTYLIST ) );
+		          sc_cons( PAIR_CAR( object_procedure ), EMPTYLIST ) );
 	   freed = PAIR_CDR( freed );
 	}
 
 	/* Restore sc_unknowncall's state */
 	for  (i = 0; i < 4; i++)  sc_unknownproc[ i ] = save.proc[ i ];
 	for  (i = 0; i < MAXARGS; i++)  sc_arg[ i ] = save.arg[ i ];
-	sc_unknownargc = save.count;
+	sc_unknownargc = save.count;	
 }
-
+	   
 
 /* This function is called to check the obarray to make sure that it is
    intact.
@@ -1174,7 +1188,7 @@ static void  check_obarray()
 	   lp = *ep++;
 	   while  (lp != EMPTYLIST)  {
 	      if  (TSCPTAG( lp ) != PAIRTAG)  {
-		 sc_log_string(
+	         sc_log_string(
 		 	"***** COLLECT OBARRAY element is not a list " );
 		 sc_log_hex( (S2CUINT)lp );
 		 sc_log_string( "\n" );
@@ -1182,52 +1196,52 @@ static void  check_obarray()
 	      }
 	      symbol = T_U( lp )->pair.car;
 	      if  (T_U( symbol )->symbol.tag != SYMBOLTAG)  {
-		 sc_log_string(
+	         sc_log_string(
 			"***** COLLECT OBARRAY entry is not a symbol " );
 		 sc_log_hex( (S2CUINT)symbol );
 		 sc_log_string( "\n" );
-		 sc_abort();
+	         sc_abort();
 	      }
 	      page = ADDRESS_PAGE( symbol );
 	      if  (sc_pagegeneration[ page ] & 1  &&
-		   sc_pagegeneration[ page ] != sc_current_generation)  {
+	           sc_pagegeneration[ page ] != sc_current_generation)  {
 		 sc_log_string(
 			"***** COLLECT OBARRAY symbol generation error " );
 		 sc_log_hex( (S2CUINT)symbol );
 		 sc_log_string( "\n" );
-		 sc_abort();
+	         sc_abort();
 	      }
 	      value = *T_U( symbol )->symbol.ptrtovalue;
 	      page = ADDRESS_PAGE( value );
 	      if  (TSCPTAG( value ) & 1  &&
-		   S2CPAGE( page )  &&
+	           S2CPAGE( page )  &&
 	      	   sc_pagegeneration[ page ] & 1  &&
 		   sc_pagegeneration[ page ] != sc_current_generation)  {
 		 sc_log_string(
 		 	"***** COLLECT OBARRAY value generation error " );
 		 sc_log_hex( (S2CUINT)value );
 		 sc_log_string( "\n" );
-		 sc_abort();
+	         sc_abort();
 	      }
 	      if  (TSCPTAG( value ) & 1  &&
 		   S2CPAGE( page )  &&
 		   (~sc_pagegeneration[ ADDRESS_PAGE( symbol ) ]) & 1  &&
 		   sc_pagegeneration[ page ] == sc_current_generation  &&
 		   sc_pagelink[ ADDRESS_PAGE( symbol ) ] == 0  &&
-		   ADDRESS_PAGE( symbol ) ==
+		   ADDRESS_PAGE( symbol ) == 
 		   ADDRESS_PAGE( T_U( symbol )->symbol.ptrtovalue ))  {
 		 sc_log_string(
-			"***** COLLECT OBARRAY missed a top-level set! " );
+		        "***** COLLECT OBARRAY missed a top-level set! " );
 		 sc_log_hex( (S2CUINT)symbol );
 		 sc_log_string( "\n" );
 		 sc_abort();
 	      }
 	      if  (sc_pagetype[ ADDRESS_PAGE( symbol ) ] != EXTENDEDTAG)  {
-		 sc_log_string(
-			"***** COLLECT OBARRAY symbol page type error " );
+		 sc_log_string( 
+		        "***** COLLECT OBARRAY symbol page type error " );
 		 sc_log_hex( (S2CUINT)symbol );
 		 sc_log_string( "\n" );
-		 sc_abort();
+	         sc_abort();
 	      }
 	      lp = T_U( lp )->pair.cdr;
 	   }
@@ -1246,7 +1260,7 @@ static void  check_ptr( TSCP tpp )
 	      if  ((sc_pagegeneration[ page ] != sc_current_generation  &&
 	     	    sc_pagegeneration[ page ] & 1)  ||
 		   sc_pagetype[ page ] != TSCPTAG( tpp ))  {
-		 pointererror( " fails check_ptr\n",
+	         pointererror( " fails check_ptr\n",
 		 	       ((S2CUINT)T_U( tpp )) );
 	      }
 	   }
@@ -1270,7 +1284,7 @@ static SCP  check_object( SCP pp )
 	   moving_object = pp;
 	   switch  ( pp->extendedobj.tag )  {
 	      case  SYMBOLTAG:
-		 check_ptr( pp->symbol.name );
+	         check_ptr( pp->symbol.name );
 		 vpage = ADDRESS_PAGE( pp->symbol.ptrtovalue );
 		 check_ptr( *pp->symbol.ptrtovalue );
 		 check_ptr( pp->symbol.propertylist );
@@ -1282,19 +1296,19 @@ static SCP  check_object( SCP pp )
 		 break;
 
 	      case  VECTORTAG:
-		 cnt = pp->vector.length;
+	         cnt = pp->vector.length;
 		 obj = &pp->vector.element0;
 		 while  (cnt--)  check_ptr( *obj++ );
 		 size = VECTORSIZE( pp->vector.length );
-		 break;
+		 break;	         
 
 	      case  PROCEDURETAG:
-		 check_ptr( pp->procedure.closure );
+	         check_ptr( pp->procedure.closure );
 	   	 size = PROCEDURESIZE;
 		 break;
 
 	      case  CLOSURETAG:
-		 check_ptr( pp->closure.closure );
+	         check_ptr( pp->closure.closure );
 		 cnt = pp->closure.length;
 		 obj = &pp->closure.var0;
 		 while  (cnt--)  check_ptr( *obj++ );
@@ -1307,12 +1321,12 @@ static SCP  check_object( SCP pp )
 		 break;
 
 	      case  RECORDTAG:
-		 check_ptr( pp->record.methods );
-		 cnt = pp->record.length;
+	         check_ptr( pp->record.methods );
+	         cnt = pp->record.length;
 		 obj = &pp->record.element0;
 		 while  (cnt--)  check_ptr( *obj++ );
 		 size = RECORDSIZE( pp->record.length );
-		 break;
+		 break;	
 
 	      case  DOUBLEFLOATTAG:
 	   	 size = DOUBLEFLOATSIZE;
@@ -1323,8 +1337,8 @@ static SCP  check_object( SCP pp )
 		 break;
 
 	      default:
-		 pointererror( " is not a valid extended object tag\n",
-			       pp->extendedobj.tag );
+	         pointererror( " is not a valid extended object tag\n",
+	         	       pp->extendedobj.tag );
 	   }
 	   pp = (SCP)( ((S2CINT*)pp)+size );
 	}
@@ -1390,7 +1404,7 @@ static void  check_weakconsl()
 	}
 	if  (pointer_errors)  abort();
 }
-
+	
 /* Garbage collection is invoked to attempt to recover free storage when a
    request for storage cannot be met.  It will recover using a generational
    version of the "mostly copying" method.  See the .h file or the research
@@ -1453,7 +1467,7 @@ TSCP  sc_collect()
 
 	/* Hide the car's of pairs on the weakconsl. */
 	save_weakconsl();
-
+	
 	/* Move the globals, display, and constants */
 	for  ( i = 0; i < sc_globals->count; i++ )  {
 	   move_ptr( *(sc_globals->ptrs[ i ]) );
@@ -1515,15 +1529,15 @@ TSCP  sc_collect()
 	copyback_locked_pages( sc_locklist );
 
 	/* Step to the next odd generation, reset before overflow */
-	sc_next_generation = sc_current_generation =
-			     INC_GENERATION( sc_next_generation );
+	sc_next_generation = sc_current_generation = 
+			     INC_GENERATION( sc_next_generation );	
 	sc_generationpages = sc_generationpages+sc_allocatedheappages;
 	sc_allocatedheappages = sc_generationpages;
 	if  (sc_current_generation > 200)  {
 	   for  (i = sc_firstpage; i <= sc_lastpage; i++)  {
 	      if  (sc_pagegeneration[ i ] != 0  &&
-		   ~sc_pagegeneration[ i ] & 1)
-		 sc_pagegeneration[ i ] = 2;
+	           ~sc_pagegeneration[ i ] & 1)
+	         sc_pagegeneration[ i ] = 2;
 	   }
 	   sc_next_generation = sc_current_generation = 3;
 	}
@@ -1563,7 +1577,7 @@ TSCP  sc_collect()
 	   sc_apply_2dtwo( sc_after_2dcollect_v,
 	   	 sc_cons( C_FIXED( sc_heappages*PAGEBYTES ),
 			  sc_cons( C_FIXED( sc_allocatedheappages*PAGEBYTES ),
-				   sc_cons( C_FIXED( sc_limit ),
+			           sc_cons( C_FIXED( sc_limit ),
 				   	    EMPTYLIST ) ) ) );
 	sc_collect_done();
 	return( TRUEVALUE );
@@ -1586,7 +1600,7 @@ TSCP  sc_collect_2dall()
 	sc_limit = save_sc_limit;
 	MUTEXOFF;
 	MUTEXON;
-	sc_next_generation =
+	sc_next_generation = 
 		INC_GENERATION( INC_GENERATION( sc_next_generation ) );
 	sc_current_generation = sc_next_generation;
 	for  (i = sc_firstpage; i <= sc_lastpage; i++)  {
@@ -1618,11 +1632,11 @@ TSCP  sc_collect_2dinfo()
 
 	currenttime = sc_cputime();
 	return( sc_cons( C_FIXED( sc_allocatedheappages*PAGEBYTES ),
-		sc_cons( C_FIXED( sc_heappages*PAGEBYTES ),
+	        sc_cons( C_FIXED( sc_heappages*PAGEBYTES ),
 		sc_cons( DOUBLE_TSCP( sc_usertime+currenttime-starttime ),
 		sc_cons( DOUBLE_TSCP( sc_gctime ),
 		sc_cons( C_FIXED( sc_maxheappages*PAGEBYTES ),
-		sc_cons( C_FIXED( sc_limit ), EMPTYLIST ) ) ) ) ) ) );
+	        sc_cons( C_FIXED( sc_limit ), EMPTYLIST ) ) ) ) ) ) );
 }
 
 /* The logging of garbage collection information in controlled by the
@@ -1665,26 +1679,26 @@ TSCP  sc_set_2dmaximum_2dheap_21_v;
 
 TSCP  sc_set_2dmaximum_2dheap_21( TSCP maxheap )
 {
-	/* changed by Qobi R24Dec98 */
-	if (TSCPTAG(maxheap)==FIXNUMTAG)
-	{ if (FIXED_C(maxheap)<sc_heappages*PAGEBYTES||
-	      FIXED_C(maxheap)>SCMAXHEAP*ONEMB)
-	  sc_error("SET-MAXIMUM-HEAP!",
-		   "ARGUMENT is less than current heap or is too large: ~s",
-		   LIST1(maxheap));
-	  sc_maxheappages = FIXED_C(maxheap)/PAGEBYTES;}
-	else if (TSCPTAG(maxheap)==EXTENDEDTAG&&
-		 TSCP_EXTENDEDTAG(maxheap)==DOUBLEFLOATTAG)
-	{ if (FLOAT_VALUE(maxheap)<sc_heappages*PAGEBYTES||
-	      FLOAT_VALUE(maxheap)>SCMAXHEAP*ONEMB)
-	  sc_error("SET-MAXIMUM-HEAP!",
-		   "ARGUMENT is less than current heap or is too large: ~s",
-		   LIST1(maxheap));
-	  sc_maxheappages = ((int)FLOAT_VALUE(maxheap))/PAGEBYTES;}
-	else sc_error("SET-MAXIMUM-HEAP!",
-		      "ARGUMENT is not a number: ~s",
-		      LIST1(maxheap));
-	return(maxheap);
+        /* changed by Qobi R24Dec98 */
+        if (TSCPTAG(maxheap)==FIXNUMTAG)
+        { if (FIXED_C(maxheap)<sc_heappages*PAGEBYTES||
+              FIXED_C(maxheap)>SCMAXHEAP*ONEMB)
+          sc_error("SET-MAXIMUM-HEAP!",
+                   "ARGUMENT is less than current heap or is too large: ~s",
+                   LIST1(maxheap));
+          sc_maxheappages = FIXED_C(maxheap)/PAGEBYTES;}
+        else if (TSCPTAG(maxheap)==EXTENDEDTAG&&
+                 TSCP_EXTENDEDTAG(maxheap)==DOUBLEFLOATTAG)
+        { if (FLOAT_VALUE(maxheap)<sc_heappages*PAGEBYTES||
+              FLOAT_VALUE(maxheap)>SCMAXHEAP*ONEMB)
+          sc_error("SET-MAXIMUM-HEAP!",
+                   "ARGUMENT is less than current heap or is too large: ~s",
+                   LIST1(maxheap));
+          sc_maxheappages = ((int)FLOAT_VALUE(maxheap))/PAGEBYTES;}
+        else sc_error("SET-MAXIMUM-HEAP!",
+                      "ARGUMENT is not a number: ~s",
+                      LIST1(maxheap));
+        return(maxheap);
 }
 
 /* Pages in the heap are allocated by the following function.  It is called
@@ -1703,7 +1717,7 @@ static void  allocatepage( S2CINT count, S2CINT tag )
 	if  ((count+sc_allocatedheappages) > sc_heappages/2)  {
 failed:
 	   if  ((allocatepage_failed  ||  sc_collecting)  &&
-		sc_expandheap() == 0)  {
+	        sc_expandheap() == 0)  {
 	      sc_log_string( "***** ALLOCATEPAGE cannot allocate " );
 	      sc_log_dec( count*PAGEBYTES );
 	      sc_log_string( " bytes with " );
@@ -1751,7 +1765,7 @@ failed:
 	      sc_pagetype[ page ] = BIGEXTENDEDTAG;
 	      sc_pagelink[ page ] = sc_initiallink;
 	   }
-	}
+	}	
 }
 
 /* When a pointer to a new object may be stored in a old page, the following
@@ -1768,25 +1782,25 @@ TSCP  sc_setgeneration( TSCP* a, TSCP b )
 	if  (S2CPAGE( oldpage )  &&  sc_pagelink[ oldpage ] == 0)  {
 	   if  (sc_pagetype[ oldpage ] == PAIRTAG)  {
 	      if  (sc_pagegeneration[ oldpage ] == sc_current_generation)  {
-		 sc_pagelink[ oldpage ] = OKTOSET;
+	         sc_pagelink[ oldpage ] = OKTOSET;
 	      }
 	      else  {
-		 sc_pagelink[ oldpage ] = sc_genlist;
-		 sc_genlist = oldpage;
+	         sc_pagelink[ oldpage ] = sc_genlist;
+	         sc_genlist = oldpage;
 	      }
 	   }
 	   else  {
 	      while  (sc_pagetype[ oldpage ] == BIGEXTENDEDTAG)  oldpage--;
 	      if  (sc_pagegeneration[ oldpage ] == sc_current_generation)  {
-		 sc_pagelink[ oldpage ] = OKTOSET;
+	         sc_pagelink[ oldpage ] = OKTOSET;
 	      }
 	      else  {
-		 sc_pagelink[ oldpage ] = sc_genlist;
-		 sc_genlist = oldpage;
+	         sc_pagelink[ oldpage ] = sc_genlist;
+	         sc_genlist = oldpage;
 	      }
-	      while  (++oldpage <= sc_lastpage  &&
+	      while  (++oldpage <= sc_lastpage  &&  
 		      sc_pagetype[ oldpage ] == BIGEXTENDEDTAG)  {
-		 sc_pagelink[ oldpage ] = OKTOSET;
+	         sc_pagelink[ oldpage ] = OKTOSET;
 	      }
 	   }
 	}
@@ -1794,7 +1808,7 @@ TSCP  sc_setgeneration( TSCP* a, TSCP b )
 	MUTEXOFF;
 	return( b );
 }
-
+	
 /* Heap based storage is allocated by the following function.  It is called
    with a word count and a value to put in the first word.  It will return
    an UNTAGGED pointer to the storage.  Note that the minimum permissible
@@ -1912,8 +1926,8 @@ TSCP  sc_schemepointer( TSCP any )
 {
 	SCP  pp = T_U( any );
 
-	if (((S2CUINT)pp >= (S2CUINT)sc_firstheapp  &&
-	    (S2CUINT)pp < (S2CUINT)sc_lastheapp)  &&
+        if (((S2CUINT)pp >= (S2CUINT)sc_firstheapp  &&
+	    (S2CUINT)pp < (S2CUINT)sc_lastheapp)  && 
 	    S2CPAGE( ADDRESS_PAGE( pp ) ))
 	   return  TRUEVALUE;
 	else
@@ -1931,11 +1945,8 @@ struct SEEN*  seenp;
 
 /* Put a breakpoint on this procedure to catch verification problems */
 
-#ifdef __GNUC__
 static void verifyfail() __attribute__((noreturn));
-#endif
-
-static void verifyfail()
+static void verifyfail() 
 {
 	sc_abort();
 }
@@ -1964,56 +1975,56 @@ TSCP  sc_verifyobject( TSCP any )
 	   case  EXTENDEDTAG:
 	      if  (any == sc_emptyvector  ||  any == sc_emptystring)  {
 		 seenp = seen.prev;
-		 return( any );
+	         return( any );
 	      }
 	      if  (sc_schemepointer( any ) == FALSEVALUE)  verifyfail();
 	      switch  TSCP_EXTENDEDTAG( any )  {
 
-		 case  SYMBOLTAG:
+	         case  SYMBOLTAG:
 		    sc_verifyobject( SYMBOL_NAME( any ) );
 		    sc_verifyobject( SYMBOL_VALUE( any ) );
 		    sc_verifyobject( SYMBOL_PROPERTYLIST( any ) );
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  STRINGTAG:
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  VECTORTAG:
 		    for  (i = 0; i < VECTOR_LENGTH( any ); i++ )
 		       sc_verifyobject( VECTOR_ELEMENT( any, C_FIXED( i ) ) );
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  PROCEDURETAG:
 		    sc_verifyobject( PROCEDURE_CLOSURE( any ) );
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  CLOSURETAG:
 		    sc_verifyobject( CLOSURE_CLOSURE( any ) );
 		    for  (i = 0; i < CLOSURE_LENGTH( any ); i++)
 		       sc_verifyobject( CLOSURE_VAR( any, i ) );
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  CONTINUATIONTAG:
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  RECORDTAG:
 		    sc_verifyobject( RECORD_METHODS( any ) );
 		    for  (i = 0; i < RECORD_LENGTH( any ); i++ )
 		       sc_verifyobject( RECORD_ELEMENT( any, C_FIXED( i ) ) );
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
 		 case  DOUBLEFLOATTAG:
-		    seenp = seen.prev;
+	            seenp = seen.prev;
 		    return( any );
 
-		 default:
+	         default:
 		    verifyfail();
 	      }
 
@@ -2022,7 +2033,7 @@ TSCP  sc_verifyobject( TSCP any )
 		   any == TRUEVALUE  ||  any == EOFOBJECT   ||
 		   any == UNDEFINED  ||
 		   TSCPIMMEDIATETAG( any ) == CHARACTERTAG)
-		 return( any );
+	         return( any );
 	      verifyfail();
 
 	   case  PAIRTAG:
@@ -2035,7 +2046,7 @@ TSCP  sc_verifyobject( TSCP any )
 	     verifyfail();
 	}
 }
-
+	      
 /* The following function forms a weak dotted-pair with any two Scheme
    pointers.  A weak dotted-pair is a pair that has the property that the CAR
    of the pair may be set to #F by the garbage collector if it contains the
@@ -2059,3 +2070,7 @@ TSCP  sc_weak_2dcons( TSCP x, TSCP y )
 	MUTEXOFF;
 	return( cons );
 }
+	
+
+		 
+                              
