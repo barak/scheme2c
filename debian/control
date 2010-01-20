@@ -13,7 +13,7 @@ Vcs-Browser: http://git.debian.org/?p=collab-maint/scheme2c.git
 #Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
 
 Package: scheme2c
-Architecture: i386 amd64
+Architecture: i386 amd64 armel
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Joel Bartlett's fabled Scheme->C system
  The original Scheme->C system, the first of its kind.  It conforms to
