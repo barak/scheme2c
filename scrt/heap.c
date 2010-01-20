@@ -1945,7 +1945,9 @@ struct SEEN*  seenp;
 
 /* Put a breakpoint on this procedure to catch verification problems */
 
+#ifdef __GNUC__
 static void verifyfail() __attribute__((noreturn));
+#endif
 static void verifyfail() 
 {
 	sc_abort();
@@ -2042,11 +2044,11 @@ TSCP  sc_verifyobject( TSCP any )
 	      sc_verifyobject( PAIR_CDR( any ) );
 	      seenp = seen.prev;
 	      return( any );
- 	   default:
+	   default:
 	     verifyfail();
 	}
 }
-	      
+
 /* The following function forms a weak dotted-pair with any two Scheme
    pointers.  A weak dotted-pair is a pair that has the property that the CAR
    of the pair may be set to #F by the garbage collector if it contains the
@@ -2070,7 +2072,3 @@ TSCP  sc_weak_2dcons( TSCP x, TSCP y )
 	MUTEXOFF;
 	return( cons );
 }
-	
-
-		 
-                              
