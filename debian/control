@@ -2,15 +2,14 @@ Source: scheme2c
 Section: lisp
 Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
-Build-Depends: debhelper (>= 7.2.5), libsigsegv-dev, texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
-#Build-Depends-Indep: texlive-latex-base, texlive-latex-extra, texlive-fonts-recommended, ghostscript, latex209-bin
-# Build-Depends-Arch: libsigsegv-dev
-Standards-Version: 3.8.3
+Build-Depends: debhelper (>= 7.2.5),
+    libsigsegv-dev,
+    texlive-latex-base, texlive-latex-extra, latex209-bin,
+    texlive-fonts-recommended, ghostscript
+Standards-Version: 3.8.4
 Homepage: http://scheme2c.alioth.debian.org/
 Vcs-Git: git://git.debian.org/git/collab-maint/scheme2c.git
 Vcs-Browser: http://git.debian.org/?p=collab-maint/scheme2c.git
-#Vcs-Git: git://git.debian.org/git/scheme2c/scheme2c.git
-#Vcs-Browser: http://git.debian.org/?p=scheme2c/scheme2c.git
 
 Package: scheme2c
 Architecture: i386 amd64 armel
