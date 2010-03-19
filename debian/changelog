@@ -1,3 +1,9 @@
+scheme2c (1993.3.15.2-8) UNRELEASED; urgency=low
+
+  * bump deb standards
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Fri, 19 Mar 2010 22:54:04 +0000
+
 scheme2c (1993.3.15.2-7) unstable; urgency=low
 
   * merge upstream change: increase scc heap while compiling xlib
