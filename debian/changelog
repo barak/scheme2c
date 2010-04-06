@@ -1,7 +1,7 @@
 scheme2c (1993.3.15.2-8) unstable; urgency=low
 
   * bump deb standards
-  * Switch to dpkg-source 3.0 (git) format
+  * Switch to dpkg-source 3.0 (quilt) format
 
  -- Barak A. Pearlmutter <bap@debian.org>  Thu, 25 Mar 2010 18:56:40 +0000
 
