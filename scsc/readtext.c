@@ -1698,6 +1698,7 @@ void  readtext__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(readtext SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3332, 
                        ADR( readtext_read_2dtext_v ), 
                        MAKEPROCEDURE( 0, 

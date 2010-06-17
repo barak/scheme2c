@@ -41,6 +41,7 @@ main( argc, argv )
         INITHEAP( 0, argc, argv, scint_start_2drep );
         init_constants();
         init_modules( "(scint SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2003, 
                        ADR( scint_start_2drep_v ), 
                        MAKEPROCEDURE( 1, 

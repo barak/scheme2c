@@ -2269,6 +2269,7 @@ void  closeana__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(closeana SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t5213, 
                        ADR( closeana_analyze_2dclosures1a_v ), 
                        MAKEPROCEDURE( 1, 

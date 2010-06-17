@@ -3157,6 +3157,7 @@ void  scrt7__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt7 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t4616, 
                        ADR( scrt7_token_2dleft_2dparen_v ), 
                        sc_cons( c2131, EMPTYLIST ) );

@@ -1623,6 +1623,7 @@ void  callcode__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(callcode SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3335, 
                        ADR( callcode__24call_2dgenc_v ), 
                        MAKEPROCEDURE( 3, 

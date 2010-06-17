@@ -2680,6 +2680,7 @@ void  expform__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(expform SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3759, 
                        ADR( expform_global_2dfree_2dvars_v ), 
                        EMPTYLIST );

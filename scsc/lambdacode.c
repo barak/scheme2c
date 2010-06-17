@@ -1386,6 +1386,7 @@ void  lambdacode__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(lambdacode SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3099, 
                        ADR( lambdacode__24lambda_2dgenc_v ), 
                        MAKEPROCEDURE( 3, 

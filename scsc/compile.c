@@ -2218,6 +2218,7 @@ void  compile__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(compile SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3620, 
                        ADR( compile_sc_2dinput_v ), EMPTYLIST );
         INITIALIZEVAR( t3621, 

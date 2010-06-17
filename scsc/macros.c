@@ -2548,6 +2548,7 @@ void  macros__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(macros SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3929, 
                        ADR( macros_old_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 

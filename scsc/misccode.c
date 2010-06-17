@@ -1565,6 +1565,7 @@ void  misccode__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(misccode SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3142, 
                        ADR( misccode_symbol_2dgenc_v ), 
                        MAKEPROCEDURE( 3, 

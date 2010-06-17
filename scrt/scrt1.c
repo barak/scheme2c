@@ -1836,6 +1836,7 @@ void  scrt1__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt1 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3313, 
                        ADR( scrt1_not_v ), 
                        MAKEPROCEDURE( 1, 

@@ -2015,6 +2015,7 @@ void  scrt3__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt3 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3815, 
                        ADR( scrt3_char_3f_v ), 
                        MAKEPROCEDURE( 1, 

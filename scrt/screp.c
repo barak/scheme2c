@@ -964,6 +964,7 @@ void  screp__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(screp SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2497, 
                        ADR( screp_reset_v ), FALSEVALUE );
         INITIALIZEVAR( t2498, 

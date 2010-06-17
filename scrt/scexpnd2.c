@@ -956,6 +956,7 @@ void  scexpnd2__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scexpnd2 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2841, 
                        ADR( scexpnd2_let_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 

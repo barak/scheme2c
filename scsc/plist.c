@@ -223,6 +223,7 @@ void  plist__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(plist SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2135, 
                        ADR( plist_get_v ), 
                        MAKEPROCEDURE( 2, 
