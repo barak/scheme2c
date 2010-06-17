@@ -11,10 +11,10 @@
 ;* the rights to use, copy, modify, merge, publish, distribute, sublicense,
 ;* and/or sell copies of the Software, and to permit persons to whom the
 ;* Software is furnished to do so, subject to the following conditions:
-;* 
+;*
 ;* The above copyright notice and this permission notice shall be included in
 ;* all copies or substantial portions of the Software.
-;* 
+;*
 ;* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 ;* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,6 +27,11 @@
 (module scexpand)
 
 (include "repdef.sc")
+
+(define GENSYM-DATA 0)
+(define (GENSYM)
+  (set! gensym-data (+ gensym-data 1))
+  (string->symbol (format "gensym-~s" gensym-data)))
 
 (define (EXPAND x) (initial-expander x initial-expander))
 
@@ -41,7 +46,7 @@
 
 (define (*IDENTIFIER-EXPANDER* x e)
     (let ((constant (expander x)))
-         (if (pair? constant) (car constant) x)))
+	 (if (pair? constant) (car constant) x)))
 
 (define (*APPLICATION-EXPANDER* x e) (map (lambda (x) (e x e)) x))
 

@@ -12,10 +12,10 @@
 ;* the rights to use, copy, modify, merge, publish, distribute, sublicense,
 ;* and/or sell copies of the Software, and to permit persons to whom the
 ;* Software is furnished to do so, subject to the following conditions:
-;* 
+;*
 ;* The above copyright notice and this permission notice shall be included in
 ;* all copies or substantial portions of the Software.
-;* 
+;*
 ;* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 ;* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -212,9 +212,15 @@
 					    "Environment is not an A-LIST: ~s"
 					    (car env-list)))))
 		    '()))
-	   (comp-form (compile (expand form) env)))
+	   (comp-form (compile
+		       (if (and (list? form)
+				(not (null? form))
+				(equal? (car form)
+					"noexpand"))
+			   (cadr form)
+			   (expand form)) env)))
 	  (if (not (eq? compile-error #f))
-	      (error 'EVAL 
+	      (error 'EVAL
 		    "Argument contains an item that is not self-evaluating: ~s"
 		     compile-error)
 	      (exec-any comp-form env))))
@@ -295,5 +301,5 @@
 
 (define (EXEC-LAMBDA exp env)
     (let ((vars (cadr exp))
-          (body (cons 'begin (cddr exp))))
-         (lambda vals (exec-any body (new-env vars vals env)))))
+	  (body (cons 'begin (cddr exp))))
+	 (lambda vals (exec-any body (new-env vars vals env)))))
