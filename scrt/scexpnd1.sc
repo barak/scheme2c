@@ -191,7 +191,7 @@
 	    (cond ((islist x 1 1) #f)
 		  ((islist x 2)
 		   `(begin ,@(map (lambda (x) (e x e)) (cdr x))))
-		  (error 'begin  "Illegal form: ~s" x))))
+		  (else (error 'begin  "Illegal form: ~s" x)))))
 
 (define (INTERNAL-BEGIN-EXPANDER old-expander)
     (lambda (expr expander)
