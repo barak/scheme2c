@@ -3314,6 +3314,7 @@ void  lap__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(lap SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3954, 
                        ADR( lap_global_2dlap_2dcode_v ), 
                        EMPTYLIST );

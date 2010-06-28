@@ -1644,6 +1644,7 @@ void  miscexp__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(miscexp SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3329, 
                        ADR( miscexp_quote_2dconstants_v ), 
                        EMPTYLIST );

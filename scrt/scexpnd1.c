@@ -850,23 +850,27 @@ TSCP  scexpnd1_l2583( x2584, e2585 )
               X8, X7, X6, X5, X4, X3, X2, X1;
 
         PUSHSTACKTRACE( "scexpnd1_l2583 [inside TOP-LEVEL]" );
-        if  ( FALSE( scexpand_islist( x2584, _TSCP( 8 ), EMPTYLIST ) )
+        if  ( TRUE( scexpand_islist( x2584, 
+                                     _TSCP( 4 ), 
+                                     CONS( _TSCP( 4 ), EMPTYLIST ) ) )
             )  goto L3406;
-        if  ( EQ( TSCPTAG( x2584 ), PAIRTAG ) )  goto L3409;
+        if  ( FALSE( scexpand_islist( x2584, _TSCP( 8 ), EMPTYLIST ) )
+            )  goto L3408;
+        if  ( EQ( TSCPTAG( x2584 ), PAIRTAG ) )  goto L3411;
         scrt1__24__cdr_2derror( x2584 );
-L3409:
+L3411:
         X2 = PAIR_CDR( x2584 );
         X3 = X2;
         X4 = EMPTYLIST;
         X5 = EMPTYLIST;
-L3413:
-        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3414;
+L3415:
+        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( EMPTYLIST ) ) )  goto L3416;
         X1 = X4;
-        goto L3421;
-L3414:
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3417;
+        goto L3423;
+L3416:
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3419;
         scrt1__24__car_2derror( X3 );
-L3417:
+L3419:
         X9 = PAIR_CAR( X3 );
         X8 = e2585;
         X8 = UNKNOWNCALL( X8, 2 );
@@ -874,37 +878,39 @@ L3417:
                                           e2585, 
                                           PROCEDURE_CLOSURE( X8 ) );
         X6 = sc_cons( X7, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( EMPTYLIST ) ) )  goto L3420;
+        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( EMPTYLIST ) ) )  goto L3422;
         X7 = PAIR_CDR( X3 );
         X5 = X6;
         X4 = X6;
         X3 = X7;
-        GOBACK( L3413 );
-L3420:
+        GOBACK( L3415 );
+L3422:
         X7 = PAIR_CDR( X3 );
-        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3425;
+        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3427;
         scdebug_error( c2457, 
                        c2458, CONS( X5, EMPTYLIST ) );
-L3425:
+L3427:
         X5 = SETGEN( PAIR_CDR( X5 ), X6 );
         X3 = X7;
-        GOBACK( L3413 );
-L3421:
+        GOBACK( L3415 );
+L3423:
         X2 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         POPSTACKTRACE( scrt1_cons_2a( c2396, 
                                       CONS( scrt1_append_2dtwo( X1, X2 ), 
                                             EMPTYLIST ) ) );
-L3406:
+L3408:
         POPSTACKTRACE( scdebug_error( c2396, 
                                       c2135, 
                                       CONS( x2584, EMPTYLIST ) ) );
+L3406:
+        POPSTACKTRACE( FALSEVALUE );
 }
 
 DEFTSCP( scexpnd1_2dexpander_afd5ebf4_v );
-DEFCSTRING( t3427, "SCEXPND1_INTERNAL-BEGIN-EXPANDER" );
+DEFCSTRING( t3429, "SCEXPND1_INTERNAL-BEGIN-EXPANDER" );
 
-TSCP  scexpnd1_l2636( e2637, e2638, c3429 )
-        TSCP  e2637, e2638, c3429;
+TSCP  scexpnd1_l2636( e2637, e2638, c3431 )
+        TSCP  e2637, e2638, c3431;
 {
         TSCP  X13, 
               X12, 
@@ -915,28 +921,28 @@ TSCP  scexpnd1_l2636( e2637, e2638, c3429 )
 
         PUSHSTACKTRACE( "scexpnd1_l2636 [inside INTERNAL-BEGIN-EXPANDER]" );
         X1 = DISPLAY( 0 );
-        DISPLAY( 0 ) = CLOSURE_VAR( c3429, 0 );
+        DISPLAY( 0 ) = CLOSURE_VAR( c3431, 0 );
         X3 = BOOLEAN( EQ( TSCPTAG( e2637 ), PAIRTAG ) );
-        if  ( FALSE( X3 ) )  goto L3459;
-        if  ( EQ( TSCPTAG( e2637 ), PAIRTAG ) )  goto L3438;
+        if  ( FALSE( X3 ) )  goto L3461;
+        if  ( EQ( TSCPTAG( e2637 ), PAIRTAG ) )  goto L3440;
         scrt1__24__car_2derror( e2637 );
-L3438:
+L3440:
         X4 = PAIR_CAR( e2637 );
-        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( c2396 ) ) )  goto L3459;
+        if  ( NEQ( _S2CUINT( X4 ), _S2CUINT( c2396 ) ) )  goto L3461;
         if  ( FALSE( scexpand_islist( e2637, _TSCP( 8 ), EMPTYLIST ) )
-            )  goto L3440;
+            )  goto L3442;
         X6 = PAIR_CDR( e2637 );
         X7 = X6;
         X8 = EMPTYLIST;
         X9 = EMPTYLIST;
-L3445:
-        if  ( NEQ( _S2CUINT( X7 ), _S2CUINT( EMPTYLIST ) ) )  goto L3446;
+L3447:
+        if  ( NEQ( _S2CUINT( X7 ), _S2CUINT( EMPTYLIST ) ) )  goto L3448;
         X5 = X8;
-        goto L3453;
-L3446:
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3449;
+        goto L3455;
+L3448:
+        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3451;
         scrt1__24__car_2derror( X7 );
-L3449:
+L3451:
         X13 = PAIR_CAR( X7 );
         X12 = e2638;
         X12 = UNKNOWNCALL( X12, 2 );
@@ -944,39 +950,39 @@ L3449:
                                             e2638, 
                                             PROCEDURE_CLOSURE( X12 ) );
         X10 = sc_cons( X11, EMPTYLIST );
-        if  ( NEQ( _S2CUINT( X8 ), _S2CUINT( EMPTYLIST ) ) )  goto L3452;
+        if  ( NEQ( _S2CUINT( X8 ), _S2CUINT( EMPTYLIST ) ) )  goto L3454;
         X11 = PAIR_CDR( X7 );
         X9 = X10;
         X8 = X10;
         X7 = X11;
-        GOBACK( L3445 );
-L3452:
+        GOBACK( L3447 );
+L3454:
         X11 = PAIR_CDR( X7 );
-        if  ( EQ( TSCPTAG( X9 ), PAIRTAG ) )  goto L3457;
+        if  ( EQ( TSCPTAG( X9 ), PAIRTAG ) )  goto L3459;
         scdebug_error( c2457, 
                        c2458, CONS( X9, EMPTYLIST ) );
-L3457:
+L3459:
         X9 = SETGEN( PAIR_CDR( X9 ), X10 );
         X7 = X11;
-        GOBACK( L3445 );
-L3453:
+        GOBACK( L3447 );
+L3455:
         X4 = scexpnd1_lambda_2ddefines( X5 );
         X5 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X2 = scrt1_cons_2a( c2396, 
                             CONS( scrt1_append_2dtwo( X4, X5 ), 
                                   EMPTYLIST ) );
-        goto L3460;
-L3440:
+        goto L3462;
+L3442:
         X2 = scdebug_error( c2396, 
                             c2135, CONS( e2637, EMPTYLIST ) );
-        goto L3460;
-L3459:
+        goto L3462;
+L3461:
         X3 = DISPLAY( 0 );
         X3 = UNKNOWNCALL( X3, 2 );
         X2 = VIA( PROCEDURE_CODE( X3 ) )( e2637, 
                                           e2638, 
                                           PROCEDURE_CLOSURE( X3 ) );
-L3460:
+L3462:
         DISPLAY( 0 ) = X1;
         POPSTACKTRACE( X2 );
 }
@@ -987,7 +993,7 @@ TSCP  scexpnd1_2dexpander_afd5ebf4( o2635 )
         TSCP  SD0 = DISPLAY( 0 );
         TSCP  SDVAL;
 
-        PUSHSTACKTRACE( t3427 );
+        PUSHSTACKTRACE( t3429 );
         DISPLAY( 0 ) = o2635;
         SDVAL = MAKEPROCEDURE( 2, 
                                0, 
@@ -999,7 +1005,7 @@ TSCP  scexpnd1_2dexpander_afd5ebf4( o2635 )
 }
 
 DEFTSCP( scexpnd1_cond_2dmacro_v );
-DEFCSTRING( t3461, "SCEXPND1_COND-MACRO" );
+DEFCSTRING( t3463, "SCEXPND1_COND-MACRO" );
 EXTERNTSCPP( scrt1_equal_3f, XAL2( TSCP, TSCP ) );
 EXTERNTSCP( scrt1_equal_3f_v );
 EXTERNTSCPP( scrt2__3d_2dtwo, XAL2( TSCP, TSCP ) );
@@ -1010,38 +1016,38 @@ TSCP  scexpnd1_cond_2dmacro( e2701 )
 {
         TSCP  X8, X7, X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3461 );
-        if  ( EQ( TSCPTAG( e2701 ), PAIRTAG ) )  goto L3464;
+        PUSHSTACKTRACE( t3463 );
+        if  ( EQ( TSCPTAG( e2701 ), PAIRTAG ) )  goto L3466;
         scrt1__24__cdr_2derror( e2701 );
-L3464:
+L3466:
         X3 = PAIR_CDR( e2701 );
-        if  ( FALSE( X3 ) )  goto L3467;
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3470;
+        if  ( FALSE( X3 ) )  goto L3469;
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3472;
         scrt1__24__car_2derror( X3 );
-L3470:
+L3472:
         X2 = PAIR_CAR( X3 );
-        goto L3468;
-L3467:
+        goto L3470;
+L3469:
         X2 = X3;
-L3468:
-        if  ( FALSE( X2 ) )  goto L3473;
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3476;
+L3470:
+        if  ( FALSE( X2 ) )  goto L3475;
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3478;
         scrt1__24__cdr_2derror( X3 );
-L3476:
+L3478:
         X1 = PAIR_CDR( X3 );
-        goto L3474;
-L3473:
+        goto L3476;
+L3475:
         X1 = X2;
-L3474:
-        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3479;
+L3476:
+        if  ( EQ( _S2CUINT( X2 ), _S2CUINT( EMPTYLIST ) ) )  goto L3481;
         X4 = BOOLEAN( NEQ( TSCPTAG( X2 ), PAIRTAG ) );
-        if  ( TRUE( X4 ) )  goto L3485;
-        if  ( TRUE( scrt1_equal_3f( X2, c2719 ) ) )  goto L3485;
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3491;
+        if  ( TRUE( X4 ) )  goto L3487;
+        if  ( TRUE( scrt1_equal_3f( X2, c2719 ) ) )  goto L3487;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3493;
         scrt1__24__cdr_2derror( X2 );
-L3491:
+L3493:
         X5 = PAIR_CDR( X2 );
-        if  ( NEQ( _S2CUINT( X5 ), _S2CUINT( EMPTYLIST ) ) )  goto L3488;
+        if  ( NEQ( _S2CUINT( X5 ), _S2CUINT( EMPTYLIST ) ) )  goto L3490;
         X5 = CONS( EMPTYLIST, EMPTYLIST );
         X6 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X5 = CONS( scrt1_cons_2a( c2772, 
@@ -1050,34 +1056,34 @@ L3491:
                    X5 );
         POPSTACKTRACE( scrt1_cons_2a( c2785, 
                                       CONS( PAIR_CAR( X2 ), X5 ) ) );
-L3488:
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3495;
+L3490:
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3497;
         scrt1__24__cdr_2derror( X2 );
-L3495:
+L3497:
         X7 = PAIR_CDR( X2 );
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3498;
+        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3500;
         scrt1__24__car_2derror( X7 );
-L3498:
+L3500:
         X6 = PAIR_CAR( X7 );
         X5 = BOOLEAN( EQ( _S2CUINT( X6 ), 
                           _S2CUINT( c2745 ) ) );
-        if  ( FALSE( X5 ) )  goto L3514;
+        if  ( FALSE( X5 ) )  goto L3516;
         X6 = scrt1_length( X2 );
         if  ( BITAND( BITOR( _S2CINT( X6 ), 
                              _S2CINT( _TSCP( 12 ) ) ), 
-                      3 ) )  goto L3506;
-        if  ( EQ( _S2CUINT( X6 ), _S2CUINT( _TSCP( 12 ) ) ) )  goto L3510;
-        goto L3514;
-L3506:
-        if  ( TRUE( scrt2__3d_2dtwo( X6, _TSCP( 12 ) ) ) )  goto L3510;
-        goto L3514;
-L3479:
+                      3 ) )  goto L3508;
+        if  ( EQ( _S2CUINT( X6 ), _S2CUINT( _TSCP( 12 ) ) ) )  goto L3512;
+        goto L3516;
+L3508:
+        if  ( TRUE( scrt2__3d_2dtwo( X6, _TSCP( 12 ) ) ) )  goto L3512;
+        goto L3516;
+L3481:
         POPSTACKTRACE( FALSEVALUE );
-L3485:
+L3487:
         POPSTACKTRACE( scdebug_error( c2790, 
                                       c2791, 
                                       CONS( e2701, EMPTYLIST ) ) );
-L3510:
+L3512:
         X3 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = CONS( scrt1_cons_2a( c2784, 
@@ -1119,15 +1125,15 @@ L3510:
                                                                                       X6 ) ), 
                                                                  X5 ) ), 
                                             X3 ) ) );
-L3514:
+L3516:
         X3 = PAIR_CAR( X2 );
-        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( c2763 ) ) )  goto L3516;
+        if  ( NEQ( _S2CUINT( X3 ), _S2CUINT( c2763 ) ) )  goto L3518;
         X3 = PAIR_CDR( X2 );
         X4 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         POPSTACKTRACE( scrt1_cons_2a( c2396, 
                                       CONS( scrt1_append_2dtwo( X3, X4 ), 
                                             EMPTYLIST ) ) );
-L3516:
+L3518:
         X3 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X3 = CONS( scrt1_cons_2a( c2772, 
@@ -1159,7 +1165,7 @@ TSCP  scexpnd1_l2812( x2813, e2814 )
 }
 
 DEFTSCP( scexpnd1_case_2dmacro_v );
-DEFCSTRING( t3523, "SCEXPND1_CASE-MACRO" );
+DEFCSTRING( t3525, "SCEXPND1_CASE-MACRO" );
 EXTERNTSCPP( sc_d_2dsymbol_ab4b4447, XAL1( TSCP ) );
 EXTERNTSCP( sc_d_2dsymbol_ab4b4447_v );
 
@@ -1171,60 +1177,60 @@ TSCP  scexpnd1_case_2dmacro( e2817 )
               X9, 
               X8, X7, X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3523 );
+        PUSHSTACKTRACE( t3525 );
         if  ( FALSE( scexpand_islist( e2817, 
                                       _TSCP( 12 ), EMPTYLIST ) )
-            )  goto L3525;
-        if  ( EQ( TSCPTAG( e2817 ), PAIRTAG ) )  goto L3529;
+            )  goto L3527;
+        if  ( EQ( TSCPTAG( e2817 ), PAIRTAG ) )  goto L3531;
         scrt1__24__cdr_2derror( e2817 );
-L3529:
+L3531:
         X5 = PAIR_CDR( e2817 );
-        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3532;
+        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3534;
         scrt1__24__car_2derror( X5 );
-L3532:
+L3534:
         X2 = PAIR_CAR( X5 );
         X3 = sc_d_2dsymbol_ab4b4447( c2890 );
         X5 = PAIR_CDR( e2817 );
-        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3536;
+        if  ( EQ( TSCPTAG( X5 ), PAIRTAG ) )  goto L3538;
         scrt1__24__cdr_2derror( X5 );
-L3536:
+L3538:
         X4 = PAIR_CDR( X5 );
         X1 = EMPTYLIST;
-L3538:
+L3540:
         X1 = CONS( X1, EMPTYLIST );
         X5 = BOOLEAN( NEQ( TSCPTAG( X4 ), PAIRTAG ) );
-        if  ( TRUE( X5 ) )  goto L3543;
-        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3547;
+        if  ( TRUE( X5 ) )  goto L3545;
+        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3549;
         scrt1__24__car_2derror( X4 );
-L3547:
+L3549:
         X6 = PAIR_CAR( X4 );
         if  ( FALSE( scexpand_islist( X6, _TSCP( 8 ), EMPTYLIST ) )
-            )  goto L3543;
+            )  goto L3545;
         X7 = PAIR_CAR( X4 );
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3554;
+        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3556;
         scrt1__24__car_2derror( X7 );
-L3554:
+L3556:
         X6 = PAIR_CAR( X7 );
-        if  ( NEQ( _S2CUINT( X6 ), _S2CUINT( c2763 ) ) )  goto L3550;
+        if  ( NEQ( _S2CUINT( X6 ), _S2CUINT( c2763 ) ) )  goto L3552;
         X7 = PAIR_CAR( X4 );
         X6 = sc_cons( X7, PAIR_CAR( X1 ) );
         SETGEN( PAIR_CAR( X1 ), X6 );
-        goto L3551;
-L3550:
+        goto L3553;
+L3552:
         X9 = CONS( EMPTYLIST, EMPTYLIST );
         X10 = CONS( EMPTYLIST, EMPTYLIST );
         X11 = PAIR_CAR( X4 );
-        if  ( EQ( TSCPTAG( X11 ), PAIRTAG ) )  goto L3559;
+        if  ( EQ( TSCPTAG( X11 ), PAIRTAG ) )  goto L3561;
         scrt1__24__car_2derror( X11 );
-L3559:
+L3561:
         X9 = CONS( scrt1_cons_2a( c2148, 
                                   CONS( PAIR_CAR( X11 ), X10 ) ), 
                    X9 );
         X8 = scrt1_cons_2a( c2851, CONS( X3, X9 ) );
         X10 = PAIR_CAR( X4 );
-        if  ( EQ( TSCPTAG( X10 ), PAIRTAG ) )  goto L3563;
+        if  ( EQ( TSCPTAG( X10 ), PAIRTAG ) )  goto L3565;
         scrt1__24__cdr_2derror( X10 );
-L3563:
+L3565:
         X9 = PAIR_CDR( X10 );
         X10 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X7 = scrt1_cons_2a( X8, 
@@ -1232,21 +1238,21 @@ L3563:
                                   EMPTYLIST ) );
         X6 = sc_cons( X7, PAIR_CAR( X1 ) );
         SETGEN( PAIR_CAR( X1 ), X6 );
-L3551:
+L3553:
         X6 = PAIR_CDR( X4 );
         X1 = PAIR_CAR( X1 );
         X4 = X6;
-        GOBACK( L3538 );
-L3525:
+        GOBACK( L3540 );
+L3527:
         POPSTACKTRACE( scdebug_error( c2818, 
                                       c2819, 
                                       CONS( e2817, EMPTYLIST ) ) );
-L3543:
-        if  ( FALSE( X4 ) )  goto L3566;
+L3545:
+        if  ( FALSE( X4 ) )  goto L3568;
         POPSTACKTRACE( scdebug_error( c2818, 
                                       c2135, 
                                       CONS( e2817, EMPTYLIST ) ) );
-L3566:
+L3568:
         X5 = CONS( EMPTYLIST, EMPTYLIST );
         X6 = scrt1_reverse( PAIR_CAR( X1 ) );
         X7 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
@@ -1278,31 +1284,31 @@ TSCP  scexpnd1_l2901( x2902, e2903 )
 }
 
 DEFTSCP( scexpnd1_and_2dmacro_v );
-DEFCSTRING( t3569, "SCEXPND1_AND-MACRO" );
+DEFCSTRING( t3571, "SCEXPND1_AND-MACRO" );
 
 TSCP  scexpnd1_and_2dmacro( e2906 )
         TSCP  e2906;
 {
         TSCP  X7, X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3569 );
-        if  ( EQ( TSCPTAG( e2906 ), PAIRTAG ) )  goto L3574;
+        PUSHSTACKTRACE( t3571 );
+        if  ( EQ( TSCPTAG( e2906 ), PAIRTAG ) )  goto L3576;
         scrt1__24__cdr_2derror( e2906 );
-L3574:
-        X1 = PAIR_CDR( e2906 );
-        if  ( EQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3571;
-        X2 = PAIR_CDR( e2906 );
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3580;
-        scrt1__24__cdr_2derror( X2 );
-L3580:
-        X1 = PAIR_CDR( X2 );
-        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3576;
-        X1 = PAIR_CDR( e2906 );
-        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3584;
-        scrt1__24__car_2derror( X1 );
-L3584:
-        POPSTACKTRACE( PAIR_CAR( X1 ) );
 L3576:
+        X1 = PAIR_CDR( e2906 );
+        if  ( EQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3573;
+        X2 = PAIR_CDR( e2906 );
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3582;
+        scrt1__24__cdr_2derror( X2 );
+L3582:
+        X1 = PAIR_CDR( X2 );
+        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3578;
+        X1 = PAIR_CDR( e2906 );
+        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3586;
+        scrt1__24__car_2derror( X1 );
+L3586:
+        POPSTACKTRACE( PAIR_CAR( X1 ) );
+L3578:
         X1 = CONS( EMPTYLIST, EMPTYLIST );
         X2 = CONS( EMPTYLIST, EMPTYLIST );
         X2 = CONS( c2256, X2 );
@@ -1313,18 +1319,18 @@ L3576:
                    X1 );
         X3 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = PAIR_CDR( e2906 );
-        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3588;
+        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3590;
         scrt1__24__car_2derror( X4 );
-L3588:
+L3590:
         X2 = scrt1_cons_2a( c2256, 
                             CONS( PAIR_CAR( X4 ), X3 ) );
         X3 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = CONS( EMPTYLIST, EMPTYLIST );
         X5 = CONS( EMPTYLIST, EMPTYLIST );
         X7 = PAIR_CDR( e2906 );
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3592;
+        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3594;
         scrt1__24__cdr_2derror( X7 );
-L3592:
+L3594:
         X6 = PAIR_CDR( X7 );
         X7 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X5 = CONS( scrt1_cons_2a( c2942, 
@@ -1340,7 +1346,7 @@ L3592:
                                                                                       X4 ) ), 
                                                                  X3 ) ), 
                                             X1 ) ) );
-L3571:
+L3573:
         POPSTACKTRACE( TRUEVALUE );
 }
 
@@ -1359,31 +1365,31 @@ TSCP  scexpnd1_l2963( x2964, e2965 )
 }
 
 DEFTSCP( scexpnd1_or_2dmacro_v );
-DEFCSTRING( t3595, "SCEXPND1_OR-MACRO" );
+DEFCSTRING( t3597, "SCEXPND1_OR-MACRO" );
 
 TSCP  scexpnd1_or_2dmacro( e2968 )
         TSCP  e2968;
 {
         TSCP  X7, X6, X5, X4, X3, X2, X1;
 
-        PUSHSTACKTRACE( t3595 );
-        if  ( EQ( TSCPTAG( e2968 ), PAIRTAG ) )  goto L3600;
+        PUSHSTACKTRACE( t3597 );
+        if  ( EQ( TSCPTAG( e2968 ), PAIRTAG ) )  goto L3602;
         scrt1__24__cdr_2derror( e2968 );
-L3600:
-        X1 = PAIR_CDR( e2968 );
-        if  ( EQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3597;
-        X2 = PAIR_CDR( e2968 );
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3606;
-        scrt1__24__cdr_2derror( X2 );
-L3606:
-        X1 = PAIR_CDR( X2 );
-        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3602;
-        X1 = PAIR_CDR( e2968 );
-        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3610;
-        scrt1__24__car_2derror( X1 );
-L3610:
-        POPSTACKTRACE( PAIR_CAR( X1 ) );
 L3602:
+        X1 = PAIR_CDR( e2968 );
+        if  ( EQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3599;
+        X2 = PAIR_CDR( e2968 );
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3608;
+        scrt1__24__cdr_2derror( X2 );
+L3608:
+        X1 = PAIR_CDR( X2 );
+        if  ( NEQ( _S2CUINT( X1 ), _S2CUINT( EMPTYLIST ) ) )  goto L3604;
+        X1 = PAIR_CDR( e2968 );
+        if  ( EQ( TSCPTAG( X1 ), PAIRTAG ) )  goto L3612;
+        scrt1__24__car_2derror( X1 );
+L3612:
+        POPSTACKTRACE( PAIR_CAR( X1 ) );
+L3604:
         X1 = CONS( EMPTYLIST, EMPTYLIST );
         X2 = CONS( EMPTYLIST, EMPTYLIST );
         X2 = CONS( scrt1_cons_2a( c2941, 
@@ -1394,18 +1400,18 @@ L3602:
                    X1 );
         X3 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = PAIR_CDR( e2968 );
-        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3614;
+        if  ( EQ( TSCPTAG( X4 ), PAIRTAG ) )  goto L3616;
         scrt1__24__car_2derror( X4 );
-L3614:
+L3616:
         X2 = scrt1_cons_2a( c2256, 
                             CONS( PAIR_CAR( X4 ), X3 ) );
         X3 = CONS( EMPTYLIST, EMPTYLIST );
         X4 = CONS( EMPTYLIST, EMPTYLIST );
         X5 = CONS( EMPTYLIST, EMPTYLIST );
         X7 = PAIR_CDR( e2968 );
-        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3618;
+        if  ( EQ( TSCPTAG( X7 ), PAIRTAG ) )  goto L3620;
         scrt1__24__cdr_2derror( X7 );
-L3618:
+L3620:
         X6 = PAIR_CDR( X7 );
         X7 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X5 = CONS( scrt1_cons_2a( c2785, 
@@ -1421,7 +1427,7 @@ L3618:
                                                                                       X4 ) ), 
                                                                  X3 ) ), 
                                             X1 ) ) );
-L3597:
+L3599:
         POPSTACKTRACE( FALSEVALUE );
 }
 
@@ -1440,25 +1446,25 @@ TSCP  scexpnd1_l3023( x3024, e3025 )
 }
 
 DEFTSCP( scexpnd1_when_2dmacro_v );
-DEFCSTRING( t3621, "SCEXPND1_WHEN-MACRO" );
+DEFCSTRING( t3623, "SCEXPND1_WHEN-MACRO" );
 
 TSCP  scexpnd1_when_2dmacro( e3028 )
         TSCP  e3028;
 {
         TSCP  X3, X2, X1;
 
-        PUSHSTACKTRACE( t3621 );
+        PUSHSTACKTRACE( t3623 );
         if  ( FALSE( scexpand_islist( e3028, 
                                       _TSCP( 12 ), EMPTYLIST ) )
-            )  goto L3623;
+            )  goto L3625;
         X1 = CONS( EMPTYLIST, EMPTYLIST );
-        if  ( EQ( TSCPTAG( e3028 ), PAIRTAG ) )  goto L3626;
+        if  ( EQ( TSCPTAG( e3028 ), PAIRTAG ) )  goto L3628;
         scrt1__24__cdr_2derror( e3028 );
-L3626:
+L3628:
         X3 = PAIR_CDR( e3028 );
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3629;
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3631;
         scrt1__24__cdr_2derror( X3 );
-L3629:
+L3631:
         X2 = PAIR_CDR( X3 );
         X3 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X1 = CONS( scrt1_cons_2a( c2396, 
@@ -1466,12 +1472,12 @@ L3629:
                                         EMPTYLIST ) ), 
                    X1 );
         X2 = PAIR_CDR( e3028 );
-        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3633;
+        if  ( EQ( TSCPTAG( X2 ), PAIRTAG ) )  goto L3635;
         scrt1__24__car_2derror( X2 );
-L3633:
+L3635:
         POPSTACKTRACE( scrt1_cons_2a( c2525, 
                                       CONS( PAIR_CAR( X2 ), X1 ) ) );
-L3623:
+L3625:
         POPSTACKTRACE( scdebug_error( c3029, 
                                       c2135, 
                                       CONS( e3028, EMPTYLIST ) ) );
@@ -1492,25 +1498,25 @@ TSCP  scexpnd1_l3050( x3051, e3052 )
 }
 
 DEFTSCP( scexpnd1_unless_2dmacro_v );
-DEFCSTRING( t3636, "SCEXPND1_UNLESS-MACRO" );
+DEFCSTRING( t3638, "SCEXPND1_UNLESS-MACRO" );
 
 TSCP  scexpnd1_unless_2dmacro( e3055 )
         TSCP  e3055;
 {
         TSCP  X3, X2, X1;
 
-        PUSHSTACKTRACE( t3636 );
+        PUSHSTACKTRACE( t3638 );
         if  ( FALSE( scexpand_islist( e3055, 
                                       _TSCP( 12 ), EMPTYLIST ) )
-            )  goto L3638;
+            )  goto L3640;
         X1 = CONS( EMPTYLIST, EMPTYLIST );
-        if  ( EQ( TSCPTAG( e3055 ), PAIRTAG ) )  goto L3641;
+        if  ( EQ( TSCPTAG( e3055 ), PAIRTAG ) )  goto L3643;
         scrt1__24__cdr_2derror( e3055 );
-L3641:
+L3643:
         X3 = PAIR_CDR( e3055 );
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3644;
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3646;
         scrt1__24__cdr_2derror( X3 );
-L3644:
+L3646:
         X2 = PAIR_CDR( X3 );
         X3 = scrt1_cons_2a( EMPTYLIST, EMPTYLIST );
         X1 = CONS( scrt1_cons_2a( c2396, 
@@ -1519,15 +1525,15 @@ L3644:
                    X1 );
         X2 = CONS( EMPTYLIST, EMPTYLIST );
         X3 = PAIR_CDR( e3055 );
-        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3648;
+        if  ( EQ( TSCPTAG( X3 ), PAIRTAG ) )  goto L3650;
         scrt1__24__car_2derror( X3 );
-L3648:
+L3650:
         POPSTACKTRACE( scrt1_cons_2a( c2525, 
                                       CONS( scrt1_cons_2a( c3057, 
                                                            CONS( PAIR_CAR( X3 ), 
                                                                  X2 ) ), 
                                             X1 ) ) );
-L3638:
+L3640:
         POPSTACKTRACE( scdebug_error( c3056, 
                                       c2135, 
                                       CONS( e3055, EMPTYLIST ) ) );
@@ -1570,6 +1576,7 @@ void  scexpnd1__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scexpnd1 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l2131, EMPTYLIST );
         scexpand_install_2dexpander( c2130, X1 );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l2149, EMPTYLIST );
@@ -1607,48 +1614,48 @@ void  scexpnd1__init()
         scexpand_install_2dexpander( c2516, X1 );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l2583, EMPTYLIST );
         scexpand_install_2dexpander( c2396, X1 );
-        INITIALIZEVAR( t3427, 
+        INITIALIZEVAR( t3429, 
                        ADR( scexpnd1_2dexpander_afd5ebf4_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scexpnd1_2dexpander_afd5ebf4, 
                                       EMPTYLIST ) );
-        INITIALIZEVAR( t3461, 
+        INITIALIZEVAR( t3463, 
                        ADR( scexpnd1_cond_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scexpnd1_cond_2dmacro, EMPTYLIST ) );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l2812, EMPTYLIST );
         scexpand_install_2dexpander( c2772, X1 );
-        INITIALIZEVAR( t3523, 
+        INITIALIZEVAR( t3525, 
                        ADR( scexpnd1_case_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scexpnd1_case_2dmacro, EMPTYLIST ) );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l2901, EMPTYLIST );
         scexpand_install_2dexpander( c2818, X1 );
-        INITIALIZEVAR( t3569, 
+        INITIALIZEVAR( t3571, 
                        ADR( scexpnd1_and_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scexpnd1_and_2dmacro, EMPTYLIST ) );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l2963, EMPTYLIST );
         scexpand_install_2dexpander( c2942, X1 );
-        INITIALIZEVAR( t3595, 
+        INITIALIZEVAR( t3597, 
                        ADR( scexpnd1_or_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scexpnd1_or_2dmacro, EMPTYLIST ) );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l3023, EMPTYLIST );
         scexpand_install_2dexpander( c2785, X1 );
-        INITIALIZEVAR( t3621, 
+        INITIALIZEVAR( t3623, 
                        ADR( scexpnd1_when_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 
                                       scexpnd1_when_2dmacro, EMPTYLIST ) );
         X1 = MAKEPROCEDURE( 2, 0, scexpnd1_l3050, EMPTYLIST );
         scexpand_install_2dexpander( c3029, X1 );
-        INITIALIZEVAR( t3636, 
+        INITIALIZEVAR( t3638, 
                        ADR( scexpnd1_unless_2dmacro_v ), 
                        MAKEPROCEDURE( 1, 
                                       0, 

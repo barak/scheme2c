@@ -1974,6 +1974,7 @@ void  scdebug__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scdebug SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2911, 
                        ADR( scdebug_trace_2dlevel_v ), 
                        _TSCP( 0 ) );

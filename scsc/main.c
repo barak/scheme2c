@@ -1085,6 +1085,7 @@ main( argc, argv )
         INITHEAP( 0, argc, argv, main_scc );
         init_constants();
         init_modules( "(main SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2683, 
                        ADR( main_scc_2dversion_v ), c2001 );
         INITIALIZEVAR( t2684, 

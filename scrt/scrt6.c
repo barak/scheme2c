@@ -1804,6 +1804,7 @@ void  scrt6__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt6 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3128, 
                        ADR( scrt6_pending_2dstdout_v ), 
                        FALSEVALUE );

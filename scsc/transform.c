@@ -2686,6 +2686,7 @@ void  transform__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(transform SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t5993, 
                        ADR( transform_transform_2dstack_v ), 
                        EMPTYLIST );

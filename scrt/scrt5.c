@@ -2735,6 +2735,7 @@ void  scrt5__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt5 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3253, 
                        ADR( scrt5_put_2dfile_36807e3e_v ), 
                        MAKEPROCEDURE( 2, 

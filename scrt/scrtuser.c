@@ -22,5 +22,6 @@ void  scrtuser__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrtuser SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         return;
 }

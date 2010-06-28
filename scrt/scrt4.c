@@ -1852,6 +1852,7 @@ void  scrt4__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt4 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t3129, 
                        ADR( scrt4_vector_3f_v ), 
                        MAKEPROCEDURE( 1, 
