@@ -1,3 +1,9 @@
+scheme2c (1993.3.15.2-11) UNRELEASED; urgency=low
+
+  * bump standard (debian/control)
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 08 Jul 2010 11:11:45 +0100
+
 scheme2c (1993.3.15.2-10) unstable; urgency=low
 
   * merge upstream fixes: syntax-rules/case
