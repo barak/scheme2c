@@ -1,8 +1,8 @@
 scheme2c (1993.3.15.2-11) UNRELEASED; urgency=low
 
-  * bump standard (debian/control)
+  * bump standards version (debian/control)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Thu, 08 Jul 2010 11:11:45 +0100
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 02 Aug 2010 14:36:55 +0200
 
 scheme2c (1993.3.15.2-10) unstable; urgency=low
 
