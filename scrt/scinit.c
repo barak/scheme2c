@@ -503,7 +503,9 @@ S2CINT  sc_expandheap()
 	if  (sc_heappages >= sc_maxheappages  ||  expandfailed != 0)  {
 	   if  (expandfailed == 0)  {
 	      sc_log_string( msgheader );
-	      sc_log_string( "cannot further expand heap\n" );
+	      sc_log_string( "cannot further expand heap (" );
+	      sc_log_dec(sc_heappages);
+	      sc_log_string( " pages)\n" );
 	      expandfailed = 1;
 	   }
 	   return( 0 );
