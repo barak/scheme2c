@@ -3,7 +3,7 @@ Section: lisp
 Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 7.2.5),
-    libsigsegv-dev,
+    libsigsegv-dev, libx11-dev,
     texlive-latex-base, texlive-latex-extra, latex209-bin,
     texlive-fonts-recommended, ghostscript
 Standards-Version: 3.9.1
@@ -18,8 +18,9 @@ Description: Joel Bartlett's fabled Scheme->C system
  The original Scheme->C system, the first of its kind.  It conforms to
  the R4RS Scheme standard, and compiles Scheme sources to C as an
  intermediate step, allowing easy integration with external libraries.
- Also included is an interpreter, for development.  Due to a variety
- of clever techniques, the system is quite fast.
+ Also included is an interpreter, for development, along with some X11
+ interfaces and an X11-enabled interpreter.  Due to a variety of
+ clever techniques, the system is quite fast.
 
 Package: scheme2c-doc
 Section: doc

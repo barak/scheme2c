@@ -22,6 +22,8 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	$(MAKE) -C $(S2C_ARCH)	# architecture dependent, executables
+	$(MAKE) -C $(S2C_ARCH)/cdecl all # sizeof cdecl
+	$(MAKE) -C $(S2C_ARCH)/xlib sizeof.cdecl scxl.a scixl
 	$(MAKE) -C doc		# architecture independent, documentation
 
 override_dh_auto_install:
