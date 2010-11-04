@@ -108,6 +108,8 @@ scxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	rm -f scxl.a
 	ar q scxl.a ${xdo} ${xwso}
 	${RANLIB} scxl.a
+## Would like to replace with this, but messes up parallel make...
+# scxl.a:	scxl.a(${xdo} ${xwso})
 
 clear:
 	${SCC} -o clear clear.sc scxl.a ${XLIB}
