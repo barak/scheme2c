@@ -80,7 +80,8 @@ Xmv:
 	mv Xsccomp sccomp
 
 port:
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xsccomp Xmv
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xsccomp
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xmv
 
 install:
 	mkdir -p ${DESTDIR}${BINDIR}/
