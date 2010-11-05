@@ -3,7 +3,7 @@
 
 SCSRC = cdecl.sc const.sc extern.sc typedef.sc
 CSRC = cdecl.c const.c extern.c typedef.c
-MISC = sizeof.c README document load.sc
+MISC = sizeof.c sch.sc README document load.sc
 
 SRCDIR = ../../cdecl
 
@@ -13,13 +13,16 @@ SCC = ../scsc/scc
 	${SCC} -C $*.sc
 
 all:	
-	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" cdecl sizeof
+	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" cdecl sizeof sch
 
 cdecl:	${CSRC}
 	${SCC} -o cdecl ${CSRC}
 
 sizeof:	sizeof.c
 	${CC} -o sizeof sizeof.c
+
+sch: sch.sc
+	${SCC} -o $@ $^
 
 clean:
 	rm -f *.o *.CKP *.BAK *.S2C core
@@ -28,7 +31,7 @@ clean-sc-to-c:
 	rm -f ${CSRC}
 
 noprogs:
-	rm -f cdecl sizeof
+	rm -f cdecl sizeof sch
 
 srclinks:
 	for x in ${SCSRC} ${MISC}; \
