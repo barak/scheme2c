@@ -15,11 +15,11 @@ SCC = ../scsc/scc
 all:	
 	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" cdecl sizeof sch
 
-cdecl:	${CSRC}
-	${SCC} -o cdecl ${CSRC}
+cdecl: ${CSRC}
+	${SCC} -o $@ $^
 
 sizeof:	sizeof.c
-	${CC} -o sizeof sizeof.c
+	${CC} -o $@ $^
 
 sch: sch.sc
 	${SCC} -o $@ $^
@@ -37,3 +37,5 @@ srclinks:
 	for x in ${SCSRC} ${MISC}; \
 	   do ln -s ${SRCDIR}/$$x $$x; \
 	done
+
+.PHONY: all noprogs clean-sc-to-c scrlinks
