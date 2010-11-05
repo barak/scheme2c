@@ -76,6 +76,9 @@ xwsc = xwss.c xws2.c xws3.c xws4.c xws5.c xws6.c xws7.c xws8.c xws9.c xws10.c \
 xwso = xwss.o xws2.o xws3.o xws4.o xws5.o xws6.o xws7.o xws8.o xws9.o xws10.o \
        xlib.o xwsr4.o
 
+all:
+	$(MAKE) scixl scxl.a
+
 sizeof.cdecl:
 	${SIZEOF} > sizeof.cdecl
 
@@ -132,9 +135,6 @@ clean-cdecl:
 clean-sc-to-c:
 	rm -f ${xdc} ${xdpc} xlib.c xwss.c clear.c hello.c hello2.c \
 		puzzle.c npuzzle.c
-
-all:
-	$(MAKE) scixl scxl.a
 
 gensource:
 	$(MAKE) ${xwssc} ${xwsc}
