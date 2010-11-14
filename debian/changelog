@@ -3,11 +3,11 @@ scheme2c (1993.3.15.2-11) UNRELEASED; urgency=low
   * bump standards version (debian/control)
   * add useful utilities to package
     - scxl.a (X library for linking to) and associated *.sch include files
-    - cdecl (generate C declarations from Scheme code, for linking)
+    - cdecl (generate C declarations from Scheme code, for linking) as s2cdecl
     - scixl (interpreter with X procedures available)
     - sizeof.cdecl (standard sizes on current architecture)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Sun, 14 Nov 2010 21:49:47 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 14 Nov 2010 21:55:22 +0000
 
 scheme2c (1993.3.15.2-10) unstable; urgency=low
 
