@@ -1,4 +1,3 @@
-*/cdecl/cdecl		usr/bin
 */xlib/scixl		usr/bin
 */xlib/scxl.a		usr/lib/scheme2c
 */xlib/sizeof.cdecl	usr/lib/scheme2c

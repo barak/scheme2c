@@ -29,6 +29,7 @@ override_dh_auto_build:
 override_dh_auto_install:
 	$(MAKE) -C $(S2C_ARCH)/scrt DESTDIR=`pwd`/debian/scheme2c prefix=/usr install
 	$(MAKE) -C $(S2C_ARCH)/scsc DESTDIR=`pwd`/debian/scheme2c prefix=/usr install
+	cp -a $(S2C_ARCH)/cdecl/cdecl debian/scheme2c/usr/bin/s2cdecl
 
 ## Documentation Installation
 ## Unneeded due to debian/scheme2c.manpages
