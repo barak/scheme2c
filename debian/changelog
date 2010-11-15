@@ -7,8 +7,9 @@ scheme2c (1993.3.15.2-11) UNRELEASED; urgency=low
     - sch (generate C headers, for linking external C)
     - scixl (interpreter with X procedures available)
     - sizeof.cdecl (standard sizes on current architecture)
+  * debhelper 8
 
- -- Barak A. Pearlmutter <bap@debian.org>  Sun, 14 Nov 2010 21:59:17 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 15 Nov 2010 09:42:48 +0000
 
 scheme2c (1993.3.15.2-10) unstable; urgency=low
 

@@ -2,7 +2,7 @@ Source: scheme2c
 Section: lisp
 Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
-Build-Depends: debhelper (>= 7.2.5),
+Build-Depends: debhelper (>= 8),
     libsigsegv-dev, libx11-dev,
     texlive-latex-base, texlive-latex-extra, latex209-bin,
     texlive-fonts-recommended, ghostscript
