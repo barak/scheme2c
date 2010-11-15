@@ -5,6 +5,11 @@ CDECL = ../cdecl/cdecl
 SIZEOF = ../cdecl/sizeof
 SRCDIR = ../../xlib
 SCC = ../scsc/scc
+SCXLIB = scxl.a
+
+## Local build succeeds on Debian with scheme2c package installed:
+# make XLIB=-lX11 SCC=scc CDECL=s2cdecl RANLIB=echo
+# make XLIB=-lX11 SCC=scc SCXLIB=/usr/lib/scheme2c/scxl.a hello puzzle
 
 XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \
      Xkeysym.cdecl Xcursorfont.cdecl Xr4.cdecl
@@ -118,10 +123,10 @@ clear:
 	${SCC} -o clear clear.sc scxl.a ${XLIB}
 
 hello:
-	${SCC} -o hello hello.sc scxl.a ${XLIB}
+	${SCC} -o hello hello.sc ${SCXLIB} ${XLIB}
 
 puzzle:
-	${SCC} -o puzzle puzzle.sc scxl.a ${XLIB}
+	${SCC} -o puzzle puzzle.sc ${SCXLIB} ${XLIB}
 
 clean:
 	rm -f *.BAK *.CKP core
