@@ -5,6 +5,11 @@ CDECL = ../cdecl/cdecl
 SIZEOF = ../cdecl/sizeof
 SRCDIR = ../../xlib
 SCC = ../scsc/scc
+SCXLIB = scxl.a
+
+## Local build succeeds on Debian with scheme2c package installed:
+# make XLIB=-lX11 SCC=scc CDECL=s2cdecl RANLIB=echo
+# make XLIB=-lX11 SCC=scc SCXLIB=/usr/lib/scheme2c/scxl.a hello puzzle
 
 XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \
      Xkeysym.cdecl Xcursorfont.cdecl Xr4.cdecl
@@ -76,6 +81,9 @@ xwsc = xwss.c xws2.c xws3.c xws4.c xws5.c xws6.c xws7.c xws8.c xws9.c xws10.c \
 xwso = xwss.o xws2.o xws3.o xws4.o xws5.o xws6.o xws7.o xws8.o xws9.o xws10.o \
        xlib.o xwsr4.o
 
+all:
+	$(MAKE) scixl scxl.a
+
 sizeof.cdecl:
 	${SIZEOF} > sizeof.cdecl
 
@@ -108,15 +116,17 @@ scxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	rm -f scxl.a
 	ar q scxl.a ${xdo} ${xwso}
 	${RANLIB} scxl.a
+## Would like to replace with this, but messes up parallel make...
+# scxl.a:	scxl.a(${xdo} ${xwso})
 
 clear:
 	${SCC} -o clear clear.sc scxl.a ${XLIB}
 
 hello:
-	${SCC} -o hello hello.sc scxl.a ${XLIB}
+	${SCC} -o hello hello.sc ${SCXLIB} ${XLIB}
 
 puzzle:
-	${SCC} -o puzzle puzzle.sc scxl.a ${XLIB}
+	${SCC} -o puzzle puzzle.sc ${SCXLIB} ${XLIB}
 
 clean:
 	rm -f *.BAK *.CKP core
@@ -130,9 +140,6 @@ clean-cdecl:
 clean-sc-to-c:
 	rm -f ${xdc} ${xdpc} xlib.c xwss.c clear.c hello.c hello2.c \
 		puzzle.c npuzzle.c
-
-all:
-	$(MAKE) scixl scxl.a
 
 gensource:
 	$(MAKE) ${xwssc} ${xwsc}
