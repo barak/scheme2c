@@ -7,6 +7,8 @@ else ifeq ($(arch),i386)
   S2C_ARCH = LINUX
 else ifeq ($(arch),armel)
   S2C_ARCH = ARM
+else ifeq ($(arch),armhf)
+  S2C_ARCH = ARM
 else
   $(warning Warning: unsupported architecture $(arch))
   S2C_ARCH = UNSUPPORTED
