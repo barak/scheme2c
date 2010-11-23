@@ -8,8 +8,9 @@ scheme2c (1993.3.15.2-11) UNRELEASED; urgency=low
     - scixl (interpreter with X procedures available)
     - sizeof.cdecl (standard sizes on current architecture)
   * debhelper 8
+  * accept armhf patch to debian/control and debian/rules (closes: #604665)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Mon, 15 Nov 2010 09:42:48 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 23 Nov 2010 13:21:13 +0000
 
 scheme2c (1993.3.15.2-10) unstable; urgency=low
 
