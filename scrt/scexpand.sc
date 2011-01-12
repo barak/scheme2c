@@ -28,11 +28,6 @@
 
 (include "repdef.sc")
 
-(define GENSYM-DATA 0)
-(define (GENSYM)
-  (set! gensym-data (+ gensym-data 1))
-  (string->symbol (format "gensym-~s" gensym-data)))
-
 (define (EXPAND x) (initial-expander x initial-expander))
 
 (define (INITIAL-EXPANDER x e)
