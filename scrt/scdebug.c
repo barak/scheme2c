@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scdebug__init();
 DEFCSTRING( t2843, "SCDEBUG_TIMEOUT" );
 DEFSTATICTSCP( c2795 );
 DEFCSTRING( t2844, "main" );
@@ -1948,6 +1949,15 @@ TSCP  scdebug_proceed_3f(  )
 
 DEFTSCP( scdebug_timeout_2ddebug_v );
 DEFCSTRING( t3338, "SCDEBUG_TIMEOUT-DEBUG" );
+void scrt3__init();
+void scrt4__init();
+void screp__init();
+void sceval__init();
+void scrt5__init();
+void scrt6__init();
+void scrt2__init();
+void scrt1__init();
+void scexpand__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

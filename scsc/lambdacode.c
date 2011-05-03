@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void lambdacode__init();
 DEFSTATICTSCP( indirect_2dlambda_2dlexical_v );
 DEFSTATICTSCP( sc_2dstack_2dtrace_v );
 DEFSTATICTSCP( current_2ddefine_2dname_v );
@@ -1363,6 +1364,15 @@ L3512:
 L3448:
         POPSTACKTRACE( X3 );
 }
+
+void scrt3__init();
+void scrt2__init();
+void scdebug__init();
+void lap__init();
+void expform__init();
+void gencode__init();
+void plist__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt3__init();
 DEFSTATICTSCP( c3560 );
 DEFCSTRING( t3800, "Argument is not a list of CHARACTERS: ~s" );
 DEFSTATICTSCP( c3536 );
@@ -1994,6 +1995,10 @@ L4741:
         X1 = scrt2__2d_2dtwo( X1, _TSCP( 4 ) );
         GOBACK( L4730 );
 }
+
+void scrt1__init();
+void scrt2__init();
+void scdebug__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

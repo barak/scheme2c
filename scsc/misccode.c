@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void misccode__init();
 DEFSTATICTSCP( report_2derror_v );
 DEFSTATICTSCP( current_2ddefine_2dname_v );
 DEFSTATICTSCP( top_2dlevel_2dsymbols_v );
@@ -1543,6 +1544,14 @@ L3562:
 L3555:
         POPSTACKTRACE( X1 );
 }
+
+void scrt3__init();
+void scdebug__init();
+void expform__init();
+void scrt1__init();
+void lap__init();
+void gencode__init();
+void plist__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void macros__init();
 DEFSTATICTSCP( islist_v );
 DEFSTATICTSCP( expand_2derror_v );
 DEFSTATICTSCP( quasiquotation_v );
@@ -2529,6 +2530,11 @@ L4898:
                                                     e3732, 
                                                     PROCEDURE_CLOSURE( X1 ) ) );
 }
+
+void scdebug__init();
+void scrt6__init();
+void scrt2__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

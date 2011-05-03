@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void callcode__init();
 DEFSTATICTSCP( lambda_2dbody_2dgenc_v );
 DEFSTATICTSCP( report_2derror_v );
 DEFSTATICTSCP( reserve_2ddisplay_v );
@@ -1601,6 +1602,14 @@ L3895:
 L3858:
         POPSTACKTRACE( X2 );
 }
+
+void scdebug__init();
+void expform__init();
+void scrt2__init();
+void lap__init();
+void gencode__init();
+void plist__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

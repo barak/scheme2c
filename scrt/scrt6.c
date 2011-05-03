@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt6__init();
 DEFSTATICTSCP( c2947 );
 DEFSTATICTSCP( c2815 );
 DEFCSTRING( t3098, "Index is not in bounds: ~s" );
@@ -1781,6 +1782,15 @@ L3701:
 L3702:
         POPSTACKTRACE( X1 );
 }
+
+void screp__init();
+void scrt3__init();
+void scrt4__init();
+void scrt2__init();
+void scrt7__init();
+void scdebug__init();
+void scrt5__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

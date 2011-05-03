@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void compile__init();
 DEFSTATICTSCP( lexical_2dfree_2dvars_v );
 DEFSTATICTSCP( lexical_2dbound_2dvars_v );
 DEFSTATICTSCP( current_2dlambda_2did_v );
@@ -2194,6 +2195,16 @@ L4352:
         X2 = compile_list_2dhead( X3, X4 );
         POPSTACKTRACE( sc_cons( X1, X2 ) );
 }
+
+void scrt4__init();
+void scrt3__init();
+void scdebug__init();
+void scrt2__init();
+void scrt1__init();
+void scrt6__init();
+void scrt5__init();
+void plist__init();
+void expform__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

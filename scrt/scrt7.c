@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt7__init();
 DEFCSTRING( t4554, "." );
 DEFSTATICTSCP( c4097 );
 DEFSTATICTSCP( c4090 );
@@ -3134,6 +3135,13 @@ L5931:
 L5910:
         POPSTACKTRACE( X1 );
 }
+
+void scrt2__init();
+void scrt1__init();
+void scrt4__init();
+void scrt3__init();
+void scdebug__init();
+void scrt6__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void lap__init();
 DEFSTATICTSCP( log_3f_v );
 DEFSTATICTSCP( sc_2dicode_v );
 DEFSTATICTSCP( set_2did_2dalias_21_v );
@@ -3294,6 +3295,12 @@ L4810:
 L4806:
         POPSTACKTRACE( FALSEVALUE );
 }
+
+void scrt3__init();
+void scdebug__init();
+void scrt2__init();
+void scrt6__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

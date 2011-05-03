@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt2__init();
 DEFCSTRING( t4776, "#b" );
 DEFSTATICTSCP( c4268 );
 DEFCSTRING( t4777, "#o" );
@@ -3089,6 +3090,12 @@ TSCP  scrt2_try_2dto_2dread( s4274 )
         POPSTACKTRACE( SDVAL );
 }
 
+void scrt5__init();
+void scrt3__init();
+void scrt6__init();
+void scrt1__init();
+void scdebug__init();
+
 static void  init_modules( compiler_version )
         char *compiler_version;
 {
@@ -3108,6 +3115,7 @@ void  scrt2__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scrt2 SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t4797, 
                        ADR( scrt2_symbol_3f_v ), 
                        MAKEPROCEDURE( 1, 

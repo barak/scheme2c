@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void closeana__init();
 DEFSTATICTSCP( name_2da_2dlambda_v );
 DEFSTATICTSCP( log_3f_v );
 DEFSTATICTSCP( sc_2dicode_v );
@@ -2249,6 +2250,12 @@ L6356:
 L6347:
         POPSTACKTRACE( PAIR_CAR( X3 ) );
 }
+
+void scrt2__init();
+void scdebug__init();
+void scrt6__init();
+void plist__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

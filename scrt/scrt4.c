@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt4__init();
 DEFCSTRING( t3115, "Argument is not a STRING: ~s" );
 DEFSTATICTSCP( c3064 );
 DEFSTATICTSCP( c3063 );
@@ -1831,6 +1832,13 @@ TSCP  scrt4_system( c3060 )
 L3654:
         POPSTACKTRACE( sc_ossystem( c3060 ) );
 }
+
+void scrt3__init();
+void scrt6__init();
+void scrt5__init();
+void scrt1__init();
+void scrt2__init();
+void scdebug__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

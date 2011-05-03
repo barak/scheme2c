@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void screp__init();
 DEFCSTRING( t2482, "~s form ignored~%" );
 DEFSTATICTSCP( c2373 );
 DEFCSTRING( t2483, "~s~%" );
@@ -935,6 +936,21 @@ L2733:
 L2726:
         POPSTACKTRACE( FALSEVALUE );
 }
+
+void scrt2__init();
+void sceval__init();
+void scrt3__init();
+void scrt6__init();
+void scrt5__init();
+void scrt4__init();
+void scdebug__init();
+void scrt1__init();
+void scdebug__init();
+void sceval__init();
+void scexpand__init();
+void scexpnd1__init();
+void scexpnd2__init();
+void scqquote__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

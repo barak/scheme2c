@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void plist__init();
 DEFSTATICTSCP( c2125 );
 DEFSTATICTSCP( _2aobarray_2a_v );
 DEFCSTRING( t2131, "Index is not in bounds: ~s" );
@@ -205,6 +206,10 @@ L2202:
         X1 = scrt2__2d_2dtwo( X1, _TSCP( 4 ) );
         GOBACK( L2166 );
 }
+
+void scdebug__init();
+void scrt2__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+int main();
 DEFSTATICTSCP( sc_2dlog_2ddefault_v );
 DEFSTATICTSCP( initialize_2dcompile_v );
 DEFSTATICTSCP( do_2ddefine_2dconstant_v );
@@ -71,7 +72,7 @@ DEFCSTRING( t2623, "{~%" );
 DEFSTATICTSCP( c2325 );
 DEFCSTRING( t2624, "   int argc; char *argv[];~%" );
 DEFSTATICTSCP( c2324 );
-DEFCSTRING( t2625, "main( argc, argv )~%" );
+DEFCSTRING( t2625, "int main( argc, argv )~%" );
 DEFSTATICTSCP( c2323 );
 DEFCSTRING( t2626, "extern TSCP screp_read_2deval_2dprint();~%" );
 DEFSTATICTSCP( c2322 );
@@ -1047,6 +1048,28 @@ L2937:
 }
 
 void  main__init(){}
+void scrt2__init();
+void scdebug__init();
+void scrt5__init();
+void scrt6__init();
+void scrt4__init();
+void scrt3__init();
+void scrt1__init();
+void screp__init();
+void callcode__init();
+void closeana__init();
+void compile__init();
+void expform__init();
+void gencode__init();
+void lambdacode__init();
+void lambdaexp__init();
+void lap__init();
+void macros__init();
+void misccode__init();
+void miscexp__init();
+void plist__init();
+void readtext__init();
+void transform__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;
@@ -1076,11 +1099,10 @@ static void  init_modules( compiler_version )
         MAXDISPLAY( 3 );
 }
 
-main( argc, argv )
-        int argc;  char *argv[];
+int main( int argc, char *argv[] )
 {
         static int  init = 0;
-        if  (init)  return;
+        if  (init)  return 1;
         init = 1;
         INITHEAP( 0, argc, argv, main_scc );
         init_constants();
@@ -1116,4 +1138,5 @@ main( argc, argv )
                                       main_do_2dc_2dflag, EMPTYLIST ) );
         main_scc( CLARGUMENTS( argc, argv ) );
         SCHEMEEXIT();
+        return 0;
 }
