@@ -560,9 +560,10 @@ void  sc_abort()
 
 /* Normal exit */
 
-void  sc_osexit( TSCP  code )
+TSCP  sc_osexit( TSCP  code )
 {
 	exit( FIXED_C( code ) );
+	return NULL;
 }
 
 /* Return the time used by Scheme->C (in seconds).  This is either the cpu

@@ -13,10 +13,10 @@
 ;* the rights to use, copy, modify, merge, publish, distribute, sublicense,
 ;* and/or sell copies of the Software, and to permit persons to whom the
 ;* Software is furnished to do so, subject to the following conditions:
-;* 
+;*
 ;* The above copyright notice and this permission notice shall be included in
 ;* all copies or substantial portions of the Software.
-;* 
+;*
 ;* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 ;* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,7 +29,7 @@
 (module MAIN
     (main scc)
     (with callcode
-          closeana
+	  closeana
 	  compile
 	  expform
 	  gencode
@@ -106,7 +106,7 @@
 ;;;			fixed point.
 ;;;
 ;;;	-Ot		optimize C code by omitting type checks.
-;;; 
+;;;
 ;;;	-pg		compile for gprof profiling.
 ;;;
 ;;;	-LIBDIR directory
@@ -152,9 +152,9 @@
 		  "/"))
 	  (log '())
 	  (cc "cc"))
-	 
+
 	 ;;; 1. Pick up the command line arguments.
-	 
+
 	 (let loop ((args (cdr clargs)))
 	      (if args
 		  (let ((arg (car args)))
@@ -241,27 +241,27 @@
 						   interpreter)
 					       c-flags))
 				   (loop (cdr args)))))))
-	 
+
 	 ;;; 2. If -C option was specified, then we're done here.
-	 
+
 	 (if c-only (exit))
-	 
+
 	 ;;; 3. If the -i option was specified, build the main program.
-	 
+
 	 (set! reset
 	       (let ((prev-reset reset))
 		    (lambda ()
 			    (catch-error
 				(lambda ()
-					(remove-file sc-to-c.c)	 
+					(remove-file sc-to-c.c)
 			    		(remove-file sc-to-c.o)))
-		            (prev-reset))))	 
+			    (prev-reset))))
 	 (if interpreter
 	     (let ((fh (open-output-file sc-to-c.c)))
 		  (format fh "#include \"~a/~a\"~%" c-include-dir
 			  c-include-file)
 		  (format fh "extern TSCP screp_read_2deval_2dprint();~%")
-		  (format fh "main( argc, argv )~%")
+		  (format fh "int main( argc, argv )~%")
 		  (format fh "   int argc; char *argv[];~%")
 		  (format fh "{~%")
 		  (format fh
@@ -274,13 +274,13 @@
 		  (format fh "}~%")
 		  (close-output-port fh)
 		  (set! c-flags (append c-flags (list sc-to-c.c)))))
-	 
+
 	 ;;; 4. Flags processed and all .sc -> .c compiles done.   Invoke the
 	 ;;; C compiler to do the rest.
 
-	 (unless 
+	 (unless
 	  (eq? 0
-	       (system 
+	       (system
 		(apply string-append
 		       `(,cc " -I" ,c-include-dir
 			     ,@(map (lambda (x)
@@ -299,11 +299,11 @@
 	     (lambda ()
 	 	     (remove-file sc-to-c.c)
 	 	     (remove-file sc-to-c.o)))))
-	   
+
 ;;; Command line arguments which are not recognized as Scheme->C
-;;; flags are processed by the following function which will 
+;;; flags are processed by the following function which will
 ;;; return the argument to pass to the C compiler.
-	   
+
 (define (DO-C-FLAG arg flags log strace interpreter)
     (let* ((len (string-length arg))
 	   (root (substring arg 0 (max 0 (- len 3))))
