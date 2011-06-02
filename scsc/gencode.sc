@@ -81,7 +81,7 @@
 				,initname "();"))
 	 (set! init-modules '())
 	 (if main-program-name
-	     (emit-lap '(LIT "int main( int argc, char *argv[] )"))
+	     (emit-lap '(LIT "int main( int argc, char **argv )"))
 	     (emit-lap `(LIT "void  " ,initname "()")))
 	 (emit-lap '(LIT "{"))
 	 (emit-lap '(indent 8))

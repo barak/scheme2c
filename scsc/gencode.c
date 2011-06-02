@@ -290,7 +290,7 @@ DEFSTATICTSCP( c2086 );
 DEFCSTRING( t3220, "{" );
 DEFSTATICTSCP( t3219 );
 DEFSTATICTSCP( c2085 );
-DEFCSTRING( t3222, "int main( int argc, char *argv[] )" );
+DEFCSTRING( t3222, "int main( int argc, char **argv )" );
 DEFSTATICTSCP( t3221 );
 DEFCSTRING( t3223, "()" );
 DEFSTATICTSCP( c2084 );

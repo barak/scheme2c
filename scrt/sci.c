@@ -34,7 +34,7 @@ static void  init_modules( compiler_version )
         MAXDISPLAY( 0 );
 }
 
-int main( int argc, char *argv[] )
+int main( int argc, char **argv )
 {
         static int  init = 0;
         if  (init)  return 1;

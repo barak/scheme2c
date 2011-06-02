@@ -261,8 +261,7 @@
 		  (format fh "#include \"~a/~a\"~%" c-include-dir
 			  c-include-file)
 		  (format fh "extern TSCP screp_read_2deval_2dprint();~%")
-		  (format fh "int main( argc, argv )~%")
-		  (format fh "   int argc; char *argv[];~%")
+		  (format fh "int main(int argc, char **argv)~%")
 		  (format fh "{~%")
 		  (format fh
 		  "   INITHEAP( 0, argc, argv, screp_read_2deval_2dprint );~%")
