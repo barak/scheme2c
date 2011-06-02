@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt5__init();
 DEFCSTRING( t3240, "Argument is not a PORT: ~s" );
 DEFSTATICTSCP( c3090 );
 DEFSTATICTSCP( c3078 );
@@ -2712,6 +2713,13 @@ L3892:
         X1 = UNKNOWNCALL( X1, 0 );
         POPSTACKTRACE( VIA( PROCEDURE_CODE( X1 ) )( PROCEDURE_CLOSURE( X1 ) ) );
 }
+
+void scrt2__init();
+void scrt4__init();
+void scrt3__init();
+void scrt1__init();
+void scrt6__init();
+void scdebug__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

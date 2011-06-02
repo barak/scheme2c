@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scexpand__init();
 DEFSTATICTSCP( c2229 );
 DEFCSTRING( t2300, "Argument not a PAIR: ~s" );
 DEFSTATICTSCP( c2214 );
@@ -271,6 +272,10 @@ L2360:
         POPSTACKTRACE( FALSEVALUE );
 }
 
+void scrt2__init();
+void scdebug__init();
+void scrt1__init();
+
 static void  init_modules( compiler_version )
         char *compiler_version;
 {
@@ -288,6 +293,7 @@ void  scexpand__init()
         INITHEAP( 0, 0, 0, 0 );
         init_constants();
         init_modules( "(scexpand SCHEME->C COMPILER 15mar93jfb)" );
+        sc_segv__handlers();
         INITIALIZEVAR( t2301, 
                        ADR( scexpand_expand_v ), 
                        MAKEPROCEDURE( 1, 

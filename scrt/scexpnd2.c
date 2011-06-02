@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scexpnd2__init();
 DEFSTATICTSCP( c2751 );
 DEFSTATICTSCP( t2832 );
 DEFSTATICTSCP( t2833 );
@@ -934,6 +935,12 @@ TSCP  scexpnd2_l2748( x2749, e2750 )
                                                     e2750, 
                                                     PROCEDURE_CLOSURE( X1 ) ) );
 }
+
+void scdebug__init();
+void scrt2__init();
+void scrt6__init();
+void scrt1__init();
+void scexpand__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

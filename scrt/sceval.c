@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void sceval__init();
 DEFSTATICTSCP( c3316 );
 DEFSTATICTSCP( t3506 );
 DEFSTATICTSCP( t3507 );
@@ -1407,6 +1408,23 @@ TSCP  sceval_exec_2dlambda( e3318, e3319 )
         DISPLAY( 2 ) = SD2;
         POPSTACKTRACE( SDVAL );
 }
+
+void scexpand__init();
+void scrt4__init();
+void scrt2__init();
+void scdebug__init();
+void scrt1__init();
+void scexpand__init();
+void scexpnd1__init();
+void scexpnd2__init();
+void scrt1__init();
+void scrt2__init();
+void scrt3__init();
+void scrt4__init();
+void scrt5__init();
+void scrt6__init();
+void scrt7__init();
+void scrtuser__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

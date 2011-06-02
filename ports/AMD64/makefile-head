@@ -4,7 +4,7 @@
 
 # Default flags to use when invoking the C compiler.
 
-CFLAGS = -O2 -finline-functions -fno-math-errno -frename-registers
+CFLAGS = -Wall -O2 -finline-functions -fno-math-errno -frename-registers
 LDFLAGS = -lsigsegv
 CC = gcc
 

@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrt1__init();
 DEFSTATICTSCP( c2674 );
 DEFCSTRING( t3308, "Argument not a PAIR: ~s" );
 DEFSTATICTSCP( c2665 );
@@ -1817,6 +1818,11 @@ L4084:
 L4074:
         POPSTACKTRACE( y3244 );
 }
+
+void scrt4__init();
+void scrt3__init();
+void scdebug__init();
+void scrt2__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

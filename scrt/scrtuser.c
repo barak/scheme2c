@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scrtuser__init();
 
 static void  init_constants()
 {

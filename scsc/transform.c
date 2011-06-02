@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void transform__init();
 DEFSTATICTSCP( current_2dlambda_2did_v );
 DEFSTATICTSCP( true_2dalpha_v );
 DEFSTATICTSCP( false_2dalpha_v );
@@ -2666,6 +2667,12 @@ L7427:
         SETGEN( PAIR_CDR( e5389 ), X1 );
         POPSTACKTRACE( e5389 );
 }
+
+void scrt2__init();
+void scrt6__init();
+void plist__init();
+void scdebug__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

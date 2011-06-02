@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+int main();
 
 static void  init_constants()
 {
@@ -24,6 +25,7 @@ TSCP  scint_start_2drep( c2002 )
 }
 
 void  scint__init(){}
+void screp__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;
@@ -32,11 +34,10 @@ static void  init_modules( compiler_version )
         MAXDISPLAY( 0 );
 }
 
-main( argc, argv )
-        int argc;  char *argv[];
+int main( int argc, char **argv )
 {
         static int  init = 0;
-        if  (init)  return;
+        if  (init)  return 1;
         init = 1;
         INITHEAP( 0, argc, argv, scint_start_2drep );
         init_constants();
@@ -49,4 +50,5 @@ main( argc, argv )
                                       scint_start_2drep, EMPTYLIST ) );
         scint_start_2drep( CLARGUMENTS( argc, argv ) );
         SCHEMEEXIT();
+        return 0;
 }

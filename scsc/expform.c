@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void expform__init();
 DEFSTATICTSCP( read_2dtext_v );
 DEFSTATICTSCP( current_2ddefine_2dname_v );
 DEFSTATICTSCP( report_2dwarning_v );
@@ -2658,6 +2659,14 @@ TSCP  expform_expand_2derror( f3503, e3504 )
                                      PROCEDURE_CLOSURE( X1 ) );
         POPSTACKTRACE( c3507 );
 }
+
+void scrt4__init();
+void scrt2__init();
+void scdebug__init();
+void scrt3__init();
+void plist__init();
+void scrt1__init();
+void scrt6__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

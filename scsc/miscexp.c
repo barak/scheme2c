@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void miscexp__init();
 DEFSTATICTSCP( id_2duse_v );
 DEFSTATICTSCP( exp_2dform_2dlist_v );
 DEFSTATICTSCP( _24lambda_3f_v );
@@ -1626,6 +1627,10 @@ L3902:
 L3905:
         POPSTACKTRACE( SETGEN( PAIR_CAR( X1 ), e3219 ) );
 }
+
+void scrt2__init();
+void scdebug__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

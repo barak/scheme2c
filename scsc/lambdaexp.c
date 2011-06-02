@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void lambdaexp__init();
 DEFSTATICTSCP( lexical_2dbound_2dvars_v );
 DEFSTATICTSCP( lexical_2dfree_2dvars_v );
 DEFSTATICTSCP( current_2dlambda_2did_v );
@@ -939,6 +940,13 @@ L2758:
         POPSTACKTRACE( scrt6_format( PAIR_CAR( o2494 ), 
                                      CONS( c2545, X1 ) ) );
 }
+
+void scrt6__init();
+void scrt5__init();
+void scdebug__init();
+void scrt4__init();
+void plist__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

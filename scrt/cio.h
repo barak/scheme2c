@@ -64,8 +64,6 @@ extern void  sc_abort() __attribute__((noreturn));
 extern void  sc_abort();
 #endif
 
-extern void  sc_osexit( XAL1( TSCP ) );
-
 extern double  sc_cputime();
 
 extern void  sc_log_string( XAL1( char * ) );
@@ -83,8 +81,6 @@ extern void  sc_freeheap( XAL1( void* ) );
 extern VOIDP sc_gettable( XAL2( S2CINT, S2CINT ) );
 
 extern void  sc_freetable( XAL1( void* ) );
-
-extern void sc_segv__handlers();
 
 /* Signal handling - N.B. signals and time slicing are mutually exclusive. */
 

@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void readtext__init();
 DEFSTATICTSCP( sc_2dsplice_v );
 DEFSTATICTSCP( log_3f_v );
 DEFSTATICTSCP( pretty_2dprint_2d_24tree_v );
@@ -1672,6 +1673,18 @@ L3988:
                                                     e3091, 
                                                     PROCEDURE_CLOSURE( X1 ) ) );
 }
+
+void scrt4__init();
+void screp__init();
+void expform__init();
+void plist__init();
+void scrt5__init();
+void scrt2__init();
+void scdebug__init();
+void scrt3__init();
+void sceval__init();
+void scrt6__init();
+void scrt1__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;

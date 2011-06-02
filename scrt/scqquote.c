@@ -3,6 +3,7 @@
 
 #include <objects.h>
 
+void scqquote__init();
 DEFSTATICTSCP( c2426 );
 DEFSTATICTSCP( t2512 );
 DEFSTATICTSCP( t2513 );
@@ -461,6 +462,12 @@ TSCP  scqquote_l2459( x2460, e2461 )
                                                     e2461, 
                                                     PROCEDURE_CLOSURE( X1 ) ) );
 }
+
+void scrt4__init();
+void scrt2__init();
+void scdebug__init();
+void scrt1__init();
+void scexpand__init();
 
 static void  init_modules( compiler_version )
         char *compiler_version;
