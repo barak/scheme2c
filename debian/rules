@@ -15,7 +15,7 @@ else
 endif
 
 build clean install binary-arch binary-indep binary:
-	dh $@ --parallel
+	dh $@ --parallel --with quilt
 
 .PHONY: build clean install binary-arch binary-indep binary
 

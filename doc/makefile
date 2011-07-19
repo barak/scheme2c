@@ -13,7 +13,6 @@ MANDIR=$(prefix)/man
 TEX=latex
 %.ps:  %.dvi; dvips -K -Ppdf -G0 -R0 -q -tletter -o $@ $<
 %.pdf: %.ps; ps2pdf $< $@
-%.pdf: %.tex; pdflatex $<
 
 export TEXINPUTS
 r4rs.dvi: TEXINPUTS=r4rs:

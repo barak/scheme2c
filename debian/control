@@ -3,6 +3,7 @@ Section: lisp
 Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 8),
+    quilt (>= 0.46-7~),
     libsigsegv-dev, libx11-dev,
     texlive-latex-base, texlive-latex-extra, latex209-bin,
     texlive-fonts-recommended, ghostscript

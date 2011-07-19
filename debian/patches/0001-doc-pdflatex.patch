@@ -1,0 +1,21 @@
+From: Barak A. Pearlmutter <barak+git@cs.nuim.ie>
+Date: Tue, 19 Jul 2011 18:04:42 +0200
+Subject: [PATCH] doc pdflatex
+
+---
+ doc/makefile |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/doc/makefile b/doc/makefile
+index 2b7d59d..c6fcc97 100644
+--- a/doc/makefile
++++ b/doc/makefile
+@@ -13,6 +13,7 @@ MANDIR=$(prefix)/man
+ TEX=latex
+ %.ps:  %.dvi; dvips -K -Ppdf -G0 -R0 -q -tletter -o $@ $<
+ %.pdf: %.ps; ps2pdf $< $@
++%.pdf: %.tex; pdflatex $<
+ 
+ export TEXINPUTS
+ r4rs.dvi: TEXINPUTS=r4rs:
+-- 

@@ -4,7 +4,7 @@
 
 # Default flags to use when invoking the C compiler.
 
-CFLAGS = -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
+CFLAGS = -march=native -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
 LDFLAGS = -m32 -lsigsegv
 CC = gcc
 
