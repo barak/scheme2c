@@ -44,7 +44,7 @@ override_dh_auto_install:
 #		install-pdf
 
 override_dh_compress:
-	dh_compress --exclude=.pdf
+	dh_compress --exclude=.pdf --exclude=scheme2c-doc/examples/
 
 ifneq ($(S2C_ARCH),)
 override_dh_auto_clean:
