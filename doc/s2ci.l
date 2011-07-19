@@ -1,23 +1,23 @@
-.TH SCI 1 local
+.TH S2CI 1 local
 .SH NAME
-sci \- Scheme interpreter
+s2ci \- Scheme interpreter
 .SH SYNTAX
-.B sci
+.B s2ci
 [ option ]
 .SH DESCRIPTION
 The 
-.B sci
-command invokes
+.B s2ci
+command (previously known as \fBsci\fR) invokes
 a Scheme interpreter.  The language accepted by this interpreter
 is that defined in the essential portions of the
 .I
 Revised\v'-0.3m'4\v'0.3m' Report on the Algorithmic Language Scheme,
 with minor constraints and some additions.  The
 Scheme interpreter is written in Scheme which has then been compiled using
-the Scheme-to-C compiler, \fBscc\fR.
+the Scheme-to-C compiler, \fBs2cc\fR.
 .SH OPTIONS
 These options are accepted by 
-.B sci.
+.B s2ci.
 .TP 15
 .B -e
 Echo text read from the standard input file on the standard output file.
@@ -61,24 +61,24 @@ The items controlled by \fI-sc..\fR flags can also be controlled by environment
 variables.  If both the flag and the environment variable are provided, then
 the flag's value will be used.
 .TP 15
-.B SCGCINFO
+.B S2CGCINFO
 Controls the reporting of garbage collection statistics to the standard error
 file.  If set to 1, then garbage collection statistics will be printed.  The
 default setting is 0 that will not print the statistics.
 .TP 15
-.B SCHEAP
+.B S2CHEAP
 Specifies the initial size of the heap in megabytes.  The default heap size 
 is 4 MB.  The maximum heap size allowed is 1000 MB.
 .TP 15
-.B SCLIMIT
+.B S2CLIMIT
 Specifies the percent of the heap allocated after a generational garbage
 collection that will force a full collection.  The default is 40%.
 .TP 15
-.B SCMAXHEAP
+.B S2CMAXHEAP
 Specifies the maximum size of the heap in megabytes.  The default value is
 five times the initial heap size.
 .SH FILES
-The interpreter is one a.out file with the name \fIsci\fR.  All files
+The interpreter is one a.out file with the name \fIs2ci\fR.  All files
 associated with the interpreter are found in the
 directory \fI.../schemetoc/scrt\fB.
 .SH SEE ALSO
@@ -117,6 +117,6 @@ WRL Research Report 89/1.
 .PP
 Additional documentation is included in the software distribution.
 .PP
-scc(1)
+s2cc(1)
 .SH QUESTIONS, COMMENTS, AND COMPLAINTS
 http://alioth.debian.org/projects/scheme2c/

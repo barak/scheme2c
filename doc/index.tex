@@ -465,19 +465,19 @@ library.
 \texttt{-scgc} \emph{flag} command line flag to any Scheme program
 that controls the reporting of garbage collection statistics.  If
 \emph{flag} is set to 1, then garbage collection statistics will be
-printed on stderr.  This flag will override \texttt{SCGCINFO}.
+printed on stderr.  This flag will override \texttt{S2CGCINFO}.
 
 \texttt{-sch} \emph{integer} command line flag to any Scheme program
 to set the initial heap size in megabytes.  If it is not supplied, and
-the \texttt{SCHEAP} environment variable was not set, and the program
+the \texttt{S2CHEAP} environment variable was not set, and the program
 did not have a default, then the implementation dependent default is
-used.  This flag will override \texttt{SCHEAP}.
+used.  This flag will override \texttt{S2CHEAP}.
 
 \texttt{-scl} \emph{integer} command line flag to any Scheme program
 to set the full collection limit.  When more than this percent of the
 heap is allocated following a generational garbage collection, then a
 full garbage collection will be done.  The default value is 40.  This
-flag will override \texttt{SCLIMIT}.
+flag will override \texttt{S2CLIMIT}.
 
 \texttt{-scm} \emph{symbol} command line flag to any Scheme program to
 cause execution to start at the procedure that is the value of
@@ -488,9 +488,9 @@ Thus, to start execution in the Scheme interpreter, one would enter
 
 \texttt{-scmh} \emph{integer} command line flag to any Scheme program
 to set the maximum heap size in megabytes.  If it is not supplied, and
-the \texttt{SCMAXHEAP} environment variable was not set, then the
+the \texttt{S2CMAXHEAP} environment variable was not set, then the
 maximum heap size is five times the initial heap size. This flag will
-override \texttt{SCMAXHEAP}.
+override \texttt{S2CMAXHEAP}.
 
 \texttt{.}\ denotes a dotted-pair: (\emph{obj}
 \texttt{.}\ \emph{obj}).  \RRRRRS~15.
@@ -1750,23 +1750,23 @@ begin with \texttt{sc...\_}.
 \texttt{scc} shell command to invoke the \StoC\ Scheme compiler.  See
 the \texttt{man} page.
 
-\texttt{SCGCINFO} environment variable that when set to 1 will log
+\texttt{S2CGCINFO} environment variable that when set to 1 will log
 garbage collection information on stderr.  This variable is overridden
 by the \texttt{-scgc} command line flag.
 
-\texttt{SCHEAP} environment variable that controls the initial heap
+\texttt{S2CHEAP} environment variable that controls the initial heap
 size.  It is set to the desired size in megabytes.  If not set, then
 the default in the main program will be used.  If a default size is
 not supplied, then the implementation default is used.  This variable
 is overridden by the \texttt{-sch} command line flag.
 
-\texttt{SCLIMIT} environment variable that controls the amount of heap
+\texttt{S2CLIMIT} environment variable that controls the amount of heap
 retained after a generational garbage collection that will force a
 full collection.  It is expressed as a percent of the heap.  The
 default value is 40.  This variable is overridden by the \texttt{-scl}
 command line flag.
 
-\texttt{SCMAXHEAP} environment variable that controls the maximum heap
+\texttt{S2CMAXHEAP} environment variable that controls the maximum heap
 size.  It is set to the desired size in megabytes.  If not set and the
 \texttt{-scmh} command line flag is not supplied, the maximum heap
 size is five times the initial heap size. This variable is overridden
