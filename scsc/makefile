@@ -84,7 +84,7 @@ port:
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xmv
 
 install:
-	mkdir -p ${DESTDIR}${BINDIR}/
+	mkdir -p ${DESTDIR}${BINDIR}
 	echo '#! /bin/sh' > ${DESTDIR}${BINDIR}/scc
 	echo '${LIBDIR}/${LIBSUBDIR}/sccomp -scl ${SCL} -scmh ${SCMH} \
 	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} $$*' \

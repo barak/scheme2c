@@ -133,7 +133,7 @@ install:
 	cp objects.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 	cp options.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 	cp predef.sc ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	mkdir --parent ${DESTDIR}${BINDIR}/
+	mkdir --parent ${DESTDIR}${BINDIR}
 	cp sci ${DESTDIR}${BINDIR}/
 
 clean:

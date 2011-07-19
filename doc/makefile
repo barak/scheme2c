@@ -25,7 +25,7 @@ INSTALL = install
 install: install-pdf install-man
 
 install-pdf:
-	$(INSTALL) -d $(DESTDIR)$(DOCDIR)/
+	$(INSTALL) -d $(DESTDIR)$(DOCDIR)
 	$(INSTALL) $(ALL) $(DESTDIR)$(DOCDIR)/
 
 install-man:
