@@ -1,4 +1,4 @@
 ?package(scheme2c):needs="text" section="Applications/Programming" \
-  title="DEC Scheme->C Interpreter" command="/usr/bin/sci"
+  title="DEC Scheme->C Interpreter" command="/usr/bin/s2ci"
 ?package(scheme2c):needs="text" section="Applications/Programming" \
-  title="DEC Scheme->C Interpreter with X11 support" command="/usr/bin/scixl"
+  title="DEC Scheme->C Interpreter with X11 support" command="/usr/bin/s2cixl"

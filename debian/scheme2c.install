@@ -1,5 +1,6 @@
-*/cdecl/sch		usr/bin
-*/xlib/scixl		usr/bin
-*/xlib/scxl.a		usr/lib/scheme2c
+*/cdecl/s2ch		usr/bin
+*/cdecl/s2cdecl		usr/bin
+*/xlib/s2cixl		usr/bin
+*/xlib/s2cxl.a		usr/lib/scheme2c
 */xlib/*.sch		usr/lib/scheme2c
 */xlib/sizeof.cdecl	usr/lib/scheme2c
