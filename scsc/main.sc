@@ -64,10 +64,10 @@
     				; directory containing #include file for
 				; predefined functions.
 
-(define SC-LIBRARY "../scrt/libsc.a")
+(define SC-LIBRARY "../scrt/libs2c.a")
 				; Scheme->C library file.
 
-(define SC-LIBRARY_P "../scrt/libsc_p.a")
+(define SC-LIBRARY_P "../scrt/libs2c_p.a")
 				; Scheme->C profiled library file.
 
 ;;; When the compiler is invoked directly from the shell, the following
@@ -111,7 +111,7 @@
 ;;;
 ;;;	-LIBDIR directory
 ;;;			directory containing "predef.sc", "objects.h",
-;;;			"libsc.a" and optionally "libsc_p.a".
+;;;			"libs2c.a" and optionally "libs2c_p.a".
 ;;;
 ;;;	-log		log the default compiler events
 ;;;
@@ -189,11 +189,11 @@
 			      (set! sc-library
 				    (string-append (cadr args)
 					directory-separator
-					"libsc.a"))
+					"libs2c.a"))
 			      (set! sc-library_p
 				    (string-append (cadr args)
 					directory-separator
-					"libsc_p.a"))
+					"libs2c_p.a"))
 			      (set! c-include-dir (cadr args))
 			      (loop (cddr args)))
 			     ((equal? arg "-log")

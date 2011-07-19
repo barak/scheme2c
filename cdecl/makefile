@@ -7,21 +7,21 @@ MISC = sizeof.c sch.sc README document load.sc
 
 SRCDIR = ../../cdecl
 
-SCC = ../scsc/scc
+SCC = ../scsc/s2cc
 
 .sc.c:
 	${SCC} -C $*.sc
 
 all:	
-	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" cdecl sizeof sch
+	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" s2cdecl s2csizeof s2ch
 
-cdecl: ${CSRC}
+s2cdecl: ${CSRC}
 	${SCC} -o $@ $^
 
-sizeof:	sizeof.c
+s2csizeof:	sizeof.c
 	${CC} -o $@ $^
 
-sch: sch.sc
+s2ch: sch.sc
 	${SCC} -o $@ $^
 
 clean:
@@ -31,7 +31,7 @@ clean-sc-to-c:
 	rm -f ${CSRC}
 
 noprogs:
-	rm -f cdecl sizeof sch
+	rm -f s2cdecl s2csizeof s2ch
 
 srclinks:
 	for x in ${SCSRC} ${MISC}; \

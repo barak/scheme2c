@@ -1,15 +1,15 @@
 .SUFFIXES:
 .SUFFIXES: .sc .cdecl .o .c
 
-CDECL = ../cdecl/cdecl
-SIZEOF = ../cdecl/sizeof
+CDECL = ../cdecl/s2cdecl
+SIZEOF = ../cdecl/s2csizeof
 SRCDIR = ../../xlib
-SCC = ../scsc/scc
-SCXLIB = scxl.a
+SCC = ../scsc/s2cc
+SCXLIB = s2cxl.a
 
 ## Local build succeeds on Debian with scheme2c package installed:
-# make XLIB=-lX11 SCC=scc CDECL=s2cdecl RANLIB=echo
-# make XLIB=-lX11 SCC=scc SCXLIB=/usr/lib/scheme2c/scxl.a hello puzzle
+# make XLIB=-lX11 SCC=s2cc CDECL=s2cdecl RANLIB=echo
+# make XLIB=-lX11 SCC=s2cc SCXLIB=/usr/lib/scheme2c/s2cxl.a hello puzzle
 
 XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \
      Xkeysym.cdecl Xcursorfont.cdecl Xr4.cdecl
@@ -82,7 +82,7 @@ xwso = xwss.o xws2.o xws3.o xws4.o xws5.o xws6.o xws7.o xws8.o xws9.o xws10.o \
        xlib.o xwsr4.o
 
 all:
-	$(MAKE) scixl scxl.a
+	$(MAKE) s2cixl s2cxl.a
 
 sizeof.cdecl:
 	${SIZEOF} > sizeof.cdecl
@@ -109,18 +109,18 @@ ${xwssc}:	xlibTYPES.c
 .c.o:
 	${SCC}  -c ${XLIBCFLAGS} $*.c
 
-scixl:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
-	${SCC} -o scixl -i -m xlib ${xwso} ${xdo} ${XLIB}
+s2cixl:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
+	${SCC} -o s2cixl -i -m xlib ${xwso} ${xdo} ${XLIB}
 
-scxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
-	rm -f scxl.a
-	ar q scxl.a ${xdo} ${xwso}
-	${RANLIB} scxl.a
+s2cxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
+	rm -f s2cxl.a
+	ar q s2cxl.a ${xdo} ${xwso}
+	${RANLIB} s2cxl.a
 ## Would like to replace with this, but messes up parallel make...
-# scxl.a:	scxl.a(${xdo} ${xwso})
+# s2cxl.a:	s2cxl.a(${xdo} ${xwso})
 
 clear:
-	${SCC} -o clear clear.sc scxl.a ${XLIB}
+	${SCC} -o clear clear.sc s2cxl.a ${XLIB}
 
 hello:
 	${SCC} -o hello hello.sc ${SCXLIB} ${XLIB}
@@ -132,7 +132,7 @@ clean:
 	rm -f *.BAK *.CKP core
 
 noprogs:
-	rm -f *.o scixl scxl.a hello puzzle clear
+	rm -f *.o s2cixl s2cxl.a hello puzzle clear
 
 clean-cdecl:
 	rm -f ${xdsc} ${xdsch} ${xdc} ${xdpsc} ${xdpsch} ${xdpc} sizeof.cdecl
