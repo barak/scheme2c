@@ -1,13 +1,13 @@
-.TH SCC 1 local
+.TH S2CC 1 local
 .SH NAME
-scc \- Scheme to C compiler
+s2cc \- Scheme to C compiler
 .SH SYNTAX
-.B scc
+.B s2cc
 [ option ] ... file ...
 .SH DESCRIPTION
 The 
-.B scc
-command invokes a Scheme compiler which accepts the language
+.B s2cc
+command (previously known as \fBscc\fR) invokes a Scheme compiler which accepts the language
 defined in the essential portions of
 .I
 Revised\v'-0.3m'4\v'0.3m' Report on the Algorithmic Language Scheme,
@@ -17,7 +17,7 @@ conventional \fI.o\fR and \fIa.out\fR files.  The C code produced by this
 compiler may be intermixed with other C code or code written in other
 languages.
 .SH OPTIONS
-These options are accepted by \fBscc\fR.
+These options are accepted by \fBs2cc\fR.
 Other options will be assumed to be options of the system's C
 compiler and they will be passed to it when it is invoked.
 .TP 18
@@ -89,8 +89,8 @@ Specifies the compiler's maximum heap size in megabytes.  The
 default is five times the initial size of the heap.
 .TP 18
 \fB-LIBDIR  \fIdirectory\fR
-Specifies a directory containing the files: predef.sc, objects.h, libsc.a, and
-optionally libsc_p.a.
+Specifies a directory containing the files: predef.sc, objects.h, libs2c.a, and
+optionally libs2c_p.a.
 .TP 18
 \fB-log\fR
 Logs information internal to the compiler to the C source file produced by the
@@ -105,20 +105,20 @@ The items controlled by \fI-sc..\fR flags can also be controlled by environment
 variables.  If both the flag and the environment variable are provided, then
 the flag's value will be used.
 .TP 18
-.B SCGCINFO
+.B S2CGCINFO
 Controls the reporting of garbage collection statistics to the standard error
 file.  If set to 1, then garbage collection statistics will be printed.  The
 default setting is 0 that will not print the statistics.
 .TP 18
-.B SCHEAP
+.B S2CHEAP
 Specifies the initial size of the heap in megabytes.  The default heap size is
 system dependent.
 .TP 18
-.B SCLIMIT
+.B S2CLIMIT
 Specifies the percent of the heap allocated after a generational garbage
 collection that will force a full collection.  The default is 40.
 .TP 18
-.B SCMAXHEAP
+.B S2CMAXHEAP
 Specifies the maximum size of the heap in megabytes.
 .SH INPUT FILES
 Following the command options come one or more file names.
@@ -145,13 +145,13 @@ error file.
 .ta 2.0i
 /.../schemetoc/...	source and documentation
 .br
-/.../libsc.a	library
+/.../libs2c.a	library
 .br
-/.../libsc_p.a	profiled library (optional)
+/.../libs2c_p.a	profiled library (optional)
 .br
-/.../scc	c-shell script
+/.../s2cc	c-shell script
 .br
-/.../sccomp	compiler
+/.../s2ccomp	compiler
 .br
 /.../predef.sc	predefined functions
 .br
@@ -211,6 +211,6 @@ WRL Research Report 89/1.
 .PP
 Additional documentation is included in the software distribution.
 .PP
-sci(1)
+s2ci(1)
 .SH QUESTIONS, COMMENTS, AND COMPLAINTS
 http://alioth.debian.org/projects/scheme2c/

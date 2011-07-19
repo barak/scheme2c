@@ -115,14 +115,14 @@ static void  decodearguments( S2CINT argc, char *argv[] )
 {
 	char  *val;
 
-	val = getargval( argc, argv, "-sch", "SCHEAP" );
+	val = getargval( argc, argv, "-sch", "S2CHEAP" );
 	if  (val != NULL)  {
 	   scheap = getinteger( val );
 	   if  (scheap < SCMINHEAP)  scheap = SCMINHEAP;
 	   if  (scheap > SCMAXHEAP)  scheap = SCMAXHEAP;
 	}
 	else  scheap = SCHEAP;
-	val = getargval( argc, argv, "-scmh", "SCMAXHEAP" );
+	val = getargval( argc, argv, "-scmh", "S2CMAXHEAP" );
 	if  (val != NULL)  {
 	   scmaxheap = getinteger( val );
 	   if  (scmaxheap < scheap)  scmaxheap = scheap;
@@ -130,14 +130,14 @@ static void  decodearguments( S2CINT argc, char *argv[] )
 	}
 	else  scmaxheap = scheap*5;
 	if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
-	heapfilename = getargval( argc, argv, "-schf", "SCHEAPFILE" );
-	val = getargval( argc, argv, "-scgc", "SCGCINFO" );
+	heapfilename = getargval( argc, argv, "-schf", "S2CHEAPFILE" );
+	val = getargval( argc, argv, "-scgc", "S2CGCINFO" );
 	if  (val != NULL)  {
 	   sc_gcinfo = getinteger( val );
 	   if  (sc_gcinfo < 0  ||  sc_gcinfo > 2)  sc_gcinfo = 0;
 	}
 	else  sc_gcinfo = 0;
-	val = getargval( argc, argv, "-scl", "SCLIMIT" );
+	val = getargval( argc, argv, "-scl", "S2CLIMIT" );
 	if  (val != NULL)  {
 	   sclimit = getinteger( val );
 	   if  (sclimit < MINSCLIMIT)  sclimit = SCLIMIT;

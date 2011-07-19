@@ -26,13 +26,13 @@ INSTALL = install
 install: install-pdf install-man
 
 install-pdf:
-	$(INSTALL) -d $(DESTDIR)$(DOCDIR)/
+	$(INSTALL) -d $(DESTDIR)$(DOCDIR)
 	$(INSTALL) $(ALL) $(DESTDIR)$(DOCDIR)/
 
 install-man:
 	$(INSTALL) -d $(DESTDIR)$(MANDIR)/man1
-	$(INSTALL) scc.l $(DESTDIR)$(MANDIR)/man1/scc.1
-	$(INSTALL) sci.l $(DESTDIR)$(MANDIR)/man1/sci.1
+	$(INSTALL) s2cc.l $(DESTDIR)$(MANDIR)/man1/s2cc.1
+	$(INSTALL) s2ci.l $(DESTDIR)$(MANDIR)/man1/s2ci.1
 
 clean:
 	-rm -rf *.pdf *.dvi *.aux *.log *.BAK *.CKP *.toc *.idx

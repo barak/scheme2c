@@ -36,7 +36,7 @@ LIBSUBDIR = scheme2c
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
 
-SCC = ../scsc/scc
+SCC = ../scsc/s2cc
 SCCFLAGS = 
 
 SRCDIR = ../../scrt
@@ -83,40 +83,40 @@ c-to-o:		${Sruntimec} ${Sruntime} ${Cruntime}
 
 s-to-o:		${Aruntime}
 
-Xlibsc.a:	${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime}
-	rm -f Xlibsc.a
-	ar q Xlibsc.a ${Cruntime} ${Sruntime} ${Aruntime}
-	${RANLIB} Xlibsc.a
+Xlibs2c.a:	${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime}
+	rm -f Xlibs2c.a
+	ar q Xlibs2c.a ${Cruntime} ${Sruntime} ${Aruntime}
+	${RANLIB} Xlibs2c.a
 
-libscsrv.a:	Xlibsc.a
-	mv Xlibsc.a libscsrv.a
+libs2csrv.a:	Xlibs2c.a
+	mv Xlibs2c.a libs2csrv.a
 
 embedded:	${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
 		 embedded.o
 	${CC} -o embedded ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} \
 	      embedded.o -lm ${LDFLAGS}
 
-Xsci:		${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
+Xs2ci:		${Sruntimec} ${Sruntime} ${Cruntime} ${Aruntime} \
 		 sci.c sci.o
-	${CC} -o Xsci ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} sci.o \
+	${CC} -o Xs2ci ${CFLAGS} ${Sruntime} ${Cruntime} ${Aruntime} sci.o \
 	      -lm ${LDFLAGS}
 
-Xmv:		Xsci Xlibsc.a
-	mv Xsci sci
-	mv Xlibsc.a libsc.a
+Xmv:		Xs2ci Xlibs2c.a
+	mv Xs2ci s2ci
+	mv Xlibs2c.a libs2c.a
 
 port:
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo" \
-	     Xlibsc.a Xsci Xmv ${Plib}
+	     Xlibs2c.a Xs2ci Xmv ${Plib}
 
-libsc_p.a:	libsc.a
+libs2c_p.a:	libs2c.a
 	mkdir -p saveobj
 	mv ${Sruntime} ${Cruntime} ${Aruntime} saveobj/
-	rm -f libsc_p.a
+	rm -f libs2c_p.a
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS} -pg" ${Sruntime} ${Cruntime} \
 	     ${Aruntime}
-	ar q libsc_p.a ${Cruntime} ${Sruntime} ${Aruntime}
-	${RANLIB} libsc_p.a
+	ar q libs2c_p.a ${Cruntime} ${Sruntime} ${Aruntime}
+	${RANLIB} libs2c_p.a
 	mv saveobj/* ./
 	rmdir saveobj
 
@@ -126,36 +126,36 @@ install-private:
 
 install:
 	mkdir --parent ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
-	cp libsc.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libsc.a
-	-cp libsc_p.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	-${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libsc_p.a
+	cp libs2c.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libs2c.a
+	-cp libs2c_p.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	-${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libs2c_p.a
 	cp objects.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 	cp options.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 	cp predef.sc ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	mkdir --parent ${DESTDIR}${BINDIR}/
-	cp sci ${DESTDIR}${BINDIR}/
+	mkdir --parent ${DESTDIR}${BINDIR}
+	cp s2ci ${DESTDIR}${BINDIR}/
 
 clean:
 	rm -f ${Sruntime} ${Cruntime} ${Aruntime} sci.o embedded.o \
-	      *.CKP *.BAK *.S2C core Xsci Xlibsc.a
+	      *.CKP *.BAK *.S2C core Xs2ci Xlibs2c.a
 
 clean-sc-to-c:
 	rm -f ${Sruntimec} sci.c
 
 noprogs:
-	rm -f Xsci Xlibsc.a sci libsc.a libsc_p.a embedded libscsrv.a
+	rm -f Xs2ci Xlibs2c.a s2ci libs2c.a libs2c_p.a embedded libs2csrv.a
 
 srcdist:
 	rdist -c README *.c *.h *.s *.sc makefile ${destdir}
 
 bindist:
 	rdist -c README makefile makefile-tail predef.sc objects.h \
-	      libsc.a ${Plib} sci ${destdir}
+	      libs2c.a ${Plib} s2ci ${destdir}
 
 all:
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = ${SCC}" \
-	     "SCCFLAGS = ${SCCFLAGS}" Xlibsc.a Xsci Xmv ${Plib}
+	     "SCCFLAGS = ${SCCFLAGS}" Xlibs2c.a Xs2ci Xmv ${Plib}
 
 srclinks:
 	for x in ${Cruntimec} ${Chfiles} ${Sruntimec} ${Sruntimesc} ${Smisc}; \

@@ -714,7 +714,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 	  and again R1Jun2000 and again F2Nov2001 */
        if (!linux_getenv_hack)
       { linux_getenv_hack = (0==0);
-	 if (getenv("SCMMAP")!=NULL) linux_mmap_hack = (0==0);}
+	 if (getenv("S2CMMAP")!=NULL) linux_mmap_hack = (0==0);}
        if (linux_mmap_hack)
        { for (; bytes>0; bytes -= PAGEBYTES)
 	/* This used to be 0x00000001. With that, under RH7.2 the maximum

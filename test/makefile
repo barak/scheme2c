@@ -2,7 +2,7 @@
 #  Scheme->C compiler and runtime tests.
 #
 
-SCC = ../scsc/scc
+SCC = ../scsc/s2cc
 SCCFLAGS = -g
 
 n = n must be defined

@@ -36,14 +36,14 @@ LIBSUBDIR = scheme2c
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
 
-SCC = scc
+SCC = s2cc
 SCCFLAGS = 
 
 SRCDIR = ../../scsc
 RTDIR = ../scrt
-RT = ${RTDIR}/libsc.a
+RT = ${RTDIR}/libs2c.a
 
-# Defaults for configuring scc and Xscc commands.
+# Defaults for configuring s2cc and Xs2cc commands.
 
 SCL = 80
 SCMH = 40
@@ -73,25 +73,25 @@ scsch = expform.sch gencode.sch lambdaexp.sch lap.sch miscexp.sch plist.sch
 
 sc-to-c:	${scc}
 
-Xsccomp:	${scc} ${sco} ${RT}
-	${CC} -o Xsccomp ${CFLAGS} ${sco} ${RT} -lm ${LDFLAGS}
+Xs2ccomp:	${scc} ${sco} ${RT}
+	${CC} -o Xs2ccomp ${CFLAGS} ${sco} ${RT} -lm ${LDFLAGS}
 
 Xmv:
-	mv Xsccomp sccomp
+	mv Xs2ccomp s2ccomp
 
 port:
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xsccomp
+	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xs2ccomp
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xmv
 
 install:
-	mkdir -p ${DESTDIR}${BINDIR}/
-	echo '#! /bin/sh' > ${DESTDIR}${BINDIR}/scc
-	echo '${LIBDIR}/${LIBSUBDIR}/sccomp -scl ${SCL} -scmh ${SCMH} \
+	mkdir -p ${DESTDIR}${BINDIR}
+	echo '#! /bin/sh' > ${DESTDIR}${BINDIR}/s2cc
+	echo '${LIBDIR}/${LIBSUBDIR}/s2ccomp -scl ${SCL} -scmh ${SCMH} \
 	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} $$*' \
-	 >> ${DESTDIR}${BINDIR}/scc
-	chmod +x ${DESTDIR}${BINDIR}/scc
+	 >> ${DESTDIR}${BINDIR}/s2cc
+	chmod +x ${DESTDIR}${BINDIR}/s2cc
 	mkdir -p ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
-	cp sccomp ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	cp s2ccomp ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 
 clean:
 	rm -f ${sco} *.BAK *.CKP scltext.* *.S2C
@@ -100,21 +100,21 @@ clean-sc-to-c:
 	rm -f ${scc}
 
 noprogs:
-	rm -f sccomp Xsccomp
+	rm -f s2ccomp Xs2ccomp
 
 all:
 	$(MAKE) "SCC = ${SCC}" "RTDIR = ${RTDIR}" "CFLAGS = ${CFLAGS}" \
-		Xsccomp Xmv
+		Xs2ccomp Xmv
 
 srclinks:
 	for x in ${scsc} ${scc} ${scsch}; \
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
-	echo '#! /bin/sh' > scc
-	echo `pwd`'/sccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> scc
-	chmod +x scc
-	echo '#! /bin/sh' > Xscc
-	echo `pwd`'/Xsccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> Xscc
-	chmod +x Xscc
+	echo '#! /bin/sh' > s2cc
+	echo `pwd`'/s2ccomp -scl ${SCL} -scmh ${SCMH} \
+	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> s2cc
+	chmod +x s2cc
+	echo '#! /bin/sh' > Xs2cc
+	echo `pwd`'/Xs2ccomp -scl ${SCL} -scmh ${SCMH} \
+	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> Xs2cc
+	chmod +x Xs2cc

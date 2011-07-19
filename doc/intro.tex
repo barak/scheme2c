@@ -25,18 +25,18 @@ Questions and comments are encouraged.
 \begin{small}
 \begin{quote}
 \begin{verbatim}
-alerion 1 >man sci
+alerion 1 >man s2ci
 
-SCI(1)               UNIX Programmer's Manual                SCI(1)
+S2CI(1)               UNIX Programmer's Manual                S2CI(1)
 
 NAME
-     sci - Scheme interpreter
+     s2ci - Scheme interpreter
 
 SYNTAX
-     sci [ option ]
+     s2ci [ option ]
 
 DESCRIPTION
-     The sci command invokes a Scheme interpreter.  The language
+     The s2ci command invokes a Scheme interpreter.  The language
      accepted by ...
 \end{verbatim}
 \end{quote}
@@ -72,7 +72,7 @@ of the source file.
 \begin{small}
 \begin{quote}
 \begin{verbatim}
-alerion 3 >sci
+alerion 3 >s2ci
 SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation
 > (load "fib.sc")
 MODULE form ignored
@@ -238,21 +238,21 @@ of the interpreter is created which has a compiled version of FIB.
 \begin{small}
 \begin{quote}
 \begin{verbatim}
-alerion 4 >man scc
+alerion 4 >man s2cc
 
-SCC(1)              UNIX Programmer's Manual               SCC(1)
+S2CC(1)              UNIX Programmer's Manual               S2CC(1)
 
 NAME
-     scc - Scheme to C compiler
+     s2cc - Scheme to C compiler
 
 SYNTAX
-     scc [ option ] ... file ...
+     s2cc [ option ] ... file ...
 
 DESCRIPTION
-     The scc command invokes a Scheme compiler which accepts the
+     The s2cc command invokes a Scheme compiler which accepts the
      language ...
 
-alerion 5 >scc -i -o sc+fib fib.sc
+alerion 5 >s2cc -i -o sc+fib fib.sc
 fib.sc:
 fib.c:
 SC-TO-C.c:
@@ -311,7 +311,7 @@ name.
 \begin{small}
 \begin{quote}
 \begin{verbatim}
-alerion 8>sci
+alerion 8>s2ci
 SCHEME->C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation
 > (load "echo.sc")
 MODULE form ignored
@@ -337,7 +337,7 @@ Now, compile it and build a stand-alone program:
 \begin{small}
 \begin{quote}
 \begin{verbatim}
-alerion 9 >scc -o scheme-echo echo.sc
+alerion 9 >s2cc -o scheme-echo echo.sc
 echo.sc:
 alerion 10 >scheme-echo *.sc
 counter.sc echo.sc fib.sc fsm2.sc fsmexample.sc hello.sc
@@ -382,7 +382,7 @@ string and returns a pointer to it.  In order to display it,
 \begin{small}
 \begin{quote}
 \begin{verbatim}
-alerion 13 >scc -o gmt gmt.sc
+alerion 13 >s2cc -o gmt gmt.sc
 gmt.sc:
 alerion 14 >gmt
 Thu Aug 11 22:19:08 1988
@@ -409,7 +409,7 @@ alerion 15 >more mondo.sc
 	 (display 2)
 	 (call-with-current-continuation (lambda (c) (k c)))
 	 (display 3)))
-alerion 16 >sci
+alerion 16 >s2ci
 SCHEME-C -- 08aug88jfb -- Copyright 1988 Digital Equipment Corporation
 > (load "mondo.sc")
 MODULE form ignored
@@ -420,7 +420,7 @@ MONDO-BIZARRO
 11213
 #F
 > ^D
-alerion 17 >scc -o mondo mondo.sc
+alerion 17 >s2cc -o mondo mondo.sc
 mondo.sc:
 alerion 18 >mondo
 11213
