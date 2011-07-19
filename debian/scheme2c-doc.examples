@@ -1,0 +1,6 @@
+xlib/doc.txt
+xlib/clear.sc
+xlib/hello.sc
+xlib/npuzzle.sc
+xlib/puzzle.sc
+debian/examples/Makefile
