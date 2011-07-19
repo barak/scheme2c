@@ -1,19 +1,25 @@
-scheme2c (1993.3.15.2-11) UNRELEASED; urgency=low
+scheme2c (2011.07.19-1) unstable; urgency=low
 
   * bump standards version (debian/control)
   * add useful utilities to package
-    - scxl.a (X library for linking to) and associated *.sch include files
-    - cdecl (generate C declarations from Scheme code, for linking) as s2cdecl
-    - sch (generate C headers, for linking external C)
-    - scixl (interpreter with X procedures available)
+    - s2cxl.a (X library for linking to) and associated *.sch include files
+    - s2cdecl (generate C declarations from Scheme code, for linking) as s2cdecl
+    - s2ch (generate C headers, for linking external C)
+    - s2cixl (interpreter with X procedures available)
     - sizeof.cdecl (standard sizes on current architecture)
   * debhelper 8
   * accept armhf patch to debian/control and debian/rules (closes: #604665)
   * allow parallel build (debian/rules)
-  * merge upstream changes: increase AMD64 max heap size, ditch gensym,
-    emit some prototypes, add -Wall option to gcc invocation
+  * merge upstream changes:
+    - increase AMD64 max heap size
+    - ditch gensym
+    - emit some prototypes
+    - add -Wall option to gcc invocation
+    - rename scc to s2cc, sci to s2ci, etc
+  * add symbolic links for old names: s2ci to sci, s2cc to scc, etc
+  * add examples: X11 programs written in Scheme->C and appropriate Makefile
 
- -- Barak A. Pearlmutter <bap@debian.org>  Thu, 02 Jun 2011 15:04:56 +0100
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 19 Jul 2011 19:41:56 +0200
 
 scheme2c (1993.3.15.2-10) unstable; urgency=low
 
