@@ -474,8 +474,6 @@ TSCP  sc_removefile( TSCP filename )
 
 extern TSCP  sc_rename( TSCP old, TSCP new )
 {
-	char  buffer[100];
-
 	if  (rename( (char*)&STRING_CHAR( old, 0 ),
 		     (char*)&STRING_CHAR( new, 0 ) ) == 0)
 	   return( FALSEVALUE );
@@ -742,7 +740,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 #endif
 	memp = sbrk( 0 );
 	if  ((S2CINT)memp & (PAGEBYTES-1))
-	   sbrk( PAGEBYTES-(S2CINT)memp & (PAGEBYTES-1) );
+	   sbrk( (PAGEBYTES-(S2CINT)memp) & (PAGEBYTES-1) );
 	memp = sbrk( bytes );
 	if  ((S2CINT)memp == -1)  memp = NULL;
 #if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)

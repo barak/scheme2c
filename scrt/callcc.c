@@ -122,7 +122,7 @@ static char   *bfp,
 	}								\
 }
 
-static  callcccontinuing( result, cp )
+static TSCP callcccontinuing( result, cp )
 	TSCP  result, cp;
 {
 	MUTEXON;

@@ -254,9 +254,6 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 	       			  unsigned char **lock,
 				  PAGELINK  **link )
 {
-	S2CINT  bytes;
-	char*  addr;
-
 	typedef unsigned char uchar;
 
 	if  ( (*pagegen = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
@@ -285,7 +282,7 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 #include <stdio.h>
 #endif
 
-sc_newheap()
+void sc_newheap()
 {
 	S2CINT  i, j, page, pagecnt;
 	TSCP  unknown;
@@ -565,7 +562,7 @@ void  sc__init()
    string which is a format descriptor.  ARGS is a list of TSCP arguments.
 */
 
-sc_error( char *symbol, char *format, TSCP args )
+void sc_error( char *symbol, char *format, TSCP args )
 {
 	sc_timeslice = 1000000;
 	sc_savetopofstack = sc_topofstack;
