@@ -40,7 +40,7 @@ extern  S2CINT  sc_stackbytes;		/* # of bytes of stack allocated */
 
 /* Procedural interfaces in this module:  */
 
-extern  S2CINT   sc_expandhead();
+extern  S2CINT   sc_expandheap();
 
 extern  void  sc__init();
 
