@@ -1,11 +1,16 @@
 # Makes the documentation files.
 
-ALL = embedded.pdf index.pdf intro.pdf smithnotes.pdf r4rs.pdf
-all: $(ALL)
+pdfs = embedded.pdf index.pdf intro.pdf smithnotes.pdf r4rs.pdf
+all: $(pdfs)
 
 prefix=/usr/local
 DOCDIR=$(prefix)/doc/scheme2c
 MANDIR=$(prefix)/man
+
+INSTALL = install
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_SCRIPT = ${INSTALL}
 
 .SUFFIXES:
 
@@ -20,18 +25,18 @@ r4rs.dvi: TEX=latex209
 r4rs.dvi: r4rs/r4rs.tex
 	$(TEX) -output-directory=. $<
 
-INSTALL = install
-
 install: install-pdf install-man
 
-install-pdf:
+install-pdf: $(pdfs)
 	$(INSTALL) -d $(DESTDIR)$(DOCDIR)
-	$(INSTALL) $(ALL) $(DESTDIR)$(DOCDIR)/
+	$(INSTALL_DATA) $(pdfs) $(DESTDIR)$(DOCDIR)/
 
 install-man:
 	$(INSTALL) -d $(DESTDIR)$(MANDIR)/man1
-	$(INSTALL) s2cc.l $(DESTDIR)$(MANDIR)/man1/s2cc.1
-	$(INSTALL) s2ci.l $(DESTDIR)$(MANDIR)/man1/s2ci.1
+	$(INSTALL_DATA) s2cc.l $(DESTDIR)$(MANDIR)/man1/s2cc.1
+	$(INSTALL_DATA) s2ci.l $(DESTDIR)$(MANDIR)/man1/s2ci.1
+	ln -sf s2ci.1 $(DESTDIR)$(MANDIR)/man1/sci.1
+	ln -sf s2cc.1 $(DESTDIR)$(MANDIR)/man1/scc.1
 
 clean:
 	-rm -rf *.pdf *.dvi *.aux *.log *.BAK *.CKP *.toc *.idx

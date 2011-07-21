@@ -1,15 +1,24 @@
+prefix=/usr/local
+LIBDIR=${prefix}/lib
+BINDIR=${prefix}/bin
+LIBSUBDIR=scheme2c
+DOCDIR=$(prefix)/doc/scheme2c
+MANDIR=$(prefix)/man
+
+INSTALL = install
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_SCRIPT = ${INSTALL}
+
 .SUFFIXES:
-.SUFFIXES: .sc .cdecl .o .c
+.SUFFIXES: .sc .cdecl .o .c .sch
 
 CDECL = ../cdecl/s2cdecl
 SIZEOF = ../cdecl/s2csizeof
+SCH = ../cdecl/s2ch
 SRCDIR = ../../xlib
 SCC = ../scsc/s2cc
-SCXLIB = s2cxl.a
-
-## Local build succeeds on Debian with scheme2c package installed:
-# make XLIB=-lX11 SCC=s2cc CDECL=s2cdecl RANLIB=echo
-# make XLIB=-lX11 SCC=s2cc SCXLIB=/usr/lib/scheme2c/s2cxl.a hello puzzle
+SCXLIB = libs2cxl.a
 
 XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \
      Xkeysym.cdecl Xcursorfont.cdecl Xr4.cdecl
@@ -81,8 +90,7 @@ xwsc = xwss.c xws2.c xws3.c xws4.c xws5.c xws6.c xws7.c xws8.c xws9.c xws10.c \
 xwso = xwss.o xws2.o xws3.o xws4.o xws5.o xws6.o xws7.o xws8.o xws9.o xws10.o \
        xlib.o xwsr4.o
 
-all:
-	$(MAKE) s2cixl s2cxl.a
+all: s2cixl ${SCXLIB}
 
 sizeof.cdecl:
 	${SIZEOF} > sizeof.cdecl
@@ -109,18 +117,21 @@ ${xwssc}:	xlibTYPES.c
 .c.o:
 	${SCC}  -c ${XLIBCFLAGS} $*.c
 
+.sc.sch:
+	${SCH} $*.sc
+
 s2cixl:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	${SCC} -o s2cixl -i -m xlib ${xwso} ${xdo} ${XLIB}
 
-s2cxl.a:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
-	rm -f s2cxl.a
-	ar q s2cxl.a ${xdo} ${xwso}
-	${RANLIB} s2cxl.a
+${SCXLIB}:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
+	rm -f ${SCXLIB}
+	ar q ${SCXLIB} ${xdo} ${xwso}
+	${RANLIB} ${SCXLIB}
 ## Would like to replace with this, but messes up parallel make...
-# s2cxl.a:	s2cxl.a(${xdo} ${xwso})
+# ${SCXLIB}:	${SCXLIB}(${xdo} ${xwso})
 
 clear:
-	${SCC} -o clear clear.sc s2cxl.a ${XLIB}
+	${SCC} -o clear clear.sc ${SCXLIB} ${XLIB}
 
 hello:
 	${SCC} -o hello hello.sc ${SCXLIB} ${XLIB}
@@ -128,11 +139,31 @@ hello:
 puzzle:
 	${SCC} -o puzzle puzzle.sc ${SCXLIB} ${XLIB}
 
+install: install-prog install-docs install-examples
+
+install-prog: ${xdsch} sizeof.cdecl ${SCXLIB} s2cixl
+	${INSTALL} -d ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
+	${INSTALL_DATA} ${SCXLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	ln -sf ${SCXLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/scxl.a
+	${INSTALL_DATA} ${xdsch} sizeof.cdecl ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	${INSTALL} -d ${DESTDIR}${BINDIR}
+	${INSTALL_PROGRAM} s2cixl ${DESTDIR}${BINDIR}/
+	ln -sf s2cixl ${DESTDIR}${BINDIR}/scixl
+
+install-docs:
+	${INSTALL} -d ${DESTDIR}${DOCDIR}
+	${INSTALL_DATA} doc.txt ${DESTDIR}${DOCDIR}/xlib-doc.txt
+
+install-examples:
+	${INSTALL} -d ${DESTDIR}${DOCDIR}/examples
+	${INSTALL_DATA} hello.sc clear.sc puzzle.sc npuzzle.sc ${DESTDIR}${DOCDIR}/examples/
+	${INSTALL_DATA} makefile-example ${DESTDIR}${DOCDIR}/examples/makefile
+
 clean:
 	rm -f *.BAK *.CKP core
 
 noprogs:
-	rm -f *.o s2cixl s2cxl.a hello puzzle clear
+	rm -f *.o s2cixl ${SCXLIB} hello puzzle clear
 
 clean-cdecl:
 	rm -f ${xdsc} ${xdsch} ${xdc} ${xdpsc} ${xdpsch} ${xdpc} sizeof.cdecl
@@ -145,6 +176,6 @@ gensource:
 	$(MAKE) ${xwssc} ${xwsc}
 
 srclinks:
-	for x in ${XD} ${XDP} ${XMISC}; \
+	for x in ${XD} ${XDP} ${XMISC} makefile-example; \
 	  do ln -s ${SRCDIR}/$$x $$x; \
 	done
