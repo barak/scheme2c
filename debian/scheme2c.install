@@ -1,6 +1,3 @@
-*/cdecl/s2ch		usr/bin
-*/cdecl/s2cdecl		usr/bin
-*/xlib/s2cixl		usr/bin
-*/xlib/s2cxl.a		usr/lib/scheme2c
-*/xlib/*.sch		usr/lib/scheme2c
-*/xlib/sizeof.cdecl	usr/lib/scheme2c
+usr/bin
+usr/lib/scheme2c
+usr/share/man

@@ -1,5 +1,1 @@
-doc/embedded.pdf
-doc/index.pdf
-doc/intro.pdf
-doc/r4rs.pdf
-doc/smithnotes.pdf
+debian/tmp/usr/share/doc/scheme2c/*.pdf

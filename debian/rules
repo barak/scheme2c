@@ -14,8 +14,8 @@ else
   S2C_ARCH = UNSUPPORTED
 endif
 
-build clean install binary-arch binary-indep binary:
-	dh $@ --parallel --with quilt
+build clean install binary-arch binary-indep binary %:
+	dh $@ --parallel
 
 .PHONY: build clean install binary-arch binary-indep binary
 
@@ -25,23 +25,21 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	$(MAKE) -C $(S2C_ARCH)	# architecture dependent, executables
 	$(MAKE) -C $(S2C_ARCH)/cdecl all # sizeof cdecl
-	$(MAKE) -C $(S2C_ARCH)/xlib sizeof.cdecl s2cxl.a s2cixl
+	$(MAKE) -C $(S2C_ARCH)/xlib sizeof.cdecl libs2cxl.a s2cixl
 	$(MAKE) -C doc		# architecture independent, documentation
 
+install_options = \
+ DESTDIR=`pwd`/debian/tmp \
+ prefix=/usr \
+ MANDIR=/usr/share/man \
+ DOCDIR=/usr/share/doc/scheme2c
+
 override_dh_auto_install:
-	$(MAKE) -C $(S2C_ARCH)/scrt DESTDIR=`pwd`/debian/scheme2c prefix=/usr install
-	$(MAKE) -C $(S2C_ARCH)/scsc DESTDIR=`pwd`/debian/scheme2c prefix=/usr install
-
-## Documentation Installation
-## Unneeded due to debian/scheme2c.manpages
-# $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c \
-#		 MANDIR=/usr/share/man \
-#		install-man
-
-## Unneeded due to debian/scheme2c-doc.docs
-# $(MAKE) -C doc DESTDIR=`pwd`/debian/scheme2c-doc \
-#		 DOCDIR=/usr/share/doc/scheme2c-doc \
-#		install-pdf
+	$(MAKE) -C $(S2C_ARCH)/scrt  $(install_options) install
+	$(MAKE) -C $(S2C_ARCH)/scsc  $(install_options) install
+	$(MAKE) -C $(S2C_ARCH)/cdecl $(install_options) install
+	$(MAKE) -C $(S2C_ARCH)/xlib  $(install_options) install
+	$(MAKE) -C doc               $(install_options) install
 
 override_dh_compress:
 	dh_compress --exclude=.pdf --exclude=scheme2c-doc/examples/
