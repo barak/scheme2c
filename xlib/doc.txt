@@ -421,8 +421,8 @@ primitive procedure.
 Availability
 ------------
 
-The Xlib interfaces are found in Scheme->C interpreters named scixl.  Libraries
-containing the interfaces scxl.a.  In order to correctly link with the
+The Xlib interfaces are found in Scheme->C interpreters named s2cixl.  Libraries
+containing the interfaces libs2cxl.a.  In order to correctly link with the
 interfaces, a compiled program must include a (with xlib) clause in its module
 expression.  When a program is compiled which uses these interfaces, warnings
 will be generated as there are no external declarations.  Stand-alone programs
