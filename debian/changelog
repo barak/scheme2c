@@ -1,3 +1,11 @@
+scheme2c (2011.07.26-1) unstable; urgency=low
+
+  * absorb upstream rename and installation mods
+  * simplify packaging scripts
+  * refresh quilt patches
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 26 Jul 2011 20:30:04 +0100
+
 scheme2c (2011.07.19-1) unstable; urgency=low
 
   * bump standards version (debian/control)
