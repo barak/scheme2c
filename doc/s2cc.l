@@ -105,20 +105,20 @@ The items controlled by \fI-sc..\fR flags can also be controlled by environment
 variables.  If both the flag and the environment variable are provided, then
 the flag's value will be used.
 .TP 18
-.B S2CGCINFO
+.B SCGCINFO
 Controls the reporting of garbage collection statistics to the standard error
 file.  If set to 1, then garbage collection statistics will be printed.  The
 default setting is 0 that will not print the statistics.
 .TP 18
-.B S2CHEAP
+.B SCHEAP
 Specifies the initial size of the heap in megabytes.  The default heap size is
 system dependent.
 .TP 18
-.B S2CLIMIT
+.B SCLIMIT
 Specifies the percent of the heap allocated after a generational garbage
 collection that will force a full collection.  The default is 40.
 .TP 18
-.B S2CMAXHEAP
+.B SCMAXHEAP
 Specifies the maximum size of the heap in megabytes.
 .SH INPUT FILES
 Following the command options come one or more file names.
