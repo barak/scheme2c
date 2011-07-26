@@ -15,7 +15,9 @@ port:
 
 install:
 	$(MAKE) -C scrt install
-	$(MAKE) -C scsc install
+	$(MAKE) -C scsc install	
+#	$(MAKE) -C cdecl install	
+#	$(MAKE) -C xlib install
 
 # Clean out working files.
 

@@ -32,6 +32,11 @@ BINDIR=${prefix}/bin
 ## previously value was LIBSUBDIR = schemetoc
 LIBSUBDIR = scheme2c
 
+INSTALL = install
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_SCRIPT = ${INSTALL}
+
 
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
@@ -83,15 +88,20 @@ port:
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xs2ccomp
 	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xmv
 
-install:
-	mkdir -p ${DESTDIR}${BINDIR}
-	echo '#! /bin/sh' > ${DESTDIR}${BINDIR}/s2cc
+s2cc:
+	echo '#! /bin/sh' \
+	 > $*
 	echo '${LIBDIR}/${LIBSUBDIR}/s2ccomp -scl ${SCL} -scmh ${SCMH} \
 	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} $$*' \
-	 >> ${DESTDIR}${BINDIR}/s2cc
-	chmod +x ${DESTDIR}${BINDIR}/s2cc
-	mkdir -p ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
-	cp s2ccomp ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	 >> $*
+	chmod +x $*
+
+install: s2cc # s2ccomp
+	${INSTALL} -d ${DESTDIR}${BINDIR}
+	${INSTALL_SCRIPT} s2cc ${DESTDIR}${BINDIR}
+	ln -sf s2cc ${DESTDIR}${BINDIR}/scc
+	${INSTALL} -d ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
+	${INSTALL_PROGRAM} s2ccomp ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
 
 clean:
 	rm -f ${sco} *.BAK *.CKP scltext.* *.S2C
@@ -102,7 +112,7 @@ clean-sc-to-c:
 noprogs:
 	rm -f s2ccomp Xs2ccomp
 
-all:
+all: s2cc
 	$(MAKE) "SCC = ${SCC}" "RTDIR = ${RTDIR}" "CFLAGS = ${CFLAGS}" \
 		Xs2ccomp Xmv
 

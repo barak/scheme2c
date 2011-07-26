@@ -115,14 +115,14 @@ static void  decodearguments( S2CINT argc, char *argv[] )
 {
 	char  *val;
 
-	val = getargval( argc, argv, "-sch", "S2CHEAP" );
+	val = getargval( argc, argv, "-sch", "SCHEAP" );
 	if  (val != NULL)  {
 	   scheap = getinteger( val );
 	   if  (scheap < SCMINHEAP)  scheap = SCMINHEAP;
 	   if  (scheap > SCMAXHEAP)  scheap = SCMAXHEAP;
 	}
 	else  scheap = SCHEAP;
-	val = getargval( argc, argv, "-scmh", "S2CMAXHEAP" );
+	val = getargval( argc, argv, "-scmh", "SCMAXHEAP" );
 	if  (val != NULL)  {
 	   scmaxheap = getinteger( val );
 	   if  (scmaxheap < scheap)  scmaxheap = scheap;
@@ -130,14 +130,14 @@ static void  decodearguments( S2CINT argc, char *argv[] )
 	}
 	else  scmaxheap = scheap*5;
 	if  (scmaxheap > SCMAXHEAP)  scmaxheap = SCMAXHEAP;
-	heapfilename = getargval( argc, argv, "-schf", "S2CHEAPFILE" );
-	val = getargval( argc, argv, "-scgc", "S2CGCINFO" );
+	heapfilename = getargval( argc, argv, "-schf", "SCHEAPFILE" );
+	val = getargval( argc, argv, "-scgc", "SCGCINFO" );
 	if  (val != NULL)  {
 	   sc_gcinfo = getinteger( val );
 	   if  (sc_gcinfo < 0  ||  sc_gcinfo > 2)  sc_gcinfo = 0;
 	}
 	else  sc_gcinfo = 0;
-	val = getargval( argc, argv, "-scl", "S2CLIMIT" );
+	val = getargval( argc, argv, "-scl", "SCLIMIT" );
 	if  (val != NULL)  {
 	   sclimit = getinteger( val );
 	   if  (sclimit < MINSCLIMIT)  sclimit = SCLIMIT;
@@ -254,9 +254,6 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 	       			  unsigned char **lock,
 				  PAGELINK  **link )
 {
-	S2CINT  bytes;
-	char*  addr;
-
 	typedef unsigned char uchar;
 
 	if  ( (*pagegen = (uchar*)sc_gettable( (last-first+2)*sizeof( unsigned char ),
@@ -285,7 +282,7 @@ static void  allocate_sidetables( S2CINT first,	/* heap pages */
 #include <stdio.h>
 #endif
 
-sc_newheap()
+void sc_newheap()
 {
 	S2CINT  i, j, page, pagecnt;
 	TSCP  unknown;
@@ -565,7 +562,7 @@ void  sc__init()
    string which is a format descriptor.  ARGS is a list of TSCP arguments.
 */
 
-sc_error( char *symbol, char *format, TSCP args )
+void sc_error( char *symbol, char *format, TSCP args )
 {
 	sc_timeslice = 1000000;
 	sc_savetopofstack = sc_topofstack;

@@ -1,3 +1,15 @@
+prefix=/usr/local
+LIBDIR=${prefix}/lib
+BINDIR=${prefix}/bin
+LIBSUBDIR=scheme2c
+DOCDIR=$(prefix)/doc/scheme2c
+MANDIR=$(prefix)/man
+
+INSTALL = install
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_SCRIPT = ${INSTALL}
+
 .SUFFIXES:
 .SUFFIXES: .sc .c
 
@@ -23,6 +35,11 @@ s2csizeof:	sizeof.c
 
 s2ch: sch.sc
 	${SCC} -o $@ $^
+
+install: s2ch s2cdecl
+	${INSTALL} -d ${DESTDIR}${BINDIR}
+	${INSTALL_PROGRAM} s2ch s2cdecl ${DESTDIR}${BINDIR}/
+	ln -sf s2ch ${DESTDIR}${BINDIR}/sch
 
 clean:
 	rm -f *.o *.CKP *.BAK *.S2C core

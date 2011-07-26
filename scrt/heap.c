@@ -1754,12 +1754,12 @@ failed:
 	if  (tag == PAIRTAG)  {
 	   sc_conscnt = PAGEBYTES/CONSBYTES;
 	   sc_consp = (SCP)PAGE_ADDRESS( page );
-	   if  (sc_collecting)  QUEUE_PAGE( cons_pages, page );
+	   if (sc_collecting) { QUEUE_PAGE( cons_pages, page ); }
 	}
 	else  {
 	   sc_extobjp = (SCP)PAGE_ADDRESS( page );
 	   sc_extobjwords = count*PAGEWORDS;
-	   if  (sc_collecting)  QUEUE_PAGE( extended_pages, page );
+	   if (sc_collecting) { QUEUE_PAGE( extended_pages, page ); }
 	   while (--count)  {
 	      sc_pagegeneration[ ++page ] = sc_next_generation;
 	      sc_pagetype[ page ] = BIGEXTENDEDTAG;

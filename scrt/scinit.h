@@ -40,14 +40,14 @@ extern  S2CINT  sc_stackbytes;		/* # of bytes of stack allocated */
 
 /* Procedural interfaces in this module:  */
 
-extern  S2CINT   sc_expandhead();
+extern  S2CINT   sc_expandheap();
 
 extern  void  sc__init();
 
 #ifdef __GNUC__
-extern  sc_error( XAL3( char*, char*, TSCP ) ) __attribute__((noreturn));
+extern void sc_error( XAL3( char*, char*, TSCP ) ) __attribute__((noreturn));
 #else
-extern  sc_error( XAL3( char*, char*, TSCP ) );
+extern void sc_error( XAL3( char*, char*, TSCP ) );
 #endif
 
 extern  TSCP  sc_implementation_v;

@@ -32,6 +32,11 @@ BINDIR=${prefix}/bin
 ## previously value was LIBSUBDIR = schemetoc
 LIBSUBDIR = scheme2c
 
+INSTALL = install
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_SCRIPT = ${INSTALL}
+
 
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
@@ -125,16 +130,17 @@ install-private:
 	     "OWNER = -o `whoami`" install
 
 install:
-	mkdir --parent ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
-	cp libs2c.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libs2c.a
-	-cp libs2c_p.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	-${RANLIB} ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libs2c_p.a
-	cp objects.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	cp options.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	cp predef.sc ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
-	mkdir --parent ${DESTDIR}${BINDIR}
-	cp s2ci ${DESTDIR}${BINDIR}/
+	${INSTALL} -d ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
+	${INSTALL_DATA} libs2c.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	ln -sf  libs2c.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libsc.a
+	-${INSTALL_DATA} libs2c_p.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/ \
+	 && ln -sf  libs2c_p.a ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/libsc_p.a
+	${INSTALL_DATA} objects.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	${INSTALL_DATA} options.h ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	${INSTALL_DATA} predef.sc ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
+	${INSTALL} -d ${DESTDIR}${BINDIR}
+	${INSTALL_PROGRAM} s2ci ${DESTDIR}${BINDIR}/
+	ln -sf s2ci ${DESTDIR}${BINDIR}/sci
 
 clean:
 	rm -f ${Sruntime} ${Cruntime} ${Aruntime} sci.o embedded.o \

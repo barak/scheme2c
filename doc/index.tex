@@ -383,53 +383,53 @@ arguments, this returns the difference of its arguments, associating
 to the left.  With one argument it returns the additive inverse of the
 argument.  \RRRRRS~21.
 
-\texttt{-C} command line flag to \texttt{scc} that will cause the
+\texttt{-C} command line flag to \texttt{s2cc} that will cause the
 compiler to compile the Scheme files \emph{source}\texttt{.sc} to C
 source in \emph{source}\texttt{.c}.  No further processing is
 performed.
 
-\texttt{-I} \emph{directory} command line flag to \texttt{scc} to
+\texttt{-I} \emph{directory} command line flag to \texttt{s2cc} to
 supply a directory to be searched by \texttt{include} when it is
 looking for a source file.  When multiple flags are supplied, the
 directories are searched in the order that the flags are specified.
 
-\texttt{-LIBDIR} \emph{directory} command line flag to \texttt{scc} to
+\texttt{-LIBDIR} \emph{directory} command line flag to \texttt{s2cc} to
 supply the \emph{directory} containing the files: predef.sc,
-objects.h, libsc.a, and optionally libsc\_p.a.
+objects.h, libs2c.a, and optionally libs2c\_p.a.
 
-\texttt{-Ob} command line flag to \texttt{scc} that controls bounds
+\texttt{-Ob} command line flag to \texttt{s2cc} that controls bounds
 checking.  When it is supplied to the compiler, no bounds checking
 code for \emph{vector} or \emph{string} accesses will be generated.
 Supplying this flag is equivalent to supplying the flags \texttt{-f
   '*bounds-check*' '\#f'}.
 
-\texttt{-Og} command line flag to \texttt{scc} that controls the
+\texttt{-Og} command line flag to \texttt{s2cc} that controls the
 generation of stack-trace debugging code. When it is supplied to the
 compiler, stack-trace code will not be generated.
 
-\texttt{-On} command line flag to \texttt{scc} that controls number
+\texttt{-On} command line flag to \texttt{s2cc} that controls number
 representation. When it is supplied to the compiler, all numbers will
 be assumed to be \emph{fixed} integers.  Supplying this flag is
 equivalent to supplying the flags \texttt{-f '*fixed-only*' '\#t'}.
 
-\texttt{-Ot} command line flag to \texttt{scc} that controls type
+\texttt{-Ot} command line flag to \texttt{s2cc} that controls type
 error checking. When it is supplied, no error checking code will be
 generated. Supplying this flag is equivalent to supplying the flags
 \texttt{-f '*type-check*' '\#f'}.
 
-\texttt{-e} command line flag to \texttt{sci}.  When it is supplied,
+\texttt{-e} command line flag to \texttt{s2ci}.  When it is supplied,
 all text read on the standard input file will be echoed on the
 standard output file.
 
-\texttt{-emacs} command line flag to \texttt{sci}.  When supplied, the
+\texttt{-emacs} command line flag to \texttt{s2ci}.  When supplied, the
 interpreter assumes that it is being run by GNU emacs.
 
-\texttt{-i} command line flag to \texttt{scc} that will combine the
+\texttt{-i} command line flag to \texttt{s2cc} that will combine the
 source and object files into a Scheme interpreter.  Module names for
 files other than Scheme source files must be supplied using the
 \texttt{-m} command line flag.
 
-\texttt{-log} command line flag to \texttt{scc} to log information
+\texttt{-log} command line flag to \texttt{s2cc} to log information
 internal to the compiler.  Each type of compiler information is
 denoted by one of the flags: \texttt{-source}, \texttt{-macro},
 \texttt{-expand}, \texttt{-closed}, \texttt{-transform},
@@ -438,26 +438,26 @@ flag \texttt{-log} is equivalent to specifying the flags:
 \texttt{-source}, \texttt{-macro}, \texttt{-expand}, \texttt{-closed},
 \texttt{-transform}, \texttt{-lambda}, and \texttt{-tree}.
 
-\texttt{-m} \emph{module} command line flag to \texttt{scc} to specify
+\texttt{-m} \emph{module} command line flag to \texttt{s2cc} to specify
 the name of a module that must be initialized by calling the procedure
 \emph{module\_\_init}.  Note that the Scheme compiler will downshift
 the alphabetic characters in module names supplied in the
 \texttt{module} directive.  Modules are initialized in the order that
 the \texttt{-m} command flags are specified.
 
-\texttt{-nh} command line flag to \texttt{sci}.  When it is supplied,
+\texttt{-nh} command line flag to \texttt{s2ci}.  When it is supplied,
 the interpreter version header will not be printed on the standard
 output file.
 
-\texttt{-np} command line flag to \texttt{sci}.  When it is supplied,
+\texttt{-np} command line flag to \texttt{s2ci}.  When it is supplied,
 prompts for input from standard input will not be printed on standard
 output.
 
-\texttt{-q} command line flag to \texttt{sci}.  When it is supplied,
+\texttt{-q} command line flag to \texttt{s2ci}.  When it is supplied,
 the result of each expression evaluation will not be printed on
 standard output.
 
-\texttt{-pg} command line flag to \texttt{scc} that will cause it to
+\texttt{-pg} command line flag to \texttt{s2cc} that will cause it to
 produce profiled code for run-time measurement using \emph{gprof}.
 The profiled library will be used in lieu of the standard Scheme
 library.
@@ -465,19 +465,19 @@ library.
 \texttt{-scgc} \emph{flag} command line flag to any Scheme program
 that controls the reporting of garbage collection statistics.  If
 \emph{flag} is set to 1, then garbage collection statistics will be
-printed on stderr.  This flag will override \texttt{S2CGCINFO}.
+printed on stderr.  This flag will override \texttt{SCGCINFO}.
 
 \texttt{-sch} \emph{integer} command line flag to any Scheme program
 to set the initial heap size in megabytes.  If it is not supplied, and
-the \texttt{S2CHEAP} environment variable was not set, and the program
+the \texttt{SCHEAP} environment variable was not set, and the program
 did not have a default, then the implementation dependent default is
-used.  This flag will override \texttt{S2CHEAP}.
+used.  This flag will override \texttt{SCHEAP}.
 
 \texttt{-scl} \emph{integer} command line flag to any Scheme program
 to set the full collection limit.  When more than this percent of the
 heap is allocated following a generational garbage collection, then a
 full garbage collection will be done.  The default value is 40.  This
-flag will override \texttt{S2CLIMIT}.
+flag will override \texttt{SCLIMIT}.
 
 \texttt{-scm} \emph{symbol} command line flag to any Scheme program to
 cause execution to start at the procedure that is the value of
@@ -488,9 +488,9 @@ Thus, to start execution in the Scheme interpreter, one would enter
 
 \texttt{-scmh} \emph{integer} command line flag to any Scheme program
 to set the maximum heap size in megabytes.  If it is not supplied, and
-the \texttt{S2CMAXHEAP} environment variable was not set, then the
+the \texttt{SCMAXHEAP} environment variable was not set, then the
 maximum heap size is five times the initial heap size. This flag will
-override \texttt{S2CMAXHEAP}.
+override \texttt{SCMAXHEAP}.
 
 \texttt{.}\ denotes a dotted-pair: (\emph{obj}
 \texttt{.}\ \emph{obj}).  \RRRRRS~15.
@@ -1276,7 +1276,7 @@ according to the \emph{format-template}.
 \emph{format descriptor} a \emph{list} that describes the type of
 output conversion to be done by \texttt{number->string}.  The
 supported forms are (\texttt{int}), (\texttt{fix} \emph{integer}), and
-(\texttt{sci} \emph{integer}).  \RRRRRS~21.
+(\texttt{s2ci} \emph{integer}).  \RRRRRS~21.
 
 \emph{format-template} a \emph{string} consisting of format
 descriptors and literal characters.  A format descriptor is
@@ -1747,26 +1747,26 @@ have module names begining with the letters \texttt{sc}.  All
 procedures and external variables in these modules have names that
 begin with \texttt{sc...\_}.
 
-\texttt{scc} shell command to invoke the \StoC\ Scheme compiler.  See
+\texttt{s2cc} shell command to invoke the \StoC\ Scheme compiler.  See
 the \texttt{man} page.
 
-\texttt{S2CGCINFO} environment variable that when set to 1 will log
+\texttt{SCGCINFO} environment variable that when set to 1 will log
 garbage collection information on stderr.  This variable is overridden
 by the \texttt{-scgc} command line flag.
 
-\texttt{S2CHEAP} environment variable that controls the initial heap
+\texttt{SCHEAP} environment variable that controls the initial heap
 size.  It is set to the desired size in megabytes.  If not set, then
 the default in the main program will be used.  If a default size is
 not supplied, then the implementation default is used.  This variable
 is overridden by the \texttt{-sch} command line flag.
 
-\texttt{S2CLIMIT} environment variable that controls the amount of heap
+\texttt{SCLIMIT} environment variable that controls the amount of heap
 retained after a generational garbage collection that will force a
 full collection.  It is expressed as a percent of the heap.  The
 default value is 40.  This variable is overridden by the \texttt{-scl}
 command line flag.
 
-\texttt{S2CMAXHEAP} environment variable that controls the maximum heap
+\texttt{SCMAXHEAP} environment variable that controls the maximum heap
 size.  It is set to the desired size in megabytes.  If not set and the
 \texttt{-scmh} command line flag is not supplied, the maximum heap
 size is five times the initial heap size. This variable is overridden
@@ -1806,10 +1806,10 @@ the TSCP at the \emph{integer} byte of \emph{sc-pointer}.
 \emph{sc-pointer} to \emph{expression}.  The procedure returns
 \emph{expression} as its value.
 
-\texttt{sci} shell command to invoke the \StoC\ Scheme interpreter.
+\texttt{s2ci} shell command to invoke the \StoC\ Scheme interpreter.
 See the \texttt{man} page.
 
-\texttt{sci} \emph{format descriptor} for compatibility with \RRRRS.
+\texttt{s2ci} \emph{format descriptor} for compatibility with \RRRRS.
 
 (\texttt{set!}\ \emph{symbol} \emph{expression}) \emph{syntax} to set
 the location bound to \emph{symbol} to the value of \emph{expression}.

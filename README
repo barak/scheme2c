@@ -148,7 +148,7 @@ running ULTRIX.
 4.  Verify that the interpreter and compiler were correctly built:
 
 	4 >cd test
-	5 >../scrt/sci
+	5 >../scrt/s2ci
 	SCHEME->C -- ...
 	> (load "test51.sc")
 	MODULE form ignored
@@ -159,10 +159,10 @@ running ULTRIX.
 	#F
 	> ^D
 	6 >make test51
-	../scsc/sccomp -schf ../scsc/sccomp.heap -C test51.sc
+	../scsc/s2ccomp -schf ../scsc/s2ccomp.heap -C test51.sc
 	test51.sc:
-	../scsc/sccomp -schf ../scsc/sccomp.heap -c -g test51.c
-	cc -o test51 -g test51.o ../scrt/libsc.a -lm
+	../scsc/s2ccomp -schf ../scsc/s2ccomp.heap -c -g test51.c
+	cc -o test51 -g test51.o ../scrt/libs2c.a -lm
 	7 >test51
 	Hello world!
 
@@ -174,7 +174,7 @@ running ULTRIX.
 	10 >rehash
 
     Given that this directory in the current search path, the compiler can
-    now be accessed by "scc" and the interpreter by "sci".  
+    now be accessed by "s2cc" and the interpreter by "s2ci".  
 
     N.B. Some users will see two or three sequences of error messages
     ending with "*** Error code 1 (ignored)."  These errors may be ignored.
@@ -194,4 +194,4 @@ running ULTRIX.
     constructed as follows:
 
 	15 > cd ../server
-	16 > make embedded libscsrv.a
+	16 > make embedded libs2csrv.a

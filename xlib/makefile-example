@@ -1,0 +1,8 @@
+all: clear hello npuzzle puzzle
+
+S2CC=s2cc
+S2CDIR=/usr/lib/scheme2c
+S2C_LIBES=$(S2CDIR)/libs2cxl.a -lX11
+
+%: %.sc
+	$(S2CC) -o $@ $< $(S2C_LIBES)
