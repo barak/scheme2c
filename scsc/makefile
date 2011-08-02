@@ -121,3 +121,5 @@ srclinks: s2cc Xs2cc
 	for x in ${scsc} ${scc} ${scsch}; \
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
+
+.PHONY: all clean port install sc-to-c srclinks noprogs clean-sc-to-c
