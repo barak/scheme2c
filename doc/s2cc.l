@@ -149,7 +149,7 @@ error file.
 .br
 /.../libs2c_p.a	profiled library (optional)
 .br
-/.../s2cc	c-shell script
+/.../s2cc	shell script
 .br
 /.../s2ccomp	compiler
 .br
