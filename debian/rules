@@ -22,26 +22,29 @@ $(dh_targets) %:
 .PHONY: $(dh_targets)
 
 override_dh_auto_configure:
-	$(MAKE) for$(S2C_ARCH)
+	$(MAKE) for$(S2C_ARCH) $(path_opts)
+
+path_opts = \
+ prefix=/usr \
+ MANDIR='$$(prefix)/share/man' \
+ DOCDIR='$$(prefix)/share/doc/scheme2c'
+
+install_opts = \
+ DESTDIR=`pwd`/debian/tmp \
+ $(path_opts)
 
 override_dh_auto_build:
-	$(MAKE) -C $(S2C_ARCH)	# architecture dependent, executables
-	$(MAKE) -C $(S2C_ARCH)/cdecl all # sizeof cdecl
-	$(MAKE) -C $(S2C_ARCH)/xlib sizeof.cdecl libs2cxl.a s2cixl
-	$(MAKE) -C doc		# architecture independent, documentation
-
-install_options = \
- DESTDIR=`pwd`/debian/tmp \
- prefix=/usr \
- MANDIR=/usr/share/man \
- DOCDIR=/usr/share/doc/scheme2c
+	$(MAKE) -C $(S2C_ARCH)	     $(path_opts) # architecture dependent, executables
+	$(MAKE) -C $(S2C_ARCH)/cdecl $(path_opts) all # sizeof cdecl
+	$(MAKE) -C $(S2C_ARCH)/xlib  $(path_opts) sizeof.cdecl libs2cxl.a s2cixl
+	$(MAKE) -C doc		     $(path_opts) # architecture independent, documentation
 
 override_dh_auto_install:
-	$(MAKE) -C $(S2C_ARCH)/scrt  $(install_options) install
-	$(MAKE) -C $(S2C_ARCH)/scsc  $(install_options) install
-	$(MAKE) -C $(S2C_ARCH)/cdecl $(install_options) install
-	$(MAKE) -C $(S2C_ARCH)/xlib  $(install_options) install
-	$(MAKE) -C doc               $(install_options) install
+	$(MAKE) -C $(S2C_ARCH)/scrt  $(install_opts) install
+	$(MAKE) -C $(S2C_ARCH)/scsc  $(install_opts) install
+	$(MAKE) -C $(S2C_ARCH)/cdecl $(install_opts) install
+	$(MAKE) -C $(S2C_ARCH)/xlib  $(install_opts) install
+	$(MAKE) -C doc               $(install_opts) install
 
 override_dh_compress:
 	dh_compress --exclude=.pdf --exclude=scheme2c-doc/examples/
