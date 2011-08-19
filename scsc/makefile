@@ -81,24 +81,29 @@ sc-to-c:	${scc}
 Xs2ccomp:	${scc} ${sco} ${RT}
 	${CC} -o Xs2ccomp ${CFLAGS} ${sco} ${RT} -lm ${LDFLAGS}
 
-Xmv:
-	mv Xs2ccomp s2ccomp
+s2ccomp: Xs2ccomp
+	cp -a Xs2ccomp s2ccomp
 
 port:
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xs2ccomp
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo"  Xmv
+	$(MAKE) "CC=${CC}" "CFLAGS=${CFLAGS}" "SCC=echo" Xs2ccomp s2ccomp
 
 s2cc:
-	echo '#! /bin/sh' \
-	 > $*
-	echo '${LIBDIR}/${LIBSUBDIR}/s2ccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} $$*' \
-	 >> $*
-	chmod +x $*
+	echo '#! /bin/sh' > $@
+	echo ${LIBDIR}/${LIBSUBDIR}/s2ccomp -scl ${SCL} -scmh ${SCMH} \
+	     -cc ${CC} -LIBDIR ${LIBDIR}/${LIBSUBDIR} '$$*' >> $@
+	chmod +x $@
+
+Xs2cc:
+	echo '#! /bin/sh' > $@
+	echo $$(pwd)/s2ccomp -scl ${SCL} -scmh ${SCMH} \
+	     -cc ${CC} -LIBDIR $$(pwd)/${RTDIR} '$$*' >> $@
+	chmod +x $@
+
+all: s2cc s2ccomp
 
 install: s2cc # s2ccomp
 	${INSTALL} -d ${DESTDIR}${BINDIR}
-	${INSTALL_SCRIPT} s2cc ${DESTDIR}${BINDIR}
+	${INSTALL_SCRIPT} s2cc ${DESTDIR}${BINDIR}/
 	ln -sf s2cc ${DESTDIR}${BINDIR}/scc
 	${INSTALL} -d ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
 	${INSTALL_PROGRAM} s2ccomp ${DESTDIR}${LIBDIR}/${LIBSUBDIR}/
@@ -112,19 +117,7 @@ clean-sc-to-c:
 noprogs:
 	rm -f s2ccomp Xs2ccomp
 
-all: s2cc
-	$(MAKE) "SCC = ${SCC}" "RTDIR = ${RTDIR}" "CFLAGS = ${CFLAGS}" \
-		Xs2ccomp Xmv
-
-srclinks:
+srclinks: s2cc Xs2cc
 	for x in ${scsc} ${scc} ${scsch}; \
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
-	echo '#! /bin/sh' > s2cc
-	echo `pwd`'/s2ccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> s2cc
-	chmod +x s2cc
-	echo '#! /bin/sh' > Xs2cc
-	echo `pwd`'/Xs2ccomp -scl ${SCL} -scmh ${SCMH} \
-	     -cc ${CC} -LIBDIR ' `pwd`'/${RTDIR} $$*' >> Xs2cc
-	chmod +x Xs2cc

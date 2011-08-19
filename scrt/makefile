@@ -41,7 +41,7 @@ INSTALL_SCRIPT = ${INSTALL}
 .SUFFIXES:
 .SUFFIXES:	.o .c .sc .s
 
-SCC = ../scsc/s2cc
+SCC = ../scsc/Xs2cc
 SCCFLAGS = 
 
 SRCDIR = ../../scrt
@@ -111,23 +111,19 @@ Xmv:		Xs2ci Xlibs2c.a
 	mv Xlibs2c.a libs2c.a
 
 port:
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = echo" \
+	$(MAKE) "CC=${CC}" "CFLAGS=${CFLAGS}" "SCC=echo" \
 	     Xlibs2c.a Xs2ci Xmv ${Plib}
 
 libs2c_p.a:	libs2c.a
 	mkdir -p saveobj
 	mv ${Sruntime} ${Cruntime} ${Aruntime} saveobj/
 	rm -f libs2c_p.a
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS} -pg" ${Sruntime} ${Cruntime} \
+	$(MAKE) "CC=${CC}" "CFLAGS=${CFLAGS} -pg" ${Sruntime} ${Cruntime} \
 	     ${Aruntime}
 	ar q libs2c_p.a ${Cruntime} ${Sruntime} ${Aruntime}
 	${RANLIB} libs2c_p.a
 	mv saveobj/* ./
 	rmdir saveobj
-
-install-private:
-	$(MAKE) "DESTDIR=${DESTDIR}" "LIBDIR=/." "BINDIR=/. LIBSUBDIR=." \
-	     "OWNER = -o `whoami`" install
 
 install:
 	${INSTALL} -d ${DESTDIR}${LIBDIR}/${LIBSUBDIR}
@@ -160,8 +156,8 @@ bindist:
 	      libs2c.a ${Plib} s2ci ${destdir}
 
 all:
-	$(MAKE) "CC = ${CC}" "CFLAGS = ${CFLAGS}" "SCC = ${SCC}" \
-	     "SCCFLAGS = ${SCCFLAGS}" Xlibs2c.a Xs2ci Xmv ${Plib}
+	$(MAKE) "CC=${CC}" "CFLAGS=${CFLAGS}" "SCC=${SCC}" \
+	     "SCCFLAGS=${SCCFLAGS}" Xlibs2c.a Xs2ci Xmv ${Plib}
 
 srclinks:
 	for x in ${Cruntimec} ${Chfiles} ${Sruntimec} ${Sruntimesc} ${Smisc}; \

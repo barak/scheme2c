@@ -17,7 +17,7 @@ CDECL = ../cdecl/s2cdecl
 SIZEOF = ../cdecl/s2csizeof
 SCH = ../cdecl/s2ch
 SRCDIR = ../../xlib
-SCC = ../scsc/s2cc
+SCC = ../scsc/Xs2cc
 SCXLIB = libs2cxl.a
 
 XD = X.cdecl Xatom.cdecl Xlib.cdecl Xresource.cdecl Xutil.cdecl \

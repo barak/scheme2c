@@ -2,7 +2,7 @@
 #  Scheme->C compiler and runtime tests.
 #
 
-SCC = ../scsc/s2cc
+SCC = ../scsc/Xs2cc
 SCCFLAGS = -g
 
 n = n must be defined
@@ -91,9 +91,9 @@ noprogs:
 	rm -f ${progs}
 
 all:
-	$(MAKE) "SCC = ${SCC}" "SCCFLAGS = ${SCCFLAGS}" \
+	$(MAKE) "SCC=${SCC}" "SCCFLAGS=${SCCFLAGS}" \
 	     test test50 test51 test52 test54
-	$(MAKE) "SCC = ${SCC}" "SCCFLAGS = ${SCCFLAGS}" "n = 53" testn
+	$(MAKE) "SCC=${SCC}" "SCCFLAGS=${SCCFLAGS}" "n=53" testn
 
 alltests.sc: ${alltests}
 	cat ${alltests} > alltests.sc
@@ -103,5 +103,13 @@ srclinks:
 	    do ln -s ${SRCDIR}/$$x $$x;\
 	done
 
-autotest: test test50 test54
-	./test && ./test50 && ./test54
+autotest: autotest-test autotest-test50 autotest-test54
+
+autotest-test: test
+	./test
+autotest-test50: test50
+	./test50
+autotest-test54: test54
+	./test54
+
+.PHONY: autotest-test autotest-test50 autotest-test54
