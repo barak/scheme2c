@@ -170,7 +170,7 @@ running ULTRIX.
     such as ~/bin:
 
 	8 >cd ..
-	9 >make "DESTDIR = /udir/`whoami`/bin" install-private
+	9 >make prefix=$HOME/s2c BINDIR=. LIBDIR=. LIBSUBDIR=. install
 	10 >rehash
 
     Given that this directory in the current search path, the compiler can

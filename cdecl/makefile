@@ -19,7 +19,7 @@ MISC = sizeof.c sch.sc README document load.sc
 
 SRCDIR = ../../cdecl
 
-SCC = ../scsc/s2cc
+SCC = ../scsc/Xs2cc
 
 .sc.c:
 	${SCC} -C $*.sc
