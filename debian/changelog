@@ -1,3 +1,11 @@
+scheme2c (2011.07.26-2) unstable; urgency=low
+
+  * dh_targets in debian/rules
+  * upstream mod: makefile tweaks to squash script path bug (closes: #637341)
+  * pass installation paths during build
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Fri, 19 Aug 2011 13:44:46 +0200
+
 scheme2c (2011.07.26-1) unstable; urgency=low
 
   * absorb upstream rename and installation mods
