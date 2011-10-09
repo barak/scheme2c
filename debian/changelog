@@ -1,3 +1,10 @@
+scheme2c (2011.07.26-3) unstable; urgency=low
+
+  * single debian patch source option (closes: #643271)
+  * tiny upstream documentation tweaks
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Sun, 09 Oct 2011 21:43:11 +0100
+
 scheme2c (2011.07.26-2) unstable; urgency=low
 
   * dh_targets in debian/rules
