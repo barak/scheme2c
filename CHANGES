@@ -64,7 +64,7 @@ Compiler changes since the 01nov91jfb release:
 	  (set! bar 4) )
 
     containging let's whose only purpose is to introduce a new lexical scope
-    are now correctly compiled when the appear at the top level.
+    are now correctly compiled when they appear at the top level.
 
 7.  Lambda expressions containing arguments that are not symbols now result
     in an error message rather than a compiler error.
