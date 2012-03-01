@@ -1,3 +1,11 @@
+scheme2c (2011.07.26-4) unstable; urgency=low
+
+  * dh 9
+  * bump debian policy (no changes required)
+  * minor non-functional upstream tweaks
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 01 Mar 2012 20:53:25 +0000
+
 scheme2c (2011.07.26-3) unstable; urgency=low
 
   * single debian patch source option (closes: #643271)
