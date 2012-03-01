@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# QUICK BUILD/INSTALLATION GUIDE
+
+# Quick instructions for building s2c on Debian amd64, including the
+# X11-enabled libraries etc.  All lines including "-C doc" can be
+# omitted to skip the manuals.  Switch AMD64 to LINUX (for i386) or ARM
+# (for arm).  Change prefix to /usr or /home/username, and other
+# locations, as appropriate.
+
+# required development libraries: libsigsegv-dev, libx11-dev
+
+# required to build documentation:
+# 	texlive-latex-base, texlive-latex-extra, latex209-bin,
+# 	texlive-fonts-recommended, ghostscript
+
+# In the root of the unpacked sources run:
+
+set -e
+set -x
+
+A=AMD64
+P="prefix=/usr/local MANDIR=\$(prefix)/share/man DOCDIR=\$(prefix)/share/doc/scheme2c"
+D=~/tmp/s2c
+I="$P DESTDIR=$D"
+T=~/tmp/scheme2c-binary.tar.gz
+MAKE=make
+
+${MAKE} $P for$A
+${MAKE} $P -C $A
+${MAKE} $P -C $A/cdecl all
+${MAKE} $P -C $A/xlib sizeof.cdecl libs2cxl.a s2cixl
+${MAKE} $P -C doc
+
+${MAKE} $I -C $A/scrt  install
+${MAKE} $I -C $A/scsc  install
+${MAKE} $I -C $A/cdecl install
+${MAKE} $I -C $A/xlib  install
+${MAKE} $I -C doc      install
+
+tar -zcf $T -C $D .
+
+# The result is a tarball which can be installed with, e.g.,
+
+# sudo tar -C / -zxf $T
