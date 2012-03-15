@@ -1,3 +1,9 @@
+scheme2c (2011.07.26-5) unstable; urgency=low
+
+  * include missing xlib .sch files used by, e.g., QobiScheme
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 15 Mar 2012 15:29:55 +0000
+
 scheme2c (2011.07.26-4) unstable; urgency=low
 
   * dh 9
