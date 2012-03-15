@@ -39,6 +39,9 @@ xdsc =	depth.sc screen.sc visual.sc xarc.sc xchar2b.sc xcharstruct.sc \
 	xvisualinfo.sc xwindowattributes.sc xwindowchanges.sc xwmhints.sc \
 	xpixmapformatvalues.sc xtextproperty.sc
 
+xdschextra = xws2.sch xws3.sch xws4.sch xws5.sch xws6.sch xws7.sch	\
+	xws8.sch xws9.sch xws10.sch xwsr4.sch
+
 xdsch =	depth.sch screen.sch visual.sch xarc.sch xchar2b.sch xcharstruct.sch \
 	xclasshint.sch xcomposestatus.sch xcolor.sch xlibCONSTANTS.sch \
 	xevent.sch xfontprop.sch xfontstruct.sch xgcvalues.sch \
@@ -49,7 +52,7 @@ xdsch =	depth.sch screen.sch visual.sch xarc.sch xchar2b.sch xcharstruct.sch \
 	xlibSTUBS.sch xtextitem.sch xtextitem16.sch xtimecoord.sch \
 	xlibTYPES.sch xvisualinfo.sch xwindowattributes.sch \
 	xwindowchanges.sch xwmhints.sch	xpixmapformatvalues.sch \
-	xtextproperty.sch
+	xtextproperty.sch $(xdschextra)
 
 
 xdc =	depth.c screen.c visual.c xarc.c xchar2b.c xcharstruct.c \
