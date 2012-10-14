@@ -42,7 +42,7 @@ extern long _sysconf(int);     /* System Private interface to sysconf() */
 #include <types.h>
 #else
 #include <sys/types.h>
-#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM) || defined(OPENBSD)
 #include <time.h>
 #include <unistd.h>
 #include <sys/mman.h>
@@ -129,7 +129,7 @@ extern double strtod( XAL2(char*, char**) );
 #include <unistd.h>
 #else
 
-#if !defined(LINUX) && !defined(AMD64) && !defined(LINUX_ARM)
+#if !defined(LINUX) && !defined(AMD64) && !defined(LINUX_ARM) && !defined(OPENBSD)
 extern  char *sbrk();
 #endif
 
@@ -441,7 +441,7 @@ TSCP  sc_charready( TSCP file )
 	stream = (FILE*)TSCP_POINTER( file );
 #if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
 	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
-#elif defined(FREEBSD)
+#elif defined(FREEBSD) || defined(OPENBSD)
  	if  (((stream)->_r) <= 0)  {
 #else
 
@@ -507,7 +507,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	      break;
 
 	   case 3:
-#if defined(MAC) || defined(LINUX) || defined(FREEBSD) || defined(LINUX_ARM)
+#if defined(MAC) || defined(LINUX) || defined(FREEBSD) || defined(LINUX_ARM) || defined(OPENBSD)
  	      snprintf( format, sizeof(format), "%%.%lilg", (long)TSCP_S2CINT( length ) );
 	      snprintf( buffer, sizeof(buffer), format, TSCP_DOUBLE( number ) );
 #else

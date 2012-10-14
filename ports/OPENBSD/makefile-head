@@ -1,0 +1,28 @@
+#
+# This is the header file for constructing make files for OPENBSD.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -I/usr/local/include -march=native -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
+LDFLAGS = -L/usr/X11R6/lib -L/usr/local/lib -m32 -lsigsegv
+CC = gcc
+
+# Assembly language object files.
+
+Aruntime = openbsd.o
+
+# Profiled library
+
+Plib =
+
+# Installation tools
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -lX11
+XLIBCFLAGS =
+
+# End of OPENBSD header.

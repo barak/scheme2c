@@ -41,7 +41,7 @@
 #ifdef HP700
 extern  sc_r1tor18( );
 #endif
-#if defined(LINUX) || defined(FREEBSD) || defined(AMD64)
+#if defined(LINUX) || defined(FREEBSD) || defined(AMD64) || defined(OPENBSD)
 extern  sc_geti386regs( S2CINT* a );
 #endif
 #ifdef MC680X0
@@ -219,7 +219,7 @@ static  trace_stack_and_registers()
 #endif
 
 #if defined(AMD64) || defined(LINUX) || defined(HP700) \
-  || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM)
+ || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM) || defined(OPENBSD)
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
    turn can be used to find the address of the top of stack.
@@ -262,7 +262,7 @@ static void trace_stack_and_registers()
 }
 #endif
 
-#ifdef LINUX
+#if defined(LINUX) || defined(OPENBSD)
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */

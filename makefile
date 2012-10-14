@@ -139,6 +139,12 @@ forFREEBSD:
 	cp ports/FREEBSD/x86.s FREEBSD/server/
 	cp ports/FREEBSD/options-server.h FREEBSD/server/options.h
 
+forOPENBSD:
+	$(MAKE) "CPU=OPENBSD" forANY
+	cp ports/OPENBSD/openbsd.s OPENBSD/scrt/
+	cp ports/OPENBSD/options.h OPENBSD/scrt/
+	cp ports/OPENBSD/openbsd.s OPENBSD/server/
+	cp ports/OPENBSD/options-server.h OPENBSD/server/options.h
 
 # Clean out working files.
 
