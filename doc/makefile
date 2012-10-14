@@ -1,6 +1,9 @@
 # Makes the documentation files.
 
-pdfs = embedded.pdf index.pdf intro.pdf smithnotes.pdf r4rs.pdf
+pdfs = embedded.pdf index.pdf intro.pdf smithnotes.pdf
+# building r4rs.pdf requires latex209 which is not typically available,
+# so by default do not build/install it.
+#pdfs += r4rs.pdf
 all: $(pdfs)
 
 prefix=/usr/local
