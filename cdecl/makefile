@@ -22,19 +22,19 @@ SRCDIR = ../../cdecl
 SCC = ../scsc/Xs2cc
 
 .sc.c:
-	${SCC} -C $*.sc
+	${SCC} ${CFLAGS} ${LDFLAGS} -C $*.sc
 
 all:	
 	$(MAKE) "SCC=${SCC}" "SRCDIR=${SRCDIR}" s2cdecl s2csizeof s2ch
 
 s2cdecl: ${CSRC}
-	${SCC} -o $@ $^
+	${SCC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 s2csizeof:	sizeof.c
-	${CC} -o $@ $^
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 s2ch: sch.sc
-	${SCC} -o $@ $^
+	${SCC} ${CFLAGS} ${LDFLAGS} -o $@ $^
 
 install: s2ch s2cdecl
 	${INSTALL} -d ${DESTDIR}${BINDIR}
