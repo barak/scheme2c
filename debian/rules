@@ -38,6 +38,7 @@ override_dh_auto_build:
 	$(MAKE) -C $(S2C_ARCH)/cdecl $(path_opts) all # sizeof cdecl
 	$(MAKE) -C $(S2C_ARCH)/xlib  $(path_opts) sizeof.cdecl libs2cxl.a s2cixl
 	$(MAKE) -C doc		     $(path_opts) # architecture independent, documentation
+	$(MAKE) -C doc pdfs=r4rs.pdf $(path_opts) # architecture independent, documentation
 
 override_dh_auto_install:
 	$(MAKE) -C $(S2C_ARCH)/scrt  $(install_opts) install
@@ -45,6 +46,7 @@ override_dh_auto_install:
 	$(MAKE) -C $(S2C_ARCH)/cdecl $(install_opts) install
 	$(MAKE) -C $(S2C_ARCH)/xlib  $(install_opts) install
 	$(MAKE) -C doc               $(install_opts) install
+	$(MAKE) -C doc pdfs=r4rs.pdf $(install_opts) install
 
 override_dh_compress:
 	dh_compress --exclude=.pdf --exclude=scheme2c-doc/examples/
