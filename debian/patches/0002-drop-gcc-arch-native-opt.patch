@@ -1,6 +1,6 @@
-From: Barak A. Pearlmutter <barak+git@cs.nuim.ie>
+From: "Barak A. Pearlmutter" <barak+git@cs.nuim.ie>
 Date: Tue, 19 Jul 2011 18:06:33 +0200
-Subject: [PATCH] drop gcc arch native opt
+Subject: drop gcc arch native opt
 
 ---
  ports/AMD64/makefile-head |    2 +-
@@ -33,4 +33,3 @@ index f13da18..5757b4c 100644
  LDFLAGS = -m32 -lsigsegv
  CC = gcc
  
--- 
