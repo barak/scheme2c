@@ -57,28 +57,28 @@ source =  test.sc   testchk.sc \
 	${SCC} -c ${SCCFLAGS} $*.c
 
 test:	test.c test.o testchk.c testchk.o ${batch-c} ${batch-o}
-	${SCC} -o test ${SCCFLAGS} test.o testchk.o ${batch-o}
+	${SCC} ${LDFLAGS} -o test ${SCCFLAGS} test.o testchk.o ${batch-o}
 
 testn:	testchk.c testchk.o 
-	${SCC} -i ${SCCFLAGS} -o test${n} test${n}.sc testchk.o
+	${SCC} ${LDFLAGS} -i ${SCCFLAGS} -o test${n} test${n}.sc testchk.o
 
 test50:	test50.c test50.o
-	${SCC} -o test50 ${SCCFLAGS} test50.o
+	${SCC} ${LDFLAGS} -o test50 ${SCCFLAGS} test50.o
 
 test51:	test51.c test51.o
-	${SCC} -o test51 ${SCCFLAGS} test51.o
+	${SCC} ${LDFLAGS} -o test51 ${SCCFLAGS} test51.o
 
 test52:	test52.c test52.o
-	${SCC} -o test52 ${SCCFLAGS} test52.o
+	${SCC} ${LDFLAGS} -o test52 ${SCCFLAGS} test52.o
 
 test53:	test53.sc
-	${SCC} -i -o test53 ${SCCFLAGS} test53.sc
+	${SCC} ${LDFLAGS} -i -o test53 ${SCCFLAGS} test53.sc
 
 test54:	test54.c test54.o test54c.o testchk.o
-	${SCC} -o test54 test54.o test54c.o testchk.o
+	${SCC} ${LDFLAGS} -o test54 test54.o test54c.o testchk.o
 
 test55: test55.c test55.o testchk.o
-	${SCC} -o test55 test55.o testchk.o
+	${SCC} ${LDFLAGS} -o test55 test55.o testchk.o
 
 clean:
 	rm -f *.o *.BAK *.CKP core *.S2C

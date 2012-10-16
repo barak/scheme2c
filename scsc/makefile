@@ -82,7 +82,7 @@ Xs2ccomp:	${scc} ${sco} ${RT}
 	${CC} -o Xs2ccomp ${CFLAGS} ${sco} ${RT} -lm ${LDFLAGS}
 
 s2ccomp: Xs2ccomp
-	cp -a Xs2ccomp s2ccomp
+	cp -pR Xs2ccomp s2ccomp
 
 port:
 	$(MAKE) "CC=${CC}" "CFLAGS=${CFLAGS}" "SCC=echo" Xs2ccomp s2ccomp

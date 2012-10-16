@@ -124,7 +124,7 @@ ${xwssc}:	xlibTYPES.c
 	${SCH} $*.sc
 
 s2cixl:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
-	${SCC} -o s2cixl -i -m xlib ${xwso} ${xdo} ${XLIB}
+	${SCC} ${CFLAGS} ${LDFLAGS} -o s2cixl -i -m xlib ${xwso} ${xdo} ${XLIB}
 
 ${SCXLIB}:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 	rm -f ${SCXLIB}
@@ -134,13 +134,13 @@ ${SCXLIB}:	xlibTYPES.o ${xwssc} ${xwsc} ${xwso}
 # ${SCXLIB}:	${SCXLIB}(${xdo} ${xwso})
 
 clear:
-	${SCC} -o clear clear.sc ${SCXLIB} ${XLIB}
+	${SCC} ${CFLAGS} ${LDFLAGS} -o clear clear.sc ${SCXLIB} ${XLIB}
 
 hello:
-	${SCC} -o hello hello.sc ${SCXLIB} ${XLIB}
+	${SCC} ${CFLAGS} ${LDFLAGS} -o hello hello.sc ${SCXLIB} ${XLIB}
 
 puzzle:
-	${SCC} -o puzzle puzzle.sc ${SCXLIB} ${XLIB}
+	${SCC} ${CFLAGS} ${LDFLAGS} -o puzzle puzzle.sc ${SCXLIB} ${XLIB}
 
 install: install-prog install-docs install-examples
 
