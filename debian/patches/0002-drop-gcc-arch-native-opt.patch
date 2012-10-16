@@ -3,9 +3,10 @@ Date: Tue, 19 Jul 2011 18:06:33 +0200
 Subject: drop gcc arch native opt
 
 ---
- ports/AMD64/makefile-head |    2 +-
- ports/LINUX/makefile-head |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ ports/AMD64/makefile-head   |    2 +-
+ ports/LINUX/makefile-head   |    2 +-
+ ports/OPENBSD/makefile-head |    2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/ports/AMD64/makefile-head b/ports/AMD64/makefile-head
 index 911b4ab..669e902 100644
@@ -31,5 +32,18 @@ index f13da18..5757b4c 100644
 -CFLAGS = -march=native -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
 +CFLAGS = -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
  LDFLAGS = -m32 -lsigsegv
+ CC = gcc
+ 
+diff --git a/ports/OPENBSD/makefile-head b/ports/OPENBSD/makefile-head
+index 8c7db38..aff1088 100644
+--- a/ports/OPENBSD/makefile-head
++++ b/ports/OPENBSD/makefile-head
+@@ -4,7 +4,7 @@
+ 
+ # Default flags to use when invoking the C compiler.
+ 
+-CFLAGS = -I/usr/local/include -march=native -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
++CFLAGS = -I/usr/local/include -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
+ LDFLAGS = -L/usr/X11R6/lib -L/usr/local/lib -m32 -lsigsegv
  CC = gcc
  
