@@ -1,3 +1,10 @@
+scheme2c (2011.07.26-6) unstable; urgency=low
+
+  * build/install doc/r4rs.pdf despite upstream default to not
+  * upstream now supports architecture kfreebsd-i386
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Wed, 17 Oct 2012 00:03:52 +0100
+
 scheme2c (2011.07.26-5) unstable; urgency=low
 
   * include missing xlib .sch files used by, e.g., QobiScheme
