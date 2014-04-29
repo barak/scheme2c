@@ -16,12 +16,8 @@ else
   S2C_ARCH = UNSUPPORTED
 endif
 
-dh_targets=binary binary-arch binary-indep build build-arch build-indep clean install
-
-$(dh_targets) %:
+%:
 	dh $@ --parallel
-
-.PHONY: $(dh_targets)
 
 override_dh_auto_configure:
 	$(MAKE) for$(S2C_ARCH) $(path_opts)
