@@ -1,0 +1,57 @@
+From: "Barak A. Pearlmutter" <barak+git@pearlmutter.net>
+Date: Thu, 5 Nov 2015 10:17:26 +0000
+Subject: undef FORTIFY_SOURCE
+
+Build with -U_FORTIFY_SOURCE, i.e., accept
+http://patches.ubuntu.com/s/scheme2c/scheme2c_2012.10.14-1ubuntu1.patch
+
+This solves a FTBFS issue on i386, arm, and amd64.  It probably needs
+to be enabled on any other architecture to be supported.
+See https://bugs.debian.org/778111
+
+Thanks to Matthias Klose <doko@ubuntu.com>.
+---
+ ports/AMD64/makefile-head | 2 +-
+ ports/ARM/makefile-head   | 2 +-
+ ports/LINUX/makefile-head | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/ports/AMD64/makefile-head b/ports/AMD64/makefile-head
+index 669e902..e5059c1 100644
+--- a/ports/AMD64/makefile-head
++++ b/ports/AMD64/makefile-head
+@@ -4,7 +4,7 @@
+ 
+ # Default flags to use when invoking the C compiler.
+ 
+-CFLAGS = -Wall -O2 -finline-functions -fno-math-errno -frename-registers
++CFLAGS = -Wall -O2 -U_FORTIFY_SOURCE -finline-functions -fno-math-errno -frename-registers
+ LDFLAGS = -lsigsegv
+ CC = gcc
+ 
+diff --git a/ports/ARM/makefile-head b/ports/ARM/makefile-head
+index b7b8ea5..a3956a9 100644
+--- a/ports/ARM/makefile-head
++++ b/ports/ARM/makefile-head
+@@ -4,7 +4,7 @@
+ 
+ # Default flags to use when invoking the C compiler.
+ 
+-CFLAGS = -O2 -Wall -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer
++CFLAGS = -O2 -U_FORTIFY_SOURCE -Wall -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer
+ LDFLAGS = -lsigsegv
+ CC = gcc
+ 
+diff --git a/ports/LINUX/makefile-head b/ports/LINUX/makefile-head
+index 5757b4c..4c2a8fa 100644
+--- a/ports/LINUX/makefile-head
++++ b/ports/LINUX/makefile-head
+@@ -4,7 +4,7 @@
+ 
+ # Default flags to use when invoking the C compiler.
+ 
+-CFLAGS = -Wall -O2 -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
++CFLAGS = -Wall -O2 -U_FORTIFY_SOURCE -finline-functions -fno-math-errno -frename-registers -fomit-frame-pointer -m32
+ LDFLAGS = -m32 -lsigsegv
+ CC = gcc
+ 

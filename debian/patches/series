@@ -1,2 +1,3 @@
 0001-doc-pdflatex.patch
 0002-drop-gcc-arch-native-opt.patch
+0003-undef-FORTIFY_SOURCE.patch
