@@ -10,6 +10,9 @@ See also http://ftp.cs.indiana.edu/pub/scheme-repository/imp/Scheme-to-C/
 for a collection of patches and old source; all relevant bits are
 supposed to have been merged into the Alioth project above.
 
+Maintenance has shifted to https://scheme2c.alioth.debian.org with
+code in https://alioth.debian.org/anonscm/git/scheme2c/scheme2c.git
+
 Upstream Authors:
 
     The original Scheme->C system & documentation was written by
