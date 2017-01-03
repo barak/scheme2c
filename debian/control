@@ -14,6 +14,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/scheme2c.git
 Package: scheme2c
 Architecture: i386 amd64 armel armhf kfreebsd-i386
 Depends: ${shlibs:Depends}, ${misc:Depends}, libsigsegv-dev
+Suggests: scheme2c-doc
 Description: Joel Bartlett's fabled Scheme->C system
  The original Scheme->C system, the first of its kind.  It conforms to
  the R4RS Scheme standard, and compiles Scheme sources to C as an
