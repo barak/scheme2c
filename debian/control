@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9),
     libsigsegv-dev, libx11-dev,
     texlive-latex-base, texlive-latex-extra, latex209-bin,
     texlive-fonts-recommended, ghostscript
-Standards-Version: 3.9.5
+Standards-Version: 3.9.8
 Homepage: http://scheme2c.alioth.debian.org/
 Vcs-Git: git://anonscm.debian.org/collab-maint/scheme2c.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/scheme2c.git
