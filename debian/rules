@@ -17,7 +17,7 @@ else
 endif
 
 %:
-	dh $@ --parallel
+	dh $@
 
 override_dh_auto_configure:
 	$(MAKE) for$(S2C_ARCH) $(path_opts)
