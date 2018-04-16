@@ -38,7 +38,7 @@ extern long _sysconf(int);     /* System Private interface to sysconf() */
 			     /* 3 is _SC_CLK_TCK */
 #endif
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 #include <types.h>
 #else
 #include <sys/types.h>
@@ -119,7 +119,7 @@ extern double strtod( XAL2(char*, char**) );
 #endif
 #endif
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 #include <time.h>
 #else
 #include <sys/ioctl.h>
@@ -208,7 +208,7 @@ extern  char*  strerror( XAL1( int ) );
 extern  TSCP  scrt4_callsignalhandler( XAL1( TSCP ) );
 
 
-/* The MACSCI flag is used in conjunction with the MAC flag to produce a usable
+/* The MACSCI flag is used in conjunction with the MAC_CLASSIC flag to produce a usable
    (but crude) interactive interface to Scheme->C.  The flag may be defined
    in either this module or options.h.
 */
@@ -378,7 +378,7 @@ TSCP  sc_fileno( TSCP file )
 
 TSCP  sc_inputready( TSCP mask )
 {
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	return( S2CUINT_TSCP( 0  ) );
 #else
 	S2CUINT  filemask;
@@ -416,7 +416,7 @@ TSCP  sc_inputready( TSCP mask )
 
 TSCP  sc_charready( TSCP file )
 {
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	FILE*  stream;
 
 	stream = (FILE*)TSCP_POINTER( file );
@@ -507,7 +507,7 @@ TSCP  sc_formatnumber( TSCP number, TSCP type, TSCP length )
 	      break;
 
 	   case 3:
-#if defined(MAC) || defined(LINUX) || defined(FREEBSD) || defined(LINUX_ARM) || defined(OPENBSD)
+#if defined(MAC_CLASSIC) || defined(LINUX) || defined(FREEBSD) || defined(LINUX_ARM) || defined(OPENBSD)
  	      snprintf( format, sizeof(format), "%%.%lilg", (long)TSCP_S2CINT( length ) );
 	      snprintf( buffer, sizeof(buffer), format, TSCP_DOUBLE( number ) );
 #else
@@ -569,13 +569,13 @@ TSCP  sc_osexit( TSCP  code )
    time.
 */
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 static  clock_t  clockbase;
 #endif
 
 double  sc_cputime()
 {
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	return( ((double)(clock()-clockbase))/CLOCKS_PER_SEC );
 #else
 #ifdef HAVE_RUSAGE
@@ -688,7 +688,7 @@ TSCP  sc__2dhack_21_6518f460( void )
 /* The following procedure is called to allocate memory for the Scheme->C
    heap.  Memory requests are filled by allocating one or more 64KB blocks
    of memory until the request is satisfied.  When quit is true, the program
-   will fail when space cannot be allcoated.  On return from this procedure,
+   will fail when space cannot be allocated.  On return from this procedure,
    the structure sc_heapblocks contains information about the blocks of memory
    allocated.
 */
@@ -701,7 +701,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 {
 	VOIDP  memp;
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	memp = malloc( (size_t)(bytes+PAGEBYTES-1) );
 	if  ((S2CINT)memp & (PAGEBYTES-1))
 	   memp = (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp &
@@ -816,7 +816,7 @@ void  sc_freetable( VOIDP any )
 
 TSCP  sc_ossystem( TSCP command )
 {
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	return( FALSEVALUE );
 #else
 	return( S2CINT_TSCP( system( (char*)&STRING_CHAR( command, 0 ) ) ) );
@@ -883,14 +883,14 @@ typedef S2CINT SIGSET_T;
 
 static void  block_all_signals( SIGSET_T * old_mask )
 {
-#ifndef MAC
+#ifndef MAC_CLASSIC
 	(*old_mask) = (sigsetmask( 0xffffffff ));
 #endif
 }
 
 static void  restore_signal_mask( SIGSET_T * old_mask )
 {
-#ifndef MAC
+#ifndef MAC_CLASSIC
 	sigsetmask( *old_mask );
 #endif
 }
@@ -996,7 +996,7 @@ TSCP  sc_ossignal( TSCP sig, TSCP handler )
 #endif
 
 	if  (handler == TRUEVALUE)
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	   return( S2CINT_TSCP( signal( TSCP_S2CINT( sig ),
 					(__sig_func)signal_handler ) ) );
 #else
@@ -1155,7 +1155,7 @@ TSCP  sc_time_2dof_2dday()
 
 void  sc_cioinit()
 {
-#ifdef MAC
+#ifdef MAC_CLASSIC
 	clockbase = clock();
 #endif
 }

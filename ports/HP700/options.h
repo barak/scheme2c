@@ -51,7 +51,7 @@
 
 	AOSF		Alpha AXP OSF/1
 	HP700		HP 9000/700
-	MAC		Macintosh system 7.1 with Think-C 5.0
+	MAC_CLASSIC		Macintosh system 7.1 with Think-C 5.0
 	MC680X0		HP 9000/300, Sun 3, Next
 	MIPS		DECstation, SGI, Sony News
 	VAX		Vax ULTRIX
@@ -121,7 +121,7 @@
 #define DOUBLE_ALIGN 1
 
 typedef int S2CINT;			/* Signed pointer size integer */
-typedef unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffff		/* Maximum value of an S2CINT */

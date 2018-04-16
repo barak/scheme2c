@@ -52,14 +52,14 @@
 
 	AOSF		Alpha AXP OSF/1
 	HP700		HP 9000/700
-	MAC		Macintosh system 7.1 with Think-C 5.0
+	MAC_CLASSIC		Macintosh system 7.1 with Think-C 5.0
 	MC680X0		HP 9000/300, Sun 3, Next
 	MIPS		DECstation, SGI, Sony News
 	VAX		Vax ULTRIX
 	WIN16		Microsoft Windows 3.1
 */
 
-#define MAC 1
+#define MAC_CLASSIC 1
 
 /* Attributes of the selected architecture:
 
@@ -102,11 +102,11 @@
 	SYSV4			System V release 4 (also define SYSV, POSIX)
 */
 
-/*************/
-/*    MAC    */
-/*************/
+/******************/
+/*    MAC_CLASSIC */
+/******************/
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 #define IMPLEMENTATION_MACHINE	"Apple Macintosh"
 #define IMPLEMENTATION_CPU	"680x0"
 #define IMPLEMENTATION_OS	"7.1"
@@ -115,7 +115,7 @@
 #define BIGENDIAN 1
 
 typedef long int S2CINT;		/* Signed pointer size integer */
-typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef long unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef short int PAGELINK;		/* 16-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffffL		/* Maximum value of an S2CINT */

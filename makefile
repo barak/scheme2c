@@ -97,18 +97,18 @@ forSUNOS4:
 	cp ports/SUNOS4/sparc.s SUNOS4/server/
 	cp ports/SUNOS4/options-server.h SUNOS4/server/options.h
 
-forMAC:
-	$(MAKE) "CPU=MAC" forANY
-	rm -r MAC/scsc
-	rm -r MAC/cdecl
-	rm -r MAC/xlib
-	rm -r MAC/server
-	cp ports/MAC/README MAC/
-	cp ports/MAC/options.h MAC/scrt/
-	echo "#define MACSCI 1" > MAC/scrt/cio-MACSCI.c
-	cat MAC/scrt/cio.c >> MAC/scrt/cio-MACSCI.c
-	cp ports/MAC/pack MAC/scrt/
-	cp ports/MAC/unpack.c MAC/scrt/
+forMAC_CLASSIC:
+	$(MAKE) "CPU=MAC_CLASSIC" forANY
+	rm -r MAC_CLASSIC/scsc
+	rm -r MAC_CLASSIC/cdecl
+	rm -r MAC_CLASSIC/xlib
+	rm -r MAC_CLASSIC/server
+	cp ports/MAC_CLASSIC/README MAC_CLASSIC/
+	cp ports/MAC_CLASSIC/options.h MAC_CLASSIC/scrt/
+	echo "#define MACSCI 1" > MAC_CLASSIC/scrt/cio-MACSCI.c
+	cat MAC_CLASSIC/scrt/cio.c >> MAC_CLASSIC/scrt/cio-MACSCI.c
+	cp ports/MAC_CLASSIC/pack MAC_CLASSIC/scrt/
+	cp ports/MAC_CLASSIC/unpack.c MAC_CLASSIC/scrt/
 
 forSGIMIPS:
 	$(MAKE) "CPU=SGIMIPS" forANY
