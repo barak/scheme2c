@@ -23,7 +23,7 @@
 #include "options.h"
 
 #include <stdio.h>
-#if MAC
+#if MAC_CLASSIC
 #include <console.h>
 #endif
 
@@ -69,7 +69,7 @@ main()
 {
 	S2CINT  *sp;
 
-#if MAC
+#if MAC_CLASSIC
 	STACKPTR( sp );
 	SetApplLimit( (char*)sp-57000 );
 	console_options.nrows = 30;

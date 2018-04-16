@@ -4,19 +4,19 @@ Scheme->C can be built for the Macintosh using Think C 5.0 as either a
 component to be embedded in an application, or as an interactive Scheme
 interpreter.
 
-The MAC directory contains two directories, scrt, containing the Scheme
+The MAC_CLASSIC directory contains two directories, scrt, containing the Scheme
 interpreter and runtime system and test, containing test programs.
 
 The first step is to get the sources to the Macintosh.  If you're using
 xmodem, this can be done as follows.  First, on the workstation, pack all
 relevant files into one file:
 
-	csh 1 > cd MAC/scrt
+	csh 1 > cd MAC_CLASSIC/scrt
 	csh 2 > pack
 
 The result of this is the file sourcefiles.
 
-Next, transfer MAC/scrt/sourcefiles amd MAC/scrt/unpack.c to the Macintosh
+Next, transfer MAC_CLASSIC/scrt/sourcefiles amd MAC_CLASSIC/scrt/unpack.c to the Macintosh
 desktop using xmodem and your favorite terminal emulator or some other file
 transfer tool.
 

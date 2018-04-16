@@ -277,7 +277,7 @@ static void trace_stack_and_registers()
 }
 #endif
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 /* The following code is used to read the stack pointer. */
 
 S2CINT  *sc_getsp()
@@ -647,7 +647,7 @@ static SCP  move_object( SCP pp )
 	   	 move_ptr( pp->continuation.continuation );
 		 obj = &pp->continuation.continuation;
 		 cnt = pp->continuation.length;
-#ifdef MAC
+#ifdef MAC_CLASSIC
 		 cnt = cnt*2-1;
 		 ++obj;
 		 while	(cnt--)  {

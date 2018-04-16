@@ -1,4 +1,4 @@
-# Header for the MAC port for Scheme->C
+# Header for the MAC_CLASSIC port for Scheme->C
 
 unpack:	unpack.c
 	cc -o unpack unpack.c
