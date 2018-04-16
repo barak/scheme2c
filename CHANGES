@@ -33,7 +33,7 @@ Documentation changes since the 01nov91jfb release:
 2.  Updated index to reflect changes.
 
 3.  Added the document "Embedded Scheme->C" explaining how to embed
-    Scheme in an event sensative server.
+    Scheme in an event sensitive server.
 
 
 Compiler changes since the 01nov91jfb release:
@@ -63,7 +63,7 @@ Compiler changes since the 01nov91jfb release:
 	  (define x 3)
 	  (set! bar 4) )
 
-    containging let's whose only purpose is to introduce a new lexical scope
+    containing let's whose only purpose is to introduce a new lexical scope
     are now correctly compiled when they appear at the top level.
 
 7.  Lambda expressions containing arguments that are not symbols now result

@@ -114,7 +114,7 @@ where:
 	<id>	 ::= a Scheme symbol
 
 Since the declaration source file is a file of Scheme expressions, it is case
-insensative and it may contain Scheme comments.
+insensitive and it may contain Scheme comments.
 
 An Example
 ----------

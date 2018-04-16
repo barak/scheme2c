@@ -115,7 +115,7 @@
 #define BIGENDIAN 1
 
 typedef long int S2CINT;		/* Signed pointer size integer */
-typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef long unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef short int PAGELINK;		/* 16-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffffL		/* Maximum value of an S2CINT */

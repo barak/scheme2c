@@ -118,7 +118,7 @@
 #undef  IMPLEMENTATION_FS
 
 typedef long int S2CINT;		/* Signed pointer size integer */
-typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef long unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffffffffffffL	/* Maximum value of an S2CINT */
@@ -157,7 +157,7 @@ extern  S2CINT*  sc_getsp();
 #define DOUBLE_ALIGN 1
 
 typedef int S2CINT;			/* Signed pointer size integer */
-typedef unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffff		/* Maximum value of an S2CINT */
@@ -192,7 +192,7 @@ typedef jmp_buf sc_jmp_buf;
 #undef  IMPLEMENTATION_FS
 
 typedef int S2CINT;		/* Signed pointer size integer */
-typedef unsigned S2CUINT;	/* Unsigned pointer size interger */
+typedef unsigned S2CUINT;	/* Unsigned pointer size integer */
 
 typedef int PAGELINK;		/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffff	/* Maximum value of an S2CINT */
@@ -222,7 +222,7 @@ typedef jmp_buf sc_jmp_buf;
 #define BIGENDIAN 1
 
 typedef long int S2CINT;		/* Signed pointer size integer */
-typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef long unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef short int PAGELINK;		/* 16-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffffL		/* Maximum value of an S2CINT */
@@ -250,7 +250,7 @@ extern  S2CINT*  sc_getsp();
 #define BIGENDIAN 1
 
 typedef int S2CINT;			/* Signed pointer size integer */
-typedef unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffff		/* Maximum value of an S2CINT */
@@ -283,7 +283,7 @@ typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define DOUBLE_ALIGN 1
 
 typedef int S2CINT;			/* Signed pointer size integer */
-typedef unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffff		/* Maximum value of an S2CINT */
@@ -351,7 +351,7 @@ typedef jmp_buf sc_jmp_buf;
 #undef  IMPLEMENTATION_FS
 
 typedef int S2CINT;			/* Signed pointer size integer */
-typedef unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffff		/* Maximum value of an S2CINT */
