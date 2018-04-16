@@ -115,7 +115,7 @@
 
 #include <stdint.h>
 typedef intptr_t S2CINT;		/* Signed pointer size integer */
-typedef uintptr_t S2CUINT;	/* Unsigned pointer size interger */
+typedef uintptr_t S2CUINT;	/* Unsigned pointer size integer */
 
 typedef long int PAGELINK;		/* 64-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffffffffffffL	/* Maximum value of an S2CINT */
