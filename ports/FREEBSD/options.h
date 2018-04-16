@@ -50,7 +50,7 @@
 
 	AOSF		Alpha AXP OSF/1
 	HP700		HP 9000/700
-	MAC		Macintosh system 7.1 with Think-C 5.0
+	MAC_CLASSIC		Macintosh system 7.1 with Think-C 5.0
 	MC680X0		HP 9000/300, Sun 3, Next
 	MIPS		DECstation, SGI, Sony News
 	VAX		Vax ULTRIX
@@ -175,11 +175,11 @@ typedef jmp_buf sc_jmp_buf;
 
 #endif
 
-/*************/
-/*    MAC    */
-/*************/
+/******************/
+/*    MAC_CLASSIC */
+/******************/
 
-#ifdef MAC
+#ifdef MAC_CLASSIC
 #define IMPLEMENTATION_MACHINE	"Apple Macintosh"
 #define IMPLEMENTATION_CPU	"680x0"
 #define IMPLEMENTATION_OS	"7.1"
