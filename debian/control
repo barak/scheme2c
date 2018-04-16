@@ -8,8 +8,8 @@ Build-Depends: debhelper (>= 10),
     texlive-fonts-recommended, ghostscript
 Standards-Version: 3.9.8
 Homepage: http://scheme2c.alioth.debian.org/
-Vcs-Git: git://anonscm.debian.org/collab-maint/scheme2c.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/scheme2c.git
+Vcs-Git: https://salsa.debian.org/debian/scheme2c.git
+Vcs-Browser: https://salsa.debian.org/debian/scheme2c
 
 Package: scheme2c
 Architecture: i386 amd64 armel armhf kfreebsd-i386
