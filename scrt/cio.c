@@ -688,7 +688,7 @@ TSCP  sc__2dhack_21_6518f460( void )
 /* The following procedure is called to allocate memory for the Scheme->C
    heap.  Memory requests are filled by allocating one or more 64KB blocks
    of memory until the request is satisfied.  When quit is true, the program
-   will fail when space cannot be allcoated.  On return from this procedure,
+   will fail when space cannot be allocated.  On return from this procedure,
    the structure sc_heapblocks contains information about the blocks of memory
    allocated.
 */

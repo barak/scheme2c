@@ -4,7 +4,7 @@ embedded.tex	LaTeX document describing embedding Scheme->C inside an
 		application.
 
 index.tex	a LaTeX reference document for the language
-		which is in the form of an annoted index to
+		which is in the form of an annotated index to
 		the Revised**4 Scheme standard.
 
 intro.tex	a LaTeX document introducing Scheme->C.

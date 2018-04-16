@@ -112,7 +112,7 @@
 #undef  IMPLEMENTATION_FS
 
 typedef long int S2CINT;		/* Signed pointer size integer */
-typedef long unsigned S2CUINT;		/* Unsigned pointer size interger */
+typedef long unsigned S2CUINT;		/* Unsigned pointer size integer */
 
 typedef int PAGELINK;			/* 32-bit sc_pagelink values */
 #define MAXS2CINT  0x7fffffffffffffffL	/* Maximum value of an S2CINT */

@@ -125,7 +125,7 @@ procedure returns, the result is stored in \texttt{status},
 
 The value returned in \texttt{result} is pointer to a null terminated
 string of ASCII characters that is the contents of Scheme's
-stdout-port, i.e. the standard output port.  The value retirned in
+stdout-port, i.e. the standard output port.  The value returned in
 \texttt{error} is a pointer to a null terminated string of ASCII
 characters that is the contents of Scheme's stderr-port, i.e. the
 error output port.
@@ -207,7 +207,7 @@ timed out, \texttt{(proceed?)} was entered to force a breakpoint.
 The environment at the time of the breakpoint was examined to find the
 value of \texttt{i} by looking at element 0, corresponding to
 \texttt{env-0}, of the list \texttt{*bpt-env*}.  The program was then
-contined by \texttt{(proceed)} and then \texttt{i} was examined at the
+continued by \texttt{(proceed)} and then \texttt{i} was examined at the
 end of the next time slice to find out how much work was done.
 \begin{quote}
 \begin{verbatim}
