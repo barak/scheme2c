@@ -64,7 +64,7 @@ running ULTRIX.
 
 	For Apple Macintosh system 7.1 with Think-C 5.0:
 
-		1 > make forMAC
+		1 > make forMAC_CLASSIC
 
 	For ULTRIX DECstations:
 
@@ -96,7 +96,7 @@ running ULTRIX.
 	For Apple Macintosh system 7.1 with Think-C 5.0:
 
 		No further steps are done on the workstation.  Follow the
-		instructions in MAC/README to transfer files to a Macintosh
+		instructions in MAC_CLASSIC/README to transfer files to a Macintosh
 		and complete the build.
 
 
