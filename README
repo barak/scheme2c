@@ -62,6 +62,10 @@ running ULTRIX.
 
 		1 > make forAOSF
 
+  For Apple's macOS:
+
+    1 > make forMACOS
+
 	For Apple Macintosh system 7.1 with Think-C 5.0:
 
 		1 > make forMAC_CLASSIC
@@ -92,6 +96,9 @@ running ULTRIX.
 	not optimized because it exceeds size threshold" may occur.  These
 	warnings may be ignored.
 
+  For Apple's macOS:
+
+    2 > cd MACOS;make port
 
 	For Apple Macintosh system 7.1 with Think-C 5.0:
 

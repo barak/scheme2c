@@ -1,0 +1,28 @@
+#
+# This is the header file for constructing make files for MACOS.
+#
+
+# Default flags to use when invoking the C compiler.
+
+CFLAGS = -march=native -Wall -O2 -finline-functions -fno-math-errno
+LDFLAGS = -lsigsegv
+CC = gcc
+
+# Assembly language object files.
+
+Aruntime = x86.o
+
+# Profiled library
+
+Plib =
+
+# Installation tools
+
+RANLIB = ranlib
+
+# X library
+
+XLIB = -lX11 -L/opt/X11/lib
+XLIBCFLAGS =
+
+# End of MACOS header.

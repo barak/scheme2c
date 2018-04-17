@@ -48,8 +48,9 @@ extern long int  sc_longjmp( long int* context, long int result );
 extern long int  sc_setjmp( long int* context );
 #endif
 
-#if defined(__hpux) || defined(LINUX) || defined(MAC_CLASSIC) || defined(MIPS) \
- || defined(FREEBSD) || defined(AMD64) || defined(LINUX_ARM) || defined(OPENBSD)
+#if defined(__hpux) || defined(LINUX) || defined(MAC_CLASSIC) || defined(MACOS) \
+ || defined(MIPS) || defined(FREEBSD) || defined(AMD64) || defined(LINUX_ARM) \
+ || defined(OPENBSD)
 #define  LONGJMP( x, y )	longjmp( x, y )
 #define  SETJMP( x )		setjmp( x )
 #endif

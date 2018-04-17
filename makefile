@@ -110,6 +110,13 @@ forMAC_CLASSIC:
 	cp ports/MAC_CLASSIC/pack MAC_CLASSIC/scrt/
 	cp ports/MAC_CLASSIC/unpack.c MAC_CLASSIC/scrt/
 
+forMACOS:
+	$(MAKE) "CPU=MACOS" forANY
+	cp ports/MACOS/x86.s MACOS/scrt/
+	cp ports/MACOS/options.h MACOS/scrt/
+	cp ports/MACOS/x86.s MACOS/server/
+	cp ports/MACOS/options-server.h MACOS/server/options.h
+
 forSGIMIPS:
 	$(MAKE) "CPU=SGIMIPS" forANY
 	cp ports/SGIMIPS/mips.s SGIMIPS/scrt/
