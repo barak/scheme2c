@@ -2,11 +2,11 @@ Source: scheme2c
 Section: lisp
 Priority: extra
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
-Build-Depends: debhelper (>= 10),
+Build-Depends: debhelper (>= 11),
     libsigsegv-dev, libx11-dev,
     texlive-latex-base, texlive-latex-extra, latex209-bin,
     texlive-fonts-recommended, ghostscript
-Standards-Version: 3.9.8
+Standards-Version: 4.1.4
 Homepage: http://scheme2c.alioth.debian.org/
 Vcs-Git: https://salsa.debian.org/debian/scheme2c.git
 Vcs-Browser: https://salsa.debian.org/debian/scheme2c
