@@ -41,7 +41,7 @@
 #ifdef HP700
 extern  sc_r1tor18( );
 #endif
-#if defined(LINUX) || defined(FREEBSD) || defined(AMD64) || defined(OPENBSD)
+#if defined(LINUX) || defined(FREEBSD) || defined(AMD64) || defined(OPENBSD) || defined(MACOS)
 extern  sc_geti386regs( S2CINT* a );
 #endif
 #ifdef MC680X0
@@ -218,7 +218,7 @@ static  trace_stack_and_registers()
 }
 #endif
 
-#if defined(AMD64) || defined(LINUX) || defined(HP700) \
+#if defined(AMD64) || defined(LINUX) || defined(HP700) || defined(MACOS) \
  || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM) || defined(OPENBSD)
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
@@ -232,7 +232,7 @@ S2CINT  *sc_processor_register( S2CINT reg )
 }
 #endif
 
-#ifdef AMD64
+#if defined(AMD64) || defined(MACOS)
 /* All processor registers which might contain pointers are traced by the
    following procedure.
 */

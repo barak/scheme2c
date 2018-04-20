@@ -129,7 +129,7 @@ extern double strtod( XAL2(char*, char**) );
 #include <unistd.h>
 #else
 
-#if !defined(LINUX) && !defined(AMD64) && !defined(LINUX_ARM) && !defined(OPENBSD)
+#if !defined(LINUX) && !defined(AMD64) && !defined(LINUX_ARM) && !defined(MACOS) && !defined(OPENBSD)
 extern  char *sbrk();
 #endif
 
@@ -156,7 +156,7 @@ extern  int  select ( XAL5( int, fd_set *, fd_set *,
    rusage; I had thought to use RUSAGE_SELF, but that is defined by
    HP-UX header file even though getrusage() isn't implemented.  */
 
-#if defined(AOSF) || defined(FREEBSD) || defined(VAX) || defined(SUNOS4)
+#if defined(AOSF) || defined(FREEBSD) || defined(VAX) || defined(SUNOS4) || defined(MACOS)
 #define HAVE_RUSAGE
 #endif
 
@@ -441,7 +441,7 @@ TSCP  sc_charready( TSCP file )
 	stream = (FILE*)TSCP_POINTER( file );
 #if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM)
 	if  (((stream)->_IO_read_end) <= ((stream)->_IO_read_ptr) )  {
-#elif defined(FREEBSD) || defined(OPENBSD)
+#elif defined(FREEBSD) || defined(OPENBSD) || defined(MACOS)
  	if  (((stream)->_r) <= 0)  {
 #else
 
@@ -701,7 +701,7 @@ void  sc_getheap( S2CINT bytes, S2CINT quit )
 {
 	VOIDP  memp;
 
-#ifdef MAC_CLASSIC
+#if defined(MAC_CLASSIC) || defined(MACOS)
 	memp = malloc( (size_t)(bytes+PAGEBYTES-1) );
 	if  ((S2CINT)memp & (PAGEBYTES-1))
 	   memp = (VOIDP)((char*)memp+(PAGEBYTES-((S2CINT)memp &

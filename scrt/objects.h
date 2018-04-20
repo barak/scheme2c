@@ -837,7 +837,7 @@ extern void sc_segv__handlers();
 
 #define VECTOR_LENGTH( tscp )     (TX_U( tscp )->vector.length)
 
-#if defined(AOSF) || defined(AMD64)
+#if defined(AOSF) || defined(AMD64) || defined(MACOS)
 #define VECTOR_ELEMENT( tscp, n ) (*((PATSCP)(((char*)( tscp ))+ \
 				              (sizeof(S2CINT)-1)+ \
 					      ((S2CINT)n)*2)))
@@ -858,7 +858,7 @@ extern void sc_segv__handlers();
 #define RECORD_LENGTH( tscp )      (TX_U( tscp )->vector.length)
 #define RECORD_METHODS( tscp )     \
 	(*((PATSCP)(((char*)( tscp ))+(sizeof(S2CINT)-1))))
-#if defined(AOSF) || defined(AMD64)
+#if defined(AOSF) || defined(AMD64) || defined(MACOS)
 #define RECORD_ELEMENT( tscp, n )  \
 	(*((PATSCP)(((char*)( tscp ))+((sizeof(S2CINT)*2)-1)+((S2CINT)n)*2)))
 #else
