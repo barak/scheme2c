@@ -10,4 +10,4 @@ Abstract: Description of how to use Scheme->C for embedded domains,
 Section: Programming/Scheme
 
 Format: PDF
-Files: /usr/share/doc/scheme2c-doc/embedded.pdf
+Files: /usr/share/doc/scheme2c/embedded.pdf
