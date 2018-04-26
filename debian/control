@@ -1,6 +1,6 @@
 Source: scheme2c
 Section: lisp
-Priority: extra
+Priority: optional
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
 Build-Depends: debhelper (>= 11),
     libsigsegv-dev, libx11-dev,
