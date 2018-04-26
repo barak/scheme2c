@@ -2,8 +2,14 @@ scheme2c (2012.10.14-2) unstable; urgency=medium
 
   * Build with -U_FORTIFY_SOURCE (closes: #778111), i.e., accept
     http://patches.ubuntu.com/s/scheme2c/scheme2c_2012.10.14-1ubuntu1.patch
+  * bump policy
+  * bump to dh11
+  * use clang since gcc-7 has some tricky problem with this code
+  * swizzle packaging repo to salsa
+  * swizzle documentation file locations per debhelper default
+  * suggest reading the documentation (closes: #849981)
 
- -- Barak A. Pearlmutter <bap@debian.org>  Thu, 05 Nov 2015 10:09:54 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Thu, 26 Apr 2018 16:58:55 +0100
 
 scheme2c (2012.10.14-1) unstable; urgency=low
 
