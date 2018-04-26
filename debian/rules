@@ -1,5 +1,13 @@
 #!/usr/bin/make -f
 
+# Turn on hardening
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# Use clang
+ifeq ($(origin CC),default)
+CC := clang
+endif
+
 arch := $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 ifeq ($(arch),amd64)
   S2C_ARCH = AMD64
@@ -32,9 +40,9 @@ install_opts = \
  $(path_opts)
 
 override_dh_auto_build:
-	$(MAKE) -C $(S2C_ARCH)	     $(path_opts) # architecture dependent, executables
-	$(MAKE) -C $(S2C_ARCH)/cdecl $(path_opts) all # sizeof cdecl
-	$(MAKE) -C $(S2C_ARCH)/xlib  $(path_opts) sizeof.cdecl libs2cxl.a s2cixl
+	$(MAKE) -C $(S2C_ARCH)	     $(path_opts) CC="$(CC)" # architecture dependent, executables
+	$(MAKE) -C $(S2C_ARCH)/cdecl $(path_opts) CC="$(CC)" all # sizeof cdecl
+	$(MAKE) -C $(S2C_ARCH)/xlib  $(path_opts) CC="$(CC)" sizeof.cdecl libs2cxl.a s2cixl
 	$(MAKE) -C doc		     $(path_opts) # architecture independent, documentation
 	$(MAKE) -C doc pdfs=r4rs.pdf $(path_opts) # architecture independent, documentation
 
