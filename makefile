@@ -62,6 +62,13 @@ forHP700:
 	cp ports/HP700/hp700.s HP700/server/
 	cp ports/HP700/options-server.h HP700/server/options.h
 
+forRS6000:
+	make "CPU=RS6000" forANY
+	cp ports/RS6000/rs6000.s RS6000/scrt
+	cp ports/RS6000/options.h RS6000/scrt
+	cp ports/RS6000/rs6000.s RS6000/server
+	cp ports/RS6000/options-server.h RS6000/server/options.h
+
 forLINUX:
 	$(MAKE) "CPU=LINUX" forANY
 	cp ports/LINUX/linux.s LINUX/scrt/

@@ -41,6 +41,9 @@
 #ifdef HP700
 extern  sc_r1tor18( );
 #endif
+#ifdef RS6000
+extern  sc_r14tor31( );
+#endif
 #if defined(LINUX) || defined(FREEBSD) || defined(AMD64) || defined(OPENBSD) || defined(MACOS)
 extern  sc_geti386regs( S2CINT* a );
 #endif
@@ -219,7 +222,8 @@ static  trace_stack_and_registers()
 #endif
 
 #if defined(AMD64) || defined(LINUX) || defined(HP700) || defined(MACOS) \
- || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM) || defined(OPENBSD)
+ || defined(MIPS) || defined(FREEBSD) || defined(LINUX_ARM) \
+ || defined(OPENBSD) || defined(RS6000)
 /* The following code is used to read the stack pointer.  The register
    number is passed in to force an argument to be on the stack, which in
    turn can be used to find the address of the top of stack.
@@ -259,6 +263,21 @@ static void trace_stack_and_registers()
         sc_r1tor18( r1tor18 );
         STACKPTR( pp );
         while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp--) );
+}
+#endif
+
+#ifdef RS6000
+/* All processor registers which might contain pointers are traced by the
+   following procedure.
+*/
+
+static void trace_stack_and_registers()
+{
+        S2CINT  r14tor31[18], *pp;
+
+        sc_r14tor31( r14tor31 );
+        STACKPTR( pp );
+        while  (pp != sc_stackbase)  move_continuation_ptr( ((SCP)*pp++) );
 }
 #endif
 

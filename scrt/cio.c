@@ -42,7 +42,8 @@ extern long _sysconf(int);     /* System Private interface to sysconf() */
 #include <types.h>
 #else
 #include <sys/types.h>
-#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM) || defined(OPENBSD)
+#if defined(LINUX) || defined(AMD64) || defined(LINUX_ARM) \
+ || defined(OPENBSD) || defined(_AIX)
 #include <time.h>
 #include <unistd.h>
 #include <sys/mman.h>
@@ -125,7 +126,7 @@ extern double strtod( XAL2(char*, char**) );
 #include <sys/ioctl.h>
 #include <sys/time.h>
 
-#ifdef __hpux
+#if defined(__hpux) || defined(_AIX)
 #include <unistd.h>
 #else
 
@@ -923,6 +924,7 @@ S2CINT  sc_pendingsignals = 0;		/* pending signal mask */
 static  void  signal_handler( int sig )
 {
 	SIGSET_T  oldmask;
+	SIGSET_T  mask;
 
 	block_all_signals (&oldmask);
 	sc_pendingsignals = sc_pendingsignals | 1<<sig;
@@ -938,7 +940,6 @@ static  void  signal_handler( int sig )
 	/* Unblock the current signal as this function may not return
 	   and this signal may have been blocked on delivery */
 
-	sigset_t mask;
 	sigaddset(&mask, sig);
 	sigprocmask(SIG_UNBLOCK, &mask, NULL);
 
