@@ -1,3 +1,13 @@
+#
+# SCHEME->C
+#
+# PowerPC assembly code.
+#
+
+# sc_r14tor31 returns the values of r14-r31 in the caller-supplied
+#   buffer.  These are the "callee" save registers that need to be
+#   examined during garbage collection.
+
 	.align	2
 	.globl	.sc_r14tor31
 	.csect	.text[PR]
