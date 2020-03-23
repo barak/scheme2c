@@ -63,16 +63,7 @@
 #define	MATHTRAPS	0	/* 0 = don't detect fixed point overflow */
 				/* 1 = recover on fixed point overflow */
 
-/* Define only one of the supported processor types:
-
-	AOSF		Alpha AXP OSF/1
-	HP700		HP 9000/700
-	MAC		Macintosh system 7.1 with Think-C 5.0
-	MC680X0		HP 9000/300, Sun 3, Next
-	MIPS		DECstation, SGI, Sony News
-	VAX		Vax ULTRIX
-	WIN16		Microsoft Windows 3.1
-*/
+/* Define only one of the supported processor types */
 
 #define RS6000 1
 
